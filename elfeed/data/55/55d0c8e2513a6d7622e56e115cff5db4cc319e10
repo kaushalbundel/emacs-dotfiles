@@ -1,0 +1,220 @@
+<p>Enhancements for the default minibuffer completion UI of Emacs.  In
+essence, MCT is (i) a very thin layer of interactivity on top of the
+out-of-the-box completion experience, and (ii) glue code that combines
+built-in functionalities to make the default completion framework work
+like that of more featureful third-party options.</p>
+
+<ul>
+  <li>Package name (GNU ELPA): <code class="language-plaintext highlighter-rouge">mct</code></li>
+  <li>Official manual: <a href="https://protesilaos.com/emacs/mct">https://protesilaos.com/emacs/mct</a></li>
+  <li>Change log: <a href="https://protesilaos.com/emacs/mct-changelog">https://protesilaos.com/emacs/mct-changelog</a></li>
+  <li>Git repo on SourceHut: <a href="https://git.sr.ht/~protesilaos/mct">https://git.sr.ht/~protesilaos/mct</a>
+    <ul>
+      <li>Mirrors:
+        <ul>
+          <li>GitHub: <a href="https://github.com/protesilaos/mct">https://github.com/protesilaos/mct</a></li>
+          <li>GitLab: <a href="https://gitlab.com/protesilaos/mct">https://gitlab.com/protesilaos/mct</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Mailing list: <a href="https://lists.sr.ht/~protesilaos/general-issues">https://lists.sr.ht/~protesilaos/general-issues</a></li>
+  <li>Video demo: <a href="https://protesilaos.com/codelog/2021-10-22-emacs-mct-demo/">https://protesilaos.com/codelog/2021-10-22-emacs-mct-demo/</a></li>
+  <li>Backronym: Minibuffer Confines Transcended; Minibuffer and
+Completions in Tandem.</li>
+</ul>
+
+<p>Below are the release notes.</p>
+
+<hr />
+
+<h2>Resumption of MCT development</h2>
+
+<p>In April 2022, I announced that I was discontinuing the development of
+my <code class="language-plaintext highlighter-rouge">mct</code> package.  At the time, Emacs 29 was gaining new MCT-like
+capabilities and I thought we would quickly reach a point where my
+package would be superseded by built-in functionality.  The article I
+published at the time:
+<a href="https://protesilaos.com/codelog/2022-04-14-emacs-discontinue-mct/">https://protesilaos.com/codelog/2022-04-14-emacs-discontinue-mct/</a>.</p>
+
+<p>About a year later and after receiving questions about MCT, I decided
+to restart its development.  This was done in light of the realisation
+that the built-in Emacs functionality was still not as opinionated as
+MCT.  There are good reasons for this state of affairs, due to the
+legacy of this important User Interface element and Emacs’ policy to
+not break stuff willy nilly.  Still, the fact remains that MCT can fit
+in a very narrow niche for those who (i) like the built-in completions
+and (ii) appreciate a few extra niceties.  What I wrote in March, 2023:
+<a href="https://protesilaos.com/codelog/2023-03-25-emacs-restart-mct-development/">https://protesilaos.com/codelog/2023-03-25-emacs-restart-mct-development/</a>.</p>
+
+<p>What does MCT offer that the built-in Emacs UI does not?  In short:</p>
+
+<ul>
+  <li>
+    <p>MCT provides a facility for “live completions”, to automatically
+update the <code class="language-plaintext highlighter-rouge">*Completions*</code> buffer given certain conditions.  A
+number of user options control the specifics.</p>
+  </li>
+  <li>
+    <p>There are user options for a passlist and blocklist, which determine
+what should automatically display the <code class="language-plaintext highlighter-rouge">*Completions*</code> buffer and be
+live updated.  The passlist and the blocklist can target individual
+commands, such as <code class="language-plaintext highlighter-rouge">find-file</code>, as well as completion categories like
+<code class="language-plaintext highlighter-rouge">buffer</code>.  The manual includes a section with several known
+completion categories.</p>
+  </li>
+</ul>
+
+<p>To be clear: MCT builds on top of the built-in functionality and
+should not compete with it.  Depending on my availability, I will try
+to prepare patches for emacs.git to see whether at least some features
+can be added directly to <code class="language-plaintext highlighter-rouge">mnibuffer.el</code> or related.</p>
+
+<h2>MCT supports Emacs 29 or higher</h2>
+
+<p>MCT is highly opinionated about how the completions should work.  This
+applies to the presentation of the completion candidates as well as
+the behaviour of commands that cycle between the minibuffer and the
+<code class="language-plaintext highlighter-rouge">*Completions*</code>, treating the two as a contiguous space.  In previous
+versions of Emacs, MCT could not work exactly as intended due to
+limitations in the underlying framework.  For example, the variable
+<code class="language-plaintext highlighter-rouge">completions-format</code> gained the <code class="language-plaintext highlighter-rouge">one-column</code> value only in Emacs 28:
+Emacs 27 supported grid views which are not intuitive as a vertical
+list for up-down cycling between the candidates.</p>
+
+<p>To make things easier to maintain, MCT only works with Emacs 29 or
+higher.  The ~1 year hiatus has hopefully given users enough time to
+assess their options.</p>
+
+<h2>Deprecation of <code class="language-plaintext highlighter-rouge">mct-region-mode</code></h2>
+
+<p>For a while, MCT supported in-buffer completion via a minor mode that
+would add all the needed functionality.  This was always problematic
+due to underlying constrains and is thus no longer supported.  MCT is
+designed to work exclusively with the minibuffer, where the behaviour
+is more reliable.</p>
+
+<p>Nevertheless, users can still get an MCT-like experience with these
+settings, which affect the default UI (modify as you see fit):</p>
+
+<div class="language-elisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">;; Define the small wrapper functions</span>
+<span class="p">(</span><span class="nb">defun</span> <span class="nv">my-mct-next-line-or-completion</span> <span class="p">(</span><span class="nv">n</span><span class="p">)</span>
+  <span class="s">"Select next completion or move to next line N times.
+Select the next completion if `completion-in-region-mode' is
+active and the Completions window is on display."</span>
+  <span class="p">(</span><span class="nv">interactive</span> <span class="s">"p"</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="nb">and</span> <span class="nv">completion-in-region-mode</span> <span class="p">(</span><span class="nv">mct--get-completion-window</span><span class="p">))</span>
+      <span class="p">(</span><span class="nv">minibuffer-next-completion</span> <span class="nv">n</span><span class="p">)</span>
+    <span class="p">(</span><span class="nv">next-line</span> <span class="nv">n</span><span class="p">)))</span>
+
+<span class="p">(</span><span class="nb">defun</span> <span class="nv">my-mct-previous-line-or-completion</span> <span class="p">(</span><span class="nv">n</span><span class="p">)</span>
+  <span class="s">"Select previous completion or move to previous line N times.
+Select the previous completion if `completion-in-region-mode' is
+active and the Completions window is on display."</span>
+  <span class="p">(</span><span class="nv">interactive</span> <span class="s">"p"</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="nb">and</span> <span class="nv">completion-in-region-mode</span> <span class="p">(</span><span class="nv">mct--get-completion-window</span><span class="p">))</span>
+      <span class="p">(</span><span class="nv">minibuffer-previous-completion</span> <span class="nv">n</span><span class="p">)</span>
+    <span class="p">(</span><span class="nv">previous-line</span> <span class="nv">n</span><span class="p">)))</span>
+
+<span class="p">(</span><span class="nb">defun</span> <span class="nv">my-mct-return-or-choose-completion</span> <span class="p">(</span><span class="nv">n</span><span class="p">)</span>
+  <span class="s">"Choose current completion or create N newlines.
+Choose the current completion if `completion-in-region-mode' is
+active and the Completions window is on display."</span>
+  <span class="p">(</span><span class="nv">interactive</span> <span class="s">"p"</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="nb">and</span> <span class="nv">completion-in-region-mode</span> <span class="p">(</span><span class="nv">mct--get-completion-window</span><span class="p">))</span>
+      <span class="p">(</span><span class="nv">minibuffer-choose-completion</span><span class="p">)</span>
+    <span class="p">(</span><span class="nv">newline</span> <span class="nv">n</span> <span class="ss">:interactive</span><span class="p">)))</span>
+
+<span class="c1">;; Get the key bindings</span>
+<span class="p">(</span><span class="k">let</span> <span class="p">((</span><span class="nb">map</span> <span class="nv">completion-in-region-mode-map</span><span class="p">))</span>
+  <span class="p">(</span><span class="nv">define-key</span> <span class="nb">map</span> <span class="p">(</span><span class="nv">kbd</span> <span class="s">"C-n"</span><span class="p">)</span> <span class="nf">#'</span><span class="nv">my-mct-next-line-or-completion</span><span class="p">)</span>
+  <span class="p">(</span><span class="nv">define-key</span> <span class="nb">map</span> <span class="p">(</span><span class="nv">kbd</span> <span class="s">"C-p"</span><span class="p">)</span> <span class="nf">#'</span><span class="nv">my-mct-previous-line-or-completion</span><span class="p">)</span>
+  <span class="p">(</span><span class="nv">define-key</span> <span class="nb">map</span> <span class="p">(</span><span class="nv">kbd</span> <span class="s">"RET"</span><span class="p">)</span> <span class="nf">#'</span><span class="nv">my-mct-return-or-choose-completion</span><span class="p">))</span>
+
+<span class="c1">;; Tweak the appearance</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">completions-format</span> <span class="ss">'one-column</span><span class="p">)</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">completion-show-help</span> <span class="no">nil</span><span class="p">)</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">completion-auto-help</span> <span class="no">t</span><span class="p">)</span>
+
+<span class="c1">;; Optionally, tweak the appearance further</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">completions-detailed</span> <span class="no">t</span><span class="p">)</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">completion-show-inline-help</span> <span class="no">nil</span><span class="p">)</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">completions-max-height</span> <span class="mi">6</span><span class="p">)</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">completions-highlight-face</span> <span class="ss">'completions-highlight</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2>The <code class="language-plaintext highlighter-rouge">mct-minibuffer-mode</code> is renamed to <code class="language-plaintext highlighter-rouge">mct-mode</code></h2>
+
+<p>The <code class="language-plaintext highlighter-rouge">mct-mode</code> was the original name, which was later given the
+“minibuffer” specifier to disambiguate it from the aforementioned
+<code class="language-plaintext highlighter-rouge">mct-region-mode</code>.  With the latter gone, this qualification is no
+longer pertinent and the original name can be restored.</p>
+
+<h2>The <code class="language-plaintext highlighter-rouge">completing-read-multiple</code> indicator has been removed</h2>
+
+<p>Previous versions of MCT would prepend a <code class="language-plaintext highlighter-rouge">[CRM]</code> tag to the minibuffer
+prompt of commands powered by <code class="language-plaintext highlighter-rouge">completing-read-multiple</code>.  While this
+is a nice usability enhancement, it is not specific to MCT and thus
+should not be part of <code class="language-plaintext highlighter-rouge">mct.el</code>.  Use this in your init file instead:</p>
+
+<div class="language-elisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">;; Add prompt indicator to `completing-read-multiple'.  We display</span>
+<span class="c1">;; [`completing-read-multiple': &lt;separator&gt;], e.g.,</span>
+<span class="c1">;; [`completing-read-multiple': ,] if the separator is a comma.  This</span>
+<span class="c1">;; is adapted from the README of the `vertico' package by Daniel</span>
+<span class="c1">;; Mendler.  I made some small tweaks to propertize the segments of</span>
+<span class="c1">;; the prompt.</span>
+<span class="p">(</span><span class="nb">defun</span> <span class="nv">crm-indicator</span> <span class="p">(</span><span class="nv">args</span><span class="p">)</span>
+  <span class="p">(</span><span class="nb">cons</span> <span class="p">(</span><span class="nb">format</span> <span class="s">"[`crm-separator': %s]  %s"</span>
+                <span class="p">(</span><span class="nv">propertize</span>
+                 <span class="p">(</span><span class="nv">replace-regexp-in-string</span>
+                  <span class="s">"\\`\\[.*?]\\*\\|\\[.*?]\\*\\'"</span> <span class="s">""</span>
+                  <span class="nv">crm-separator</span><span class="p">)</span>
+                 <span class="ss">'face</span> <span class="ss">'error</span><span class="p">)</span>
+                <span class="p">(</span><span class="nb">car</span> <span class="nv">args</span><span class="p">))</span>
+        <span class="p">(</span><span class="nb">cdr</span> <span class="nv">args</span><span class="p">)))</span>
+
+<span class="p">(</span><span class="nv">advice-add</span> <span class="nf">#'</span><span class="nv">completing-read-multiple</span> <span class="ss">:filter-args</span> <span class="nf">#'</span><span class="nv">crm-indicator</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2>No more IDO-like file navigation</h2>
+
+<p>Older versions of MCT had a command for file navigation that would
+delete the whole directory component before point, effectively going
+back up one directory.  While the functionality can be useful, it is not
+integral to the MCT experience and thus should not belong in <code class="language-plaintext highlighter-rouge">mct.el</code>.
+Add this to your own configuration file instead:</p>
+
+<div class="language-elisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">;; Adaptation of `icomplete-fido-backward-updir'.</span>
+<span class="p">(</span><span class="nb">defun</span> <span class="nv">my-backward-updir</span> <span class="p">()</span>
+  <span class="s">"Delete char before point or go up a directory."</span>
+  <span class="p">(</span><span class="nv">interactive</span> <span class="no">nil</span> <span class="nv">mct-mode</span><span class="p">)</span>
+  <span class="p">(</span><span class="nb">cond</span>
+   <span class="p">((</span><span class="nb">and</span> <span class="p">(</span><span class="nb">eq</span> <span class="p">(</span><span class="nv">char-before</span><span class="p">)</span> <span class="nv">?/</span><span class="p">)</span>
+         <span class="p">(</span><span class="nb">eq</span> <span class="p">(</span><span class="nv">mct--completion-category</span><span class="p">)</span> <span class="ss">'file</span><span class="p">))</span>
+    <span class="p">(</span><span class="nb">when</span> <span class="p">(</span><span class="nb">string-equal</span> <span class="p">(</span><span class="nv">minibuffer-contents</span><span class="p">)</span> <span class="s">"~/"</span><span class="p">)</span>
+      <span class="p">(</span><span class="nv">delete-minibuffer-contents</span><span class="p">)</span>
+      <span class="p">(</span><span class="nv">insert</span> <span class="p">(</span><span class="nv">expand-file-name</span> <span class="s">"~/"</span><span class="p">))</span>
+      <span class="p">(</span><span class="nv">goto-char</span> <span class="p">(</span><span class="nv">line-end-position</span><span class="p">)))</span>
+    <span class="p">(</span><span class="nv">save-excursion</span>
+      <span class="p">(</span><span class="nv">goto-char</span> <span class="p">(</span><span class="nb">1-</span> <span class="p">(</span><span class="nv">point</span><span class="p">)))</span>
+      <span class="p">(</span><span class="nb">when</span> <span class="p">(</span><span class="nv">search-backward</span> <span class="s">"/"</span> <span class="p">(</span><span class="nv">minibuffer-prompt-end</span><span class="p">)</span> <span class="no">t</span><span class="p">)</span>
+        <span class="p">(</span><span class="nv">delete-region</span> <span class="p">(</span><span class="nb">1+</span> <span class="p">(</span><span class="nv">point</span><span class="p">))</span> <span class="p">(</span><span class="nv">point-max</span><span class="p">)))))</span>
+   <span class="p">(</span><span class="no">t</span> <span class="p">(</span><span class="nv">call-interactively</span> <span class="ss">'backward-delete-char</span><span class="p">))))</span>
+
+<span class="p">(</span><span class="nv">define-key</span> <span class="nv">minibuffer-local-filename-completion-map</span> <span class="p">(</span><span class="nv">kbd</span> <span class="s">"DEL"</span><span class="p">)</span> <span class="nf">#'</span><span class="nv">my-backward-updir</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2>Lots of changes under the hood</h2>
+
+<p>I do not intend to refashion MCT.  It works the way it was originally
+intended to.  What I did is to streamline the code for compatibility
+with Emacs 29 and tweak the custom commands to preserve the desired
+cyclic behaviour between the minibuffer and the <code class="language-plaintext highlighter-rouge">*Completions*</code>.</p>
+
+<p>Experiments such as integration with the <code class="language-plaintext highlighter-rouge">avy</code> package or the ability
+to type-to-complete in the <code class="language-plaintext highlighter-rouge">*Completions*</code> buffer are abandoned.</p>
+
+<p>Do not expect radical changes henceforth.  I shall monitor and/or
+contribute to developments in core Emacs and am happy to forever
+archive MCT if/when the default completion UI gains the capabilities
+that, I think, make the user experience a little bit easier.</p>

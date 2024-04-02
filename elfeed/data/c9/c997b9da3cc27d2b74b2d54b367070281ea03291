@@ -1,0 +1,73 @@
+<p>In December, I went to the Foresight Institute’s Vision Weekend 2023 in San Francisco. I had a lot of fun talking to a bunch of weird and ambitious geeks about the glorious abundant technological future. Here are few things I learned about (with the caveat that this is mostly based on informal conversations with only basic fact-checking, not deep research):</p>
+
+<h2 id="cellular-reprogramming">Cellular reprogramming</h2>
+
+<p>Aging doesn’t only happen to your body: it happens at the level of individual cells. Over time, cells accumulate waste products and undergo epigenetic changes that are markers of aging.</p>
+
+<p>But wait—when a baby is born, it has young cells, even though it grew out of cells that were originally from its older parents. That is, the egg and sperm cells might be 20, 30, or 40 years old, but somehow when they turn into a baby, they get reset to biological age zero. This process is called “reprogramming,” and it happens soon after fertilization.</p>
+
+<p>It turns out that cell reprogramming can be induced by certain proteins, known as the Yamanaka factors, after their discoverer (who <a href="https://www.nobelprize.org/prizes/medicine/2012/yamanaka/facts/">won a Nobel for this in 2012</a>). Could we use those proteins to reprogram our <em>own</em> cells, making them youthful again?</p>
+
+<p>Maybe. There is a catch: the Yamanaka factors not only clear waste out of cells, they also reset them to become stem cells. You do <em>not</em> want to turn every cell in your body into a stem cell. You don’t even want to turn a small number of them into stem cells: it can give you cancer (which kind of defeats the purpose of a longevity technology).</p>
+
+<p>But there is good news: when you expose cells to the Yamanaka factors, the waste cleanup happens first, and the stem cell transformation happens later. If we can carefully time the exposure, maybe we can get the target effect without the damaging side effects.</p>
+
+<p>This is tricky: different tissues respond on different timelines, so you can’t apply the treatment uniformly over the body. There are a lot of details to be worked out here. But it’s an intriguing line of research for longevity, and it’s one of the avenues being explored at <a href="https://retro.bio">Retro Bio</a>, among other places. Here’s <a href="https://www.science.org/content/blog-post/cellular-rejuvenation-real">a Derek Lowe article with more info and references</a>.</p>
+
+<h2 id="the-bfg-orbital-launch-system">The BFG orbital launch system</h2>
+
+<p>If we’re ever going to have a space economy, it has to be a lot cheaper to launch things into space. Space Shuttle launches cost over $65,000/kg, and <a href="https://aerospace.csis.org/data/space-launch-to-low-earth-orbit-how-much-does-it-cost/">even the Falcon Heavy costs $1500/kg</a>. Compare to shipping costs on Earth, which are only a few dollars per kilogram.</p>
+
+<p>A big part of the high launch cost in traditional systems is the rocket, which is discarded with each launch. SpaceX is bringing costs down by making reusable rockets that land gently rather than crashing into the ocean, and by making very big rockets for economies of scale (Elon Musk has speculated that <a href="https://twitter.com/elonmusk/status/1258580078218412033">Starship could bring costs as low as $10/kg</a>, although this is a ways off, since right now fuel costs alone are close to that amount). But what if we didn’t need a rocket at all? Rockets are pretty much our only option for propulsion <em>in space</em>, but what if we could give most of the impulse to the payload <em>on Earth?</em></p>
+
+<p>J. Storrs Hall has proposed the “<a href="https://autogeny.org/tower/tower.html">space pier</a>,” a runway 300 km long mounted atop towers 100 km tall. The payload takes an elevator 100 km up to the top of the tower, thus exiting the atmosphere and much of Earth’s gravity well. Then a linear induction motor accelerates it into orbit along the 300 km track. You could do this with a mere 10 Gs of acceleration, which is survivable by human passengers. Think of it like a Big Friendly Giant (BFG) picking up your payload and then throwing it into orbit.</p>
+
+<p>Hall estimates that this could bring launch costs down to $10/kg, if the pier could be built for a mere $10 billion. The only tiny little catch with the space pier is that there is no technology in existence that could build it, and no construction material that a 100 km tower could be made of. Hall suggests that with “mature nanotechnology” we could build the towers out of diamond. OK. So, probably not going to happen this decade.</p>
+
+<p>What can we do now, with today’s technology? Let’s drop the idea of using this for human passengers and just consider relatively durable freight. Now we can use much higher G-forces, which means we don’t need anything close to 300 km of distance to accelerate over. And, does it really have to be 100 km tall? Yes, it’s nice to start with an altitude advantage, and with no atmosphere, but both of those problems can be overcome with sufficient initial velocity. At this point we’re basically just talking about an enormous cannon (a very different kind of BFG).</p>
+
+<p>This is what <a href="https://www.longshotspace.com">Longshot Space</a> is doing. Build a big long tube in the desert. Put the payload in it, seal the end with a thin membrane, and pump the air out to create a vacuum. Then rapidly release some compressed gasses behind the payload, which bursts through the membrane and exits the tube at Mach 25.</p>
+
+<p>One challenge with this is that a gas can only expand as fast as the speed of sound in that gas. In air this is, of course, a lot less than Mach 25. One thing that helps is to use a lighter gas, in which the speed of sound is higher, such as helium or (for the very brave) hydrogen. Another part of the solution is to give the payload a long, wedge-shaped tail. The expanding gasses push <em>sideways</em> on this tail, which through the magic of simple machines translates into a much faster push <em>forwards.</em> There’s a brief discussion and illustration of the pneumatics in <a href="https://youtu.be/clXT1D_T3zs?t=90">this video</a>.</p>
+
+<p>Now, if you are trying to envision “big long tube in the desert”, you might be wondering: is the tube angled upwards or something? No. It is basically lying flat on the ground. It is expensive to build a long straight thing that points up: you have to dig a deep hole and/or build a tall tower. What about putting it on the side of a mountain, which naturally points up? Building things on mountains is also hard; in addition, mountains are special and nobody wants to give you one. It’s much easier to haul lots of materials into the middle of the desert; also there is lots of room out there and the real estate is cheap.</p>
+
+<p>Next you might be wondering: if the tube is horizontal, isn’t it pointed in the wrong direction to get to space? I thought space was up? Well, yes. There are a few things going on here. One is that if you travel far enough in a straight line, the Earth will curve away from you and you will eventually find yourself in space. Another is that if you shape the projectile such that its center of pressure is in the right place relative to its center of mass, then it will naturally angle upward when it hits the atmosphere. Lastly, if you are trying to get into orbit, most of the velocity you need is actually horizontal anyway.</p>
+
+<p>In fact, if and when you reach a circular orbit, you will find that <em>all</em> of your velocity is horizontal. This means that there is no way to get into orbit <em>purely</em> ballistically, with a single impulse imparted from Earth. Any satellite, for instance, launched via this system will need its own rocket propulsion in order to circularize the orbit once it reaches altitude (even leaving aside continual orbital adjustments during its service lifetime). But we’re now talking about a relatively small rocket with a small amount of fuel, not the big multi-stage things that you need to blast off from the surface. And presumably someday we will be delivering food, fuel, tools, etc. to space in packages that just need to be caught by whoever is receiving them.</p>
+
+<p>Longshot estimates that this system, like Starship or the space pier, could get launch costs down to about $10/kg. This might be cheap enough that launch <em>prices</em> could be <em>zero</em>, subsidized by contracts to buy fuel or maintenance, in a space-age version of “give away the razor and sell the blades.” Not only would this business model help grow the space economy, it would also prove wrong all the economists who have been telling us for decades that “there’s no such thing as a free launch.”</p>
+
+<h2 id="mars-could-be-terraformed-in-our-lifetimes">Mars could be terraformed in our lifetimes</h2>
+
+<p>Terraforming a planet sounds like a geological process, and so I had sort of thought that it would require geological timescales, or if it could really be accelerated, at least a matter of centuries or so. You drop off some algae or something on a rocky planet, and then your distant descendants return one day to find a verdant paradise. So I was surprised to learn that major changes on Mars could, in principle, be made on a schedule much shorter than a single human lifespan.</p>
+
+<p>Let’s back up. Mars is a real fixer-upper of a planet. Its temperature varies widely, averaging about −60º C; its atmosphere is thin and mostly carbon dioxide. This severely depresses its real estate values.</p>
+
+<p>Suppose we wanted to start by significantly warming the planet. How do you do that? Let’s assume Mars’s orbit cannot be changed—I mean, we’re going to get in enough trouble with the Sierra Club as it is—so the total flux of solar energy reaching the planet is constant. What we can do is to trap a bit more of that energy on the planet, and prevent it from radiating out into space. In other words, we need to enhance Mars’s greenhouse effect. And the way to do that is to give it a greenhouse gas.</p>
+
+<p>Wait, we just said that Mars’s atmosphere is mostly CO<sub>2</sub>, which is a notorious greenhouse gas, so why isn’t Mars warm already? It’s just not enough: the atmosphere is very thin (less than 1% of the pressure of Earth’s atmosphere), and what CO<sub>2</sub> there is only provides about 5º of warming. We’re going to need to add more GHG.</p>
+
+<p>What could it be? Well, for starters, given the volumes required, it should be composed of elements that <em>already exist on Mars</em>. With the ingredients we have, what can we make?</p>
+
+<p>Could we get more CO<sub>2</sub> in the atmosphere? There <em>is</em> more CO<sub>2</sub> on/under the surface, in frozen form, but even that is not enough for the task. We need something else.</p>
+
+<p>What about CFCs? As a greenhouse gas, they are about four orders of magnitude more efficient than CO<sub>2</sub>, so we’d need a lot less of them. However, they require fluorine, which is very rare in the Martian soil, and we’d still need about 100 gigatons of it. This is not encouraging.</p>
+
+<p>One thing Mars does have a good amount of is metal, such as iron, aluminum, and magnesium. Now metals, you might be thinking, are not generally known as greenhouse gases. But small particles of conductive metal, with the right size and shape, can act as one. A recent paper found through simulation that “nanorods” about 9 microns long, half the wavelength of the infrared thermal radiation given off by a planet, would scatter that radiation back to the surface (Ansari, Kite, Ramirez, Steele, and Mohseni, “Warming Mars with artificial aerosol appears to be feasible”—no preprint online, but <a href="https://www.hou.usra.edu/meetings/ninthmars2019/eposter/6049.pdf">this poster seems to represent earlier work</a>).</p>
+
+<p>Suppose we aim to warm the planet by about 30º C, enough to melt surface water in the polar regions during the summer, and bring Mars much closer to Earth temperatures. AKRSM’s simulation says that we would need to put about 400 mg/m<sup>3</sup> of nanorods into the Martian sky, an efficiency (in warming per unit mass) more than 2000x greater than previously proposed methods.</p>
+
+<p>The particles would settle out of the atmosphere slowly, at less than 1/100 the rate of natural Mars dust, so only about 30 liters/sec of them would need to be released continuously. If we used iron, this would require mining a million cubic meters of iron per year—quite a lot, but less than 1% of what we do on Earth. And the particles, like other Martian dust, would be lifted high in the atmosphere by updrafts, so they could be conveniently released from close to the surface.</p>
+
+<p>Wouldn’t metal nanoparticles be potentially hazardous to breathe? Yes, but this is already a problem from Mars’s naturally dusty atmosphere, and the nanorods wouldn’t make it significantly worse. (However, this will have to be solved somehow if we’re going to make Mars habitable.)</p>
+
+<p>Kite told me that if we started now, given the capabilities of Starship, we could achieve the warming in a mere <em>twenty years</em>. Most of that time is just getting equipment to Mars, mining the iron, manufacturing the nanorods, and then waiting about a year for Martian winds to mix them throughout the atmosphere. Since Mars has no oceans to provide thermal inertia, the actual warming after that point only takes about a <em>month</em>.</p>
+
+<p>Kite is interested in talking to people about the design of a the nanorod factory. He wants to get a size/weight/power estimate and an outline design for the factory, to make an initial estimate of how many Starship landings would be needed. Contact him at <a href="mailto:edwin.kite@gmail.com">edwin.kite@gmail.com</a>.</p>
+
+<p>I have not yet gotten Kite and Longshot together to figure out if we can shoot the equipment directly to Mars using one really enormous space cannon.</p>
+
+<hr />
+
+<p><em>Thanks to <a href="https://www.fightaging.org/about/">Reason</a>, <a href="https://www.linkedin.com/in/joseph-mike-grace-03452614/">Mike Grace</a>, and <a href="https://geosci.uchicago.edu/people/edwin-kite/">Edwin Kite</a> for conversations and for commenting on a draft of this essay. Any errors or omissions above are entirely my own.</em></p>

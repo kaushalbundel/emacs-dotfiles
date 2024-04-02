@@ -1,0 +1,134 @@
+<p>
+<a href="https://codeberg.org/akib/emacs-eat">Eat</a> is a terminal emulator for Emacs available in <code>NonGNU ELpa</code>. Eat is much slower than
+foot, but faster than <code>term.el</code>. It has some nice features like <code>sixel</code> support, and being
+able to send messages to Emacs. It also has some surprising idiosyncrasies which makes
+adding Evil key bindings and other modifications challenging.</p>
+<p>
+I think that the default state, semi char mode, captures too many key combinations. This
+can be changed by modifying <code>eat-semi-char-non-bound-keys</code> and reloading eat. But doing that
+inside a <code>whith-eval-after-load</code> block creates an infinite loop. To prevent the loop, the
+reloading should be done inside a <code>let</code> block:</p>
+<div class="src src-emacs-lisp">
+<div class="highlight"><pre class="chroma" tabindex="0"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span class="line"><span class="cl"><span class="p">(</span><span class="nb">with-eval-after-load</span> <span class="ss">'eat</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nb">setq</span> <span class="nv">eat-semi-char-non-bound-keys</span> <span class="p">(</span><span class="nf">list</span> <span class="p">[</span><span class="sc">?\C</span><span class="nv">-\\</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"> <span class="p">[</span><span class="sc">?\C</span><span class="nv">-w</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"> <span class="p">[</span><span class="sc">?\C</span><span class="nv">-h</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"> <span class="p">[</span><span class="sc">?\C</span><span class="nv">-x</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"> <span class="p">[</span><span class="sc">?\e</span> <span class="sc">?x</span><span class="p">]))</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nv">eat-update-semi-char-mode-map</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nb">let</span> <span class="p">((</span><span class="nv">after-load-alist</span> <span class="no">nil</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nv">after-load-functions</span> <span class="no">nil</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nv">eat-reload</span><span class="p">)))</span></span></span></code></pre></div>
+</div>
+<p>
+Though eat doesn't work well with Evil, eat is a modal terminal emulator. And these modes
+can be leveraged to make it a bit more evil. This requires starting eat with a new
+function, <code>my-eat-start</code>:</p>
+<div class="src src-emacs-lisp">
+<div class="highlight"><pre class="chroma" tabindex="0"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span class="line"><span class="cl"><span class="p">(</span><span class="nb">defun</span> <span class="nv">my-eat-end</span> <span class="p">()</span>
+</span></span><span class="line"><span class="cl"> <span class="s">"Kill and close the eat buffer."</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nb">interactive</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nv">eat-kill-process</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nv">kill-this-buffer</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nb">defun</span> <span class="nv">my-eat-emacs-mode</span> <span class="p">()</span>
+</span></span><span class="line"><span class="cl"> <span class="s">"Help create a normal state with `eat-emacs-mode`."</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nb">interactive</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nv">eat-emacs-mode</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nv">evil-define-key*</span> <span class="ss">'normal</span> <span class="nv">eat-mode-map</span> <span class="p">(</span><span class="nv">kbd</span> <span class="s">"[["</span><span class="p">)</span> <span class="ss">'eat-previous-shell-prompt</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nv">evil-define-key*</span> <span class="ss">'normal</span> <span class="nv">eat-mode-map</span> <span class="p">(</span><span class="nv">kbd</span> <span class="s">"]]"</span><span class="p">)</span> <span class="ss">'eat-next-shell-prompt</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nv">evil-define-key*</span> <span class="ss">'normal</span> <span class="nv">eat-mode-map</span> <span class="p">(</span><span class="nv">kbd</span> <span class="s">"i"</span><span class="p">)</span> <span class="ss">'my-eat-semi-char-mode</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nv">evil-define-key*</span> <span class="ss">'normal</span> <span class="nv">eat-mode-map</span> <span class="p">(</span><span class="nv">kbd</span> <span class="s">"gO"</span><span class="p">)</span> <span class="ss">'browse-url</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nv">evil-define-key*</span> <span class="ss">'normal</span> <span class="nv">eat-mode-map</span> <span class="p">(</span><span class="nv">kbd</span> <span class="s">"q"</span><span class="p">)</span> <span class="ss">'my-eat-end</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nv">evil-normal-state</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nb">defun</span> <span class="nv">my-eat-semi-char-mode</span> <span class="p">()</span>
+</span></span><span class="line"><span class="cl"> <span class="s">"Create bindings for `eat-mode` and switch to Emacs state."</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nb">interactive</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nv">eat-semi-char-mode</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nv">keymap-set</span> <span class="nv">eat-mode-map</span> <span class="s">"C-w h"</span> <span class="ss">'evil-window-left</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nv">keymap-set</span> <span class="nv">eat-mode-map</span> <span class="s">"C-w l"</span> <span class="ss">'evil-window-right</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nv">keymap-set</span> <span class="nv">eat-mode-map</span> <span class="s">"C-w k"</span> <span class="ss">'evil-window-up</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nv">keymap-set</span> <span class="nv">eat-mode-map</span> <span class="s">"C-w j"</span> <span class="ss">'evil-window-down</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nv">keymap-set</span> <span class="nv">eat-mode-map</span> <span class="s">"C-w +"</span> <span class="ss">'evil-window-increase-height</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nv">keymap-set</span> <span class="nv">eat-mode-map</span> <span class="s">"C-w -"</span> <span class="ss">'evil-window-decrease-height</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nv">keymap-set</span> <span class="nv">eat-mode-map</span> <span class="s">"C-w &lt;"</span> <span class="ss">'evil-window-decrease-width</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nv">keymap-set</span> <span class="nv">eat-mode-map</span> <span class="s">"C-w &gt;"</span> <span class="ss">'evil-window-increase-width</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nv">keymap-set</span> <span class="nv">eat-mode-map</span> <span class="s">"C-w ="</span> <span class="ss">'balance-windows</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nv">keymap-set</span> <span class="nv">eat-mode-map</span> <span class="s">"C-w R"</span> <span class="ss">'evil-window-rotate-upwards</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nv">keymap-set</span> <span class="nv">eat-mode-map</span> <span class="s">"C-w r"</span> <span class="ss">'evil-window-rotate-downwards</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nv">keymap-set</span> <span class="nv">eat-mode-map</span> <span class="s">"C-w W"</span> <span class="ss">'evil-window-prev</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nv">keymap-set</span> <span class="nv">eat-mode-map</span> <span class="s">"C-w w"</span> <span class="ss">'evil-window-next</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nv">keymap-set</span> <span class="nv">eat-mode-map</span> <span class="s">"C-w s"</span> <span class="ss">'evil-window-split</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nv">keymap-set</span> <span class="nv">eat-mode-map</span> <span class="s">"C-w v"</span> <span class="ss">'evil-window-vsplit</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nv">keymap-set</span> <span class="nv">eat-mode-map</span> <span class="s">"C-w _"</span> <span class="ss">'evil-window-set-height</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nv">keymap-set</span> <span class="nv">eat-mode-map</span> <span class="s">"C-w |"</span> <span class="ss">'evil-window-set-width</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nv">keymap-set</span> <span class="nv">eat-mode-map</span> <span class="s">"C-w c"</span> <span class="ss">'evil-window-delete</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nv">keymap-set</span> <span class="nv">eat-mode-map</span> <span class="s">"C-w n"</span> <span class="ss">'evil-window-new</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nv">keymap-set</span> <span class="nv">eat-mode-map</span> <span class="s">"C-w o"</span> <span class="ss">'delete-other-windows</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nv">keymap-set</span> <span class="nv">eat-mode-map</span> <span class="s">"C-w p"</span> <span class="ss">'evil-window-mru</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nv">keymap-set</span> <span class="nv">eat-mode-map</span> <span class="s">"C-w q"</span> <span class="ss">'evil-quit</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nv">keymap-set</span> <span class="nv">eat-mode-map</span> <span class="s">"C-w N"</span> <span class="ss">'my-eat-emacs-mode</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nv">keymap-set</span> <span class="nv">eat-mode-map</span> <span class="s">"C-\\ C-n"</span> <span class="ss">'my-eat-emacs-mode</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nv">keymap-set</span> <span class="nv">eat-mode-map</span> <span class="s">"C-\\ C-p"</span> <span class="ss">'eat-send-password</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nv">keymap-set</span> <span class="nv">eat-mode-map</span> <span class="s">"C-w \""</span> <span class="ss">'eat-yank</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nv">keymap-set</span> <span class="nv">eat-mode-map</span> <span class="s">"C-x b"</span> <span class="ss">'switch-to-buffer</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nv">keymap-set</span> <span class="nv">eat-mode-map</span> <span class="s">"C-x k"</span> <span class="ss">'my-eat-end</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nv">keymap-set</span> <span class="nv">eat-mode-map</span> <span class="s">"C-x p"</span> <span class="ss">'eat-send-password</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nv">evil-emacs-state</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nf">goto-char</span> <span class="p">(</span><span class="nf">point-max</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nb">defun</span> <span class="nv">my-eat-start</span> <span class="p">()</span>
+</span></span><span class="line"><span class="cl"> <span class="s">"Start Eat in the current project root directory in another window."</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nb">interactive</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nb">require</span> <span class="ss">'project</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nb">require</span> <span class="ss">'eat</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nb">let*</span> <span class="p">((</span><span class="nv">proj</span> <span class="p">(</span><span class="nv">project-current</span> <span class="no">nil</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nb">if</span> <span class="nv">proj</span> <span class="p">(</span><span class="nb">let*</span> <span class="p">((</span><span class="nv">default-directory</span> <span class="p">(</span><span class="nv">project-root</span> <span class="nv">proj</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nv">eat-buffer-name</span> <span class="p">(</span><span class="nv">project-prefixed-buffer-name</span> <span class="s">"eat"</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nv">eat-other-window</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nv">switch-to-buffer</span> <span class="nv">eat-buffer-name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nv">my-eat-semi-char-mode</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nb">progn</span> <span class="p">(</span><span class="nv">eat-other-window</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nv">switch-to-buffer</span> <span class="nv">eat-buffer-name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nv">my-eat-semi-char-mode</span><span class="p">)))))</span></span></span></code></pre></div>
+</div>
+<p>
+Eat also provides great color support; however, if <code>.bashrc</code> is making some color settings
+based on the terminal name, the file needs to be modified.</p>
+<div class="src src-sh">
+<div class="highlight"><pre class="chroma" tabindex="0"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1">### Color support</span>
+</span></span><span class="line"><span class="cl"><span class="k">case</span> <span class="s2">"</span><span class="si">${</span><span class="nv">TERM</span><span class="si">}</span><span class="s2">"</span> in
+</span></span><span class="line"><span class="cl"> xterm-color<span class="p">|</span>*-256color<span class="p">|</span>foot<span class="p">|</span>*-truecolor<span class="o">)</span>
+</span></span><span class="line"><span class="cl"> <span class="nb">echo</span> Making color settings...
+</span></span><span class="line"><span class="cl"> <span class="p">;;</span>
+</span></span><span class="line"><span class="cl"> ,*<span class="o">)</span>
+</span></span><span class="line"><span class="cl"> <span class="nb">echo</span> :<span class="o">(</span>
+</span></span><span class="line"><span class="cl"> <span class="p">;;</span>
+</span></span><span class="line"><span class="cl"><span class="k">esac</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> -n <span class="s2">"</span><span class="nv">$EAT_SHELL_INTEGRATION_DIR</span><span class="s2">"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl"> <span class="k">if</span> <span class="o">[</span> -r <span class="s2">"</span><span class="nv">$EAT_SHELL_INTEGRATION_DIR</span><span class="s2">/bash"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl"> <span class="c1"># shellcheck source=/dev/null</span>
+</span></span><span class="line"><span class="cl"> <span class="nb">source</span> <span class="s2">"</span><span class="nv">$EAT_SHELL_INTEGRATION_DIR</span><span class="s2">/bash"</span>
+</span></span><span class="line"><span class="cl"> <span class="k">fi</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span></span></span></code></pre></div>
+</div>
+<p>
+One nice thing about eat is that it can communicate with Emacs. With a few modifications,
+eat can open a file inside the host Emacs. With this change the command <code>_eat_msg open</code> will open
+a file in Emacs.</p>
+<div class="src src-emacs-lisp">
+<div class="highlight"><pre class="chroma" tabindex="0"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span class="line"><span class="cl"><span class="p">(</span><span class="nb">defun</span> <span class="nv">my-eat-open</span> <span class="p">(</span><span class="nv">file</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="s">"Helper function to open files from eat terminal."</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nb">if</span> <span class="p">(</span><span class="nf">file-exists-p</span> <span class="nv">file</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="nv">find-file-other-window</span> <span class="nv">file</span> <span class="no">t</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="ne">warn</span> <span class="s">"File doesn't exist"</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">'eat-message-handler-alist</span> <span class="p">(</span><span class="nf">cons</span> <span class="s">"open"</span> <span class="ss">'my-eat-open</span><span class="p">))</span></span></span></code></pre></div>
+</div>
+<p>
+And for ease of use, the command can be aliased toe <code>emopen</code> in <code>.bashrc</code>.</p>
+<div class="src src-sh">
+<div class="highlight"><pre class="chroma" tabindex="0"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">alias</span> <span class="nv">emopen</span><span class="o">=</span><span class="s1">'_eat_msg open'</span></span></span></code></pre></div>
+</div>

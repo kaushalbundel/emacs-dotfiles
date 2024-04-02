@@ -1,0 +1,88 @@
+<p>Another week of my RC batch wraps up.
+I'm done with five weeks, and seven weeks are left!
+Time is still flying by, and I've hit an inflection point.
+I have gotten what I want out of the two projects I've worked on so far, so I'm going to wrap them up and move on to one new project for the rest of the batch.</p>
+<h1 id="a-very-social-week">A very social week</h1>
+<p>This week I did a lot of social things:</p>
+<ul>
+<li>7 pairing sessions</li>
+<li>8 coffee chats</li>
+<li>Went to an ML event</li>
+<li>Went to a theorem proving event (my brain is melted)</li>
+</ul>
+<p>This was good, but I want to tone it down a <em>little</em> on the pairing and chats next week.
+I need to recharge, and I need to build a little more time for individual think time.
+Also for walks.
+Walks are nice.</p>
+<h1 id="winding-down-my-current-projects">Winding down my current projects</h1>
+<p>So far, I've worked on <a href="https://github.com/ntietz/anode-kv">a key-value store</a> and <a href="https://github.com/ntietz/patzer">a chess engine</a>.
+My goal with these was to learn about how systems programs are written in a way that's efficient and extensible.
+I think I've gotten there!</p>
+<p>The key-value store supports a basic but useful subset of Redis commands, and its performance outpaces Redis (admittedly by using multiple threads, but single-thread performance nearly matches Redis even with write-ahead logging enabled).
+The next steps here would be to add more Redis commands or decide on some other more interesting features to add.
+The performance constraints aren't particularly interesting; it's useful as-is if I made it complete and production ready, and I don't want to focus on making something production-ready.</p>
+<p>And the chess engine is strong enough to beat me if I'm not <em>very</em> careful, although I can beat it if I pay attention and give it my best.
+The next steps here would be to add more things like quiescence search and iterative deepening.
+This is actually still very interesting to me!
+But I want to learn about data-intensive applications, and I can't focus on a new project while I keep working on the chess engine.
+I'm going to come back to the chess engine sometime, either at the end of my batch or after it.
+But I'm putting it on pause for now to give myself space to explore the new project.</p>
+<h1 id="the-new-project">The new project</h1>
+<p>I was toying with adding some features to the key-value store that would require some indexing, some disk read/writes, some user interactive queries.
+It all felt artificial, and it was a lot of design but in a space that had no real constraints, because there was no use case.
+Ultimately the goal isn't to add a feature to the key-value store.
+The goal is to learn about things like indexing, database query languages, data access patterns when it won't fit in memory.</p>
+<p>What I need is a project that combines my learning goals with some practical, tangible problem that will impose constraints and give actual user requirements.
+I'm going to get that through creating a chess database.
+Sometimes &quot;chess database&quot; can mean &quot;a bunch of <a href="https://en.wikipedia.org/wiki/Portable_Game_Notation">PGN</a> files in a collection,&quot; but here I mean a database tailored to holding chess games and doing analysis on them.</p>
+<p>The raw data that I have for master-level games is about 7 GB on disk.
+Lichess also has an open <a href="https://database.lichess.org/">database of games</a>, with each month of data being about 25 GB.
+If I want to do any sort of database analysis across play below the master level, this will quickly be larger than fits in RAM.
+(But I'm going to start with master-level play for now.)</p>
+<p>I've created the project hub for <a href="https://sr.ht/~ntietz/isabella-db/">IsabellaDB</a> (maybe I registered a domain as well, but let's not talk about that).
+If you're interested in pairing on it as it comes to live, reach out to me!</p>
+<p>Some features I want to implement (some posed as questions I'd like to be able to answer):</p>
+<ul>
+<li>Standard chess database features:
+<ul>
+<li>Explore openings and see what the win/lose/draw percentages are</li>
+<li>Detect when a given game has reached a novel position (eventually an integration into live broadcasts of games?)</li>
+<li>Filter/search by player name, rating, event, and other metadata</li>
+</ul>
+</li>
+<li>For a given position, what other main-line positions can it transpose back into?</li>
+<li>If a player plays X opening as white, what do they typically play as black?</li>
+<li>For a given player, what is their repertoire? (potential integration with chess.com and lichess APIs to do some prep on real-life opponents!)</li>
+<li>Find the games in which there's a queen sacrifice</li>
+<li>Find positions where there is a battery, a pin, or another tactic available
+<ul>
+<li>Can this be used to construct tactics puzzles from real games?</li>
+</ul>
+</li>
+</ul>
+<p>I'm super excited to start working on this!
+I'm also a little overwhelmed, because it's a <em>lot</em>, and it's very much at the edge of my abilities right now.
+I went down a rabbit hole today on how to approach the UI, since a chess database needs something visual.
+Ultimately, on the advice of a couple of folks, I settled on just doing the most basic thing I can for the UI and then if I find more need for interactivity later, adding it on.
+Static results pages it is!</p>
+<h1 id="what-s-in-store-for-next-week">What's in store for next week?</h1>
+<p>Next week is all about shifting focus to my new project.
+I'm going to write up an initial plan, get some review on the plan, and start implementation!</p>
+<ul>
+<li>Keep pairing every day, keep coffee chats every day, but not too many days of doubling up!</li>
+<li>Write a blog post! I'm switching from GitHub to Sourcehut, and I want to talk about why</li>
+<li>Start on <a href="https://sr.ht/~ntietz/isabella-db/">IsabellaDB</a>:
+<ul>
+<li>Write up a design for basic functionality: opening explorer, and searching games by metadata, and being able to scroll through the state of a game</li>
+<li>Implement these features!</li>
+<li>Pair with at least one person on implementing this stuff</li>
+</ul>
+</li>
+<li>Read another <a href="https://redbook.io">Red Book</a> paper</li>
+<li>Read the first chapter of <a href="https://softwarefoundations.cis.upenn.edu/current/lf-current/index.html">Software Foundations: Logical Foundations</a>. (We're switching to this instead of the Lean book. Hopefully brains are less melted.)</li>
+<li>Go to some of the other events, like creative coding and leetcode</li>
+</ul>
+<p>It's going to be a full week, and I'm excited to get started.
+But first, it's time for a restful weekend.
+I'll be spending some time away from computers out in the workshop.</p>
+<p>See you next week!</p>

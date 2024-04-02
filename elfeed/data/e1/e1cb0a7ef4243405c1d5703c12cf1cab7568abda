@@ -1,0 +1,79 @@
+<p>In this ~30 minute video I show how to tell Emacs where to place
+specific buffers. The idea is to have a set of rules that specify how
+you want Emacs to make use of the available space in the frame and
+which windows to use. Below I show some basic code samples. For more
+advanced uses, refer to my relevant section in Emacs configuration:
+<a href="https://protesilaos.com/emacs/dotemacs#h:50f8b1e4-b14e-453f-a37e-1c0e495ab80f">https://protesilaos.com/emacs/dotemacs#h:50f8b1e4-b14e-453f-a37e-1c0e495ab80f</a>.</p>
+
+<h2>Sample code with basic rules</h2>
+
+<div class="language-elisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="k">setq</span> <span class="nv">display-buffer-alist</span>
+      <span class="o">'</span><span class="p">(</span>
+
+        <span class="c1">;; The added space is for didactic purposes</span>
+
+        <span class="c1">;; Each entry in this list has this anatomy:</span>
+
+        <span class="c1">;; ( BUFFER-MATCHING-RULE</span>
+        <span class="c1">;;   LIST-OF-DISPLAY-BUFFER-FUNCTIONS</span>
+        <span class="c1">;;   OPTIONAL-PARAMETERS)</span>
+
+        <span class="c1">;; Match a buffer whose name is "*Occur*".  We have to escape</span>
+        <span class="c1">;; the asterisks to match them literally and not as a special</span>
+        <span class="c1">;; regular expression character.</span>
+        <span class="p">(</span><span class="s">"\\*Occur\\*"</span>
+         <span class="c1">;; If a buffer with the matching major-mode exists in some</span>
+         <span class="c1">;; window, then use that one.  Otherwise, display the buffer</span>
+         <span class="c1">;; below the current window.</span>
+         <span class="p">(</span><span class="nv">display-buffer-reuse-mode-window</span> <span class="nv">display-buffer-below-selected</span><span class="p">)</span>
+         <span class="c1">;; Then we have the parameters...</span>
+         <span class="p">(</span><span class="nv">dedicated</span> <span class="o">.</span> <span class="no">t</span><span class="p">)</span>
+         <span class="p">(</span><span class="nv">window-height</span> <span class="o">.</span> <span class="nv">fit-window-to-buffer</span><span class="p">))</span>
+
+        <span class="p">))</span>
+
+<span class="c1">;; If you want `switch-to-buffer' and related to respect those rules</span>
+<span class="c1">;; (I personally do not want this, because if I am switching to a</span>
+<span class="c1">;; specific buffer in the current window, I probably have a good</span>
+<span class="c1">;; reason for it):</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">switch-to-buffer-obey-display-actions</span> <span class="no">t</span><span class="p">)</span>
+
+<span class="c1">;; If you are in a window that is dedicated to its buffer and try to</span>
+<span class="c1">;; `switch-to-buffer' there, tell Emacs to pop a new window instead of</span>
+<span class="c1">;; using the current one:</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">switch-to-buffer-in-dedicated-window</span> <span class="ss">'pop</span><span class="p">)</span>
+
+<span class="c1">;; Other relevant variables which control when Emacs splits the frame</span>
+<span class="c1">;; vertically or horizontally, with some sample values (do `M-x</span>
+<span class="c1">;; describe-variable' and search for those variables to learn more</span>
+<span class="c1">;; about them):</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">split-height-threshold</span> <span class="mi">80</span><span class="p">)</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">split-width-threshold</span> <span class="mi">125</span><span class="p">)</span>
+
+<span class="c1">;; Evaluate these to get to the relevant entries in the manual (NOTE</span>
+<span class="c1">;; that this is advanced stuff):</span>
+<span class="p">(</span><span class="nv">info</span> <span class="s">"(elisp) Displaying Buffers"</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">info</span> <span class="s">"(elisp) Buffer Display Action Functions"</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">info</span> <span class="s">"(elisp) Buffer Display Action Alists"</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">info</span> <span class="s">"(elisp) Window Parameters"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2>More links to my Emacs configuration</h2>
+
+<p>My personal Emacs configuration.  It is comprehensive, both in terms of
+the [custom] code it contains as well as the documentation on what each
+piece of functionality does.</p>
+
+<ul>
+  <li>Website: <a href="https://protesilaos.com/emacs/dotemacs">https://protesilaos.com/emacs/dotemacs</a></li>
+  <li>Git repositories:
+    <ul>
+      <li>GitHub: <a href="https://github.com/protesilaos/dotfiles">https://github.com/protesilaos/dotfiles</a></li>
+      <li>GitLab: <a href="https://gitlab.com/protesilaos/dotfiles">https://gitlab.com/protesilaos/dotfiles</a></li>
+    </ul>
+  </li>
+  <li>Video demo: <a href="https://protesilaos.com/codelog/2023-12-18-emacs-org-advanced-literate-conf/">https://protesilaos.com/codelog/2023-12-18-emacs-org-advanced-literate-conf/</a></li>
+  <li>Backronym: Do Observe, Transpose, Examine, or Mirror All
+Configurations, Stranger (dotemacs); Dotfiles Operate Transparently
+For the Included Linux and Emacs Setups (dotfiles).</li>
+</ul>

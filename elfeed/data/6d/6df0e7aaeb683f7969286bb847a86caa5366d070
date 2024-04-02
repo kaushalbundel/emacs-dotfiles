@@ -1,0 +1,12 @@
+<div class='memberful-global-teaser-content'>
+<p>Long-term thinking is one of the most valuable traits of successful individuals. It demands that you forego the rewards of the immediate future and position yourself for lasting success.</p>
+<p>But long-term thinking is impossible without patience; it&#8217;s what made John D. Rockefeller one of the most successful businessmen in history. Whenever he had the opportunity, he turned a small, immediate reward into a decades-long win.</p>
+</div>
+<style>
+        .memberful-global-teaser-content p:last-child{
+            -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent);
+            mask-image: linear-gradient(180deg, #000 0%, transparent);
+        }
+    </style>
+<div class='memberful-global-marketing-content'><em>Members Only content. If you have an account, <a href="https://fs.blog/?memberful_endpoint=auth">log in here</a> to access content and your subscription settings. Not a member? <a href="https://fs.blog/membership/">Join Us</a>.</em></div>
+<p>The post <a href="https://fs.blog/upside-of-patience/">[FS Members] Lessons from Rockefeller: The Upside of Patience</a> appeared first on <a href="https://fs.blog">Farnam Street</a>.</p>

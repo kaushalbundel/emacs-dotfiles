@@ -1,0 +1,18 @@
+<div class="content">
+<p>
+Like many internet users, I enjoy obsessively tracking my activities, and there are a lot of websites around that make that easy. On the other hand, for various reasons, I don’t enjoy uploading my data to third-party sites. At the beginning of this year I used Emacs to put together an offline system that I think works well, based on <a href="https://orgmode.org/manual/Capture.html">org-capture</a>, which prompts me for progress with reading a book/playing a game/etc. and then saves the information to a dedicated file for that day. The same files also contain my notes to self, DW posts, records of concerts I perform in, older sporadic diary/journal/blog entries going back to 1998, and (when I periodically export the data) scrobbles to last.fm.
+</p>
+
+<p>
+My intention is to write a series of Python scripts that will read the data from these org files and output selected parts as nice HTML, potentially for uploading to my website if I want to share the data publicly. <a href="https://hachyderm.io/@backloggery">Backloggery is undergoing a drastic redesign/modernisation at the moment</a> and I like the look of <a href="https://backloggery.club">the new site</a>, so decided to use this as a basis for building a new static site generator that shows some details about the games I’ve been playing based on my org files.
+</p>
+
+<p>
+<span class="cut-wrapper"><span class="cuttag" id="span-cuttag___1" style="display: none;"></span><b class="cut-open">( </b><b class="cut-text"><a href="https://tobli.dreamwidth.org/90202.html#cutid1">More</a></b><b class="cut-close"> )</b></span></p><div id="div-cuttag___1" style="display: none;"></div>
+<p></p>
+
+<p>
+Now that this is in working condition, I need to think about what I’d like to track in other domains, and how I want to do it … I’d like to have something Goodreads-esque for books but I’m not sure how feasible that is when a lot of that is based on server-side metadata and I’m also terrible at remembering to track my reading progress. I’ve also wanted to build something in a kind of bullet journal style for HTML/CSS for a <i>long</i> time, and could potentially do so for tracking household tasks, but that’s a very vague idea in my mind for the moment.
+</p>
+</div>
+<br /><br /><img alt="comment count unavailable" height="12" src="https://www.dreamwidth.org/tools/commentcount?user=tobli&amp;ditemid=90202" style="vertical-align: middle;" width="30" /> comments

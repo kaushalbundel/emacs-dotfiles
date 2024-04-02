@@ -1,0 +1,43 @@
+<p>In <em>Staff Engineer</em>’s chapter on <a href="https://staffeng.com/guides/manage-technical-quality/">Managing Technical Quality</a>, one of the very last suggestions is creating a centralized process to curate technical changes:</p>
+<blockquote>
+<p><strong>Curate technology change</strong> using <a href="https://lethain.com/scaling-consistency/">architecture reviews</a>, <a href="https://lethain.com/magnitudes-of-exploration/">investment strategies</a>, and <a href="https://slack.engineering/how-big-technical-changes-happen-at-slack/">a structured process for adopting new tools</a>. Most misalignment comes from missing context, and these are the organizational leverage points to inject context into decision-making. Many organizations start here, but it&rsquo;s the last box of tools that I recommend opening. How can you provide consistent architecture reviews without an articulated vision? Why tell folks your strategy after they&rsquo;ve designed something rather than in their onboarding process?</p>
+</blockquote>
+<p>As the quote mentions, this was the last suggestion, but not because it’s the ultimate option.
+Instead, it&rsquo;s because I find that centralized groups–typically called the Architecture Team or something along those lines–tend to perform poorly in practice. Sometimes they’re inefficient, sometimes they make bad choices, sometimes they just don’t do much at all. (I documented some of the most common challenges these architecture teams face in <a href="https://lethain.com/scaling-consistency/">Scaling Consistency</a>.)</p>
+<p>After I joined Carta earlier this year, we spent a while exploring areas where we could make it easier for engineers
+to do highly productive work. One topic that came up was technical decision making within engineering:</p>
+<ul>
+<li>Many engineers disagreed with decisions being made elsewhere in the organization, particularly feeling that decisions were made inconsistently</li>
+<li>It was open to interpretation who was accountable for technical decisions in any given part of the business
+(people roughly agreed, but if you asked four people who was responsible for making decisions regarding Something Important,
+you&rsquo;d generally get at least two names)</li>
+<li>When two teams disagreed on a technical decision, it was unclear how to resolve the issue
+short of escalating it to the CTO</li>
+</ul>
+<p>The standard playbook here is to first document best practices, hope that’s sufficient, and then reluctantly establish an Architecture Team to manage escalations. At a company like Carta, with ~400 engineers, it’s further true that aligning on best practices is an escalation-laden exercise. That’s because best practices are context dependent, and there is no universal context in an organization of that size.
+Best practices are
+a balance between global and local optimization,
+and some of the decided upon best practices will certainly be worse locally for some teams.</p>
+<p>That meant that we either needed to establish working groups for deciding each of the areas of best practice, or decide on an Architecture Team to serve as the “standing working group” for the full set of practices we wanted to codify. Carta has a large bench of very talented engineers, so we certainly could have established an Architecture Team.</p>
+<p>There was, however, one little problem: me. I rather dislike Architecture Teams.</p>
+<p>It’s not that Architecture teams can’t be good, I’ve worked with a number of very good ones, but even the best are slowed by consensus, and suffer the downsides of consensus-driven decision making (particularly, optimizing for acceptable decisions rather than best decisions). I’ve also found that consensus-driven groups are slow to improve, even with direct coaching, because it’s generally difficult to figure out who to coach, and accountability can be a bit amorphous.</p>
+<p>So, instead we went with a pattern that I’ve experimented with a few times: Navigators. The core structure of Navigators are along these lines:</p>
+<ul>
+<li>Each major area of the business has one Navigator (we started with about ten).
+That Navigator is an active contributor to the software written and operated
+within that area</li>
+<li>There is exactly one Navigator for a given area; Navigators do not overlap</li>
+<li>Each Navigator is wholly accountable for the technical decisions made in their area. More than merely being accountable, they can make decisions.
+This includes interpreting organizational strategy to apply it correctly within their context</li>
+<li>In practice, most real issues are an intersection of technical, prioritization and people constraints. Navigators are responsible for aligning with the people leadership in their area when making technical decisions</li>
+<li>Each Navigator is wholly accountable to the CTO in their decision making and interpretation of organizational strategy</li>
+<li>Navigators are the escalation point for technical consideration within their area, and a pair of Navigators is the escalation point for cross-area issues</li>
+<li>If a pair of Navigators are unable to resolve a cross-area concern, or a Navigator and people-manager unable to resolve a technical-social concern, then the CTO is the escalation point</li>
+</ul>
+<p>We’ve been running in this mode for about six months, and I must admit that I think it’s working quite well. It’s very powerful to have a clearly accountable party that everyone agrees is accountable. There have been some messy conversations, but we know who is responsible for what, and we’ve been able to sit down and have those conversations. Afterwards, we’ve been able to improve, and do better for the next set of conversations.
+(I&rsquo;ve rarely seen Architecture Teams improve quickly, but I <em>have</em> seen Navigators improve quickly.)</p>
+<p>The Navigator pattern is so obvious, and in my experience so much better than the alternatives, that it’s worth asking ourselves why we don’t see it very often.
+My short answer is that I think the industry continually underestimates what senior engineers can do if we give them the necessary context
+and remit to do it. It&rsquo;s considered a radical act to trust your engineers to make truly important decisions, but it doesn&rsquo;t need to be that way.
+As long as we&rsquo;re willing to hold engineers accountable for carrying important roles, then trusting them is no more radical than
+trusting anyone else in your organization: there&rsquo;s some risk, but it&rsquo;s a risk well worth taking.</p>

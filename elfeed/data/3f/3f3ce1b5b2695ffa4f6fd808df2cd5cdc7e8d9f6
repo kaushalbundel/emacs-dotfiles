@@ -1,0 +1,85 @@
+<p>When Galileo wanted to study the heavens through his telescope, he got money from those legendary patrons of the Renaissance, the Medici. <a href="https://www.andreazuvich.com/history/galileo-galilei-and-the-medici-a-guest-post-by-samantha-morris/">To win their favor</a>, when he discovered the moons of Jupiter, he named them the Medicean Stars. Other scientists and inventors offered flashy gifts, such as Cornelis Drebbel’s <em>perpetuum mobile</em> (a sort of astronomical clock) given to King James, who <a href="https://theconversation.com/before-nobels-gifts-to-and-from-rich-patrons-were-early-sciences-currency-66360">made Drebbel court engineer in return</a>. The other way to do research in those days was to be independently wealthy: the Victorian model of the gentleman scientist.</p>
+
+<figure>
+  <a href="/img/bezzuoli-galileo-demonstration-to-medici.jpg" target="_blank">
+    <img src="/img/bezzuoli-galileo-demonstration-to-medici.jpg" alt="Galileo demonstrating law of gravity in presence of Giovanni de' Medici, 1839 fresco by Giuseppe Bezzuoli" loading="lazy" />
+  </a>
+  <figcaption>
+    Galileo demonstrating law of gravity in presence of Giovanni de' Medici, 1839 fresco by Giuseppe Bezzuoli
+    
+      <span class="image-credit">
+        
+          <a href="https://www.meisterdrucke.us/fine-art-prints/Giuseppe-Bezzuoli/1464095/Galileo-Galilei-demonstrating-law-of-gravity-in-presence-of-Giovanni-De%27-Medici%2C-Tribune-of-Galileo%2C-Florence%2C-c.1839-%28fresco%29.html" target="_blank">Meisterdrucke</a>
+        
+      </span>
+    
+  </figcaption>
+</figure>
+
+<p>Eventually we decided that requiring researchers to seek wealthy patrons or have independent means was not the best way to do science. Today, researchers, in their role as “principal investigators” (PIs), apply to science funders for grants. In the US, the NIH spends <a href="https://www.nih.gov/about-nih/what-we-do/budget">nearly $48B annually</a>, and the NSF <a href="https://new.nsf.gov/about/budget">over $11B</a>, mainly to give such grants. Compared to the Renaissance, it is a rational, objective, democratic system.</p>
+
+<p>However, <strong>I have come to believe that this principal investigator model is deeply broken and needs to be replaced.</strong></p>
+
+<p>That was the thought at the top of my mind coming out of a working group on “Accelerating Science” hosted by the Santa Fe Institute a few months ago. (The thoughts in this essay were inspired by many of the participants, but I take responsibility for any opinions expressed here. My thinking on this was also influenced by a <a href="https://jameswphillips.substack.com/p/my-metascience-2022-talk-on-new-scalable">talk given by James Phillips</a> at a previous metascience conference. My own talk at the workshop was <a href="/accelerating-science-through-evolvable-institutions">written up here earlier</a>.)</p>
+
+<p>What should we do instead of the PI model? Funding should go in a single block to a relatively large research organization of, say, hundreds of scientists. This is how some of the most effective, transformative labs in the world have been organized, from Bell Labs to the MRC Laboratory of Molecular Biology. It has been referred to as the “block funding” model.</p>
+
+<p>Here’s why I think this model works:</p>
+
+<h2 id="specialization">Specialization</h2>
+
+<p>A principal investigator has to play multiple roles. They have to do science (researcher), recruit and manage grad students or research assistants (manager), maintain a lab budget (administrator), and write grants (fundraiser). These are different roles, and not everyone has the skill or inclination to do them all. The university model adds teaching, a fifth role.</p>
+
+<p>The block organization allows for specialization: researchers can focus on research, managers can manage, and one leader can fundraise for the whole org. This allows each person to do what they are best at and enjoy, and it frees researchers from spending 30–50% of their time writing grants, as is typical for PIs.</p>
+
+<p>I suspect it also creates more of an opportunity for <a href="/leadership-and-progress"><em>leadership</em> in research</a>. Research leadership involves having a vision for an area to explore that will be highly fruitful—semiconductors, molecular biology, etc.—and then recruiting talent and resources to the cause. This seems more effective when done at the block level.</p>
+
+<p>Side note: the distinction I’m talking about here, between block funding and PI funding, doesn’t say anything about where the funding comes from or how those decisions are made. But today, researchers are often asked to serve on committees that evaluate grants. Making funding decisions is yet another role we add to researchers, and one that also deserves to be its own specialty (especially since having researchers evaluate their own competitors sets up an inherent conflict of interest).</p>
+
+<h2 id="research-freedom-and-time-horizons">Research freedom and time horizons</h2>
+
+<p>There’s nothing inherent to the PI grant model that dictates the size of the grant, the scope of activities it covers, the length of time it is for, or the degree of freedom it allows the researcher. But in practice, PI funding has evolved toward small grants for incremental work, with little freedom for the researcher to change their plans or strategy.</p>
+
+<p>I suspect the block funding model naturally lends itself to larger grants for longer time periods that are more at the vision level. When you’re funding a whole department, you’re funding a mission and placing trust in the leadership of the organization.</p>
+
+<p>Also, breakthroughs are unpredictable, but the more people you have working on things, the more regularly they will happen. A lab can justify itself more easily with regular achievements. In this way one person’s accomplishment provides cover to those who are still toiling away.</p>
+
+<h2 id="who-evaluates-researchers">Who evaluates researchers</h2>
+
+<p>In the PI model, grant applications are evaluated by funding agencies: in effect, each researcher is evaluated by the external world. In the block model, a researcher is evaluated by their manager and their peers. James Phillips illustrates with a diagram:</p>
+
+<figure>
+  <a href="/img/james-phillips-block-funding-diagram.jpg" target="_blank">
+    <img src="/img/james-phillips-block-funding-diagram.jpg" alt="" loading="lazy" />
+  </a>
+  <figcaption>
+    
+    
+      <span class="image-credit">
+        
+          <a href="https://jameswphillips.substack.com/p/my-metascience-2022-talk-on-new-scalable" target="_blank">James Phillips</a>
+        
+      </span>
+    
+  </figcaption>
+</figure>
+
+<p>A manager who knows the researcher well, who has been following their work closely, and who talks to them about it regularly, can simply make better judgments about who is doing good work and whose programs have potential. (And again, developing good judgment about researchers and their potential is a specialized role—see point 1).</p>
+
+<p>Further, when a researcher is evaluated impersonally by an external agency, they need to write up their work formally, which adds overhead to the process. They need to explain and justify their plans, which leads to more conservative proposals. They need to show outcomes regularly, which leads to more incremental work. And funding will disproportionately flow to people who are good at fundraising (which, again, deserves to be a specialized role).</p>
+
+<p>To get scientific breakthroughs, we want to allow talented, dedicated people to pursue hunches for long periods of time. This means we need to trust the process, long before we see the outcome. Several participants in the workshop echoed this theme of trust. Trust like that is much stronger when based on a working relationship, rather than simply on a grant proposal.</p>
+
+<hr />
+
+<p>If the block model is a superior alternative, how do we move towards it? I don’t have a blueprint. I doubt that existing labs will transform themselves into this model. But funders could signal their interest in funding labs like this, and new labs could be created or proposed on this model and seek such funding. I think the first step is spreading this idea.</p>
+
+<hr />
+
+<p>PS (Jan 31): After publishing this, Michael Nielsen (who has thought about and researched this much more than I have) <a href="https://twitter.com/michael_nielsen/status/1750964151693025643">argues</a> that I have oversimplified and made the case too starkly:</p>
+
+<blockquote>
+  <p>Lots of people make thoughtful proposals for the “correct” approach to funding. They argue that funding scheme A is better than B, or vice versa. This is rhetorically appealing. But I think it’s a mistake. What we need—as Kanjun Qiu and I argue in “<a href="https://scienceplusplus.org/metascience/index.html">A Vision of Metascience</a>”—is a much more diverse set of funding strategies. The right question isn’t “which approach is best” but rather: what mechanisms are we using to adjust the overall portfolio of strategies?</p>
+</blockquote>
+
+<p>Read his <a href="https://twitter.com/michael_nielsen/status/1750964151693025643">whole thread</a>. Maybe it would be better to say that the PI model is overused today, and block funding is underused.</p>

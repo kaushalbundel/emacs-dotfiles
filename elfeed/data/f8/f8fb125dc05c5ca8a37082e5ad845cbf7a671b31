@@ -1,0 +1,118 @@
+<figure><img src="https://emacs.dyerdwelling.family/ox-hugo/2024-03-30-10-27-49-banner.jpg" width="100%" />
+</figure>
+
+<p>From my previous post regarding setting up sticky keys mainly for <strong>Control</strong>, <strong>Alt</strong> and <strong>Shift</strong> in Emacs to remove the dependence on key chording I just wanted to scratch another itch, and that was to provide a modifier LED indicator type experience on a laptop that you would commonly get on a full size keyboard.</p>
+<p>For example most laptops typically have a single LED indicator on the Caps Lock key with a full size keyboard having Num Lock, Caps Lock and Scroll Lock specific LEDs and generally in that order.</p>
+<p>How would I accomplish this more granular display on a laptop that only has a single Caps Lock indicator LED?.</p>
+<p>My previous solution of activating the Caps Lock LED when any modifier was activated works to an extent.  However, you still don’t know which specific modifier is active, so to clear a locked modifier you might still have to go hunting around the modifiers to find out which one has been activated.</p>
+<p>This so far is the only negative I have found using Sticky Keys in that occasionally a modifier key becomes accidentally locked (I suppose stuck!) and it takes a while to figure out which one.</p>
+<p>In a highly configurable environment like Sway where you pretty much have to build most things for yourself the flexibility offered can allow me to craft a software solution by modifying the bar to visually indicate the current locked modifiers. So when stickies get stuck a quick glance will tell you which modifiers are active and hence which ones to deactivate.</p>
+<p>For now I will just focus on <strong>waybar</strong> which is a customizable bar for Wayland compositors although setting up something like Polybar for X11 would be very similar.</p>
+<p>I think the way to achieve this is to figure out how to access the current state of LED indicators which signify which sticky modifiers are set.  Currently any modifier on my laptop activates the Caps Lock LED indicator and although specifically a hardware LED, each modifier can be stored separately, and through xkb (X Keyboard Extension) we can store each LED state in the following locations if set up correctly:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-bash" data-lang="bash"><span style="display: flex;"><span>/sys/class/leds/input2::capslock
+</span></span><span style="display: flex;"><span>/sys/class/leds/input2::numlock
+</span></span><span style="display: flex;"><span>/sys/class/leds/input2::scrolllock
+</span></span></code></pre></div><p>My first step is to split the modifiers, setting each internal device accordingly in <strong>/sys/class/leds</strong>, so the original xkb file will change from:</p>
+<pre tabindex="0"><code class="language-nil" data-lang="nil">indicator "Caps Lock" {
+    !allowExplicit;
+    whichModState= locked;
+    modifiers= Control+Mod1+Shift;
+};
+</code></pre><p>to</p>
+<pre tabindex="0"><code class="language-nil" data-lang="nil">indicator "Caps Lock" {
+    !allowExplicit;
+    whichModState= locked;
+    modifiers= Control;
+};
+indicator "Num Lock" {
+    !allowExplicit;
+    whichModState= locked;
+    modifiers= Mod1;
+};
+indicator "Scroll Lock" {
+    whichModState= locked;
+    modifiers= Shift;
+};
+</code></pre><p>which is the way I would activate each LED for a full size keyboard.</p>
+<p>Next is to access each LED value so I can pass it through to waybar for display.  I will have to access the LED states more directly, hence in linux pulling values straight from a directory called /sys/class/leds</p>
+<p>The following bash script will pass out a JSON formatted string which waybar will be able to process in a custom module:</p>
+<div class="highlight"><pre tabindex="0"><code class="language-bash" data-lang="bash"><span style="display: flex;"><span><span style="color: #75715e;">#!/bin/bash
+</span></span></span><span style="display: flex;"><span><span style="color: #75715e;"></span>
+</span></span><span style="display: flex;"><span><span style="color: #75715e;"># Define the paths to the LED brightness indicators</span>
+</span></span><span style="display: flex;"><span>caps_lock_led<span style="color: #f92672;">=</span><span style="color: #e6db74;">"/sys/class/leds/input2::capslock/brightness"</span>
+</span></span><span style="display: flex;"><span>num_lock_led<span style="color: #f92672;">=</span><span style="color: #e6db74;">"/sys/class/leds/input2::numlock/brightness"</span>
+</span></span><span style="display: flex;"><span>scroll_lock_led<span style="color: #f92672;">=</span><span style="color: #e6db74;">"/sys/class/leds/input2::scrolllock/brightness"</span>
+</span></span><span style="display: flex;"><span>
+</span></span><span style="display: flex;"><span><span style="color: #75715e;"># Function to output the JSON format for Waybar</span>
+</span></span><span style="display: flex;"><span>output_json<span style="color: #f92672;">()</span> <span style="color: #f92672;">{</span>
+</span></span><span style="display: flex;"><span>    local text<span style="color: #f92672;">=</span><span style="color: #e6db74;">"</span>$1<span style="color: #e6db74;">"</span>
+</span></span><span style="display: flex;"><span>    local active<span style="color: #f92672;">=</span><span style="color: #e6db74;">"</span>$2<span style="color: #e6db74;">"</span>
+</span></span><span style="display: flex;"><span>    <span style="color: #66d9ef;">if</span> <span style="color: #f92672;">[</span> <span style="color: #e6db74;">"</span>$active<span style="color: #e6db74;">"</span> <span style="color: #f92672;">=</span> <span style="color: #e6db74;">"1"</span> <span style="color: #f92672;">]</span>; <span style="color: #66d9ef;">then</span>
+</span></span><span style="display: flex;"><span>        echo <span style="color: #e6db74;">"{\"text\": \"</span>$text<span style="color: #e6db74;">\", \"class\": \"active\"}"</span>
+</span></span><span style="display: flex;"><span>    <span style="color: #66d9ef;">else</span>
+</span></span><span style="display: flex;"><span>        echo <span style="color: #e6db74;">"{\"text\": \"</span>$text<span style="color: #e6db74;">\", \"class\": \"inactive\"}"</span>
+</span></span><span style="display: flex;"><span>    <span style="color: #66d9ef;">fi</span>
+</span></span><span style="display: flex;"><span><span style="color: #f92672;">}</span>
+</span></span><span style="display: flex;"><span>
+</span></span><span style="display: flex;"><span><span style="color: #75715e;"># Check the command-line argument and output the respective LED status</span>
+</span></span><span style="display: flex;"><span><span style="color: #66d9ef;">case</span> <span style="color: #e6db74;">"</span>$1<span style="color: #e6db74;">"</span> in
+</span></span><span style="display: flex;"><span>    --caps<span style="color: #f92672;">)</span>
+</span></span><span style="display: flex;"><span>        caps_state<span style="color: #f92672;">=</span><span style="color: #66d9ef;">$(</span>cat <span style="color: #e6db74;">"</span>$caps_lock_led<span style="color: #e6db74;">"</span><span style="color: #66d9ef;">)</span>
+</span></span><span style="display: flex;"><span>        output_json <span style="color: #e6db74;">"Ctl"</span> <span style="color: #e6db74;">"</span>$caps_state<span style="color: #e6db74;">"</span>
+</span></span><span style="display: flex;"><span>        ;;
+</span></span><span style="display: flex;"><span>    --num<span style="color: #f92672;">)</span>
+</span></span><span style="display: flex;"><span>        num_state<span style="color: #f92672;">=</span><span style="color: #66d9ef;">$(</span>cat <span style="color: #e6db74;">"</span>$num_lock_led<span style="color: #e6db74;">"</span><span style="color: #66d9ef;">)</span>
+</span></span><span style="display: flex;"><span>        output_json <span style="color: #e6db74;">"Alt"</span> <span style="color: #e6db74;">"</span>$num_state<span style="color: #e6db74;">"</span>
+</span></span><span style="display: flex;"><span>        ;;
+</span></span><span style="display: flex;"><span>    --scroll<span style="color: #f92672;">)</span>
+</span></span><span style="display: flex;"><span>        scroll_state<span style="color: #f92672;">=</span><span style="color: #66d9ef;">$(</span>cat <span style="color: #e6db74;">"</span>$scroll_lock_led<span style="color: #e6db74;">"</span><span style="color: #66d9ef;">)</span>
+</span></span><span style="display: flex;"><span>        output_json <span style="color: #e6db74;">"Sft"</span> <span style="color: #e6db74;">"</span>$scroll_state<span style="color: #e6db74;">"</span>
+</span></span><span style="display: flex;"><span>        ;;
+</span></span><span style="display: flex;"><span>    *<span style="color: #f92672;">)</span>
+</span></span><span style="display: flex;"><span>        echo <span style="color: #e6db74;">"Usage: </span>$0<span style="color: #e6db74;"> [--caps | --num | --scroll]"</span>
+</span></span><span style="display: flex;"><span>        exit <span style="color: #ae81ff;">1</span>
+</span></span><span style="display: flex;"><span>        ;;
+</span></span><span style="display: flex;"><span><span style="color: #66d9ef;">esac</span>
+</span></span></code></pre></div><p>Each LED is associated with its own device, and conveniently, the brightness file is simply a text file containing either a 0 or 1 to indicate whether the LED is active or inactive. To facilitate integration with custom modules in Waybar, and to link them into its CSS I will need to output each module as JSON, assigning each key modifier a class set to either ‘active’ or ‘inactive’.</p>
+<p>I will have to write a some custom waybar modules so in the associated modules.json :</p>
+<pre tabindex="0"><code class="language-nil" data-lang="nil">    "custom/caps_lock": {
+        "exec": "led-monitor.sh --caps",
+        "interval": 1,
+        "return-type": "json"
+    },
+    "custom/num_lock": {
+        "exec": "led-monitor.sh --num",
+        "interval": 1,
+        "return-type": "json"
+    },
+    "custom/scroll_lock": {
+        "exec": "led-monitor.sh --scroll",
+        "interval": 1,
+        "return-type": "json"
+    }
+</code></pre><p>Each button has to be a separate module with each having its own name and LED state which enables the CSS to access each LED individually.</p>
+<p>I have kept the styling simple for now but of course the style can be anything you like, so here is an associated CSS :</p>
+<div class="highlight"><pre tabindex="0"><code class="language-css" data-lang="css"><span style="display: flex;"><span>
+</span></span><span style="display: flex;"><span><span style="color: #75715e;">/* General LED styling */</span>
+</span></span><span style="display: flex;"><span>#custom-caps_lock<span style="color: #f92672;">,</span>
+</span></span><span style="display: flex;"><span>#custom-num_lock<span style="color: #f92672;">,</span>
+</span></span><span style="display: flex;"><span>#custom-scroll_lock {
+</span></span><span style="display: flex;"><span>    <span style="color: #66d9ef;">padding</span>: <span style="color: #ae81ff;">0</span><span style="color: #66d9ef;">em</span> <span style="color: #ae81ff;">0.2</span><span style="color: #66d9ef;">em</span>;
+</span></span><span style="display: flex;"><span>}
+</span></span><span style="display: flex;"><span>
+</span></span><span style="display: flex;"><span><span style="color: #75715e;">/* Active LED styling */</span>
+</span></span><span style="display: flex;"><span>#custom-caps_lock.<span style="color: #a6e22e;">active</span><span style="color: #f92672;">,</span>
+</span></span><span style="display: flex;"><span>#custom-num_lock.<span style="color: #a6e22e;">active</span><span style="color: #f92672;">,</span>
+</span></span><span style="display: flex;"><span>#custom-scroll_lock.<span style="color: #a6e22e;">active</span> {
+</span></span><span style="display: flex;"><span>    <span style="color: #66d9ef;">background-color</span>: <span style="color: #f92672;">@</span>recording-color;
+</span></span><span style="display: flex;"><span>}
+</span></span></code></pre></div><p>Here I have put a general padding on the right and left and then defined a simple highlight background colour for when the JSON script above returns active.</p>
+<p>These modules can be positioned anywhere along waybar, I typically like to have mine on the right as thus :</p>
+<figure><img src="https://emacs.dyerdwelling.family/ox-hugo/2024-03-30-10-27-10.jpg" width="100%" />
+</figure>
+
+<p>with modifier activation of Alt and Shift shown as:</p>
+<figure><img src="https://emacs.dyerdwelling.family/ox-hugo/2024-03-30-10-27-49.jpg" width="100%" />
+</figure>
+
+<p>So in the case above if my keys are doing weird things I can quickly glance at waybar and see that Alt and Shift are currently Sticky activated thus I can deactivate by selecting each to remove the visual indicators and carry on my merry little way!</p>

@@ -1,0 +1,14 @@
+<p>
+I’ve written before <a href="http://irreal.org/blog/?p=11478">about messing around with Emacs defaults</a>. The argument from those favoring changes is that Emacs’ conventions are not congruent with modern day standards and thus confuse n00bs. This, is turn, inhibits Emacs uptake by new users.
+</p>
+<p>
+The other side of the argument is that long term users should not have their workflows and muscle memory disrupted on the nebulous basis that changing the default <i>may</i> result in new users. After all, most of those long term users learned Emacs long after today’s CUA standards were in place and can be forgiven for expecting others to do the same.
+</p>
+<p>
+It’s not that the needs and expectations of new users should be ignored. It’s just that the way to  accommodate them is not as easy as some claim. Some of the problems are discussed in the above post and some suggestions for addressing them are in the comments.
+</p>
+<p>
+In the mean time, here’s a <a href="https://www.reddit.com/r/emacs/comments/1bfvif9/a_little_vent_about_people_who_are_trying_to/">small rant</a> from the <a href="https://www.youtube.com/@emacselements/featured">Emacs Elements</a> guy. He points out, correctly, that if you don’t like the Emacs defaults, you’re free to change them—indeed, that’s the whole point of Emacs configurability—just don’t insist that everybody else should change them too to suit your preferences. Sadly, the majority of comments to the rant are of the type that insist all those troglodytes from the PDP-10 era need to get on board with the new VS Code compliant conventions. The fact that those troglodytes can edit rings around them and their VS Code seems to escape them.
+</p>
+<p>
+On the plus side, some of the comments suggest ways of addressing the problem. While I have limited sympathy for the whining complaining that “the defaults aren’t what I’m used to”, I’m glad to see other folks embracing the Tao of Emacs and suggesting ways of adapting Emacs to the problem.</p>

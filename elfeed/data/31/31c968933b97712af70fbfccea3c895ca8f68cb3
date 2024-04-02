@@ -1,0 +1,70 @@
+<p>Recently I was chatting with a Staff-plus engineer who was struggling to influence his peers. Each time he suggested an approach, his team agreed with him, but his peers in the organization disagreed and pushed back. He wanted advice on why his peers kept undermining his approach.
+After our chat, I followed up by talking with his peers about some recent disagreements, and they kept highlighting missing context from the engineer’s proposals.
+As I spoke with more peers, the engineer&rsquo;s problem became clearer:
+the engineer struggled to reason about a problem across its multiple layers of context.</p>
+<p>All interesting problems operate across a number of context layers.
+For a concrete example, let’s think about a problem I&rsquo;ve run into twice:
+what are the layers of context for evaluating a team that wants to introduce a new programming
+language like Erlang or Elixir to your company&rsquo;s technology stack?
+I encountered this first at Yahoo! when my team lead introduced <a href="https://www.erlang.org/">Erlang</a> to the great dismay
+of the Security and tooling teams. I also experienced it later in my career when dealing with a team at Uber
+that wanted to implement their service in <a href="https://elixir-lang.org/">Elixir</a>.</p>
+<p>Some of the layers of context are:</p>
+<ul>
+<li><strong>Project’s engineering team</strong>
+<ul>
+<li>The problem to be solved involves coordinating work across a number of servers</li>
+<li>Erlang and Elixir have a number of useful tools for implementing distributed systems</li>
+<li>The team solving the problem has an experienced Erlang engineer, and the rest of the team is very excited to learn the language</li>
+</ul>
+</li>
+<li><strong>Developer Experience and Infrastructure teams</strong>
+<ul>
+<li>There’s a fixed amount of budget to support the entire engineering organization</li>
+<li>Each additional programming language reduces the investment into the more frequently used programming languages across the organization. This makes the organization view the Infrastructure organization as less efficient each time it supports a new programming language, because on average it <em>is</em> less efficient</li>
+<li>The team is telling Infrastructure that they’ll take responsibility for all atypical work created by introducing Erlang. However, the Infrastructure team has heard this promise before, and frequently ends up owning tools in new languages after those teams are reorganized. At this point, they believe that any project in a new programming language will become their problem, no matter how vigorously the team says that it won’t</li>
+</ul>
+</li>
+<li><strong>Engineering leadership</strong>
+<ul>
+<li>Wants to invest innovation budget into problems that matter to their users, not into introducing new technologies that are generally equivalent to their existing tools</li>
+<li>Is managing a highly constrained financial budget, and is trying to maximize budget spend on product engineering without impacting stability and productivity. Introducing new languages is counter to that goal</li>
+<li>Wants a standardized hiring and training process focused on the smallest possible number of programming languages</li>
+<li>Has been burned by teams trying to introduce new programming languages and ending up blocked by lack of Infrastructure support for the language</li>
+</ul>
+</li>
+</ul>
+<p>Seeing this specific problem twice in my career was enlightening, because the first time it seemed like a great idea to
+introduce a new programming language. The second time, my context stack had expanded, and I pushed back on the decision firmly.
+In my current role as an executive, introducing another programming language is a non-starter as it would violate <a href="https://lethain.com/eng-strategies/">our engineering strategy</a>.</p>
+<p>A mid-level engineer on the project team is expected to miss some parts of the infrastructure perspectives. A mid-level engineer on the infrastructure team is expected to miss some parts of the product engineering perspectives. Succeeding as a Staff-plus engineer requires perceiving and reasoning across those context layers: seeing both product and infrastructure perspectives, and also understanding (or knowing to ask about) the leadership perspective.</p>
+<h2 id="how-to-see-across-layers">How to see across layers</h2>
+<p>In any given role, you’ll be missing critical context to expand your understanding of the layers around you.
+In the best case, your peers and manager will take the time to explain the context in those layers, but often they won’t.
+For example, it took me a long time to understand <a href="https://lethain.com/planning/">how the company’s financial plan connected with our planning process</a>,
+in part because no one ever explained it to me. Folks are generally so deep in their own layer of context that they fail to recognize how unintuitive
+it might be to others.</p>
+<p>If you want to develop your sense for additional layers around you,
+here are some of the techniques I’ve found most effective for developing that context yourself:</p>
+<ul>
+<li><strong>Operate from a place of curiosity rather than conviction.</strong> When folks say things that don’t make sense to you, it’s almost always because they’re operating at a layer whose context you’re missing. When you’re befuddled by someone’s perspective, instead of trying to convince them they’re wrong, try to discover that layer and its context. This is a perspective that gets <em>more</em> valuable the more senior you get</li>
+<li><strong>Rotate onto other teams.</strong> If you work in platform engineering, work with your manager to spend three months on a product engineering team that uses your platform. Do this every few years to build your understanding of how different teams perceive the same situations</li>
+<li><strong>Join sales calls and review support tickets.</strong> Stepping outside of the engineering perspective to directly understand your end user is a powerful way to step outside of the context layer where you spend the majority of your time</li>
+<li><strong>Work in different sorts of companies and industries.</strong> There are many benefits to specializing in a given vertical–e.g. fintech or marketplaces–but it’s equally valuable to see a few different industries in your career. By seeing other verticals you’ll come to better understand what’s special about the one you spend the most time in. This is equally true for joining a larger company to better understand what makes startups special, or vice-versa</li>
+<li><strong>Finally, build a broad network.</strong> Developing <a href="https://staffeng.com/guides/network-of-peers/">a wide network of peers</a> is the easiest way to borrow the hard-won context of others without the confounding mess of a company’s internal tensions and politics. Particularly mine for reasons why your perspective on a given topic might be wrong, rather than looking for reasons you might be right</li>
+</ul>
+<p>These things take time, and to be entirely honest it took me a solid decade before I got good at perceiving and navigating context layers. Indeed, it was the biggest gap that prevented me from reaching more senior roles in my first forays up the org chart.</p>
+<h2 id="passion-can-be-blinding">Passion can be blinding</h2>
+<p>Like many foundational leadership skills, perceiving across context layers is an obvious idea, but a lot of folks struggle with implementation. Lack of curiosity is the most common challenge I see preventing folks from figuring this out, but the most difficult blocker is a bit unintuitive: caring too much.</p>
+<p>I’ve run into many very bright engineers who care so deeply about solving a given problem in a certain way–generally a way that perfectly solves the context layer they exist in–that they are entirely incapable of recognizing that other context layers exist. For example, I worked with a senior engineering manager who was persistently upset that they didn’t get promoted, but also threatened to quit if we didn’t introduce a new note taking tool they preferred. We already have a proliferation of notes across a number of knowledge bases, and introducing a new one would fragment our knowledge further–a recurring top three problem in our developer productivity surveys–but this individual believed so strongly about a specific note taking tool that none of that registered to them at all.</p>
+<p>As someone who used to struggle greatly with this, I’ve found it valuable to approach problems in three phases:</p>
+<ol>
+<li>Focus exclusively on understanding the perspective of the other parties</li>
+<li>Enter the mode of academic evaluation where I try very hard to think about the problem from a purely intellectual basis</li>
+<li>Only after finishing both those approaches, only do I bring my own feelings into the decision making–what do I actually think is the best approach?</li>
+</ol>
+<p>The point of this approach isn’t to reject my feelings and perspective, as I know those are important parts of making effective decisions, instead it’s ensuring that I don’t allow my feelings to cloud my sense of what’s possible. Increasingly I believe that most implied trade offs are artificial–you really can get your cake and eat it too–as long as you take the time to understand the situation at hand. This approach helps me maximize my energy solving the entire problem rather than engaging in conflict among the problem’s participants.</p>
+<h2 id="obvious-or-invisible">Obvious or invisible</h2>
+<p>If you find the idea that there are many context layers is too obvious to consider, then maybe you’re already quite good at considering the perspectives at hand. However, if you frequently find yourself at odds with peers or leadership,
+then take some time to test this idea against some of your recent conflicts and see if it might be at their root.
+For some exceptionally talented folks I’ve worked with, this is the last lesson they needed to learn before thriving as a senior leader.</p>

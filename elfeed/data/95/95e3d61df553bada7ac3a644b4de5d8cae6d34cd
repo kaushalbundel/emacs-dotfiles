@@ -1,0 +1,164 @@
+
+<p>
+A teacher in one of the CSEd forums I&#39;m part of asked for thoughts on
+what low level language to teach. She also asked about scripting but
+I&#39;m not going address that here. The question came, aparently due to
+state guidelines which were somewhat vague. I couldn&#39;t find the
+specific guidelines but I did find old guidelines that indicated that
+the course in question was intended to be post APCS-A.</p>
+<p>
+Back at Stuy, I designed a systems programming course that was post
+APCS-AB. I first used assembly language and then pivoted to C. That&#39;s
+where it stayed until I left and I&#39;m guessing it&#39;s still there. If I
+were to design the course now, I&#39;m not sure if I&#39;d make the same
+choice. If I were designing a unit in a post APCS-A class that had
+some low-level work, I&#39;m also not sure what I&#39;d do but I found the
+question interesting so I thought I&#39;d noodle about it here.</p>
+<p>
+The first question I&#39;d ask would be &#34;should the language be low level
+or is it any language suited for low level, that is, systems type
+work?&#34; If it&#39;s the former, choices are pretty limited. If it&#39;s the
+latter, then most popular mainstream languages would work but
+scripting languages like Python and JVM based languages like Java
+probably miss the mark, at least philosophically.</p>
+<p>
+Let&#39;s explore some of the contenders:</p>
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+Assembly
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>
+This is what I think of when I hear &#34;low level language.&#34; In some ways
+assembly is simple. Each instruction does a specific thing. On the
+other hand, since you&#39;re giving the CPU explicit instructions to run,
+as opposed to higher level &#34;human&#34; constructs, you need a lot of code
+to do &#34;simple&#34; things. Assembly certainly gives a platform to explore
+a machine at a low level but if we&#39;re talking only a short unit, it
+could be hard to get student buy in. Still, some students might love it.</p>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+C
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<p>
+C has long been my go to for low level. I like to think about it as
+assembly with better constructs like loops, arrays, structs, and
+similar. A nice thing is that it&#39;s syntactically similar to Java which
+would have been used in APCS-A. A not so nice thing is that it&#39;s less
+forgiving and more error prone. This &#34;feature&#34; does let you explore
+concepts like memory management and how the computer arranges things
+internally but it can also be incredibly frustrating for students and
+programmers alike.</p>
+<p>
+One really nice feature of using C is that it&#39;s a small, simple
+language. K&amp;R - <strong>the</strong> book on C is only around 100 pages and the
+complete reference manual is a short section in back. It also cleaning
+compiles to assembly. A really nice unit is to take some C code and
+use <strong>gdb</strong> - the Gnu Debugger - a free debugging tool that can even be
+run online to look at the assembly code generated and step through
+it. This gives some of the benefits of studying assembly, a little bit
+on how memory and the machine works, a touch of how C is translated
+when compiled and is very accessible to students.</p>
+</div>
+</div>
+<div id="outline-container-headline-3" class="outline-2">
+<h2 id="headline-3">
+C++
+</h2>
+<div id="outline-text-headline-3" class="outline-text-2">
+<p>
+C++ is newer and much larger than C. It used to be a C extension but
+for a long time it&#39;s been a language in its own right. An advantage of
+using C++ is that it&#39;s the core language used in many colleges (with
+Java being the other main one) and while it&#39;s a little more cumbersome
+to use than C, it&#39;s not much of a step up in complexity until you dive
+in to the more advanced concepts. You can also do the &#39;explore
+assembly using gdb&#39; stuff I described above.</p>
+<p>
+Given current markets, I&#39;d be tempted to go C++ as opposed to C if I
+were designing this unit today but for anyone doing so, I&#39;d encourage
+you, if you do this, to actually teach C++ sensibilities and not
+merely C with C++ constructs. </p>
+</div>
+</div>
+<div id="outline-container-headline-4" class="outline-2">
+<h2 id="headline-4">
+Go
+</h2>
+<div id="outline-text-headline-4" class="outline-text-2">
+<p>
+Go&#39;s an interesting one. If I remember correctly, it was designed as a
+systems programming language to replace C but at the end of the day it
+attracted more Python programmers than C programmers.</p>
+<p>
+I&#39;ve only dabbled with it but there&#39;s a lot to like. It&#39;s a small,
+simple, clean language. A friend described it as &#34;a minimalist
+language with libraries designed by really smart people with good
+taste.&#34; I think that&#39;s fair.</p>
+<p>
+It&#39;s a compiled language with a blazingly fast compiler and hosts some
+nice teaching/learning aids. For instance, it comes with gofmt, a
+program that indents go code consistently and design features like
+having only one loop construct simplifies things. It also has a
+terrific concurrency model but that might not be relevant for a past
+APCS-A low level unit.</p>
+<p>
+It also appears that you can gdb so I&#39;m guessing it has the same
+ability to be used to explore assembly as C and C++.</p>
+<p>
+Even though I&#39;m a C guy from way back and taught C++ for the past 7
+years at Hunter College, I&#39;d be really tempted to look at Go if I were
+exploring low level programming or system programming with a High
+School post APCS-A class today.</p>
+</div>
+</div>
+<div id="outline-container-headline-5" class="outline-2">
+<h2 id="headline-5">
+Rust
+</h2>
+<div id="outline-text-headline-5" class="outline-text-2">
+<p>
+Rust is another interesting choice. It seems to be the up and coming
+darling systems language of the day. That&#39;s not to say it&#39;s a fad -
+there seems to be some solid substance underneath. Like with Go, I&#39;ve
+only dabbled and to an even lesser extent.</p>
+<p>
+My big concern with it in a high school course, particularly for just
+a unit in a high school course is there seems to be a fair amount of
+overhead and cognitive load for a beginner. This overhead gives you
+some great protections when programming but it just seems to much
+given the high school students lack of experience.</p>
+</div>
+</div>
+<div id="outline-container-headline-6" class="outline-2">
+<h2 id="headline-6">
+Others (Ada, Swift, Nim)
+</h2>
+<div id="outline-text-headline-6" class="outline-text-2">
+<p>
+There are other choices as well. I worked with Ada a bit back in the
+day and it would suit the bill. After all it was designed for embedded
+systems but it&#39;s less mainstream and is less streamlined than C, C++
+or Go. Also, to be honest, I&#39;m so out of date with Ada that I can&#39;t
+really say what it looks like today. Swift and Nim also came up as I
+poked around for current systems programming languages this morning
+but know neither and Swift being apple only would be a concern for me.</p>
+</div>
+</div>
+<div id="outline-container-headline-7" class="outline-2">
+<h2 id="headline-7">
+Conclusions
+</h2>
+<div id="outline-text-headline-7" class="outline-text-2">
+<p>
+So, where would I fall if I had to design this student experience? If
+I were pressed for time, I&#39;d probably opt for C++ with C being my
+second choice. If I had time to plan, I&#39;d look at Go and Rust but my
+gut tells me I&#39;d settle on Go for its minimalism and clean design.</p>
+<p>
+In any event, it was an interesting question to ponder on.</p>
+</div>
+</div>

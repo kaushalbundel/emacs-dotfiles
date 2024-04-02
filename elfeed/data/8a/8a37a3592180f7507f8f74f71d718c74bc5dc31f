@@ -1,0 +1,35 @@
+<p>I just published the prototype of <code class="language-plaintext highlighter-rouge">consult-denote</code>: <a href="https://github.com/protesilaos/consult-denote">https://github.com/protesilaos/consult-denote</a>.</p>
+
+<p>The idea is to use Consult across the various prompts of Denote to get
+the helpful features of previewing and narrowing. In addition, we can
+leverage Consult to perform searches in the <code class="language-plaintext highlighter-rouge">denote-directory</code>.</p>
+
+<p>At this stage, I want to get a better sense of what we can do with
+Consult to help users of Denote. If this is something people are
+interested in, then we can check how to extend it further and
+eventually produce a formal package for inclusion in GNU ELPA.</p>
+
+<p>What <code class="language-plaintext highlighter-rouge">consult-denote</code> does as of this writing:</p>
+
+<ul>
+  <li>Provides a drop-in replacement for the <code class="language-plaintext highlighter-rouge">denote-file-prompt</code>. This is
+used in a variety of commands, such as those that link between
+Denote files.</li>
+  <li>Defines a source for <code class="language-plaintext highlighter-rouge">consult-buffer</code> which lists buffers that visit
+Denote files. We call these “Denote buffers”.</li>
+  <li>Introduces thin wrappers to search by files contents or name in the
+<code class="language-plaintext highlighter-rouge">denote-directory</code>. The commands are <code class="language-plaintext highlighter-rouge">consult-denote-grep</code> and
+<code class="language-plaintext highlighter-rouge">consult-denote-find</code>. The user options <code class="language-plaintext highlighter-rouge">consult-denote-grep-command</code>
+and <code class="language-plaintext highlighter-rouge">consult-denote-find-command</code> control which Consult function is
+called.</li>
+  <li>Adds the <code class="language-plaintext highlighter-rouge">consult-denote-mode</code> to set up Consult-powered prompts in
+place of the generic ones that Denote offers. Currently, this is not
+done in the way I intend to do it: it uses the advice mechanism,
+though my plan is to modify <code class="language-plaintext highlighter-rouge">denote.el</code> (or others) to run the
+function prompts via a variable, thus giving packages like this one
+the option to cleanly define their own replacements.</li>
+</ul>
+
+<p>I repeat, this is a prototype. I am not distributing a user manual at
+this stage, nor am I doing any video demonstration. Let us first have
+a fully fledged package. Then we go with the flow.</p>

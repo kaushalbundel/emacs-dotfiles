@@ -1,0 +1,14 @@
+<p>
+Arialdo Martini has a <a href="https://arialdomartini.github.io//emacs-mark-ring">very informative post</a> about the Emacs mark ring and how it works. On the surface, it’s pretty simple. The mark ring is a ring buffer that records positions inside a buffer—or several buffers in the case of the global mark ring—and allows you to return to or otherwise use those positions.
+</p>
+<p>
+When you dig a little deeper, you find that there’s a lot more to it. For example, the mark helps define a region in an Emacs buffer and that fact can be leveraged to perform all sorts of useful tasks.
+</p>
+<p>
+The mark ring actually stores <a href="https://www.gnu.org/software/emacs/manual/html_node/elisp/Markers.html">markers</a> to a given position so they are automatically adjusted if the absolute position of a place changes. Thus, you can, for example, push a position onto the mark ring, add text above that position, and still jump to where the mark was set even though its absolute position has moved.
+</p>
+<p>
+In addition to allowing you to push positions onto the mark ring, Emacs will also record positions for you. For example, if you jump to a new position, your old position is pushed onto the mark ring. That allows you to do things like search for a symbol and then jump back to where you started. The exact rules for when Emacs pushes the mark onto the mark ring or global mark ring are a bit complex. <a href="http://irreal.org/blog/?p=11173">This Irreal post</a> discusses a video the explains some of those complexities.
+</p>
+<p>
+The simple mark ring mechanism enables all sorts of useful functionality. Take a look at Martini’s post for some examples.</p>

@@ -1,0 +1,179 @@
+<p>A few months ago, I replaced Org-Roam with Prot’s <a href="https://protesilaos.com/emacs/denote">Denote</a> package and have been using it for a while now.
+I have mostly been using it to manage my collection of personal notes, but I also want the option to publish any note as a blog post quickly and easily.</p>
+<p>Since starting to use Denote, I am trying to think of notes and public blog posts not as two separate entities, but as a part of a larger knowledge base.
+Unless I’m writing something specific like notes on a book, which would go in the <code>/books</code> subdirectory, most notes start their life in the root of my <code>denote-directory</code> before being moved to a relevant subdirectory.
+Blog posts are moved to the <code>/blog</code> subdirectory.</p>
+<p>With <code>ox-hugo</code>, you can write all posts in a single Org file, or like I do, you can have a single file for each post.
+<code>ox-hugo</code> also provides a really useful feature for <a href="https://ox-hugo.scripter.co/doc/auto-export-on-saving/">auto-exporting on save</a>. I enabled it by adding the following in the <code>.dir-locals.el</code> file in the <code>/blog</code> subdirectory.</p>
+<div class="highlight"><pre class="chroma"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span class="p">((</span><span class="nv">org-mode</span> <span class="o">.</span> <span class="p">((</span><span class="nf">eval</span> <span class="o">.</span> <span class="p">(</span><span class="nv">org-hugo-auto-export-mode</span><span class="p">))</span>
+<span class="p">(</span><span class="nv">org-hugo-section</span> <span class="o">.</span> <span class="s">"blog"</span><span class="p">))))</span>
+</code></pre></div><h2 id="the-three-stages-of-a-blog-post">The three stages of a blog post</h2>
+<p>I make use of Denote’s file-naming scheme to easily distinguish between each of the following states that a note can be in:</p>
+<ul>
+<li>
+<p>Private note: Located in the root of my <code>denote-directory</code></p>
+</li>
+<li>
+<p>Draft blog post: Located in the <code>/blog</code> subdirectory, with the keyword <strong>draft</strong></p>
+</li>
+<li>
+<p>Published blog post: Located in the <code>/blog</code> subdirectory, without the keyword <strong>draft</strong></p>
+<p>Below is truncated tree view of my <code>denote-directory</code>:</p>
+</li>
+</ul>
+
+<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">├── 20230708T141810--books__metanote.org
+├── ........
+├── blog
+│   ├── ........
+│   ├── 20231104T134226--a-dwim-fullscreen-function-for-emacs-and-sway__emacs_linux.org
+│   └── 20240323T143034--hacking-on-denote-and-hugo__blogging_denote_draft_emacs.org
+</code></pre></div><h2 id="linking">Linking</h2>
+<p>Prot introduced a new set of link parameters specifically for Denote.
+The file’s Denote identifier is used to refer to the file you want to link to <code>[[denote:20230708T141810][Books]]</code> and the title of the file is the description.
+I have seen some Emacs users complain that these links are not portable, but for me they are very useful as the links continue to work even when I move files to different subdirectories.</p>
+<p>I modified the included <code>denote-link-ol-export</code> so that links to private notes or drafts are not exported, but links to public notes are exported as Hugo relative links.
+There is only one change from the original function, in which I use <code>my/denote-markdown-export</code> to determine which type of note the link refers to and format it accordingly.</p>
+<div class="highlight"><pre class="chroma"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span class="p">(</span><span class="nb">defun</span> <span class="nv">my/denote-link-ol-export</span> <span class="p">(</span><span class="nv">link</span> <span class="nv">description</span> <span class="nf">format</span><span class="p">)</span>
+<span class="s">" Modified version of </span><span class="ss">`denote-link-ol-export'</span><span class="s">.
+</span><span class="s">Replace markdown export with </span><span class="ss">`my/denote-markdown-export'</span><span class="s">
+</span><span class="s">
+</span><span class="s">Original docstring below:
+</span><span class="s">Export a </span><span class="ss">`denote:'</span><span class="s"> link from Org files.
+</span><span class="s">The LINK, DESCRIPTION, and FORMAT are handled by the export
+</span><span class="s">backend."</span>
+<span class="p">(</span><span class="nb">let*</span> <span class="p">((</span><span class="nv">path-id</span> <span class="p">(</span><span class="nv">denote-link--ol-resolve-link-to-target</span> <span class="nv">link</span> <span class="nb">:path-id</span><span class="p">))</span>
+<span class="p">(</span><span class="nv">path</span> <span class="p">(</span><span class="nv">file-relative-name</span> <span class="p">(</span><span class="nf">car</span> <span class="nv">path-id</span><span class="p">)))</span>
+<span class="p">(</span><span class="nv">p</span> <span class="p">(</span><span class="nv">file-name-sans-extension</span> <span class="nv">path</span><span class="p">))</span>
+<span class="p">(</span><span class="nv">id</span> <span class="p">(</span><span class="nf">cdr</span> <span class="nv">path-id</span><span class="p">))</span>
+<span class="p">(</span><span class="nv">desc</span> <span class="p">(</span><span class="nb">or</span> <span class="nv">description</span> <span class="p">(</span><span class="nf">concat</span> <span class="s">"denote:"</span> <span class="nv">id</span><span class="p">))))</span>
+<span class="p">(</span><span class="nb">cond</span>
+<span class="p">((</span><span class="nf">eq</span> <span class="nf">format</span> <span class="ss">'html</span><span class="p">)</span> <span class="p">(</span><span class="nf">format</span> <span class="s">"&lt;a href=\"%s.html\"&gt;%s&lt;/a&gt;"</span> <span class="nv">p</span> <span class="nv">desc</span><span class="p">))</span>
+<span class="p">((</span><span class="nf">eq</span> <span class="nf">format</span> <span class="ss">'latex</span><span class="p">)</span> <span class="p">(</span><span class="nf">format</span> <span class="s">"\\href{%s}{%s}"</span> <span class="p">(</span><span class="nv">replace-regexp-in-string</span> <span class="s">"[\\{}$%&amp;_#~^]"</span> <span class="s">"\\\\\\&amp;"</span> <span class="nv">path</span><span class="p">)</span> <span class="nv">desc</span><span class="p">))</span>
+<span class="p">((</span><span class="nf">eq</span> <span class="nf">format</span> <span class="ss">'texinfo</span><span class="p">)</span> <span class="p">(</span><span class="nf">format</span> <span class="s">"@uref{%s,%s}"</span> <span class="nv">path</span> <span class="nv">desc</span><span class="p">))</span>
+<span class="p">((</span><span class="nf">eq</span> <span class="nf">format</span> <span class="ss">'ascii</span><span class="p">)</span> <span class="p">(</span><span class="nf">format</span> <span class="s">"[%s] &lt;denote:%s&gt;"</span> <span class="nv">desc</span> <span class="nv">path</span><span class="p">))</span> <span class="c1">; NOTE 2022-06-16: May be tweaked further</span>
+<span class="p">((</span><span class="nf">eq</span> <span class="nf">format</span> <span class="ss">'md</span><span class="p">)</span> <span class="p">(</span><span class="nv">my/denote-markdown-export</span> <span class="nv">link</span> <span class="nv">desc</span><span class="p">))</span>
+<span class="p">(</span><span class="no">t</span> <span class="nv">path</span><span class="p">))))</span>
+<span class="p">(</span><span class="nb">defun</span> <span class="nv">my/denote-markdown-export</span> <span class="p">(</span><span class="nv">link</span> <span class="nv">desc</span><span class="p">)</span>
+<span class="s">"Format the way Denote links are exported to markdown.
+</span><span class="s"> If LINK is considered private or a draft, return DESC.
+</span><span class="s"> If LINK is considered a public note, format it as a Hugo relative link. "</span>
+<span class="p">(</span><span class="nb">let</span> <span class="p">((</span><span class="nv">path</span> <span class="p">(</span><span class="nv">denote-get-path-by-id</span> <span class="nv">link</span><span class="p">)))</span>
+<span class="p">(</span><span class="nb">if</span> <span class="p">(</span><span class="nv">not</span> <span class="p">(</span><span class="nf">string-match</span> <span class="s">"/blog"</span> <span class="nv">path</span><span class="p">))</span>
+<span class="p">(</span><span class="nf">format</span> <span class="s">"%s"</span> <span class="nv">desc</span><span class="p">)</span>
+<span class="p">(</span><span class="nb">if</span> <span class="p">(</span><span class="nf">string-match</span> <span class="s">"_draft"</span> <span class="nv">path</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">format</span> <span class="s">"%s"</span> <span class="nv">desc</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">format</span> <span class="s">"[%s]({{&lt; relref \"%s\" &gt;}})"</span>
+<span class="nv">desc</span>
+<span class="p">(</span><span class="nv">denote-sluggify-title</span>
+<span class="p">(</span><span class="nv">denote-retrieve-filename-title</span> <span class="nv">path</span><span class="p">)))))))</span>
+<span class="p">(</span><span class="nv">org-link-set-parameters</span> <span class="s">"denote"</span> <span class="nb">:export</span> <span class="nf">#'</span><span class="nv">my/denote-link-ol-export</span><span class="p">)</span>
+</code></pre></div><p>With that, I am able to covert the following Org-Mode links:</p>
+<div class="highlight"><pre class="chroma"><code class="language-org" data-lang="org">This is a private note: [[<span class="na">denote:20230708T141810</span>][<span class="nt">Books</span>]]
+This is a draft blog post: [[<span class="na">denote:20240323T143034</span>][<span class="nt">Hacking on Denote and Hugo</span>]]
+This is a published blog post: [[<span class="na">denote:20231104T134226</span>][<span class="nt">A DWIM fullscreen function for Emacs and Sway</span>]]
+</code></pre></div><p>Into this Markdown in which only public notes are exported:</p>
+<div class="highlight"><pre class="chroma"><code class="language-markdown" data-lang="markdown">This is a private note: Books
+This is a draft blog post: Hacking on Denote and Hugo
+This is a published blog post: [<span class="nt">A DWIM fullscreen function for Emacs and Sway</span>](<span class="na">{{&lt; relref "a-dwim-fullscreen-function-for-emacs-and-sway" &gt;}}</span>)
+</code></pre></div><h2 id="moving-between-the-three-stages">Moving between the three stages</h2>
+<p>The following code requires Denote version 2.3.0 as <code>my/insert-hugo-export-file-name</code> makes use of the <code>denote-sluggify-title</code>, if you are using an earlier version of Denote, you can replace that function with <code>denote-sluggify</code>.</p>
+<p>Changing a note from a draft is quite simple.
+<code>my/denote-convert-note-to-blog-post</code> is a wrapper for simple functions that do the following:</p>
+<ol>
+<li>Move file to <code>/blog</code> subdirectory</li>
+<li>Add Denote keyword <strong>draft</strong></li>
+<li>Add <code>#+hugo_draft: t</code> to file metadata</li>
+<li>Sluggify Denote title and add <code>#+export_file_name</code> to file metadata</li>
+</ol>
+
+<div class="highlight"><pre class="chroma"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span class="p">(</span><span class="nb">defun</span> <span class="nv">my/insert-hugo-draft-status</span> <span class="p">()</span>
+<span class="s">"Add metadata to current org-mode file marking it as a Hugo draft."</span>
+<span class="p">(</span><span class="nb">save-excursion</span>
+<span class="p">(</span><span class="nf">goto-char</span> <span class="mi">0</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">search-forward</span> <span class="s">"filetags"</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">end-of-line</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">insert</span> <span class="s">"\n#+hugo_draft: t "</span><span class="p">)))</span>
+<span class="p">(</span><span class="nb">defun</span> <span class="nv">my/insert-hugo-export-file-name</span> <span class="p">()</span>
+<span class="s">"Add metadata to current org-mode file containing export file name.
+</span><span class="s"> Export File Name is returned by </span><span class="ss">`denote-retrieve-title-value'</span><span class="s">."</span>
+<span class="p">(</span><span class="nb">save-excursion</span>
+<span class="p">(</span><span class="nf">goto-char</span> <span class="mi">0</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">search-forward</span> <span class="s">"filetags"</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">end-of-line</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">insert</span> <span class="p">(</span><span class="nf">format</span>
+<span class="s">"\n#+export_file_name: %s.md"</span>
+<span class="p">(</span><span class="nv">denote-sluggify-title</span>
+<span class="p">(</span><span class="nv">denote-retrieve-title-value</span> <span class="nf">buffer-file-name</span> <span class="ss">'org</span><span class="p">))))))</span>
+<span class="p">(</span><span class="nb">defun</span> <span class="nv">my/move-current-buffer-file-to-subdirectory</span> <span class="p">(</span><span class="nv">subdirectory</span><span class="p">)</span>
+<span class="s">"Move file of current buffer to SUBDIRECTORY seamlessy.
+</span><span class="s"> There should be no discernable difference in the buffer's appearance."</span>
+<span class="p">(</span><span class="nb">let</span> <span class="p">((</span><span class="nv">input-file</span> <span class="p">(</span><span class="nf">buffer-file-name</span><span class="p">))</span>
+<span class="p">(</span><span class="nv">output-file</span> <span class="p">(</span><span class="nf">concat</span> <span class="p">(</span><span class="nv">denote-directory</span><span class="p">)</span>
+<span class="nv">subdirectory</span>
+<span class="p">(</span><span class="nv">file-relative-name</span> <span class="p">(</span><span class="nf">buffer-file-name</span><span class="p">))))</span>
+<span class="p">(</span><span class="nv">window-pos</span> <span class="p">(</span><span class="nf">window-start</span><span class="p">))</span>
+<span class="p">(</span><span class="nv">cursor-pos</span> <span class="p">(</span><span class="nf">point</span><span class="p">)))</span>
+<span class="p">(</span><span class="nv">save-buffer</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">rename-file</span> <span class="nv">input-file</span> <span class="nv">output-file</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">find-file</span> <span class="nv">output-file</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">set-window-start</span> <span class="p">(</span><span class="nf">selected-window</span><span class="p">)</span> <span class="nv">window-pos</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">goto-char</span> <span class="nv">cursor-pos</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">kill-buffer</span> <span class="p">(</span><span class="nf">get-file-buffer</span> <span class="nv">input-file</span><span class="p">))))</span>
+<span class="p">(</span><span class="nb">defun</span> <span class="nv">my/denote-convert-note-to-blog-post</span> <span class="p">()</span>
+<span class="s">"Mark file of current Denote buffer to be marked as a draft blog post."</span>
+<span class="p">(</span><span class="nb">interactive</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">my/move-current-buffer-file-to-subdirectory</span> <span class="s">"blog/"</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">denote-keywords-add</span> <span class="o">'</span><span class="p">(</span><span class="s">"draft"</span><span class="p">))</span>
+<span class="p">(</span><span class="nv">my/insert-hugo-draft-status</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">my/insert-hugo-export-file-name</span><span class="p">))</span>
+</code></pre></div><p>To change a note from a draft to a public note, <code>my/denote-publish-hugo-post</code> is another wrapper around simple functions that do the following:</p>
+<ol>
+<li>Format current date and add <code>#+hugo_publishdate</code> to file metadata</li>
+<li>Remove Org-Mode <strong>draft</strong> tag</li>
+<li>Remove <code>#+hugo_draft: t</code> from file metadata</li>
+<li>Rename file and remove <strong>draft</strong> from Denote keywords</li>
+</ol>
+
+<div class="highlight"><pre class="chroma"><code class="language-emacs-lisp" data-lang="emacs-lisp"> <span class="p">(</span><span class="nb">defun</span> <span class="nv">my/insert-hugo-published-date</span> <span class="p">()</span>
+<span class="s">"Format the current date and add it to Org-Mode metadata."</span>
+<span class="p">(</span><span class="nb">save-excursion</span>
+<span class="p">(</span><span class="nf">goto-char</span> <span class="mi">0</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">search-forward</span> <span class="s">"filetags"</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">end-of-line</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">insert</span> <span class="p">(</span><span class="nf">concat</span> <span class="s">"\n#+hugo_publishdate: "</span><span class="p">(</span><span class="nf">format-time-string</span> <span class="s">"%Y-%m-%d"</span><span class="p">)))))</span>
+<span class="p">(</span><span class="nb">defun</span> <span class="nv">my/denote-remove-draft-tag-from-metadata</span> <span class="p">()</span>
+<span class="s">"Remove \"draft\" tag from Org-Mode metadata."</span>
+<span class="p">(</span><span class="nb">save-excursion</span>
+<span class="p">(</span><span class="nf">goto-char</span> <span class="mi">0</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">search-forward</span> <span class="s">"filetags"</span><span class="p">)</span>
+<span class="p">(</span><span class="nb">when</span> <span class="p">(</span><span class="nv">search-forward-regexp</span> <span class="s">":draft\\|draft:"</span> <span class="p">(</span><span class="nf">line-end-position</span><span class="p">)</span> <span class="no">t</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">replace-match</span> <span class="s">""</span><span class="p">)</span>
+<span class="p">(</span><span class="nb">when</span> <span class="p">(</span><span class="nb">and</span> <span class="p">(</span><span class="nf">looking-at</span> <span class="s">":$\\|: "</span><span class="p">)</span> <span class="p">(</span><span class="nv">looking-back</span> <span class="s">" "</span><span class="p">))</span>
+<span class="p">(</span><span class="nf">delete-char</span> <span class="mi">1</span><span class="p">)))))</span>
+<span class="p">(</span><span class="nb">defun</span> <span class="nv">my/denote-remove-hugo-draft-status</span> <span class="p">()</span>
+<span class="s">"Remove Hugo draft entry from Org-Mode metadata."</span>
+<span class="p">(</span><span class="nb">save-excursion</span>
+<span class="p">(</span><span class="nf">goto-char</span> <span class="mi">0</span><span class="p">)</span>
+<span class="p">(</span><span class="nb">when</span> <span class="p">(</span><span class="nf">search-forward</span> <span class="s">"#+hugo_draft: t"</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">beginning-of-line</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">kill-line</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">kill-line</span><span class="p">))))</span>
+<span class="p">(</span><span class="nb">defun</span> <span class="nv">my/denote-remove-keyword-from-filename</span> <span class="p">(</span><span class="nv">keyword</span><span class="p">)</span>
+<span class="s">"Remove Denote keyword \"draft\" from filename of current file."</span>
+<span class="p">(</span><span class="nv">denote-rename-file</span> <span class="nf">buffer-file-name</span>
+<span class="p">(</span><span class="nv">denote-retrieve-filename-title</span> <span class="nf">buffer-file-name</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">delete</span> <span class="nv">keyword</span>
+<span class="p">(</span><span class="nv">denote-retrieve-keywords-value</span>
+<span class="nf">buffer-file-name</span> <span class="ss">'org</span><span class="p">))</span>
+<span class="no">nil</span><span class="p">))</span>
+<span class="p">(</span><span class="nb">defun</span> <span class="nv">my/denote-publish-hugo-post</span> <span class="p">()</span>
+<span class="s">"Mark file of current </span><span class="ss">`denote'</span><span class="s"> buffer to be published as a blog post."</span>
+<span class="p">(</span><span class="nb">interactive</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">my/insert-hugo-published-date</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">my/denote-remove-hugo-draft-status</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">my/denote-remove-draft-tag-from-metadata</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">my/denote-remove-keyword-from-filename</span> <span class="s">"draft"</span><span class="p">))</span>
+</code></pre></div><h2 id="conclusion">Conclusion</h2>
+<p>Are these tweaks going to make me a prolific blogger?
+Probably not, but they gave me a good opportunity to craft a comfy setup while also practising some Emacs Lisp.</p>

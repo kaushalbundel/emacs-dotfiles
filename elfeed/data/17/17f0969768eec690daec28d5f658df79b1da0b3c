@@ -1,0 +1,452 @@
+<p>Rings — fixed sized variables acting as circular
+buffers — are a beautiful idea: one day I will eventually write
+something about how undoing changes is handled in Emacs with the
+<a href="https://www.gnu.org/software/emacs/manual/html_node/emacs/Undo.html">undo-ring</a>. I find outrageous that other editors have not
+followed the same idea.
+</p>
+
+<p>The mark ring itself is an amazingly simple idea: it is just a
+variable storing buffer positions. Around it, there are of course
+functions for pushing and pulling data, functions for browsing the
+stored positions, packages for making all of this even more convenient
+and the like. But the foundation is just that: a variable.<br />
+While I’m writing this post, the content of my <code class="language-plaintext highlighter-rouge">mark-ring</code> is:</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">M-x</span> <span class="nv">describe-variable</span> <span class="nv">&lt;RET&gt;</span> <span class="nv">mark-ring</span> <span class="nv">&lt;RET&gt;</span>
+
+<span class="p">(</span><span class="err">#</span><span class="nv">&lt;marker</span> <span class="nv">at</span> <span class="mi">2080</span> <span class="nv">in</span> <span class="nv">2024-03-17-emacs-navigate-back.md&gt;</span>
+ <span class="err">#</span><span class="nv">&lt;marker</span> <span class="nv">at</span> <span class="mi">2080</span> <span class="nv">in</span> <span class="nv">2024-03-17-emacs-navigate-back.md&gt;</span>
+ <span class="err">#</span><span class="nv">&lt;marker</span> <span class="nv">at</span> <span class="mi">2074</span> <span class="nv">in</span> <span class="nv">2024-03-17-emacs-navigate-back.md&gt;</span>
+ <span class="err">#</span><span class="nv">&lt;marker</span> <span class="nv">at</span> <span class="mi">2074</span> <span class="nv">in</span> <span class="nv">2024-03-17-emacs-navigate-back.md&gt;</span>
+ <span class="err">#</span><span class="nv">&lt;marker</span> <span class="nv">at</span> <span class="mi">2074</span> <span class="nv">in</span> <span class="nv">2024-03-17-emacs-navigate-back.md&gt;</span>
+ <span class="err">#</span><span class="nv">&lt;marker</span> <span class="nv">at</span> <span class="mi">1696</span> <span class="nv">in</span> <span class="nv">2024-03-17-emacs-navigate-back.md&gt;</span>
+ <span class="err">#</span><span class="nv">&lt;marker</span> <span class="nv">at</span> <span class="mi">1195</span> <span class="nv">in</span> <span class="nv">2024-03-17-emacs-navigate-back.md&gt;</span>
+ <span class="err">#</span><span class="nv">&lt;marker</span> <span class="nv">at</span> <span class="mi">1516</span> <span class="nv">in</span> <span class="nv">2024-03-17-emacs-navigate-back.md&gt;</span>
+ <span class="err">#</span><span class="nv">&lt;marker</span> <span class="nv">at</span> <span class="mi">1447</span> <span class="nv">in</span> <span class="nv">2024-03-17-emacs-navigate-back.md&gt;</span>
+ <span class="err">#</span><span class="nv">&lt;marker</span> <span class="nv">at</span> <span class="mi">1392</span> <span class="nv">in</span> <span class="nv">2024-03-17-emacs-navigate-back.md&gt;</span>
+ <span class="err">#</span><span class="nv">&lt;marker</span> <span class="nv">at</span> <span class="mi">1379</span> <span class="nv">in</span> <span class="nv">2024-03-17-emacs-navigate-back.md&gt;</span>
+ <span class="err">#</span><span class="nv">&lt;marker</span> <span class="nv">at</span> <span class="mi">1056</span> <span class="nv">in</span> <span class="nv">2024-03-17-emacs-navigate-back.md&gt;</span>
+ <span class="err">#</span><span class="nv">&lt;marker</span> <span class="nv">at</span> <span class="mi">1042</span> <span class="nv">in</span> <span class="nv">2024-03-17-emacs-navigate-back.md&gt;</span>
+ <span class="err">#</span><span class="nv">&lt;marker</span> <span class="nv">at</span> <span class="mi">1206</span> <span class="nv">in</span> <span class="nv">2024-03-17-emacs-navigate-back.md&gt;</span>
+ <span class="err">#</span><span class="nv">&lt;marker</span> <span class="nv">at</span> <span class="mi">1237</span> <span class="nv">in</span> <span class="nv">2024-03-17-emacs-navigate-back.md&gt;</span>
+ <span class="err">#</span><span class="nv">&lt;marker</span> <span class="nv">at</span> <span class="mi">1224</span> <span class="nv">in</span> <span class="nv">2024-03-17-emacs-navigate-back.md&gt;</span>
+ <span class="err">#</span><span class="nv">&lt;marker</span> <span class="nv">at</span> <span class="mi">1056</span> <span class="nv">in</span> <span class="nv">2024-03-17-emacs-navigate-back.md&gt;</span>
+ <span class="err">#</span><span class="nv">&lt;marker</span> <span class="nv">at</span> <span class="mi">904</span> <span class="nv">in</span> <span class="nv">2024-03-17-emacs-navigate-back.md&gt;</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>As you see, it is just a list of objects referencing a buffer and
+a position.<br />
+The mark ring is used as a storage for the historical values of
+marks. Marks, on their side, are positions that you intentionally
+asked Emacs to keep a memory of — or that Emacs, before some
+operations, decided to mark on its initiative.<br />
+There is a notion of the <em>current</em> mark, which you can inspect evaluating
+<code class="language-plaintext highlighter-rouge">(mark)</code>. Whenever the mark changes, its old value is pushed in the
+mark ring.<br />
+If your head already spins, don’t despair. It’s easier than it
+seems. Think of Git.</p>
+
+<h2 id="like-git">Like Git</h2>
+<p>I find the relation between the cursor, the mark and the mark ring
+similar to what happens with Git with the worktree, the index and the
+repository. This is wonderfully represented in this interactive
+<a href="https://ndpsoftware.com/git-cheatsheet.html?utm_source=pocket_saves#loc=index">Git Cheatsheet</a>. For Emacs we have something similar
+(and way simpler):</p>
+
+<p><img alt="Change me" src="http://arialdomartini.github.io//static/img/emacs/mark-ring/mark-ring.svg" title="No title" /></p>
+
+<h2 id="just-going-back">Just Going Back</h2>
+<p>So you have variable to store a history of marked position. The basic
+idea is:</p>
+
+<ul>
+  <li>You store a position for future use.</li>
+  <li>You move around.</li>
+  <li>When you want to get back on your tracks, you pull the position out
+of the history.</li>
+</ul>
+
+<p>Here is the basic usage:</p>
+
+<ul>
+  <li>Whenever you want to leave a breadcrumb, use <code class="language-plaintext highlighter-rouge">C-SPC
+(set-mark-command)</code>. Hit it twice: the first time it will start
+selecting text (in Emacs lingo: it will <em>activate the mark</em>). Here
+we don’t want to select anything: we just want to write a position
+down in the history.
+<code class="language-plaintext highlighter-rouge">C-SPC (set-mark-command)</code> updates the current mark and <em>pushes</em> the
+previous a value in the mark ring, in fact creating a history of
+positions.</li>
+  <li>If <code class="language-plaintext highlighter-rouge">C-SPC</code> saves a position, it should not come as a surprise that
+prefixing it with <code class="language-plaintext highlighter-rouge">C-u</code> reverses the behavior. That’s a common
+pattern in Emacs: in general, <code class="language-plaintext highlighter-rouge">C-u (universal-argument)</code> is a way
+for starting inputing a numeric argument to a function; for many
+commands, as for <code class="language-plaintext highlighter-rouge">C-SPC</code>, it serves as a flag to deviate from the
+default behaviour.</li>
+  <li>Indeed: whenever you want to move back to the previous position,
+hit <code class="language-plaintext highlighter-rouge">C-u C-SPC</code>. Your cursor will be moved where the mark is, and
+the previous position will be popped out from the mark ring. In
+other words, with <code class="language-plaintext highlighter-rouge">C-u C-SPC</code> you will be consuming the position history.</li>
+</ul>
+
+<p>Follow the diagram. It’s really easier done than said.</p>
+
+<p><code class="language-plaintext highlighter-rouge">C-u C-SPC</code> acts like VisualStudio’s and IntelliJ’s <code class="language-plaintext highlighter-rouge">Ctrl -</code> with a
+big difference: with VS and Idea, it is not that clear <em>when</em> new
+values are pushed in the position history; in Emacs you are in full
+control.<br />
+But this is, anyway, just the tip of the icebearg.</p>
+
+<h2 id="oh-my-consult">Oh, My Consult!</h2>
+<p>The position history is just a variable. You could expect that someone
+would eventually write packages to manipulate that variable in fancy
+ways. Amongst others, <a href="https://github.com/minad">Daniel Mendler</a> did that, with the
+amazing <a href="https://github.com/minad/consult">consult.el</a> library. To me, the most convenient way
+to operate with the mark ring is, hands-down, consult.el. Install it with:</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nb">use-package</span> <span class="nv">consult</span>
+  <span class="ss">:ensure</span> <span class="no">t</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>It will provide you with the command <code class="language-plaintext highlighter-rouge">consult-mark</code> which you can use
+to <em>browse</em> all the positions in the mark rink — not only the
+last one in a LIFO fashion — and to have a <em>real-time</em> preview
+of the content you would jump to.</p>
+
+<p>Do this experiment:</p>
+
+<ul>
+  <li>Open a large file.</li>
+  <li>Move around, and from time to time hit <code class="language-plaintext highlighter-rouge">C-SPC C-SPC</code> wherever
+you want to leave a breadcrumb.</li>
+  <li>When you have enough of this, run <code class="language-plaintext highlighter-rouge">M-x consult-mark</code>.</li>
+  <li>Try to move up and down, back and forth the history.</li>
+  <li>Search for a position in the mark ring by content.</li>
+</ul>
+
+<p>Never. Again. Without.</p>
+
+<h2 id="multi-cursors">Multi Cursors</h2>
+<p>Once you have some positions stored in the mark ring, there are other
+interesting things you can do.</p>
+
+<ul>
+  <li>Navigate around in a buffer and push some marks here and there
+ (<code class="language-plaintext highlighter-rouge">C-SPC C-SPC</code>).</li>
+  <li>Run <code class="language-plaintext highlighter-rouge">M-x mc/mark pop</code>. This will pop the last mark from the
+mark ring and add a second cursor there.</li>
+  <li>Run <code class="language-plaintext highlighter-rouge">M-x mc/mark pop</code> again. You will get a 3rd cursor, in the
+second to last position.</li>
+  <li>Stop when you wish.</li>
+  <li>Happy editing with multi-cursors!</li>
+</ul>
+
+<p>End your multi-cursors session with <code class="language-plaintext highlighter-rouge">C-g</code>.</p>
+
+<h2 id="setting-the-mark-elsewhere">Setting the mark elsewhere</h2>
+<p>So, <code class="language-plaintext highlighter-rouge">set-mark-command (C-SPC)</code> is the way to manually set a mark
+exactly where the cursor is. Is that all?<br />
+Of course not. There are many other functions that help setting the
+mark to other specific positions, for example after a word, at the end
+of the page or at the end of a function.</p>
+
+<p>In most of the applications, though, the mark is set for other reasons
+than just keeping a history of positions. In fact, in Emacs the mark
+is the foundation for defining a region, that is, for selecting
+text. In a sense, this ability to move back to previous positions is a
+byproduct of handling the region.</p>
+
+<h2 id="the-region">The Region</h2>
+<p>In the majority of editors, the <em>region</em>, or the <em>selection</em>, is the
+part of text that is temporarily highlighted, usually by the means of
+the mouse or using the arrows plus the Shift key.<br />
+In Emacs the region is way more powerful. As it often happens, this
+greater powers come from simpler foundations. Indeed, in Emacs the
+region is a trivial notion: it is just the part of buffer between the
+mark and the cursor.</p>
+
+<p>Why do I say this is more powerful? Think how to do the following
+tasks with an editor other than Emacs or Vim. Start selecting some
+text, then:</p>
+
+<ul>
+  <li>Use any of the editor’s search capabilities to find where to end the
+selection.</li>
+  <li>Consult another file while you are selecting.</li>
+  <li>Move the focus to another application, get back to your editor and
+expect to find the selection where you left it.</li>
+  <li>Complete the selection. Then, change idea where the selection
+should start.</li>
+</ul>
+
+<p>Those are all trivial tasks with Emacs. Possibly, just no possible
+with other editrs. If the other editors had to copy <em>one</em>
+functionality from Emacs, it should be this, hands down.</p>
+
+<p>Getting back to those commands that somehow save a position in the
+mark: given what we said about the region, it should come with no
+surprises that the majority of them also <em>activate</em> the region. For
+example, <code class="language-plaintext highlighter-rouge">mark-defun (C-M-h)</code> sets the mark at the end of a function
+<em>and</em> moves the point at its beginning. The final effect is, the whole
+function will be selected.<br />
+You can find a more complete list in the chapter <a href="https://www.gnu.org/software/emacs/manual/html_node/emacs/Marking-Objects.html">Marking
+Objects</a>.</p>
+
+<p>Knowing that <em>selecting</em> is about setting the the mark — so also
+about pushing the current value in the history — gives you the
+opportunity to perform some smart moves. For example:</p>
+
+<ul>
+  <li>Select the current function / paragraph with <code class="language-plaintext highlighter-rouge">mark-defun (C-M-h)</code>.</li>
+  <li>Notice that the cursor ended up being at the beginning of the
+function. The selection ends where the function ends.</li>
+  <li>Use <code class="language-plaintext highlighter-rouge">C-u C-SPC</code> to move to the function end.</li>
+  <li>Press <code class="language-plaintext highlighter-rouge">C-x C-x</code> multiple times: you will keep jumping between the
+beginning and the end of the function.</li>
+</ul>
+
+<p>If you’re not lacking creativity, you’ll eventually come up with a thousand clever uses for this feature.</p>
+
+<h2 id="invisible-region">Invisible Region</h2>
+<p>It might not be immediately clear, but when you pasted the text, it
+was <em>already</em> selected, although the selection was not
+highlighted. Emacs has got a very peculiar way of managing the
+selected text (the <em>region</em>): no matter if highlighted and visible,
+the region is always there. As we said, it is the part of text between
+the current cursor position and the most recent mark.</p>
+
+<p>This allows you to do tricks such as the following. Imagine you have
+the point here:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"parser-directories"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"/home/arialdo/prg/tree-sitter/"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+</span><span class="err">*POINT*</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>You paste some code:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"parser-directories"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"/home/arialdo/prg/tree-sitter/"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+</span><span class="nl">"theme"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"attribute"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"color"</span><span class="p">:</span><span class="w"> </span><span class="mi">124</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"italic"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"constant.builtin"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"bold"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"color"</span><span class="p">:</span><span class="w"> </span><span class="mi">94</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>and you notice that the result is horribly indented. Since you know
+that the code you just pasted <em>is already selected</em> — the mark
+and the cursor do surround it — you can run commands
+that expect a region. Type <code class="language-plaintext highlighter-rouge">M-x indent-region RET</code> or just simply
+<code class="language-plaintext highlighter-rouge">C-M-\</code> and format it.</p>
+
+<p>We saw this trick in <a href="http://arialdomartini.github.io/emacs-surround">Emacs: Let’s Surround!</a> when
+talking about the region. You might be interested in finding a bit
+more details there.</p>
+
+<h2 id="mark-what">Mark what?</h2>
+<p>Here are some questions you might legimately ask yourself:</p>
+
+<ul>
+  <li>Can I mark a position in a dired buffer?</li>
+  <li>Can I mark a commit in the Magit’s Git log buffer?</li>
+  <li>What about marking a position in vterm while in vterm-copy-mode?</li>
+  <li>Emacs can open PDF and PNG files: can I mark them?</li>
+</ul>
+
+<p>Guess what? It’s a full house of “yes! yes! yes!”. Of course you can!
+Everything in Emacs is a text, everything lives a buffer. Why wouldn’t
+you be able to?</p>
+
+<p>This is, to me, the beauty of Emacs. It’s not the amount of plugins
+(<a href="https://marketplace.visualstudio.com/search?target=VSCode&amp;category=All%20categories&amp;sortBy=Installs">VS Code has 57202 extensions</a>, so what?). It’s not its
+alleged Operating System nature. To me, the reason why Emacs stands
+out as an engineering product is that it is built on top of <em>few</em> core
+building blocks, just a handful of <em>simple</em> notions that marvelously
+build upon each other consistently, seemlessly, elegantly, creating a
+cohesive structure.</p>
+
+<h3 id="note-to-myself-good-things-in-life-are-temporary">Note to myself: good things in life are temporary</h3>
+
+<p>Here’s a last question.</p>
+
+<ul>
+  <li>What if I mark a position and then I kill the buffer? Will Emacs resurrect it when jumping back?</li>
+</ul>
+
+<p>And here, for once, the answer is “no”. Marks are really meant to be
+volatile.<br />
+But don’t despair: there are other means to do this.</p>
+
+<h3 id="other-cases">Other Cases</h3>
+<p>There are other commands that automatically push the current cursor
+position in the mark ring before operating. A notable case is
+<code class="language-plaintext highlighter-rouge">switch-to-buffer (C-x b)</code>, the command you use to move to a different
+buffer. You will be happy to know that every times you jump to another
+file and you mark a new position, Emacs scrupulously saves that
+breadcrumb also in the global mark ring. This will allow you to jump
+back with <code class="language-plaintext highlighter-rouge">pop-global-mark (C-x C-SPC)</code>. And of course, consult.el has
+a command for browsing this: <code class="language-plaintext highlighter-rouge">consult-global-mark</code>.</p>
+
+<p>This brings me to the last topic: other than the local mark rings (one
+per buffer), there is a global mark ring. What is it for?</p>
+
+<h2 id="buffer-local-and-global-marks">Buffer Local and Global Marks</h2>
+<p>Each buffer keeps its own mark ring. This means that <code class="language-plaintext highlighter-rouge">mark-ring</code> is
+defined as a <em>buffer local</em> variable. You can verify that invoking
+<code class="language-plaintext highlighter-rouge">M-x describe-variable RET mark-ring RET</code> and then navigating to the
+source code:</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nv">defvar-local</span> <span class="nv">mark-ring</span> <span class="no">nil</span>
+  <span class="s">"The list of former marks of the current buffer, most recent first."</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>By default, <code class="language-plaintext highlighter-rouge">mark-ring</code> keeps the last <code class="language-plaintext highlighter-rouge">16</code> positions. But you can
+customize this setting <code class="language-plaintext highlighter-rouge">mark-ring-max</code>.</p>
+
+<p>As we just mentioned, there is also a global mark ring version, not
+surprisingly called <code class="language-plaintext highlighter-rouge">global-mark-ring</code>. Its maximum size is defined,
+guess what?, with <code class="language-plaintext highlighter-rouge">global-mark-ring-max</code>.</p>
+
+<p>A couple of legit questions are:</p>
+
+<ul>
+  <li>Is it possible to feed this global mark ring?</li>
+  <li>When a mark is pushed locally, is this also reflected in the global
+mark ring?</li>
+</ul>
+
+<p>The answer is <a href="https://www.germanwithnicole.com/blog/36225-jein-ja-nein">jein</a>! As usual, the manual is exhaustive:</p>
+
+<blockquote>
+  <p>Each time you set a mark, this is recorded in the global mark ring
+in addition to the current buffer’s own mark ring, 
+if you have switched buffers since the previous mark setting.</p>
+
+  <p>Hence, the global mark ring records a sequence of buffers that you
+have been in, and, for each buffer, a place where you set the mark</p>
+</blockquote>
+
+<p>To make it simple: as a modern Hansel &amp; Gretel, Emacs keeps
+dropping off a breadcrumb every time you ask it so; and every time you
+happen to be on a different path, if you mark the new trail, it will
+lay done a white stone, a special mark you can follow to track down
+your journey from a bird’s-eye perspective:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>global marks</td>
+      <td>⏺</td>
+      <td> </td>
+      <td> </td>
+      <td>⏺</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td>⏺</td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>local marks</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+      <td>○</td>
+    </tr>
+    <tr>
+      <td>buffer</td>
+      <td><strong><code class="language-plaintext highlighter-rouge">A</code></strong></td>
+      <td> </td>
+      <td> </td>
+      <td><strong><code class="language-plaintext highlighter-rouge">B</code></strong></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><strong><code class="language-plaintext highlighter-rouge">C</code></strong></td>
+      <td> </td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="a-bit-of-lisp">A bit of Lisp</h2>
+<p>If you are curious about how things <em>work</em> more than about how to
+<em>use</em> them (and it’s likely, if you spend time tinkering with Emacs)
+you might wonder: what does happen to the <code class="language-plaintext highlighter-rouge">mark-ring</code> variable when a
+value is pulled out of it? Is the <code class="language-plaintext highlighter-rouge">mark-ring</code> like a stack, that is
+progressively consumed as values are popped-out of it?</p>
+
+<p>You could display the point, the mark and the mark ring value with something like:</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nb">defun</span> <span class="nv">display-mark</span> <span class="p">()</span>
+  <span class="p">(</span><span class="nv">interactive</span><span class="p">)</span>
+  <span class="p">(</span><span class="nv">message</span> <span class="s">"%s -&gt; %s -&gt; %s"</span> <span class="p">(</span><span class="nv">point</span><span class="p">)</span> <span class="p">(</span><span class="nv">mark</span><span class="p">)</span> <span class="p">(</span><span class="nv">mark-ring-positions</span><span class="p">)))</span>
+
+<span class="p">(</span><span class="nb">defun</span> <span class="nv">mark-ring-positions</span> <span class="p">()</span>
+  <span class="p">(</span><span class="nb">mapcar</span>
+   <span class="p">(</span><span class="k">lambda</span> <span class="p">(</span><span class="nv">item</span><span class="p">)</span>
+     <span class="p">(</span><span class="nv">marker-position</span> <span class="nv">item</span><span class="p">))</span>
+   <span class="nv">mark-ring</span><span class="p">))</span>
+   
+<span class="p">(</span><span class="nv">keymap-set</span> <span class="nv">global-map</span> <span class="s">"C-c c"</span> <span class="ss">'display-mark</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Just hit <code class="language-plaintext highlighter-rouge">C-c c</code>. You will find that the mark ring is really a
+circular structure. When you pop a value out of it, you are not really
+consuming it: the ring will rotate so, as long as you don’t exceed
+<code class="language-plaintext highlighter-rouge">mark-ring-max</code> values, you will never loose information.</p>
+
+<h2 id="whats-next">What’s next?</h2>
+<p>Fantasizing how to improve the mark and its rings one could dream of
+some extra-functionalities:</p>
+
+<ul>
+  <li>Items in the history could be given a name so that they can be easily
+called back in any order.</li>
+  <li>Visiting back something that was killed should resurrect it.</li>
+  <li>Why to store positions only? Why not to store snippets of text too?</li>
+  <li>Now I come to think of it: <em>everything</em> is a text in Emacs? Why not
+to store keyboard macros in a history?</li>
+</ul>
+
+<p>Wouldn’t it be cool to have all of these features?<br />
+Enter Registers!</p>
+
+<p>(Thanks to <a href="https://protesilaos.com/coach/">Protesilaos</a> for the kind review).</p>
+
+<h1 id="references">References</h1>
+<ul>
+  <li><a href="https://github.com/minad/consult">consult.el</a></li>
+  <li><a href="https://www.gnu.org/software/emacs/manual/html_node/emacs/Mark.html">The Mark and the Region</a></li>
+  <li><a href="http://arialdomartini.github.io/lesser-known-bash-shortcuts">Lesser Known Bash shortcuts</a></li>
+  <li><a href="https://www.gnu.org/software/emacs/manual/html_node/emacs/Marking-Objects.html">Marking Objects - Emacs Manual</a></li>
+  <li><a href="http://arialdomartini.github.io/emacs-surround">Emacs: Let’s Surround!</a></li>
+  <li><a href="https://ndpsoftware.com/git-cheatsheet.html?utm_source=pocket_saves#loc=index">Git Cheatsheet</a></li>
+  <li><a href="https://www.gnu.org/software/emacs/manual/html_node/emacs/Undo.html">Undo</a></li>
+  <li><a href="https://github.com/minad">Daniel Mendler - GitHub</a></li>
+  <li><a href="https://www.germanwithnicole.com/blog/36225-jein-ja-nein">German with Nicole - Jein</a></li>
+  <li><a href="https://marketplace.visualstudio.com/search?target=VSCode&amp;category=All%20categories&amp;sortBy=Installs">Visual Studio Marketplace - Extensions for Visual Studio Code</a></li>
+  <li><a href="https://protesilaos.com/coach/">Protesilaos Stavrou</a></li>
+</ul>
+
+<h1 id="comments">Comments</h1>
+<p><a href="https://github.com/arialdomartini/arialdomartini.github.io/discussions/29">GitHub Discussions</a></p>

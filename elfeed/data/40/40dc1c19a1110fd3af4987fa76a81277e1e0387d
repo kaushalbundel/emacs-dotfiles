@@ -1,0 +1,52 @@
+<p>The <code class="language-plaintext highlighter-rouge">ef-rosa</code> theme is a highly accessible dark theme that mostly
+combines shades of magenta and green. It takes its name and overall
+impression from the <em>Rosa Canina</em> shrub.</p>
+
+<p>Sample pictures are posted below. Check all the items here:
+<a href="https://protesilaos.com/emacs/ef-themes-pictures">https://protesilaos.com/emacs/ef-themes-pictures</a>. Always <strong>click to
+enlarge the image</strong> for best results.</p>
+
+<h3>ef-rosa</h3>
+
+<p><a href="https://protesilaos.com/assets/images/ef/ef-rosa.png"><img alt="ef-rosa theme sample" src="https://protesilaos.com/assets/images/ef/ef-rosa.png" /></a></p>
+
+<p><a href="https://protesilaos.com/assets/images/ef/ef-rosa-git.png"><img alt="ef-rosa theme git sample" src="https://protesilaos.com/assets/images/ef/ef-rosa-git.png" /></a></p>
+
+<p><a href="https://protesilaos.com/assets/images/ef/ef-rosa-mail.png"><img alt="ef-rosa theme mail sample" src="https://protesilaos.com/assets/images/ef/ef-rosa-mail.png" /></a></p>
+
+<p><a href="https://protesilaos.com/assets/images/ef/ef-rosa-org.png"><img alt="ef-rosa theme org sample" src="https://protesilaos.com/assets/images/ef/ef-rosa-org.png" /></a></p>
+
+<h2>Coming in version 1.5.0 (next stable release)</h2>
+
+<p>As with <a href="https://protesilaos.com/codelog/2023-12-29-ef-arbutus/">the <code class="language-plaintext highlighter-rouge">ef-arbutus</code> theme that I announced a few days
+ago</a>,
+<code class="language-plaintext highlighter-rouge">ef-rosa</code> will be available in the next stable release of the
+<code class="language-plaintext highlighter-rouge">ef-themes</code>. I still plan to make a few more refinements to the
+project before publishing the new version.</p>
+
+<hr />
+
+<p>The <code class="language-plaintext highlighter-rouge">ef-themes</code> are a collection of light and dark themes for GNU Emacs
+whose goal is to provide colorful (“pretty”) yet legible options for
+users who want something with a bit more flair than the <code class="language-plaintext highlighter-rouge">modus-themes</code>
+(also designed by me).</p>
+
+<ul>
+  <li>Package name (GNU ELPA): <code class="language-plaintext highlighter-rouge">ef-themes</code></li>
+  <li>Official manual: <a href="https://protesilaos.com/emacs/ef-themes">https://protesilaos.com/emacs/ef-themes</a></li>
+  <li>Change log: <a href="https://protesilaos.com/emacs/ef-themes-changelog">https://protesilaos.com/emacs/ef-themes-changelog</a></li>
+  <li>Sample pictures: <a href="https://protesilaos.com/emacs/ef-themes-pictures">https://protesilaos.com/emacs/ef-themes-pictures</a></li>
+  <li>Git repo on SourceHut: <a href="https://git.sr.ht/~protesilaos/ef-themes">https://git.sr.ht/~protesilaos/ef-themes</a>
+    <ul>
+      <li>Mirrors:
+        <ul>
+          <li>GitHub: <a href="https://github.com/protesilaos/ef-themes">https://github.com/protesilaos/ef-themes</a></li>
+          <li>GitLab: <a href="https://gitlab.com/protesilaos/ef-themes">https://gitlab.com/protesilaos/ef-themes</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Mailing list: <a href="https://lists.sr.ht/~protesilaos/ef-themes">https://lists.sr.ht/~protesilaos/ef-themes</a></li>
+  <li>Backronym: Eclectic Fashion in Themes Hides Exaggerated Markings,
+Embellishments, and Sparkles.</li>
+</ul>

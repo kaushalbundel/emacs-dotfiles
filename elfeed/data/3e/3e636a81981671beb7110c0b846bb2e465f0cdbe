@@ -1,0 +1,27 @@
+<p>A friend of mine is very into keyboards and, after seeing his keyboards at work and admiring his Ergodox many times, I took the plunge and built my own. 152 solder joints later, I have this beauty:</p>
+<div class="img-container"><img src="/images/ergodox.jpg" alt="My Ergodox on my desk" /></div>
+<p>It took a few days to get used to it and in the process, I found a <a href="https://github.com/kiibohd/controller/issues/66">bug in layer switching</a>, which I <a href="https://github.com/kiibohd/controller/pull/156">contributed a fix for</a>. While fixing it, I came across some very cool <a href="https://github.com/kiibohd/controller/wiki/Debugging">debugging features</a> - the keyboard has a console which gives debug info and is very easy to connect to:</p>
+<pre data-lang="bash" class="language-bash "><code class="language-bash" data-lang="bash">screen &#x2F;dev&#x2F;tty.usbmodem1A12144
+</code></pre>
+<p>This console gives a lot of debugging information, and it turns out that it can show every key press! Neat, until you realize that <em>any</em> user of the system can also see every single key press. A non-privileged test user on my Mac<a href="#footnote-1"><sup> 1</sup></a> was able to read every key press I made while typing as my normal user.</p>
+<p>This is a huge breach of security. I routinely create accounts on my desktop for other people (my fiancée, my friends who are learning to code), so this is simply an unacceptable risk. This is present in keyboards built with custom firmware, but also on the firmware that ships with the keyboard or is downloaded from the <a href="https://configurator.input.club/">online configuration tool</a>.</p>
+<p>Fortunately, the firmware was created to be pretty modular, and it is easy to turn this functionality on or off by adding just a few define guards:</p>
+<pre data-lang="c" class="language-c "><code class="language-c" data-lang="c">#if defined(DEBUG)
+&#x2F;&#x2F; Enable CLI
+CLI_init();
+#endif
+
+&#x2F;&#x2F; ...
+
+#if defined(DEBUG)
+&#x2F;&#x2F; Process CLI
+CLI_process();
+#endif
+</code></pre>
+<p>What this does is turn off initialization and processing of the CLI. It is still there, sitting in the background - and there might still be more security risks with it - but the obvious attack vector is gone.</p>
+<p>On October 10, 2016, I submitted <a href="https://github.com/kiibohd/controller/issues/159">an issue</a> to address this, and a corresponding <a href="https://github.com/kiibohd/controller/pull/160">pull request</a>. Following a discussion with Haata (the maintainer of the firmware), we decided to pursue adding an option to have a security-hardened mode, as well as adding a passcode to enable to console on non-hardened keyboards.</p>
+<p>My personal recommendation is to apply my patch to your firmware if you are using OS X<a id="footnote-2"><sup>2</sup></a>. On Linux, you shouldn't have to patch anything immediately, since accessing the console requires sudo permissions.</p>
+<p>Stay posted for more updates! I hope to have the first pass at the security-hardened mode out during October, and hopefully the corresponding configurator changes can follow shortly after.</p>
+<p>+++</p>
+<p><a id="footnote-1"><sup>1</sup></a> I verified the issue exists on OS X, but it does not exist in Linux since you need root access to access the console. However, the documentation suggests adding a udev rule file which does give read permissions to everyone without sudo, so many Linux users are likely vulnerable.
+<a id="footnote-1"><sup>2</sup></a> You can get the patch from my pull request, it works and is only closed because it is not the long-term solution. I'm using it myself for now. If you need help, email me or tweet at me.</p>

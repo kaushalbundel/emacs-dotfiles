@@ -1,0 +1,40 @@
+<p>
+I wanted to add a bit to <a href="https://cestlaz.github.io/post/advent-2023-day-08/">yesterday&#39;s</a> post.</p>
+<p>
+Yesterday I wrote that for part 2 I just counted the cycles from each
+starting point. If you looked at my <a href="https://gitlab.com/zamansky/advent2023/-/blob/main/src/day08.clj?ref_type=heads">code</a> you&#39;d notice that I didn&#39;t
+actually do that.</p>
+<p>
+If you recall, nodes were identified by 3 letter codes. All nodes that
+end in an <code>A</code> like AAA or BBA are start nodes and all nodes that end
+in a <code>Z</code> are end nodes and we had to find the step, when starting
+simultaneously at all start nodes, that they all get to end nodes.</p>
+<p>
+To actually find a cycle for a given start point we&#39;d have to:</p>
+<ol>
+<li>Start at the start node</li>
+<li>Follow the path until you get to an end node</li>
+<li>Continue following until you get back to that first end node</li>
+</ol>
+<p>
+I didn&#39;t do that - my solution was simpler but it still
+worked. Further, if you read the problem statement, my solution
+shouldn&#39;t have worked for all cases.</p>
+<p>
+Why did I write it and why did it work?</p>
+<p>
+Because we were able to explore our data before solving the problem.</p>
+<p>
+That&#39;s another thing I liked about this problem.</p>
+<p>
+Sure, there are times when we&#39;re writing a program to solve for some
+unknown but often we have data, or at least some of the data and we
+can explore it to help shape our programs.</p>
+<p>
+In this case we can grab a start node and track it using our part 1
+solution, see how one or more &#34;path&#34; behaves and ultimately learn
+enough about the data to solve our problem.</p>
+<p>
+I don&#39;t know how often teachers get to work with students on problems
+where they can use data exploration to tune their solutions, This is a
+great example of one.</p>

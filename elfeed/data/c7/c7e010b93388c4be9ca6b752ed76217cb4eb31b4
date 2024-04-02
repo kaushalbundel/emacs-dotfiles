@@ -1,0 +1,75 @@
+
+<p>
+Today&#39;s a short 10 minute video as we continue to work on the emoji
+project.</p>
+<p>
+In the last episode we replaced text in the form :emoji-name: with the
+emoji. This time, we&#39;re doing it a little differently - we&#39;re going to
+overlay the text with the emoji. This way we see the emoji but the
+underlying text is still present. This is kind of like when
+programming in a language that supports <code>lambda</code>, in many editors you
+can type <code>lambda</code> but it appears as the symbol: λ (note that the
+previous symbol is not an emoji but was entered using the RFC1345
+input method).</p>
+<p>
+The important difference with this method is that when you save and
+later load the file, the original characters are still there the
+symbols are only visual sugar.</p>
+<p>
+We accomplish this overlaying with text properties. Specifically the
+<code>display</code> property. Here&#39;s a sample call:</p>
+<div class="src src-emacs-lisp">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="display:flex;"><span> (<span style="color:#a6e22e">put-text-property</span> beginning end <span style="color:#e6db74">&#39;display</span> <span style="color:#e6db74">&#34;WHAT TO DISPLAY&#34;</span>)</span></span></code></pre></div>
+</div>
+<p>
+The first two parameters - <code>beginning</code> and <code>end</code> form the region where
+you&#39;re setting the property. Recall that the upper left of a buffer is
+location 1 and it increments as you move into the document. So, for
+example, if your buffer had:</p>
+<div class="src src-text">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Here are a couple of lines of
+</span></span><span style="display:flex;"><span>text in an emacs buffer</span></span></code></pre></div>
+</div>
+<p>
+and we used this call:</p>
+<div class="src src-emacs-lisp">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="display:flex;"><span> (<span style="color:#a6e22e">put-text-property</span> <span style="color:#ae81ff">6</span> <span style="color:#ae81ff">9</span> <span style="color:#e6db74">&#39;display</span> <span style="color:#e6db74">&#34;OVERLAY&#34;</span>)</span></span></code></pre></div>
+</div>
+<p>
+your buffer would look like this:</p>
+<div class="src src-text">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Here OVERLAY a couple of lines of
+</span></span><span style="display:flex;"><span>text in an emacs buffer</span></span></code></pre></div>
+</div>
+<p>
+If you add text before OVERLAY it shifts over just as the original
+text would. If you save the buffer though, the original text (are) is
+what&#39;s saved.</p>
+<p>
+It&#39;s pretty cool.</p>
+<p>
+The video shows how we can use this to overlay our emojis.</p>
+<p>
+Next time, we&#39;ll turn it into a mode.</p>
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+Code:
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>
+The code for the series is still up here:</p>
+<ul>
+<li><a href="https://gitlab.com/zamansky/learning-elisp-code">https://gitlab.com/zamansky/learning-elisp-code</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+The videos:
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/x9eFxYS-hzw?si=BGFC_bmYJlDYqex6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<p>
+Video link: <a href="https://www.youtube.com/watch?v=x9eFxYS-hzw">https://www.youtube.com/watch?v=x9eFxYS-hzw</a></p>
+</div>
+</div>

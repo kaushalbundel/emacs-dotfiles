@@ -1,0 +1,84 @@
+<p><em><a href="https://www.amazon.com/How-Big-Things-Get-Done-ebook/dp/B0B3HS4C98/">How Big Things Get Done</a> by Bent Flyvbjerg and Dan Gardner is a fascinating look at why some <a href="https://en.wikipedia.org/wiki/Megaproject">megaprojects</a> fail so resoundingly and why others succeed under budget and under schedule. It&rsquo;s an exploration of planning methods, the role of expertise, the value of benchmarking similar projects, and much more. Not directly software engineering related, but very relevant to the work. Also, just well written.</em></p>
+<h2 id="think-slow-act-fast">&ldquo;Think slow, act fast&rdquo;</h2>
+<p>It&rsquo;s fine for planning to be slow (p17), as long as delivery is fast.
+Each moment during delivery (the actual execution of a task) is a moment
+something can go wrong, so condensing that timeline is essential to reduce risk.
+That is of course, actually condensing the timeline, not just lying about it
+as discussed in the &ldquo;Honest Numbers&rdquo; section below.</p>
+<p>Planning phase is preferable to delivery phase because (p18)
+&ldquo;the costs of iteration are relatively low&rdquo; during planning.
+The example of Pixar is used, where they storyboard films up to eight times
+before moving into delivery phase. This is a large investment, but it&rsquo;s a much
+cheaper investment than making a bad film.</p>
+<p>It&rsquo;s also much easier to avoid &ldquo;lock in&rdquo;, which is premature commitment (p42)
+if you plan extensively before moving to delivery. Once you begin delivery,
+modifying the plan is quite challenging.
+To make this point, the authors make an extensive comparison between the building of the
+Sydney Opera House and the Bilbao Guggenheim Museum. The former changed plans frequently
+with massive delays, the later delivered ahead of time and under budget.
+(In part due to significant use of modeling for the Bilbao, discussed in &ldquo;Pixar Planning&rdquo; section below.)</p>
+<p>Also a good discussion of good planning starting from the end and reasoning backwards.
+Have a clear sense of why you&rsquo;re doing something before you try to solve it.
+There&rsquo;s a mention of Amazon&rsquo;s Press Releases (p52)&ndash;write a future internal press release as a mechanism to pitch your project&ndash;as
+one mechanism to support reasoning backwards.</p>
+<h2 id="pixar-planning">&ldquo;Pixar planning&rdquo;</h2>
+<p>The book argues that good planning is &ldquo;Pixar planning&rdquo; (p60),
+where you&rsquo;re able to iterate quickly and cheaply.
+The average Pixar film is storyboarded 8 times (p70) to cheaply explore improvements.</p>
+<p>This means that good planning requires modeling techniques, including modeling software(p68)
+as one technique, to support rapid, cheap exploration.
+The example of Frank Gehry extensively modeling out his buildings in simulation software
+is used to explore how he was able to deliver the Bilbao Guggenheim Museum so effectively.
+(A few years ago I played around with creating the <a href="https://lethain.com/modeling-hiring-funnel-systems/"><code>systems</code></a>
+library for modeling systems thinking problems, which was one of my experiments towards
+this end.)</p>
+<p>Finally, the book also observes that learning happens not only within projects but also across projects (p159).
+Solar and wind projects are significantly less risky than nuclear projects in part because solar and wind
+projects deploy hundreds or thousands modular units, rather than one very large unit. Even if some wind turbines
+are poorly designed or installed, they can learn from than for the next ones. Learning to build nuclear power plants
+is much harder, since so few of the projects occur.</p>
+<h2 id="dataset-of-projects">Dataset of projects</h2>
+<p>One fascinating idea, mentioned a number of times but not deeply explored, is that
+the authors have a &ldquo;database of big projects&rdquo; (p4) where they track the scope and outcome
+of various projects. This was initially 259 projects (p111), growing up to 16,000 projects over time.</p>
+<p>This is a remarkable resource because it makes it possible to benchmark projects against similar projects,
+referred to as &ldquo;reference-class forecasting&rdquo; (p109), or at least benchmark against <em>something</em>, &ldquo;reference point&rdquo; (p111).
+I&rsquo;ve been thinking a lot about <a href="https://lethain.com/benchmarking/">benchmarking</a> recently, and this is definitely
+something that furthere my interest.
+(This book also mentions <em><a href="https://www.amazon.com/Superforecasting-Science-Prediction-Philip-Tetlock/dp/0804136718">Superforecasting</a></em>
+a handful of times, so I&rsquo;ve ordered a copy of that to take notes from as well.)</p>
+<h2 id="things-can-be-inexperienced">Things can be inexperienced</h2>
+<p>This book says something I&rsquo;ve understood for a while but never articulated clearly,
+which is that <em>things</em> can be inexperienced, such like people can (p86).
+They use the example of a potato peeler that cuts your fingers when you use it,
+which you replace with iterations of better potatoe peelers than are less likely
+to cut your fingers. The final edition is an experienced thing, whose design incorporates
+significant learning into it.</p>
+<p>You could probably write an entire book on just that idea alone. Perhaps combined
+with the observation that we often lose sight of why things work.
+Perhaps that book is <em><a href="https://www.amazon.com/Design-Everyday-Things-Revised-Expanded/dp/0465050654">The Design of Everyday Things</a></em>.</p>
+<h2 id="honest-numbers">&ldquo;Honest Numbers&rdquo;</h2>
+<p>I also appreciated the discussion of &ldquo;honest numbers&rdquo; (p3), which is really a discussion
+about <em>dishonest numbers</em> and how they justify many projects. A recurring theme in the book
+is that many leaders deliberately misinform stakeholders about potential costs in order to
+build commitment, reach a point of no return, and then acknowledge the full costs.</p>
+<p>This is eloquently captured in a quote from Willie Brown (p35):</p>
+<blockquote>
+<p>In the world of civic projects, the first budget is really just a down payment.
+If people knew the real cost from the start, nothing would ever be approved.&quot;</p>
+</blockquote>
+<p>This idea, termed &ldquo;strategic misrepresentation&rdquo; (p26), reminds me of a poor joke I sometimes tell, which is that &ldquo;Vice Presidents never
+miss their targets, they just move the targets to what they accomplish.&rdquo; Holding the powerful
+to account is difficult, even if they are acting in good faith, and when they&rsquo;re acting in
+bad faith, then it&rsquo;s remarkably challenging.</p>
+<p>This is an important issue, because often the parties who make the commitment
+aren&rsquo;t the ones who are stuck paying it off (p38):</p>
+<blockquote>
+<p>Drapeau got his Olypmics. And although it took more than thirty years for Montreal
+to pay off the mountain of debt, the onus was on the taxpayers of Montreal and Quebec.
+Drapeau wasn&rsquo;t even voted out of office.</p>
+</blockquote>
+<p>Incentives are hard, and harder still when there&rsquo;s not possibility for accountability,
+as is often the case for politics.</p>
+<hr>
+<p>Altogether, a quick and interesting book. Well worth a read.</p>

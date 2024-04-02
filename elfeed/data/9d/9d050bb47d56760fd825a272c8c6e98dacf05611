@@ -1,0 +1,80 @@
+
+<p>
+Another short one today. We&#39;re taking the code we already wrote and
+making a minor mode out of it.</p>
+<p>
+In Emacs, a minor mode is a set of functionality that you can turn on
+(or off) in a buffer (or globally). For example, the built in
+<code>auto-fill-mode</code> can be turned on in a buffer will automatically add
+newlines when your line gets &#34;too long.&#34; You can see the modes that
+you currently have on using the <code>describe-mode</code> function, usually
+bound to <code>C-h m</code>. I also currently have <code>Hungry-Delete</code> mode as well
+as <code>Flyspell</code> and a few others. Hungry-Delete automatically deletes
+multiple whitespace characters all at once so if I have five spaces
+between words, I can just delete or kill once and they&#39;ll all go
+away. Flyspell adds auto spell checking.</p>
+<p>
+Minor modes can be turned on manually using <code>M-x whatever-mode</code>
+command which toggles whatever mode on and off or automatically based
+on hooks. For example, when you load a C file, I go into c mode which
+is a major mode (more about them some other time) as well as these
+minor modes:</p>
+<ul>
+<li>Auto-Save</li>
+<li>Corfu</li>
+<li>Eglot–Managed</li>
+<li>Eldoc</li>
+<li>Flymake</li>
+<li>Font-Lock</li>
+<li>Hungry-Delete</li>
+<li>Yas</li>
+</ul>
+<p>Here&#39;s specific code we go over in the video to turn on and off our new
+mode:</p>
+<div class="src src-emacs-lisp">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="display:flex;"><span>(define-minor-mode emoji-replace-mode
+</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#34;fill in the docstring later&#34;</span>
+</span></span><span style="display:flex;"><span> :lighter <span style="color:#e6db74">&#34; ER&#34;</span>
+</span></span><span style="display:flex;"><span> (if emoji-replace-mode
+</span></span><span style="display:flex;"><span> (add-hook <span style="color:#e6db74">&#39;after-change-functions</span> <span style="color:#a6e22e">#&#39;</span>emoji-replace-insert <span style="color:#66d9ef">nil</span> <span style="color:#66d9ef">t</span>)
+</span></span><span style="display:flex;"><span> (remove-hook <span style="color:#e6db74">&#39;after-change-functions</span> <span style="color:#a6e22e">#&#39;</span>emoji-replace-insert)))</span></span></code></pre></div>
+</div>
+<p>
+The macro <code>define-minor-mode</code> does all the magic. The key is that it
+defines a &#34;mode variable&#34; - in this case named <code>emoji-replace-mode</code>
+which tells us if we&#39;re turning the mode on or off. Based on that, we
+either add or remove our hook. The <strong>:lighter &#34; ER&#34;</strong> sets what to show
+in the mode line.</p>
+<p>
+We&#39;re just scratching the surface today - just setting up the
+basics. Later we&#39;ll see how to clean up the variables we need for the
+mode - specifically our list of emojis as well as how we can select
+either of our emoji replacement methods - overlay a text property or
+replace the text. We&#39;ll also see about setting up key combos for a
+mode in our next elisp project.</p>
+<p>
+That&#39;s it for today.</p>
+<p>
+Enjoy.</p>
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+Code:
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>
+The code for the series is still up here:</p>
+<ul>
+<li><a href="https://gitlab.com/zamansky/learning-elisp-code">https://gitlab.com/zamansky/learning-elisp-code</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+The videos:
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/YBV9czwq-nw?si=6KV1To4h38Mr977C" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<p>
+Video link: <a href="https://www.youtube.com/watch?v=YBV9czwq-nw">https://www.youtube.com/watch?v=YBV9czwq-nw</a></p>
+</div>
+</div>

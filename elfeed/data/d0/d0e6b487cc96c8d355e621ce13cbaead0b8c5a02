@@ -1,0 +1,51 @@
+<p>Recently, I&rsquo;ve thinking about where I want to focus my angel investing in 2024,
+and decided to document my thinking about value accumulation in artificial intelligence
+because it explains the shape of my interest&ndash;or lack thereof&ndash;in investing in artificial
+intelligence tooling. I&rsquo;ll describe my understanding of the current state, how I think it&rsquo;ll
+evolve over the next 1-3 years, and then end with how that shapes what I&rsquo;m investing in.</p>
+<p>My view on the the state of play today:</p>
+<ol>
+<li>There are three fundamental components: <em>Infrastructure</em> (cloud providers, NVIDIA, etc),
+<em>Modeling &amp; Core</em> (OpenAI, Anthropic, etc), and <em>AI-enhanced products</em> (Github Copilot, etc)</li>
+<li>Today there&rsquo;s significant value being captured in the <em>Modeling &amp; Core</em> layer,
+and many new companies attempting to compete in that tier. Valuations in this tier
+are extremely rich at this point</li>
+<li><em>Infrastructure</em> hasn&rsquo;t captured too much value, except for NVIDIA who arguably should be
+split into their own bucket of &ldquo;hardware&rdquo; instead of lumped in with cloud providers.
+Cloud vendors have the scale of physical resources to participate in AI, but generally
+don&rsquo;t yet have strong offerings. However, these companies have a structural advantage
+in preexisting legal contracts with companies to govern API and data usage, along with
+the economy of scale to rapidly grow these businesses once they find product-market fit
+in the AI segment</li>
+<li><em>AI-enhanced product</em> has relatively few sophisticated entries today. There&rsquo;s a lot of
+handwaving and loud statements, but very few companies that have proven out their AI-enhanced
+products are meaningfully better than preexisting alternatives.
+I think this is a matter of time rather than exceptionally difficult, so we will see more
+value accumulate here.</li>
+</ol>
+<p>However, I think this is a transitory state.
+Where I see things moving over the next several years (and generally I think the transition here
+will be faster than slower):</p>
+<ol>
+<li>I believe <em>Infrastructure</em> will eat an increasingly large amount of the <em>Modeling &amp; Core</em> tier.
+Even today, the cloud providers of the <em>Infrastructure</em> have significant ownership and control
+in the leading <em>Modeling &amp; Core</em> tier. This will make it harder to perceive the shift,
+but I think it&rsquo;s already happening and will accelerate</li>
+<li>Because I believe <em>AI-enhanced product</em> will successfully capture value thoughtfully using AI,
+the interesting question is what sorts of products will capture the majority.
+Ultimately I think the question is whether it&rsquo;s harder to get the necessary data
+to power AI (fast-moving incumbents capture majority of value)
+or whether learning to integrate and integrating products with genuinely useful AI-capabilities
+is harder (new challengers capture majority of value)</li>
+</ol>
+<p>There&rsquo;s no interesting way to invest in the <em>Infrastructure</em> tier in 2024 (the main players are all
+public at this point), and I think the <em>Modeling &amp; Core</em> tier is shrinking (and largely over-valued
+by interest from folks with a different thesis on value accumulation), which means that the interesting
+place to angel invest in 2024 is, in my opinion, in products that are well-suited to adopt AI-capabilities.
+That&rsquo;s a broad category&ndash;we&rsquo;re still learning where these techniques are powerful&ndash;but I think it&rsquo;s particularly
+any company that works heavily with documents, and any company where it&rsquo;s product is capable of keeping a human
+in the loop (e.g. LLMs are cheap, fast and imperfectly accurate, but in a system where someone uses it to draft
+replies and review them by a human, you&rsquo;d be fine).</p>
+<p>Not angel-investing, but if you wanted to make a career bet, I think the interesting career bet is
+finding an established company with significant existing data and product workflows that could be enhanced by
+recent AI advances.</p>

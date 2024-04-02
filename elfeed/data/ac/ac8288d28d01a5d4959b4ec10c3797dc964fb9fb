@@ -1,0 +1,51 @@
+<p>In this ~27-minute video, I show how to configure fonts in Emacs. I
+explain what “faces” are and how the <code class="language-plaintext highlighter-rouge">default</code>, <code class="language-plaintext highlighter-rouge">fixed-pitch</code>, and
+<code class="language-plaintext highlighter-rouge">variable-pitch</code> faces work. I demonstrate the built-in
+<code class="language-plaintext highlighter-rouge">variable-pitch-mode</code> and then discuss how to change preset font
+configurations with the help of the <code class="language-plaintext highlighter-rouge">fontaine</code> package (one of my
+packages).</p>
+
+<h2>Fontaine</h2>
+
+<p>Fontaine allows the user to define detailed font configurations and set
+them on demand.  For example, one can have a <code class="language-plaintext highlighter-rouge">regular-editing</code> preset
+and another for <code class="language-plaintext highlighter-rouge">presentation-mode</code> (these are arbitrary, user-defined
+symbols): the former uses small fonts which are optimised for writing,
+while the latter applies typefaces that are pleasant to read at
+comfortable point sizes.</p>
+
+<ul>
+  <li>Package name (GNU ELPA): <code class="language-plaintext highlighter-rouge">fontaine</code></li>
+  <li>Official manual: <a href="https://protesilaos.com/emacs/fontaine">https://protesilaos.com/emacs/fontaine</a></li>
+  <li>Change log: <a href="https://protesilaos.com/emacs/fontaine-changelog">https://protesilaos.com/emacs/fontaine-changelog</a></li>
+  <li>Git repositories:
+    <ul>
+      <li>GitHub: <a href="https://github.com/protesilaos/fontaine">https://github.com/protesilaos/fontaine</a></li>
+      <li>GitLab: <a href="https://gitlab.com/protesilaos/fontaine">https://gitlab.com/protesilaos/fontaine</a></li>
+    </ul>
+  </li>
+  <li>Mailing list: <a href="https://lists.sr.ht/~protesilaos/fontaine">https://lists.sr.ht/~protesilaos/fontaine</a></li>
+  <li>Backronym: Fonts, Ornaments, and Neat Typography Are Irrelevant in
+Non-graphical Emacs.</li>
+</ul>
+
+<h2>Dotemacs</h2>
+
+<p>My personal Emacs configuration.  It is comprehensive, both in terms of
+the [custom] code it contains as well as the documentation on what each
+piece of functionality does.</p>
+
+<ul>
+  <li>Website: <a href="https://protesilaos.com/emacs/dotemacs">https://protesilaos.com/emacs/dotemacs</a></li>
+  <li>Git repositories:
+    <ul>
+      <li>GitHub: <a href="https://github.com/protesilaos/dotfiles">https://github.com/protesilaos/dotfiles</a></li>
+      <li>GitLab: <a href="https://gitlab.com/protesilaos/dotfiles">https://gitlab.com/protesilaos/dotfiles</a></li>
+    </ul>
+  </li>
+  <li>Mailing list: <a href="https://lists.sr.ht/~protesilaos/dotfiles">https://lists.sr.ht/~protesilaos/dotfiles</a></li>
+  <li>Video demo: <a href="https://protesilaos.com/codelog/2023-12-18-emacs-org-advanced-literate-conf/">https://protesilaos.com/codelog/2023-12-18-emacs-org-advanced-literate-conf/</a></li>
+  <li>Backronym: Do Observe, Transpose, Examine, or Mirror All
+Configurations, Stranger (dotemacs); Dotfiles Operate Transparently
+For the Included Linux and Emacs Setups (dotfiles).</li>
+</ul>

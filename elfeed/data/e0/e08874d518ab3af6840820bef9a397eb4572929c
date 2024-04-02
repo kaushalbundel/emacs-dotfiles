@@ -1,0 +1,415 @@
+<p>I just published the latest stable release of <a href="https://protesilaos.com/emacs/modus-themes">the Modus
+themes</a>.  The change log
+entry is reproduced further below.  For any questions, feel welcome to
+<a href="https://protesilaos.com/contact/">contact me</a>.</p>
+
+<p>I will soon install the changes in emacs.git so please wait a little
+longer for the updates to trickle down to you.</p>
+
+<ul>
+  <li>Package name (GNU ELPA): <code class="language-plaintext highlighter-rouge">modus-themes</code> (also built into Emacs 28+)</li>
+  <li>Official manual: <a href="https://protesilaos.com/emacs/modus-themes">https://protesilaos.com/emacs/modus-themes</a></li>
+  <li>Change log: <a href="https://protesilaos.com/emacs/modus-themes-changelog">https://protesilaos.com/emacs/modus-themes-changelog</a></li>
+  <li>Colour palette: <a href="https://protesilaos.com/emacs/modus-themes-colors">https://protesilaos.com/emacs/modus-themes-colors</a></li>
+  <li>Sample pictures: <a href="https://protesilaos.com/emacs/modus-themes-pictures">https://protesilaos.com/emacs/modus-themes-pictures</a></li>
+  <li>Git repositories:
+    <ul>
+      <li>GitHub: <a href="https://github.com/protesilaos/modus-themes">https://github.com/protesilaos/modus-themes</a></li>
+      <li>GitLab: <a href="https://gitlab.com/protesilaos/modus-themes">https://gitlab.com/protesilaos/modus-themes</a></li>
+    </ul>
+  </li>
+  <li>Backronym: My Old Display Unexpectedly Sharpened … themes.</li>
+</ul>
+
+<hr />
+
+<p>Before I cover the changes, a brief note about the canonical source of
+the <code class="language-plaintext highlighter-rouge">modus-themes</code> source code and corresponding documentation.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">modus-themes</code> are built into Emacs, as of version 28, but they
+are not developed in <code class="language-plaintext highlighter-rouge">emacs.git</code>: I maintain my own Git repository
+(<a href="https://github.com/protesilaos/modus-themes">https://github.com/protesilaos/modus-themes</a>) and sync with
+<code class="language-plaintext highlighter-rouge">emacs.git</code> whenever I publish a new version, such as this one. This
+means that my code is often ahead of the one in the Emacs tree
+(including the <code class="language-plaintext highlighter-rouge">master</code> branch). Similarly, the official manual, which
+is hosted on my website (<a href="https://protesilaos.com/emacs/modus-themes">https://protesilaos.com/emacs/modus-themes</a>),
+covers topics not found in the corresponding <code class="language-plaintext highlighter-rouge">gnu.org</code> web pages.</p>
+
+<p>In the opening section of the manual I include references to the
+canonical sources, but I still get comments about GNU web pages that I
+do not control. Please check those links before reporting issues that
+I can do nothing about.</p>
+
+<h2>No more SourceHut</h2>
+
+<p>Development continues on GitHub with GitLab as a mirror. I explained
+my reasons here: <a href="https://protesilaos.com/codelog/2024-01-27-sourcehut-no-more/">https://protesilaos.com/codelog/2024-01-27-sourcehut-no-more/</a>.</p>
+
+<p>This is a change that affects all my Emacs packages.</p>
+
+<h2>Code blocks now have a background by default</h2>
+
+<p>The user option <code class="language-plaintext highlighter-rouge">modus-themes-org-blocks</code> is obsolete. All code blocks
+now have a subtle grey background out-of-the-box. The block delimiter
+lines, such as the <code class="language-plaintext highlighter-rouge">#+begin_src</code> in Org mode, use the same background
+as the block’s contents. This produces a style that (i) is easy to
+notice and (ii) employs minimal colouration. Furthermore, we no longer
+have any discrepancy between Org and similar modes like Markdown.</p>
+
+<p>Every theme has relevant semantic palette mappings to affect the
+underlying faces:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">bg-prose-block-delimiter</code></li>
+  <li><code class="language-plaintext highlighter-rouge">fg-prose-block-delimiter</code></li>
+  <li><code class="language-plaintext highlighter-rouge">bg-prose-block-contents</code></li>
+</ul>
+
+<p>The old <code class="language-plaintext highlighter-rouge">prose-block</code> is now renamed to <code class="language-plaintext highlighter-rouge">fg-prose-block-delimiter</code>.
+Please update any such references in your configuration file.</p>
+
+<p>Users can customise those either for all themes via the user option
+<code class="language-plaintext highlighter-rouge">modus-themes-common-palette-overrides</code>  or on a per-theme basis with
+something like <code class="language-plaintext highlighter-rouge">modus-operandi-palette-overrides</code>. The manual includes
+ready-to-use code samples that showcases the numerous permutations made
+possible by these new mappings: <a href="https://protesilaos.com/emacs/modus-themes#h:f44cc6e3-b0f1-4a5e-8a90-9e48fa557b50">https://protesilaos.com/emacs/modus-themes#h:f44cc6e3-b0f1-4a5e-8a90-9e48fa557b50</a>.</p>
+
+<p>The old option to affect the user option <code class="language-plaintext highlighter-rouge">org-src-block-faces</code> as to
+have a different background for each specified programming language is
+no longer available. The previous design was inflexible, as I was
+hardcoding values for a few languages. Whereas it is better to empower
+the user with the choice of <code class="language-plaintext highlighter-rouge">language-&gt;colour</code> association. The manual
+shows how to do this:
+<a href="https://protesilaos.com/emacs/modus-themes#h:8c842804-43b7-4287-b4e9-8c07d04d1f89">https://protesilaos.com/emacs/modus-themes#h:8c842804-43b7-4287-b4e9-8c07d04d1f89</a>.</p>
+
+<h2>More semantic mappings more inline code in prose-centric modes</h2>
+
+<p>For Org, Markdown, and related we have semantic palette mappings that
+target inline code constructs. For example, in Org we can have text
+inside of tilde signs to mark it up as code. In prior versions, the
+mappings were limited to just a foreground, but now they cover
+background values as well. By default, these background do not have a
+colour associated with them, meaning that the out-of-the-box aesthetic
+is the same as before. Users simply have more power at their disposal
+to tweak the theme to their liking.</p>
+
+<p>Here are the names of those mappings:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">bg-prose-code</code></li>
+  <li><code class="language-plaintext highlighter-rouge">fg-prose-code</code></li>
+  <li><code class="language-plaintext highlighter-rouge">bg-prose-macro</code></li>
+  <li><code class="language-plaintext highlighter-rouge">fg-prose-macro</code></li>
+  <li><code class="language-plaintext highlighter-rouge">bg-prose-verbatim</code></li>
+  <li><code class="language-plaintext highlighter-rouge">fg-prose-verbatim</code></li>
+</ul>
+
+<p>The old <code class="language-plaintext highlighter-rouge">prose-code</code>, <code class="language-plaintext highlighter-rouge">prose-macro</code>, and <code class="language-plaintext highlighter-rouge">prose-verbatim</code> are named
+<code class="language-plaintext highlighter-rouge">fg-prose-code</code>, <code class="language-plaintext highlighter-rouge">fg-prose-macro</code>, <code class="language-plaintext highlighter-rouge">fg-prose-verbatim</code>. Please
+update any such references in your configuration file.</p>
+
+<p>The manual shows lots of examples on how to benefit from these
+optional backgrounds: <a href="https://protesilaos.com/emacs/modus-themes#h:bb5b396f-5532-4d52-ab13-149ca24854f1">https://protesilaos.com/emacs/modus-themes#h:bb5b396f-5532-4d52-ab13-149ca24854f1</a>.</p>
+
+<h2>No colour-coding for <code class="language-plaintext highlighter-rouge">transient.el</code> buffers.</h2>
+
+<p>In a recent version of <code class="language-plaintext highlighter-rouge">transient.el</code>, there is a new user option that
+applies colour-coding to keys (e.g. we see those while using <code class="language-plaintext highlighter-rouge">magit</code>):
+<code class="language-plaintext highlighter-rouge">transient-semantic-coloring</code>. This option is enabled by default,
+changing the previous style that was used as a reference for all my
+designs.</p>
+
+<p>The idea with such colour coding is to indicate when a key continues
+to display the transient, exits with a given action, and the like. For
+our purposes this interface cannot work:</p>
+
+<ul>
+  <li>
+    <p>We need some place to teach users what each colour means, as there
+are no indicators of any sort to help them (whereas, say, in diff
+buffers we have the plus and minus signs).</p>
+  </li>
+  <li>
+    <p>Not all hues are suitable for highlighting a single character. In
+light themes, for example, green and yellow colours are awkward
+choices for the requirements of this interface where the key must be
+clearly visible. But when we introduce multiple colours, each with
+their own meaning, we will not be able to avoid those hues.</p>
+  </li>
+  <li>
+    <p>The style of key bindings is not limited to <code class="language-plaintext highlighter-rouge">transient.el</code>. We find
+them when we invoke <code class="language-plaintext highlighter-rouge">M-x</code>, do <code class="language-plaintext highlighter-rouge">M-x describe-bindings</code>, while using
+the <code class="language-plaintext highlighter-rouge">which-key</code> package, and many more. If we are to change how
+<code class="language-plaintext highlighter-rouge">transient.el</code> shows key bindings, then we have to retain the same
+visual cues for other contexts. Otherwise, everything is inconsistent.</p>
+  </li>
+  <li>
+    <p>All themes must use the same colours to preserve the colour coding,
+thus removing an important aspect of their presentation.</p>
+  </li>
+  <li>
+    <p>This whole paradigm does not work for themes that are optimised for
+users with colour deficiency, due to the reduced number of suitable
+hues. With deuteranopia, for example, we can only rely on yellow and
+blue: since yellow is not optimal for single key highlights against
+a light backdrop, blue is the only hue that works in such a context.</p>
+  </li>
+</ul>
+
+<p>The <code class="language-plaintext highlighter-rouge">modus-themes</code> will never support <code class="language-plaintext highlighter-rouge">transient-semantic-coloring</code>.
+All relevant faces use the style of standard key bindings.</p>
+
+<p>Themes can enforce user option values, but I have decided to change
+the faces instead to better communicate my intent. If a user wants
+semantic colouring, they can change the faces to whatever they like.</p>
+
+<p>I understand this is a radical measure, though it is the best I can do
+given the circumstances. If <code class="language-plaintext highlighter-rouge">transient.el</code> where to have accompanying
+characters that better denote what each key does (e.g. the plus sign
+is for keys that continue the transient), then I am happy to apply
+appropriate colours to those and reconsider the aforementioned.</p>
+
+<h2>Semantic mappings for active arguments and values</h2>
+
+<p>In various interfaces such as of <code class="language-plaintext highlighter-rouge">eldoc-mode</code> and <code class="language-plaintext highlighter-rouge">transient.el</code> there
+are highlights for the current argument or argument value. These now
+have corresponding semantic palette mappings and are thus styled
+uniformly (and can be overridden accordingly). The mappings are:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">bg-active-argument</code></li>
+  <li><code class="language-plaintext highlighter-rouge">fg-active-argument</code></li>
+  <li><code class="language-plaintext highlighter-rouge">bg-active-value</code></li>
+  <li><code class="language-plaintext highlighter-rouge">fg-active-value</code></li>
+</ul>
+
+<h2>A semantic mapping for formulas in tables</h2>
+
+<p>The <code class="language-plaintext highlighter-rouge">prose-table-formula</code> applies to inline formula expressions in
+plain text tables. Org mode uses those, as does the minor mode <code class="language-plaintext highlighter-rouge">orgtbl-mode</code>.
+The inline formula is meant to stand out from the rest of the table,
+without exaggerations.</p>
+
+<h2>Matching parentheses have semantic mappings for their foreground too</h2>
+
+<p>By default, Emacs will highlight the matching (opening or closing)
+delimiter when the cursor is next to it. This is useful in Lisp
+programming modes, for example, as we can quickly get a sense of where
+an expression starts and ends.</p>
+
+<p>The themes now provide mappings for the foreground of those
+delimiters. This means that users can either change the combination of
+background and foreground or opt to only display a foreground value
+for a more minimal look.</p>
+
+<p>As always, the manual shows concrete examples:
+<a href="https://protesilaos.com/emacs/modus-themes#h:259cf8f5-48ec-4b13-8a69-5d6387094468">https://protesilaos.com/emacs/modus-themes#h:259cf8f5-48ec-4b13-8a69-5d6387094468</a>.</p>
+
+<h2>Search highlights have their own semantic mappings</h2>
+
+<p>This makes it easier to differentiate their style on a per-theme
+basis, which I do for all the Modus themes. It also gives users the
+option to override the colours. The mappings:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">bg-search-current</code></li>
+  <li><code class="language-plaintext highlighter-rouge">bg-search-lazy</code></li>
+  <li><code class="language-plaintext highlighter-rouge">bg-search-replace</code></li>
+  <li><code class="language-plaintext highlighter-rouge">bg-search-rx-group-0</code></li>
+  <li><code class="language-plaintext highlighter-rouge">bg-search-rx-group-1</code></li>
+  <li><code class="language-plaintext highlighter-rouge">bg-search-rx-group-2</code></li>
+  <li><code class="language-plaintext highlighter-rouge">bg-search-rx-group-3</code></li>
+</ul>
+
+<h2>Stylistic tweaks to <code class="language-plaintext highlighter-rouge">modus-operandi-tinted</code></h2>
+
+<p>The <code class="language-plaintext highlighter-rouge">modus-operandi-theme</code> uses a light ochre background, which gives
+a warmer feel than the pure white background of <code class="language-plaintext highlighter-rouge">modus-operandi</code>. To
+better contribute to this warmth, I made some tweaks to common
+elements:</p>
+
+<ol>
+  <li>
+    <p>The cursor has a red hue as before, but the value is a bit more
+intense now. This makes it easier to spot in contexts where text is
+already “warm”, like close to an Org <code class="language-plaintext highlighter-rouge">TODO</code> keyword or in
+programming mode comments.</p>
+  </li>
+  <li>
+    <p>All key bindings have a red hue instead of blue. We can notice the
+effect in Help mode buffers that mention where a command is bound,
+while using <code class="language-plaintext highlighter-rouge">which-key-mode</code>, in <code class="language-plaintext highlighter-rouge">transient.el</code> buffers, in
+minibuffer completion annotations, and more.</p>
+  </li>
+</ol>
+
+<p>These are in addition to many nuances already built into <code class="language-plaintext highlighter-rouge">modus-operandi-tinted</code>.</p>
+
+<p>I hope that existing users will appreciate these tweaks. We anyway
+have the option to override any entry in the palette, though I suggest
+you give these a chance before enacting any changes.</p>
+
+<h2>Stylistic tweaks to <code class="language-plaintext highlighter-rouge">modus-vivendi-tinted</code></h2>
+
+<p>Same principle here as with the above set of changes. Namely:</p>
+
+<ol>
+  <li>
+    <p>The cursor uses a more intense magenta background to be easier to
+spot.</p>
+  </li>
+  <li>
+    <p>Key bindings are purple instead of blue to better complement the
+aesthetics of this theme.</p>
+  </li>
+  <li>
+    <p>The background highlight applied to matching parentheses (per
+<code class="language-plaintext highlighter-rouge">show-paren-mode</code>) is grey-cyan instead of cyan.</p>
+  </li>
+</ol>
+
+<p>Again, we can override everything but please try those for a little
+while.</p>
+
+<h2>The <code class="language-plaintext highlighter-rouge">olivetti-fringe</code> is visible when needed</h2>
+
+<p>This is subject to the user option <code class="language-plaintext highlighter-rouge">olivetty-style</code>, which can be set
+to the value of <code class="language-plaintext highlighter-rouge">fancy</code> to produce a page-like effect.</p>
+
+<p>Thanks to Dhavan Vaidya and Gautier Ponsinet for bringing this matter
+to my attention on the now-discontinued mailing list:
+<a href="https://lists.sr.ht/~protesilaos/modus-themes/%3Cm2a5qzpi3y.fsf%40muon.local.mail-host-address-is-not-set%3E">https://lists.sr.ht/~protesilaos/modus-themes/%3Cm2a5qzpi3y.fsf%40muon.local.mail-host-address-is-not-set%3E</a></p>
+
+<h2>A more subtle style for the <code class="language-plaintext highlighter-rouge">consult-preview-insertion</code> face</h2>
+
+<p>The default value of that face inherits from the <code class="language-plaintext highlighter-rouge">region</code> face. This
+is fine in some cases, though not when the user calls
+<code class="language-plaintext highlighter-rouge">consult-outline</code> in a buffer with hidden text (e.g. Org folded
+headings). There the background is applied to the entire heading’s
+surface area, which is too distracting while cycling through
+completion candidates and inspecting the preview.</p>
+
+<h2>Simpler <code class="language-plaintext highlighter-rouge">imenu-list</code> with four colours</h2>
+
+<p>The <code class="language-plaintext highlighter-rouge">imenu-list</code> defines two sets of faces which apply to same heading
+levels but differ on whether the heading has subheadings or not.
+Before, we would colourise those differently, which could be
+confusing. Now they look the same, which is fine because the interface
+has additional markup to show when subheadings are present.</p>
+
+<p>Thanks to ltmsyvag for pointing this out in issue 95:
+<a href="https://github.com/protesilaos/modus-themes/issues/95">https://github.com/protesilaos/modus-themes/issues/95</a>.</p>
+
+<h2>Implicit buttons in Gnus are no longer underlined</h2>
+
+<p>Gnus buttonises text that it considers actionable. The exact
+functionality depends on the context, but it basically does stuff like
+add a quick way to write a new message to a given email address. These
+buttons can be mistaken for links, so I am removing their underline to
+avoid any possible confusion.</p>
+
+<h2>The <code class="language-plaintext highlighter-rouge">message-separator</code> face is less intense</h2>
+
+<p>In message/email composition buffers, there is a line that
+distinguishes headers from the body of the message. By default, it
+reads <code class="language-plaintext highlighter-rouge">--text follows this line--</code> and will now have a subtle grey
+background. The idea is to not stress the distinction between headers
+and body, as this line’s verbosity is already enough to call attention
+to it when we add a subtle background.</p>
+
+<h2>Recalibrated all “nuanced” background values</h2>
+
+<p>Each theme has a subset of slightly accented background named
+<code class="language-plaintext highlighter-rouge">bg-{red,green,blue,yellow,magenta,cyan}-nuanced</code>. These have slightly
+different values to be more consistent in terms of their intensity.</p>
+
+<h2>The <code class="language-plaintext highlighter-rouge">debbugs</code> package is now supported</h2>
+
+<p>Thanks to Gautier Ponsinet for sending me the relevant patch to my
+personal email. I made further stylistic changes on top.</p>
+
+<h2>The <code class="language-plaintext highlighter-rouge">ztree</code> package is covered as well</h2>
+
+<p>It produces a diff between two directories and thus needs appropriate
+colours.</p>
+
+<h2>Added support for <code class="language-plaintext highlighter-rouge">xterm-color</code> and <code class="language-plaintext highlighter-rouge">rustic-mode</code></h2>
+
+<p>These are basically reusing styles we already support for other
+terminal emulators. Thanks to Tony Zorman for the contribution, which
+was done in pull request 99: <a href="https://github.com/protesilaos/modus-themes/pull/99">https://github.com/protesilaos/modus-themes/pull/99</a>.</p>
+
+<h2>Org checkboxes are monospaced when <code class="language-plaintext highlighter-rouge">modus-themes-mixed-fonts</code> is non-nil</h2>
+
+<p>The user option <code class="language-plaintext highlighter-rouge">modus-themes-mixed-fonts</code> makes specing-sensitive
+elements use a monospaced font (specifically, the font family of the
+<code class="language-plaintext highlighter-rouge">fixed-pitch</code> face). This lets the user set a more prose-friendly
+style without visually breaking snippets that rely on fixed width
+spacing. A prose-friendly style is done by making the default font a
+proportionately spaced one, or by enabling <code class="language-plaintext highlighter-rouge">variable-pitch-mode</code> in
+the current buffer.</p>
+
+<p>For this case, we now cover Org checkboxes as well to avoid
+misalignments in checklists.</p>
+
+<p>Thanks to Gautier Ponsinet for discussing this with me via email and
+sending the relevant patch.</p>
+
+<h2>More code samples in the manual</h2>
+
+<p>The manual documents everything about the customisation options
+provided by the themes, as well as relevant do-it-yourself code
+samples. I now include more examples and better explain how to hook
+those either to the <code class="language-plaintext highlighter-rouge">enable-theme-functions</code> or the
+<code class="language-plaintext highlighter-rouge">modus-themes-after-load-theme-hook</code>. If something is not clear or not
+covered at all, please let me know and I will help you do what you
+want.</p>
+
+<h2>Miscellaneous</h2>
+
+<ul>
+  <li>
+    <p>All <code class="language-plaintext highlighter-rouge">cl-</code> snippets are removed from the source code. We did not
+really need them and I rewrote the code accordingly. This is not a
+value judgement against Common Lisp patterns in Emacs Lisp (I do not
+mind them): it is just a matter of removing a dependency for things
+that can easily be done differently.</p>
+  </li>
+  <li>
+    <p>The <code class="language-plaintext highlighter-rouge">keycast-key</code> inherits the <code class="language-plaintext highlighter-rouge">bold</code> face if the user option
+<code class="language-plaintext highlighter-rouge">modus-themes-bold-constructs</code> is set to a non-nil value.</p>
+  </li>
+  <li>
+    <p>The <code class="language-plaintext highlighter-rouge">read-multiple-choice-face</code> now has a cooler hue than the one it
+had before. This way it is not mistaken for a warning.</p>
+  </li>
+  <li>
+    <p>The <code class="language-plaintext highlighter-rouge">appt-notification</code> face uses a foreground value that is better
+suited for the modeline, where this indicator appears.</p>
+  </li>
+  <li>
+    <p>The <code class="language-plaintext highlighter-rouge">header-line-highlight</code> draws a box around it. This makes the
+mouse hover effect easier to spot.</p>
+  </li>
+  <li>
+    <p>The <code class="language-plaintext highlighter-rouge">shr-mark</code> face is now covered as well. It uses an appropriate
+background colour.</p>
+  </li>
+  <li>
+    <p>The <code class="language-plaintext highlighter-rouge">mct-highlight-candidate</code> face is covered and has an appropriate
+style for the minibuffer completions.</p>
+  </li>
+  <li>
+    <p>The <code class="language-plaintext highlighter-rouge">completions-highlight</code> face (Emacs 29) is also supported to
+ensure stylistic consistency between the minibuffer interfaces
+covered by the themes.</p>
+  </li>
+  <li>
+    <p>Flagged and deleted messages in <code class="language-plaintext highlighter-rouge">mu4e</code> and <code class="language-plaintext highlighter-rouge">notmuch</code> use different
+hues to not conflate the two.</p>
+  </li>
+  <li>
+    <p>Fixed the spelling of “colour” to “color” in the manual because core
+Emacs uses the latter…</p>
+  </li>
+</ul>

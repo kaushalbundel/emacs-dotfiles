@@ -1,0 +1,11 @@
+<p>
+I really like Gnuplot. It can produce most of the types of graphs that you’d actually want to produce and it’s reasonably flexible. That said, I hardly ever use it. It’s sort of a chicken/egg problem: on the one hand, I don’t use gnuplot very often because I can’t remember how to use its (semi-arcane) command language. On the other hand, I can’t remember the language because I seldom use it.
+</p>
+<p>
+I just ran across a <a href="https://www.youtube.com/watch?v=A6OhjYjdrqY&amp;t=35s">very short video</a> from Anand Tamariya that shows the user selecting a rectangle of data, calling <code>gnuplot-rectangle</code>, and having a graph of the data be rendered by gnuplot. The video is only 35 seconds and doesn’t have any explanation. I was bitterly disappointed because it seemed like an easy way to use gnuplot for many of the cases I care about.
+</p>
+<p>
+Serendipitously, I had another tab open in my browser by the author of the video <a href="https://lifeofpenguin.blogspot.com/2024/03/data-visualization-with-gnu-emacs.html">that showed the code for gnuplot-rectangle and explained how to use it</a>. There’s not much to do. You have to have gnuplot installed on your system, of course, and you also need to have the Emacs gnuplot package installed. That package is available from the Melpa and NonGNU elpa repositories so it’s easy to install. If you’re like me, you probably already have them installed.
+</p>
+<p>
+The final piece is the gnuplot-rectangle function that Tamariya gives in his explanatory post. I haven’t had a chance to try it yet but it seems just perfect for folks like me that don’t need to draw graphs often enough to learn the intricacies of gnuplot.</p>

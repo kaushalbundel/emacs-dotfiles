@@ -1,0 +1,38 @@
+<p>One tenet of big-a Agile<sup class="footnote-reference"><a href="#big-a-agile">1</a></sup> is that developers should all work on individual user stories as the smallest unit of work<sup class="footnote-reference"><a href="#agile-stories">2</a></sup>.
+That a ticket should almost always be a story, because that means it's something that delivers <em>concrete value</em> to the users.</p>
+<p>There are some cases in which this leads to absurdity.
+I've written tongue-in-cheek tickets of this type at work before, on a platform team:</p>
+<ul>
+<li>&quot;As a DAYJOB engineering team, I want...&quot;</li>
+<li>&quot;As a configuration file, I want...&quot;</li>
+</ul>
+<p>I've also seen this done as a serious story, or <a href="https://en.wikipedia.org/wiki/Poe%27s_law">Poe's law</a> struck and it's impossible to tell if it's satire.</p>
+<p><strong>This has it all backwards.</strong>
+User stories are great for tracking what users should be able to do and how to deliver value.
+But they're <em>not</em> great for understanding the work to be done.</p>
+<p>A story can require a surprisingly large or small amount of work.
+You don't know until you break it down by analyzing how to <em>do the task</em> that's behind the story.
+We end up doing this and using stories in a way that leads to convoluted ticket titles, which all but tell you what the hidden task actually is.</p>
+<p>Instead, tickets should be honest and be a straightforward <em>task</em>:</p>
+<ul>
+<li>&quot;Add port option to configuration file&quot;</li>
+<li>&quot;Make checkout button disabled if any fields are invalid&quot;</li>
+</ul>
+<p>These tickets can be <em>related</em> to stories, either multiple tickets to a story or one-to-one, but they are a far better mapping to the work done on an engineering team than stories are<sup class="footnote-reference"><a href="#division-of-work">3</a></sup>.
+It makes it clear what is to be done, and it avoids convoluted stories for things that are just absolutely <em>not</em> user stories.</p>
+<p>To be clear: you <em>must</em> still think about what the user needs, and think critically about the implementation at hand.
+It's just that writing it as a story <em>doesn't</em> give you this for free, just as writing a task does not.
+Writing a story masks the task behind a veneer, but it is still fundamentally a task.
+So if you have a task and the task does not clearly relate back to something that's needed for the user (or the org, or some useful purpose), then that's a <em>great</em> time to clarify <em>why</em> this task needs to be done.
+Maybe it doesn't!</p>
+<p>But it's still a task, not a story.</p>
+<hr />
+<div class="footnote-definition" id="big-a-agile"><sup class="footnote-definition-label">1</sup>
+<p>This is to draw a distinction between the industry that's sprung up around &quot;Agile&quot;, vs. the principles/practices recommended in the <a href="https://agilemanifesto.org/">agile manifesto</a>. The former is cargo-culted quite a bit and has some problems, while the latter says to emphasize flexibility over dogma.</p>
+</div>
+<div class="footnote-definition" id="agile-stories"><sup class="footnote-definition-label">2</sup>
+<p>See, for instance, this <a href="https://www.atlassian.com/agile/project-management/user-stories">Atlassian article</a>.</p>
+</div>
+<div class="footnote-definition" id="division-of-work"><sup class="footnote-definition-label">3</sup>
+<p>Splitting it up this way also makes responsibilities clearer: product management is responsible for creating stories, and engineering is responsible for creating the tasks to achieve those. Without this split, it's ambiguous and varies team-to-team and day-to-day.</p>
+</div>

@@ -1,0 +1,118 @@
+<p><em><a href="https://www.amazon.com/Crux-How-Leaders-Become-Strategists-ebook/dp/B09G2QXXWX">The Crux</a> by Richard Rumelt is a fantastic follow on to his <a href="https://lethain.com/good-strategy-bad-strategy/">Good Strategy, Bad Strategy</a>, providing many of the same core ideas but in a more readable format, and a clearer target to take down: the incoherent outputs of process and goal-driven strategy.</em></p>
+<hr>
+<p>Recently, I&rsquo;ve been looking for more strategy books to read, and
+folks pointed out that I&rsquo;d missed a new book from Richard Rumelt,
+<em><a href="https://www.amazon.com/Crux-How-Leaders-Become-Strategists-ebook/dp/B09G2QXXWX">The Crux</a></em>.
+No book has influenced my thinking about strategy more than Rumelt&rsquo;s previous work,
+<em><a href="https://lethain.com/good-strategy-bad-strategy/">Good Strategy, Bad Strategy</a></em>, so I felt obligated to
+pop this one to the top of my reading queue.</p>
+<p>The short summary here is that I think <em>The Crux</em> is quite good, and that it does a better job of concisely
+landing the problem areas to avoid than <em>Good Strategy, Bad Strategy</em>.
+Conversely, I think that the later&rsquo;s focus on structured exploration of problems is a bit more useful for
+someone who is trying to deploy strategy in their own environment.
+If you had to pick just one, I&rsquo;d still recommend <em>Good Strategy, Bad Strategy</em> first, but I certainly
+recommend reading both.</p>
+<p>With that said, a brief exploration of some of the core ideas in the book.
+Starting with Rumelt&rsquo;s definition of the &ldquo;crux&rdquo; (p4):</p>
+<blockquote>
+<p>I began to use the term <em>crux</em> to denote the outcome of a three-part strategic skill.
+The first part is judgment about which issues are truly important and which are secondary.
+The second part is judgment about the difficulties of dealing with these issues.
+And the third part is the ability to focus, to avoid spreading resources too thinly, not trying to do everything at once.</p>
+</blockquote>
+<p>This definition captures much of what resonated with his earlier focus on diagnosis,
+and sharpens it a bit further.</p>
+<p>Rumelts summarizes his goals for the book as (p11):</p>
+<blockquote>
+<p>I explore four themes in the pages that follow.
+First, the best way to deal with strategic issues is by squarely facing the challenge&hellip;
+Second, understand the sources of power and leverage that are relevant to your situation&hellip;
+Third, avoid the bright, shiny distractions that abound&hellip;
+Fourth, there are multiple pitfalls when executives work in a group, or workshop, to formulate strategy&hellip;</p>
+</blockquote>
+<p>We emphasizes several recurring reasons why strategy-work tends to go wrong and
+produce low value results, the most prominent and recurring theme is:</p>
+<blockquote>
+<p>Don&rsquo;t start with goals&ndash;start by understanding the challenge and finding its crux.</p>
+</blockquote>
+<p>There&rsquo;s another theme that comes up in a variety of ways, including a dedicated chapter:</p>
+<blockquote>
+<p>Don&rsquo;t Confuse Current Financial Results with Strategy</p>
+</blockquote>
+<p>Both of these resonate quite a bit. The first feels right but somewhat asbtractly:
+I&rsquo;ve seen so many clueless strategy statements that don&rsquo;t solve any problem I have.
+The second hits very close to home: the longer that I&rsquo;m an executive, the more I wonder if I&rsquo;m balancing properly between
+the financial, business, and engineering perspectives.</p>
+<p>The financial perspective is very reassuring, because <strong>the numbers always add up</strong>,
+which isn&rsquo;t true on the business or engineering sides of the house.
+Conversely, the financial lens provides guardrails but it doesn&rsquo;t
+actually tell us what to do, and can never convicingly break an impasse
+preventing us from reaching a compelling future.</p>
+<h2 id="challenge-based-vs-constraint-based-strategy">Challenge-based vs constraint-based strategy</h2>
+<p>As I read through the book, I thought more and more about two related
+but subtly different ideas: challenge-based strategy as described by
+Rumelt, and constraint-based strategy which is closer to my opinion
+of what defines engineering strategy.</p>
+<p>Exploring the difference a bit:</p>
+<ul>
+<li><em>Challenge-based strategy</em> is reasoning forward from your current problems
+to identify actions that will address those challenges</li>
+<li><em>Constraint-based strategy</em> is defining guiding policies that help everyone
+within your organization to understand how to craft appropriate actions
+of their own that are in alignment with the other decisions being made
+concurrently by other individuals in the same organization</li>
+</ul>
+<p>This highlights a key difference between what Rumelt&rsquo;s most interested in&ndash;how do
+businesses make strategic decisions&ndash;and what I&rsquo;m interested in&ndash;how do engineering
+organizations position themselves to be strategic within a wider corporate context.
+More to explore here, but an interesting learning for me.</p>
+<h2 id="deduction-versus-design">Deduction versus design</h2>
+<p>Rumelt quotes Gary Hamel, describing an awkward reality of discussing strategy (p17):</p>
+<blockquote>
+<p>The dirty little secret of the strategy industry is that it doesn&rsquo;t have any theory of strategy creation.</p>
+</blockquote>
+<p>This is, I think, the biggest issue I have found reading work on strategy, which he connects to a larger
+pedagolical issue within modern education that eskews the study of the exact things that folks in
+industry need the most (p36):</p>
+<blockquote>
+<p>My own life experience supports Simon&rsquo;s comments about the replacement
+of design with deduction in professional schools.
+For the academics who currently populate top professional schools, design
+is a bit like shop class, akin to automobile repair or welding, and
+residing at a far remove from respectable activities like the mathematical modeling
+of stochastic processes and the statistical analysis of selection bias.</p>
+</blockquote>
+<p>Viewing most industry work as beneath academic interest very much is something I&rsquo;ve encountered
+in management and leadership, somewhat to my confusion. Although I find this less directly
+applicable to software development, where many of the issues at hand can successfully be rendered
+into mathematics, but not all of them. There&rsquo;s a reason we have highly sophisticated typing theory
+paired with largely ad-hoc bags of practices labeled as &ldquo;agile&rdquo; or whatnot in the industry,
+and it&rsquo;s in part because the former attracts academic attention and the later does not.</p>
+<h2 id="strategy-as-creation">Strategy as creation</h2>
+<p>Rumelt talks about strategy as a sort of design,
+and of design as an act of creation (p32):</p>
+<blockquote>
+<p>The result is a design rather than a choice.
+It is a creation embodying purpose.
+I call it a &ldquo;creation&rdquo; because it is nonobvious to most others, the prodcut of insight
+and judgment ratehr than an algorithm.</p>
+</blockquote>
+<p>This connects back to the Gary Hamel quote regarding the void that exists where ideally we&rsquo;d have
+a clear set of steps for creating strategy. I need to ponder this one a bit more as well,
+but something that resonates with me is the idea that creation is not well understood,
+and also that creation &ldquo;in committee&rdquo; is exceptionally difficult.</p>
+<p>I&rsquo;ve always found that strategy is best driven by a single mind, with all relevant context
+loaded into that mind, as opposed to being spread across a diffuse group,
+which I think is true for all truly creative activities. Art evolves through discussion (literal and
+figurative)
+among many artists, but the creation of each individual piece of art is created by a single individual
+operating from a place of focus.</p>
+<hr>
+<p>Like I started with, I think this is a worthwhile read, and the biggest idea that stood out for
+me is the tension between executives needing to prioritize working the Crux with the entirety
+of managing the team and business around them.
+There&rsquo;s a real art to that balance, and one that many executives struggle with.</p>
+<p>More generally, this book has very much helped me refine my thesis for writing a book
+on engineering strategy, which I&rsquo;m not totally confident I&rsquo;ll actually write, but I&rsquo;m
+coming to have a decent bit of an outline after <a href="https://lethain.com/strategy-notes/">my recent binge of strategy reading</a>
+and the <a href="https://lethain.com/eng-strategies/">tangential work in the writing of my third book</a>.</p>

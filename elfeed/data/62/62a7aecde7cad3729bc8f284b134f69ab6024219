@@ -1,0 +1,14 @@
+<p>
+Arthur A. Gleckler has a <a href="https://speechcode.com/blog/narrow-to-focus/">nifty post</a> that discusses Emacs narrowing as a way to help with focus. The TL;DR is that sometimes you want to focus on a piece of code or other text and one way to do that is to temporarily remove all the surrounding text so that only the part you’re interested in is visible.
+</p>
+<p>
+Emacs, of course, has you covered. It’s narrowing functions are just what’s called for. You can narrow to a region, a function, and various other parts of text. To a first approximation, it’s just what you need.
+</p>
+<p>
+Gleckler, though, has an additional requirement. Sometimes he wants to look at the surrounding context and then return to the narrowed display. It’s easy, of course, to just widen the text, look at the context, and then narrow it again but that’s “complicated” enough that you can loose focus. He wanted a way to quickly pop in and out of narrowed displays.
+</p>
+<p>
+He solved that problem with a bit of Elisp. The basic idea is that if there is an active region, he records the position of the region as an overlay with a special property and narrows to it. If no region is active, he looks for an overlay with the special property and uses its position as the inputs to narrow. Finally he binds a key shortcut to his function so that invoking it is as simple as it’s possible to be in Emacs.
+</p>
+<p>
+The code is only a few lines and pretty easy to understand. If you’re interested in a similar facility or just want to see how he handled remembering which text to narrow to, take a look at his post. It’s short and easy to read.</p>

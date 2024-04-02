@@ -1,0 +1,64 @@
+<p>A cool trick not everybody knows with Visual Studio and JetBrains’
+IDEs is that it is possible to navigate back to previous positions
+with <code class="language-plaintext highlighter-rouge">Ctrl -</code>.</p>
+
+<p>A similar trick also works with Bash:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> -
+</code></pre></div></div>
+
+<p>and with Git:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git checkout -
+</code></pre></div></div>
+
+<p>Neat, right?<br />
+Of course, there are <em>way</em> more powerful tools built around this idea
+(such as <a href="https://github.com/rupa/z">z</a>, <a href="https://github.com/wting/autojump">autojump</a> and <a href="https://github.com/ajeetdsouza/zoxide">zoxide</a>). And
+— did you doubt? — similar powerful features in Emacs
+too. Let’s explore them.</p>
+
+
+<h1 id="leaving-a-trail-of-breadcrumbs">Leaving a trail of breadcrumbs</h1>
+<p>So you want to leave a track while you move around buffers and you
+want to retrace your steps, right?<br />
+As far as I know, Emacs offers 3 tools:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Tool</td>
+      <td>Main characteristics</td>
+      <td>When it is the best fit</td>
+    </tr>
+    <tr>
+      <td><strong>mark ring</strong></td>
+      <td>- buffer local and global<br />- unnamed<br />- both manual and automated<br />- volatile<br />- It’s related to the region</td>
+      <td>- Quick, impromptu navigation</td>
+    </tr>
+    <tr>
+      <td><strong>registers</strong></td>
+      <td>- global<br />- short-named<br />- manual<br />- not persistent by default</td>
+      <td>- Within a working session<br />- Can store more than positions</td>
+    </tr>
+    <tr>
+      <td><strong>bookmarks</strong></td>
+      <td>- named<br />- manual<br />- persisted</td>
+      <td>- The longterm cornerstones for organizing your work environment<br />- Can store more than positions</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>In this series, we will explorer them all!</p>
+
+<h1 id="table-of-contents">Table of Contents</h1>
+<ul>
+  <li><a href="http://arialdomartini.github.io/emacs-mark-ring">Mark Ring</a></li>
+</ul>
+
+<h1 id="references">References</h1>
+<ul>
+  <li><a href="https://github.com/rupa/z">z</a></li>
+  <li><a href="https://github.com/wting/autojump">autojump</a></li>
+  <li><a href="https://github.com/ajeetdsouza/zoxide">zoxide</a></li>
+</ul>

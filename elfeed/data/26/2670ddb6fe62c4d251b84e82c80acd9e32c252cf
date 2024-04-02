@@ -1,0 +1,80 @@
+<p>
+A couple of weeks ago a friend posted to Social media asking for a
+text book recommendation. As it happened, the one he had been using
+for his class was no longer going to be published. One of the replies
+was strongly against using printed text books stating that online
+resources are superior.</p>
+<p>
+I thought this was worth exploring.</p>
+<p>
+First thing worth discussing is cost. For public K12 students this
+generally isn&#39;t an issue. Schools receive (or should receive) funds
+for textbooks. Students sign them out at the beginning of the semester
+in each class and return them at the end. To be honest, I don&#39;t know
+if any of this is now being done electronically or not but the big
+issue is finding the right textbook. I wrote about that <a href="https://cestlaz.github.io/posts/textbooks/">here</a>.</p>
+<p>
+At the college level, costs become an issue. Textbooks - be they
+printed or online can be expensive and even the rental price can be a
+reach for low income students. I&#39;ve seen text books being sold for
+well over one hundred dollars for really no other reason than because
+they can.</p>
+<p>
+Taking publisher greed out of the equation, I do believe that authors
+should be fairly compensated for their work so I&#39;m not of the school
+of thought that all educational resources should be free but I&#39;m also
+sensitive to educational costs out of control.</p>
+<p>
+For the sake of this post, let&#39;s take all that out of the equation and
+just focus on textbook vs online resources and pretend the costs are
+the same.</p>
+<p>
+The principal argument against textbooks and for online resources is
+that textbooks quickly become outdated while online resources are
+perpetually maintained. This might be true for fast changing APIs or
+rapidly evolving technologies like Javascript build systems but it
+generally doesn&#39;t hold true for the materials covered in many CS
+classes.</p>
+<p>
+Take a data structures or algorithms text. While a standard text like
+<a href="https://en.wikipedia.org/wiki/Introduction_to_Algorithms">CLRS</a> has had multiple editions over the years, a single class won&#39;t
+cover the full text and the text is at its core, the same. That is to
+say that CLRS has easily been useful and appropriate as a class text
+for at this point, decades. The same can also be said for most algo
+and DS texts. The limiting factor in terms of longevity would really
+be implementation language and possibly programming style.</p>
+<p>
+For data structures and algorithms, a printed text could also be
+superior to an online resource - online resources on these topics
+usually just present finished code and rarely developmental exposition
+which can be extremely helpful to a student. A printed text also has
+another advantage over even an online textbook - easier bookmarking
+and random access. You can&#39;t easily flip back and forth online.</p>
+<p>
+What about programming language based classes. I recently looked over
+some older programming books I have. C, C++, Go, Clojure, Java,
+Javascript. Ocaml, Haskel, Lisp, Racket, and Prolog. While the books
+vary in overall quality from meh to great they&#39;d all still be
+perfectly servicable as class texts. Languages just don&#39;t change that
+quickly.</p>
+<p>
+Neither do most tech topics. Sure, you might get unlucky and purchase
+a text book right before a major change and there are a few cutting
+edge topics that you might want to avoid but by and large a CS text
+should give you five to ten years easy.</p>
+<p>
+Now, this isn&#39;t to say that an online textbook can&#39;t be great or even
+superior in some ways. Online texts can be more interactive for
+instance and can be updated with new assignments and projects and the
+exposition can be easily updated if needs be.</p>
+<p>
+All this is to say that both printed textbooks, online texts, and
+other online resources can all be great and can all be important and
+if cost isn&#39;t an issue, I think having a printed text can be a huge
+benefit to a kid - another point of view to complement the
+instructor. That said, due to cost, I ended up using online resources
+extensively over my last few years of teaching.</p>
+<p>
+As a final note, for online texts, do check out <a href="https://runestone.academy/runestone/default/user/login?_next=/runestone/default/index">Runestone</a> - they
+provide a number of high quality online texts for free. They don&#39;t
+cover everything but for what they do, they have some great stuff.</p>

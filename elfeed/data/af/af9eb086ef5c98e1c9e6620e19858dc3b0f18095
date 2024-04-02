@@ -1,0 +1,223 @@
+<p>I've been writing this blog since 2015, and my writing picked up pace in 2022.
+That year I wrote 37,000 words, more than the 33,000 I'd written up to that point.
+It has accelerated since then.</p>
+<p>At some point, I realized that I've put in a <em>lot</em> of time and effort writing here, and got the idea to bundle it up into a book.
+The motivation here isn't to make money, because publishing books is rarely lucrative.
+Instead, there are two purposes: to give me a physical representation of the work I've put in, and to give people a way to buy a token of appreciation of my writing.
+It's also a nice way to read the back catalogue; I've purchased <a href="https://leanpub.com/computerthings2020/">similar books</a> from authors I enjoy as a way to read their work away from the screen.</p>
+<p>My book is now available in print!
+It's on <a href="https://may11publishing.com/">the publisher website</a>, and also through the usual suspects like <a href="https://www.amazon.com/dp/B0CZB86NP1/">Amazon</a>.
+The direct purchase choice benefits us more, and that gets passed along in donations.</p>
+<p>Here's how I did it, from start to finish<sup class="footnote-reference"><a href="#logical-order">1</a></sup>.
+And by the way: every dollar I make from this will be donated to benefit trans rights.
+Happy Trans Day of Visibility!</p>
+<h1 id="the-content">The content</h1>
+<p>The first step is to get the content, or at least a table of contents.
+Since this is a collection of my blog posts, most of the work is done.
+I only really had to make the choice of what to include.</p>
+<p>Books are typically a certain length, and that's about how much I'm producing per year right now.
+That made the choice pretty easy: 2023 would be its own volume, and 2022 and prior years would also be one volume, since they're the same total word count.</p>
+<p>I just copied those posts into a new directory, since they're all in Markdown already.</p>
+<h1 id="making-the-book-draft">Making the book draft</h1>
+<p>With the content in one place, I had to convert them into a format I could get printed.
+I had chosen <a href="https://www.ingramspark.com/">IngramSpark</a> for printing and distribution, so this meant I needed a PDF of the content.</p>
+<p>I looked at a few different tools for this part and settled on <a href="https://quarto.org/">Quarto</a>.
+Ultimately, I can't remember my exact reasons, but the other tools either wouldn't run for me, didn't like taking in a pile of separate files, or had formatting I didn't like without options to change it.
+It's a solid choice, and I'll use it for future volumes.
+For the other book I'm working on with a friend<sup class="footnote-reference"><a href="#other-book">2</a></sup>, we'll probably evaluate different tools since we're not bringing existing content to it.</p>
+<p>To get it set up, I updated the config file to point to all my content.
+Pointing to the content was straightforward, but I wound up with a lot of other customizations I'll talk through one-by-one.
+The finished file looks roughly like this:</p>
+<pre data-lang="md" class="language-md "><code class="language-md" data-lang="md">project:
+  type: book
+
+book:
+  title: &quot;Technically a Blog Volume 0&quot;
+  author: &quot;Nicole Tietz-Sokolskaya&quot;
+  chapters:
+    - index.qmd
+    - 2022-07-09-running-software-book-reading-group.qmd
+    - 2022-09-11-going-to-recurse-center.qmd
+    - 2022-09-24-rc-week-1-recap.qmd
+    - ...
+
+toc: true
+toc-title: &quot;Table of contents&quot;
+toc-depth: 1
+
+format:
+  html:
+    theme: cosmo
+  titlepage-pdf:
+    titlepage: formal
+    titlepage-theme:
+      elements: [&quot;\\titleblock&quot;, &quot;\\authorblock&quot;, &quot;\\vfill&quot;, &quot;\\footerblock&quot;]
+    titlepage-include-file:
+      - includes&#x2F;copyright.tex
+      - includes&#x2F;dedication.tex
+    coverpage: none
+    coverpage-title: &quot;&quot;
+    coverpage-bg-image: &quot;img&#x2F;cover.jpg&quot;
+    links-as-notes: true
+    include-in-header:
+      text: |
+        \usepackage{fvextra}
+        \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
+        \raggedbottom
+        \usepackage{emptypage}
+    documentclass: scrbook
+    fontsize: &quot;9pt&quot;
+    mainfont: &quot;DejaVu Sans&quot;
+    from: markdown+emoji
+    geometry:
+      - paperwidth=5.5in
+      - paperheight=8.5in
+      - top=0.75in
+      - bottom=0.75in
+      - left=0.5in
+      - right=0.5in
+</code></pre>
+<p>The <code>project</code> section says what type of project it is, because it'll use different options and produce a different artifact for books than for other things.
+Then the <code>book</code> section is where we put in some metadata like the title and author, and we list all the chapters, each getting its own Markdown file.
+I did have to adjust some of the markdown, because the heading levels that I use in my blog posts were usually like <code># Heading</code> which would become a separate chapter, so all my headings had to go in by one level to be things like <code>## Heading</code>.
+This was tedious to adjust in every single file!</p>
+<p>The following group of statements is describing the table of contents and gives some light configuration.
+I limited depth to 1, which means only chapter titles, but it's neat that you can easily adjust it to have the subheadings in the table of contents also.</p>
+<p>The <code>format</code> section is where I spent the most time and pain.
+Normally you have a <code>pdf</code> block in it, but I have <code>titlepage-pdf</code>, because I used the <a href="https://nmfs-opensci.github.io/quarto_titlepages/">titlepage extension</a> which let me do a titlepage somewhat easily.
+The theme I picked (<code>formal</code>) was fairly minimal, but I still had to do some customization.
+In retrospect, I probably could have achieved everything I wanted <em>without</em> the extension by using the <a href="https://quarto.org/docs/output-formats/pdf-basics.html#latex-includes">includes</a> that Quarto offers for PDFs.</p>
+<p>The two main includes I had here were the copyright page and the dedication page.
+These are frontmatter, and go before the table of contents.
+They're also typically not numbered!
+Then I added a bit of extra LaTeX in the header, like <code>\raggedbottom</code> to not perform vertical justification<sup class="footnote-reference"><a href="#justified">3</a></sup> and <code>\usepackage{emptypages}</code> to remove headers and page numbers from empty pages.</p>
+<p>Which reminds me: page numbers.</p>
+<p>Before this project, I didn't give much thought to where page numbers were or where chapters start in books.
+It turns out there's a standard!
+You start chapters on the right-hand page (traditionally, and for English-language), which is also where you start numbering.
+But you don't number the pages of the frontmatter, and the table of contents is numbered in Roman numerals.
+Those page numbers are typically located on an outer corner of the page.
+The first proof copy I received had all of this off-by-one so page numbers were on the inside corners, making them all but useless.
+That was fixed by inserting a blank page, but did cost me a couple of weeks to get the second proof copy!</p>
+<p>Emoji also turned out to be a problem, and oh do I ever use them in my writing.
+I tried to find a font that supported all the emoji I have used, which is how I wound up using DejaVu Sans.
+But that didn't work out, as many were still missing in the first proof copy which I'd just not seen.
+I fixed it by removing them or replacing them with simple character representations, because changing the font at this point would likely also change the page count, which would change the cover template, and... it wasn't worth the hassle.</p>
+<p>So, that's everything I did for the content PDF.
+If I knew what I know now it would be pretty fast, but it was a very slow process to figure this out for the first time.</p>
+<h1 id="commissioning-cover-art">Commissioning cover art</h1>
+<p>Another thing I wanted was nice cover art, if I could afford it.
+I hadn't worked with an illustrator before, so I didn't know what rates to expect.
+Fortunately, a fellow Recurser, <a href="https://jvns.ca/">Julia Evans</a>, gave me a recommendation for an illustrator she's worked with before, and he had time to work with a new client!</p>
+<p>He was very easy to work with.
+We established the basic scope of the project in a few emails and talked about a price and timeline.
+Then he put together a few concept sketches to get feedback.
+I provided feedback, and we landed on a design that both of us were really happy with!
+He was super flexible and was great to work with.
+At the end of the project, he even suggested a duplex cover if it's within budget—it costs marginally more to print, but looks really nice having an abstract pattern on the inside.</p>
+<p>Ultimately we finished within the timeline we talked about, and the budget didn't change.
+The book itself was done later than I'd intended, but that slip was entirely on my side from making a few late decisions (in the next section) which pushed it back.</p>
+<p>All told, for a modest fee, I got really nice cover art that is also designed as a template I can reuse for future volumes.
+I can't wait to work with him again on another project!</p>
+<h1 id="bureaucracy-and-tedium">Bureaucracy and tedium</h1>
+<p>Publishing something does come with some bureaucracy.
+Self-published books sometimes come with an ISBN<sup class="footnote-reference"><a href="#isbn">4</a></sup> provided by the printer, whether that's IngramSpark or Amazon.
+When you see the publisher listed as Amazon, that's why.</p>
+<p>Instead of using ISBNs provided for free by the printer, I chose to buy my own ISBNs and be my own imprint.
+This gives the most flexibility.
+If you use the printer's ISBN, then it can only be used with them, and each other platform that distributes it may have a different ISBN, so things like reviews can get split apart.
+ISBNs cannot be reassigned, so once you decide how you do it you're locked in.
+If you have your own ISBN, it can be consistent across all the platforms.
+And it looks that tad bit more professional to have your own imprint.</p>
+<p>Which brings me to that.
+An imprint is the trade name a publisher uses to publish works.
+One publishing company can have many imprints.
+I heard some good reasoning to form an LLC to protect myself, so we ended up forming <a href="https://may11publishing.com/">May 11 Publishing LLC</a>, &quot;we&quot; being my wife and I.
+A Pennsylvania LLC has minimal fees and reporting requirements, so it's not expensive to maintain like Delaware LLCs can be.
+This set back the project a while to get it set up but it was worth it.
+We also had to get a business bank account, and ended up using <a href="https://www.novo.co/">Novo</a> because it was really easy to set up entirely online without phone calls.</p>
+<p>The ISBNs are officially owned by our publishing company, not by us personally.
+This also opens the door for us publishing other works with multiple authors or publishing for other people, if anyone were interested in that.
+I think we're a pretty dang good writing/editing team, and we have another project we're exploring with a collaborator.</p>
+<h1 id="printing-and-distribution">Printing and distribution</h1>
+<p>One of the big reasons I picked IngramSpark for printing is because they also handle distribution, so most booksellers will pick up the book automatically, fulfilled by print-on-demand when someone orders it.
+And they have a <em>ton</em> of options for printing of good quality, so you can get exactly what you want.</p>
+<p>I had to pick a size fairly early on so the illustrator could make the cover the right size, so I chose 5.5&quot; by 8.5&quot;, a fairly standard size.
+The other details: it's a <a href="https://en.wikipedia.org/wiki/Bookbinding#Thermally_activated_binding">perfect bound paperback</a> with matte finish and black-and-white creme pages.
+It was pretty fun picking out the page sizes.</p>
+<p>After you create the book in IngramSpark, it will give you a template you can download for the cover.
+This is a PDF (other formats are also available I think) and you put the cover art into it by following the instructions<sup class="footnote-reference"><a href="#or-illustrator">5</a></sup>.
+Then you can upload your content file and the cover file.
+They do some light validation of it, then it becomes available for you to order proof copies!</p>
+<p>I ordered an expedited one so I could get the iterated files uploaded quickly.
+You have a 60 day window to upload revised proofs, and after that there's a fee for new revisions.
+It's small, but more than I'm charging for this, so I'd like to avoid that extra cost if possible.
+The second proof copy I didn't expedite, since I was much more confident it would be the final one.
+It was!</p>
+<p>When it arrived, <a href="https://sokolskayatranslations.com/">my in-house editor</a> and I did a spot check of it, and everything looked good, so I enabled distribution.
+This meant that it entered IngramSpark's database of published books and booksellers started to pick it up!
+It took under a day to be on Amazon from a third-party seller, and about a day or two for Amazon and B&amp;N to officially list it.
+It's pretty surreal to me to have <em>my book</em> listed for sale on Amazon!</p>
+<p>As an aside: if you <em>do</em> buy it on Amazon, click through to the &quot;Other New&quot; options and buy the one that's sold by and ships from Amazon.com directly, not from whoever the main listing is.
+There are third parties that list a bunch of print-on-demand books and say they're in stock while Amazon is honest and says it's out of stock.
+If you order one, they'll order a copy to send to you; but that's true for the other seller, too!
+And it's cheaper from Amazon directly.</p>
+<p>Or, buy it straight <a href="https://may11publishing.com/">from us</a> to give us a bigger cut which we will donate all of.
+Which brings us to the money.</p>
+<h1 id="the-money-side">The money side</h1>
+<p>Here's everything that we spent money on for this project and how much it cost:</p>
+<ul>
+<li><strong>Cover art:</strong> $200, and it's reusable across future editions with small modifications, so future ones will be cheaper</li>
+<li><strong>ISBNs:</strong> $295 for 10. I used one here, so that's $29.50 for this project, and the rest are usable for future ones.
+If you buy just one ISBN, it's $125, so it's cheaper to buy in bulk if you need at least three in the long run.
+They don't expire.</li>
+<li><strong>Proof copies:</strong> the first copy was $17.45 because I had it expedited, and the second was $9.35.</li>
+<li><strong>PA LLC formation:</strong> $125, and we'll have to file an annual report each year starting in 2025 for a whopping $7 each.</li>
+</ul>
+<p>Those were all the costs for the project, so it totalled $521.80.
+If you look at amortized costs, though, it's more like $121.30 (assuming the LLC and cover art are good for five editions, and that all ISBNs are otherwise used; not perfect math).
+You could get as low as just the cost of proof copies if you're okay with not owning the ISBNs and you do your own artwork!</p>
+<p>Now how do I get money from this?
+By selling it, of course.
+You set the price with IngramSpark and then there are two different ways people can buy it with vastly different compensation.</p>
+<ul>
+<li>If they buy it directly from IngramSpark (you can set up an ecommerce page) for $20 plus shipping (about $24 total). If they buy it this way, there's a $3.50 surcharge for the printing and the print itself costs $5.33, so I get $11.17.</li>
+<li>If they buy it from Amazon or another bookseller for $20 (shipping included or not, up to the seller), there's a 40% wholesale discount on it (the lowest I could set) and I get $6.77.</li>
+</ul>
+<p>Yep, I get about twice as much from a sale if you buy it from IngramSpark directly.
+And that was with setting a higher price and the lowest wholesale discount allowed in order to maximize that.</p>
+<p>Let me just say again, <em>any</em> profits that come from this are getting donated to help advocate for trans rights.
+We're not paying back our fees from this: the $521.80 is part of our contribution.
+So if you buy a copy from our site, that means you <strong>get a book, I get warm fuzzy feelings, and your money helps protect trans rights</strong>.</p>
+<p>So here's how to get it:</p>
+<ul>
+<li>from <a href="https://may11publishing.com/">our publisher site</a> for either $20 (normal, print on demand) or $30 (signed, donates more to trans rights).</li>
+<li>from <a href="https://www.amazon.com/dp/B0CZB86NP1/">Amazon</a> or <a href="https://www.barnesandnoble.com/w/technically-a-blog-volume-0-nicole-tietz-sokolskaya/1145198445?ean=9798989929900">B&amp;N</a> for $20 (donates less to trans rights)</li>
+</ul>
+<p>If you buy the book and want a PDF copy to enjoy on an ereader, email me a selfie with the book and I'll send the PDF to you.</p>
+<h1 id="doing-it-again">Doing it again</h1>
+<p>I would, and will, do this again!
+I'm going to put together the 2023 volume in the summer or fall, after a breather.
+Then I plan to do it every year or so, since I'm writing more than ever on the blog right now.</p>
+<p>I'm going to do a few things differently this time around.
+Notably, I don't have all the startup costs, and I'm pretty confident the first proof copy will be the only proof copy.
+Other than that, I'm going to just get rid of any characters that don't render and call it a day.</p>
+<hr />
+<p>Thanks for reading to the end!
+I hope you have a lovely day.</p>
+<hr />
+<div class="footnote-definition" id="logical-order"><sup class="footnote-definition-label">1</sup>
+<p>This is presented as discrete steps, but in reality almost all of these were interleaved. There is a lot you can and should do in parallel! Presenting it in chronological order would be very disjointed, though.</p>
+</div>
+<div class="footnote-definition" id="other-book"><sup class="footnote-definition-label">2</sup>
+<p>We're working on a system design interview book!</p>
+</div>
+<div class="footnote-definition" id="justified"><sup class="footnote-definition-label">3</sup>
+<p>I strongly dislike justified text, personal opinion. It makes reading harder for me, for only a small gain in aesthetics.</p>
+</div>
+<div class="footnote-definition" id="isbn"><sup class="footnote-definition-label">4</sup>
+<p>International Standard Book Numbers are the numbers on barcodes on the back of books, and they're what identify books. Each format of a book has a different one (ebook, paperback, hardcover).</p>
+</div>
+<div class="footnote-definition" id="or-illustrator"><sup class="footnote-definition-label">5</sup>
+<p>Or your illustrator takes care of that for you, knowing more about the process than you do, if you're me.</p>
+</div>

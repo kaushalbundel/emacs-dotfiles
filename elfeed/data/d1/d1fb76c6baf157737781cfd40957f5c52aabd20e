@@ -1,0 +1,50 @@
+<p>I've been thinking about the learning curve for Rust lately, and why it feels so hard to learn.
+I think the reason is because the complexity is all front-loaded, and the resources generally don't actively reduce that front-loading<sup class="footnote-reference"><a href="#1">1</a></sup>.</p>
+<p>There are two well-trod paths for learning Rust: read long books, or learn by example.</p>
+<p>These work for some people, but they have harsh learning curves.
+The books are quite long and generally you have to get through <em>all</em> of it before you can do things that are generally useful<sup class="footnote-reference"><a href="#2">2</a></sup>.
+On the other hand, learning by example generally works only if you're already quite familiar with low-level programming and just need to learn the syntax and other little Rust-y bits.</p>
+<p>This keeps a lot of people out of Rust by sheer lack of <em>time</em>, if nothing else.
+If it takes a month of evenings to work through a Rust book, are you going to learn Rust or are you going to pick up Go, where you can spend a couple of evenings then write something useful?
+I know which one I'd pick, because I picked Go at work to avoid that learning curve for my coworkers.</p>
+<p>Most other languages have much shorter time before you can feel productive and knowledgable.
+That feeling is <em>critical</em> in learning a language and bringing newcomers into the fold.
+With Go or Python or TypeScript, an experienced developer can be writing useful code in a day or two.
+Among the languages I've used at work, Elixir was probably the longest learning curve, and it topped out at three days to writing production code.
+Even C and C++ have shorter learning curves than Rust, although that's a <em>bad</em> thing, because now we get a lot of people who are confidently writing bad C and C++, just yeeting buffer overflows into production.</p>
+<p>I think the best way to reduce this learning curve is to recognize two things:</p>
+<ol>
+<li>Other languages have the problems Rust prevents, but just let you confidently ignore them. (I'm looking at you, all the data races I've written in Go and buffer overruns I've written in C++.)</li>
+<li>You can write useful Rust with a lot less deep understanding if you pair with someone else.</li>
+</ol>
+<p>This isn't an original thought. <a href="https://jvns.ca/blog/2016/05/12/a-second-try-at-using-rust/">Julia Evans said</a> that &quot;having someone elide away the harder stuff so I can focus on what’s easy feels to me like a good way to learn,&quot; and I couldn't agree more.
+I think this might be one of the ideal ways to learn Rust.</p>
+<p>One of the best ways to reduce the learning curve is to bootstrap up to writing small programs with a little bit of help, and then pair to get to proficiency.
+You can bootstrap from something like <a href="https://doc.rust-lang.org/stable/rust-by-example/">Rust by Example</a> or <a href="https://github.com/rust-lang/rustlings">Rustlings</a> to get the syntax under your fingers and get <em>some</em> knowledge of the language.
+Then you can get started on a real project and get help when you get stuck.</p>
+<p>I think this is particularly effective in a workplace environment.
+These problems that Rust front-loads are still <em>important</em> in other languages, but they're handled at code review time (if you're lucky).
+With Rust, we can do the same thing, and write code that mostly would work (maybe take some shortcuts with clones and reference counts), and then use pairing and code review to tighten it up!</p>
+<p>I'm investing in this idea some more. Right now I'm working on two things:</p>
+<ol>
+<li>Introducing Rust at work, with a prototyping phase to make sure that it'll work for our team and our problems.</li>
+<li>Writing a Rust training course (with the table of contents shamelessly lifted from <a href="https://google.github.io/comprehensive-rust/">Comprehensive Rust</a>, then modified) focused on getting people just to the point of pairing with a more experienced Rust programmer<sup class="footnote-reference"><a href="#3">3</a></sup>.</li>
+</ol>
+<p>If anyone has any other ideas for reducing Rust's learning curve, let me know!</p>
+<hr />
+<div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
+<p>For example, early Rust programmers probably shouldn't be dealing with tons of borrows and tricky lifetimes.
+Those are an optimization!
+You can get away with clones and reference counts for a long time and then dive into the more advanced things when you need them or when you're ready for them.</p>
+</div>
+<div class="footnote-definition" id="2"><sup class="footnote-definition-label">2</sup>
+<p>If you are, I'm sorry.
+Know that things can get better.
+C++ abused me, but I left and turned my life around.
+You can get help, too.</p>
+</div>
+<div class="footnote-definition" id="3"><sup class="footnote-definition-label">3</sup>
+<p>It will be open-source!
+If you're interested in helping test the material, please reach out to me.
+My email's in the footer, or Zulip's good if you're a Recurser.</p>
+</div>

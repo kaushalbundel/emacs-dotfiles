@@ -1,0 +1,72 @@
+<p><em>Join us as we explore the frontiers of material science in our new series “From The Lab.” This is a joint post between the <a href="https://wyss.harvard.edu/">Wyss Institute</a> for Biologically Inspired Engineering at Harvard University and Collaborative Fund as part of a <a href="https://wyss.harvard.edu/collaboration/collaborative-fund-venture-alliance/">research alliance</a>. Our alliance aims to bridge the gap between laboratory know-how and industrial scale application of new technologies.</em></p>
+
+<p><img src="https://collabfund.com/uploads/From-the-Lab.2.jpg" alt="Graphic featuring the name of the series From the lab and highlighting the partnership with the Wyss Institute." /></p>
+
+<p>As we stand at the crossroads of ecological crisis and tech innovation, the call to redefine our material advantage grows louder. Our planet’s heartbeat races with the demand for more – more energy, more products, more consumption. Global resource use has skyrocketed, <a href="https://www.unep.org/news-and-stories/press-release/un-calls-urgent-rethink-resource-use-skyrockets">tripling</a> since 1970 without a significant increase in material productivity. In the face of dwindling natural resources and a polluted planet, we must revolutionize how we extract, manufacture, and dispose of materials.</p>
+
+<hr />
+
+<h3 id="global-material-productivity-is-at-an-all-time-low">Global Material Productivity is at an All-Time Low</h3>
+
+<p>When measuring global progress in terms of resource productivity – material, energy, CO2 emissions, and labor – <a href="https://www.resourcepanel.org/reports/global-resources-outlook">material productivity</a> ($US of GDP per kg of material use) has shown the slowest growth (and even slight decline!) over the last decade (Figure 1).</p>
+
+<p><img src="https://collabfund.com/uploads/Fig1_ResourceProductivity.png" alt="A chart showing global resource and labor productivity from 1970–2017." /></p>
+
+<p><strong>This means that as the world’s population and needs have increased, not only has our ability to extract and use materials failed to meet these demands, but we have also been producing greenhouse gasses (GHGs) in unprecedented amounts.</strong></p>
+
+<p>At our current rate of GHG emissions, we are on track to see hotter temperatures, more severe weather, a rising ocean, and decreased biodiversity. These <a href="https://www.un.org/en/climatechange/science/causes-effects-climate-change">changes</a> to our planet will result in less available food and potable water, increasing disease, greater population displacement, and more poverty. Second only to energy production, manufacturing is the largest producer of GHGs. In a recent critical <a href="https://doi.org/10.1007/s00170-021-07980-w">review</a> on the impact of manufacturing, both materials selection (raw vs recycled) and the redesign of materials processing were called out as two of the most important factors in reducing carbon emissions from this sector.</p>
+
+<h3 id="reimagining-everyday-materials-and-resource-efficiency-is-critical">Reimagining Everyday Materials and Resource Efficiency is Critical</h3>
+
+<p><img src="https://collabfund.com/uploads/img_9721_2.webp" alt="An image of an exhibition display showing minerals from around the world containing all 65 elements found in the average cellphone." /></p>
+
+<p class="caption">The National Natural History Museum’s exhibition “Cellphones: Unseen Connections” includes a display of minerals from around the world containing all 65 elements found in the average cellphone.</p>
+
+<p>To illustrate the scope of this challenge, consider cell phones. Each of our 6-inch smartphones contains an average of 65 individual chemical elements. Samples of these elements are on display today at the Smithsonian Natural History Museum, each in little vials or as colored rocks. Each element requires a unique extraction process governed not only by the chemistry needed to take it from the Earth and purify it, but also the geopolitical concerns based on where it’s found. Once the raw materials have been extracted and processed, they need to be assembled at scale to produce a phone. For a single smartphone, this sequence of extraction, processing, and manufacturing is <a href="https://www.diva-portal.org/smash/record.jsf?pid=diva2%3A1552352&amp;dswid=9668">calculated</a> to produce 86 kg of waste and 110 kg of CO2 footprint.  And then there’s the waste after the commercial lifetime of the phone. It’s <a href="https://weee-forum.org/ws_news/of-16-billion-mobile-phones-possessed-worldwide-5-3-billion-will-become-waste-in-2022/">estimated that in 2022 alone</a>, 5.3 billion mobile phones were discarded with only about 15% of the materials recovered for reuse.</p>
+
+<p><img src="https://collabfund.com/uploads/Fig2_CellPhone%20Data.png" alt="A graphic displaying total waste and emissions produced by the manufacturing process of a single cellphone." /></p>
+
+<p><strong>Every man-made product, be it a gadget or a garment, follows a resource-heavy journey from raw material to eventual waste. However, sustainable material innovations are set to revolutionize this cycle across all sectors, paving the way for a circular economy that prioritizes reuse and recycling.</strong></p>
+
+<p>This is where opportunity lies – and it begins inside the lab. We already have the tools we need to build the sustainable materials revolution.</p>
+
+<p>Scientists and engineers have spent the last several decades developing a wide range of new tools for materials development. The field of <a href="https://www.epa.gov/greenchemistry/basics-green-chemistry#:~:text=Green%20chemistry%20is%20the%20design,%2C%20use%2C%20and%20ultimate%20disposal.">Green Chemistry</a> has grown from the original 12 principles developed by John Warner and Paul Anastas in 1998 to occupying its own chapter in the American Chemical Society and inspiring numerous dedicated journals. <a href="https://www.nature.com/collections/jebacehcbi">Bioinspired engineering</a>, the use of biological systems to inform engineering designs, continues to grow as a field, yielding creative design approaches that are often inherently lower energy, less material intensive, and better for the environment.</p>
+
+<p>Now, let’s reimagine our cell phones. What if instead of traditional mining, we designed enzymes to <a href="https://pubs.acs.org/doi/full/10.1021/acssynbio.3c00600">identify and extract</a> the needed rare earth metals from soil and rock? What if instead of petroleum-based polymers, our cell phones were constructed of biopolymers that were manufactured using microbial fermentation with CO2 as a feedstock? This would simultaneously pull GHGs out of the atmosphere and prepare materials at low temperatures in aqueous solvents. What if at the end of the phone’s lifetime we could selectively re-extract the valuable metal elements and compost the rest using engineered microorganisms?</p>
+
+<p>Advances in a number of areas could make this and other novel sustainable materials and processes possible. These areas include:</p>
+
+<ul>
+  <li><a href="https://www.nature.com/articles/s41579-023-01007-9">Synthetic Biology</a>: A broad field that applies engineering principles to biological systems in order to perform specific tasks.</li>
+  <li><a href="https://www.sciencedirect.com/science/article/pii/S0012825221000623">Biomining</a>: A subset of synthetic biology that uses microorganisms to extract metals from ore and waste.</li>
+  <li><a href="https://www.forbes.com/sites/forbestechcouncil/2023/04/20/biomanufacturing-present-and-future/?sh=58f78acd5fd9">Biomanufacturing</a>: Another subset of synthetic biology aimed at employing microorganisms, typically bacteria, fungi, and algae, to create molecules and materials at commercial scale.</li>
+  <li><a href="https://www.sciencedirect.com/science/article/pii/S2666188822000326">Additive manufacturing</a>: The use of 3D printing for product manufacturing to facilitate onsite and on demand fabrication and reduced waste.</li>
+  <li><a href="https://www.acs.org/greenchemistry/principles/12-principles-of-green-chemistry.html#designfordegradation">Design for Degradation</a>: The 10th green chemistry principle that calls for designing systems to degrade to benign components after their useful lifetime.</li>
+</ul>
+
+<h3 id="resistance-to-adopting-new-materials-approaches-remains-high">Resistance to Adopting New Materials Approaches Remains High</h3>
+
+<p>As corporations strive to achieve their net-zero ambitions, new materials are emerging at the forefront as a mission-critical solution. However, most industries are woefully behind –  in large part because corporations have established complex supply chains, manufacturing frameworks, and product design around legacy materials that are costly and complicated to change.</p>
+
+<p>Key blockers standing in the way of materials innovation include:</p>
+
+<ul>
+  <li>Cost relative to the incumbent</li>
+  <li>High capital expenditure (capex) required to adopt new processes</li>
+  <li>Difficulty of integrating new elements into existing supply chains</li>
+  <li>Challenge of supplying required materials at an industrial scale</li>
+</ul>
+
+<p>This decade has brought forth a renewed sense of urgency to solve these challenges as consumers demand sustainability. But cost parity will always remain a major consideration. In reality, sustainable alternatives struggle to gain far-reaching momentum with a green premium. Doubling down on breakthrough technologies that yield long-term cost savings is the most effective way to incentivize businesses to pursue sustainable solutions and pave the pathway for widespread consumer adoption.</p>
+
+<p>This presents an opportunity for new material development modalities to finally emerge from the labs and into the global market.</p>
+
+<p><img src="https://collabfund.com/uploads/Fig3_Fig4.png" alt="Two charts, the one on the left shows the delta between status quo materials and alternative materials being used in 2020 and projected 2035. The chart on the right shows consumer behavior shifting to consumable consumption from 1990–2030." /></p>
+
+<p>This presents an opportunity for new material development modalities to finally emerge from the labs and into the global market.</p>
+
+<h3 id="seize-the-opportunity-redefining-material-advantage">Seize the Opportunity: Redefining Material Advantage</h3>
+
+<p>Our collective mission is clear.  Rethinking how we access raw materials, process them into goods, and design them for post-use (recycle, reuse or degrade) at an industrial scale will allow us to develop a new position as productive and cooperative members of our Earth’s biological community. However, accomplishing this with cost competitiveness top of mind will require integrating technologies that are not yet mainstream.</p>
+
+<p>Bridging academia and industry is crucial for this leap, as seen in the alliance between Harvard’s Wyss Institute and Collaborative Fund. The goal is to pioneer a shift towards a world where we’re not just consumers of Earth’s resources, but also stewards – ensuring a sustainable future through innovation in material use and lifecycle.</p>

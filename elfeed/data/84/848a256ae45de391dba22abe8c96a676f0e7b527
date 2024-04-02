@@ -1,0 +1,2 @@
+This page lists some of my personal projects.
+Projects on GitHub (Gitea mirror) Aug 2023 autocomp.js A super tiny Javascript autocomplete / autosuggestions library. Zero dependencies, ~800 bytes min&#43;gzip. Jun 2023 go-i18n Tiny i18n library for loading and using simple JSON language translation files in Go programs.

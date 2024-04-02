@@ -1,0 +1,720 @@
+<span class="thumbnail"><img width="128" height="108" src="https://content.wolfram.com/sites/43/2023/11/MultiwayAgg-icons-v2.png" class="attachment-thumbnail size-thumbnail wp-post-image" alt="" /></span><p><img title="Aggregation and Tiling as Multicomputational Processes" src="https://content.wolfram.com/sites/43/2023/11/Tiling-hero-final2.png" alt="Aggregation and Tiling as Multicomputational Processes" width="620" height="300" /></p>
+<h2 id="the-importance-of-multiway-systems">The Importance of Multiway Systems</h2>
+<p>It’s all about systems where there can in effect be many possible paths of history. In a typical standard <a href="https://www.wolframscience.com/nks/chap-2--the-crucial-experiment#sect-2-1--how-do-simple-programs-behave">computational system like a cellular automaton</a>, there’s always just one path, defined by evolution from one state to the next. But in a <a href="https://www.wolframscience.com/nks/chap-5--two-dimensions-and-beyond#sect-5-6--multiway-systems">multiway system</a>, there can be many possible next states—and thus many possible paths of history. Multiway systems <a href="https://writings.stephenwolfram.com/2020/04/finally-we-may-have-a-path-to-the-fundamental-theory-of-physics-and-its-beautiful/#the-inevitability-of-quantum-mechanics">have a central role</a> in our <a href="https://www.wolframphysics.org/">Physics Project</a>, particularly in connection with quantum mechanics. But what’s now emerging is that multiway systems in fact serve as a quite general foundation for a whole new <a href="https://writings.stephenwolfram.com/2021/09/multicomputation-a-fourth-paradigm-for-theoretical-science/">&#8220;multicomputational&#8221; paradigm</a> for modeling.</p>
+<p>My objective here is twofold. First, I want to use multiway systems as minimal models for growth processes based on aggregation and tiling. And second, I want to use this concrete application as a way to develop further intuition about multiway systems in general. Elsewhere I have explored <a href="https://www.wolframphysics.org/technical-introduction/the-updating-process-for-string-substitution-systems/" target="_blank" rel="noopener">multiway systems for strings</a>, <a href="https://www.wolframphysics.org/bulletins/2021/10/multicomputation-with-numbers-the-case-of-simple-multiway-systems" target="_blank" rel="noopener">multiway systems based on numbers</a>, <a href="https://www.wolframphysics.org/bulletins/2021/02/multiway-turing-machines/" target="_blank" rel="noopener">multiway Turing machines</a>, <a href="https://writings.stephenwolfram.com/2020/12/combinators-a-centennial-view/#updating-schemes-and-multiway-systems">multiway combinators</a>, <a href="https://writings.stephenwolfram.com/2023/09/expression-evaluation-and-fundamental-physics/#multiway-evaluation-and-multiway-graphs">multiway expression evaluation</a> and <a href="https://writings.stephenwolfram.com/2022/06/games-and-puzzles-as-multicomputational-systems/">multiway systems based on games and puzzles</a>. But in studying multiway systems for aggregation  and tiling, we’ll be dealing with something that is immediately more physical and tangible.<span id="more-54568"></span></p>
+<p>When we think of “growth by aggregation” we typically imagine a “random process” in which <a href="https://www.wolframscience.com/nks/p331--the-phenomenon-of-continuity/">new pieces get added &#8220;at random&#8221;</a> to something. But each of these “random possibilities” in effect defines a different path of history. And the concept of a multiway system is to capture all those possibilities together. In a typical random (or “stochastic”) model one’s just tracing a single path of history, and one imagines one doesn’t have enough information to say which path it will be. But in a multiway system one’s looking at all the paths. And in doing so, one’s in a sense making a model for the “whole story” of what can happen. </p>
+<p>The choice of a single path can be “nondeterministic”. But the whole multiway system is deterministic. And by studying that “deterministic whole” it’s often possible to make useful, quite general statements.</p>
+<p>One can think of a particular moment in the evolution of a multiway system as giving something like an <a href="https://writings.stephenwolfram.com/2023/01/how-did-we-get-here-the-tangled-history-of-the-second-law-of-thermodynamics/#coarse-graining-and-the-modern-formulation">ensemble of states of the kind studied in statistical mechanics</a>. But the general concept of a multiway system, with its discrete branching at discrete steps, depends on a level of fundamental discreteness that’s quite unfamiliar from traditional statistical mechanics—though is perfectly straightforward to define in a computational, or even mathematical, way. </p>
+<p>For aggregation it’s easy enough to <a href="https://www.wolframscience.com/nks/notes-7-6--basic-aggregation-model/">set up a minimal discrete model</a>—at least if one allows explicit randomness in the model. But a major point of what we’ll do here is to “go above” that randomness, setting up our model in terms of a whole, deterministic multiway system. </p>
+<p>What can we learn by looking at this whole multiway system? Well, for example, we can see whether there’ll always be growth—whatever the random choices may be—or whether the growth will sometimes, or even always, stop. And in many practical applications (think, for example, tumors) it can be very important to know whether growth always stops—or through what paths it can continue.</p>
+<p>A lot of what we’ll at first do here involves seeing the effect of local constraints on growth. Later on, we’ll also look at effects of geometry, and we’ll study how objects of different shapes can aggregate, or ultimately tile.</p>
+<p>The models we’ll introduce are in a sense very minimal—combining the simplest multiway structures with the simplest spatial structures. And with this minimality it’s almost <a href="https://writings.stephenwolfram.com/2021/09/charting-a-course-for-complexity-metamodeling-ruliology-and-more/#metamodeling-and-the-metatheory-of-models">inevitable that the models will show up</a> as idealizations of all sorts of systems—and as foundations for good models of these systems.</p>
+<p>At first, multiway systems can seem rather abstract and difficult to grasp—and perhaps that’s inevitable given our <a href="https://writings.stephenwolfram.com/2021/03/what-is-consciousness-some-new-perspectives-from-our-physics-project/">human tendency to think sequentially</a>. But by seeing how multiway systems play out in the concrete case of growth processes, we get to build our intuition and develop a more grounded view—that will stand us in good stead in exploring other applications of multiway systems, and in general in coming to terms with the whole multicomputational paradigm.</p>
+<h2 id="the-simplest-case">The Simplest Case</h2>
+<p>It’s the ultimate minimal model for random discrete growth (often called the <a href="https://www.wolframscience.com/nks/notes-7-6--basic-aggregation-model/">Eden model</a>). On a square grid, start with one black cell, then at each step randomly attach a new black cell somewhere onto the growing “cluster”:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110223simplest1img1_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110223simplest1img1.png' alt='' title='' width='610' height='257'> </div>
+</p></div>
+<p>After 10,000 steps we might get:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110223simplest1img2_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110223simplest1img2.png' alt='' title='' width='358' height='334'> </div>
+</p></div>
+<p>But what are all the possible things that can happen? For that, we can construct a multiway system:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110223simplest1img3_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110223simplest1img3.png' alt='' title='' width='606' height='170'> </div>
+</p></div>
+<p>A lot of these clusters differ only by a trivial translation; canonicalizing by translation we get</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110223simplest1img4_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110223simplest1img4.png' alt='' title='' width='496' height='149'> </div>
+</p></div>
+<p>or after another step:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110223simplest1img5_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110223simplest1img5.png' alt='' title='' width='645' height='180'> </div>
+</p></div>
+<p>If we also reduce out rotations and reflections we get</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110223simplest1img6_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110223simplest1img6.png' alt='' title='' width='586' height='218'> </div>
+</p></div>
+<p>or after another step:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110223simplest1img7_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110223simplest1img7.png' alt='' title='' width='630' height='220'> </div>
+</p></div>
+<p>The set of possible clusters after <em>t</em> steps are just the possible polyominoes (or “square lattice animals”) with <em>t</em> cells. The <a href="https://oeis.org/A000105" target="_blank" rel="noopener">number of these for successive <em>t</a></em> is</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110223simplest1img8_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110223simplest1img8.png' alt='' title='' width='474' height='13'> </div>
+</p></div>
+<p>growing roughly like <em>k<sup>t</sup></em> for large <em>t</em>, with <em>k</em> a little larger than 4:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110223simplest1img10_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110223simplest1img10.png' alt='' title='' width='288' height='101'> </div>
+</p></div>
+<p>By the way, canonicalization by translation always reduces the number of possible clusters by a factor of <em>t</em>. Canonicalization by rotation and reflection can reduce the number by a factor of 8 if the cluster has no symmetry (which for large clusters becomes increasingly likely), and by a smaller factor the more symmetry the cluster has, as in: </p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110223simplest1img11_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110223simplest1img11.png' alt='' title='' width='457' height='148'> </div>
+</p></div>
+<p>With canonicalization, the multiway graph after 7 steps has the form</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110223simplest1img12_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110223simplest1img12.png' alt='' title='' width='583' height='195'> </div>
+</p></div>
+<p>and it doesn’t look any simpler with alternative rendering:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110223simplest1img13_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110223simplest1img13.png' alt='' title='' width='259' height='242'> </div>
+</p></div>
+<p>If we imagine that at each step, cells are added with equal probability at every possible position on the cluster, or equivalently that all outgoing edges from a given cluster in the uncanonicalized multiway graph are followed with equal probability, then we can get a distribution of probabilities for the distinct canonical clusters obtained—here shown after 7 steps: </p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110223simplest1img14_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110223simplest1img14.png' alt='' title='' width='192' height='114'> </div>
+</p></div>
+<p>One feature of the large random cluster we saw at the beginning is that it has some holes in it. Clusters with holes start developing after 7 steps, with the smallest being:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110223simplest1img15_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110223simplest1img15.png' alt='' title='' width='49' height='48'> </div>
+</p></div>
+<p>This cluster can be reached through a subset of the multiway system: </p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110223simplest1img16_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110223simplest1img16.png' alt='' title='' width='201' height='431'> </div>
+</p></div>
+<p>And in fact in the limit of large clusters, the probability for there to be a hole seems to approach 1—even though the total fraction of area covered by holes approaches 0.</p>
+<p>One way to characterize the “space of possible clusters” is to create a <a href="https://www.wolframphysics.org/technical-introduction/the-updating-process-for-string-substitution-systems/the-concept-of-branchial-graphs/" target="_blank" rel="noopener">branchial graph</a> by connecting every pair of clusters that have a common ancestor one step back in the multiway graph:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110223simplest1img17_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110223simplest1img17.png' alt='' title='' width='547' height='437'> </div>
+</p></div>
+<p>The connectedness of all these graphs reflects the fact that with the rule we’re using, it’s always possible at any step to go from one cluster to another by a sequence of delete-one-cell/add-one-cell changes. </p>
+<p>The branchial graphs here also show a 4-fold symmetry resulting from the symmetry of the underlying lattice. Canonicalizing the states, we get smaller branchial graphs that no longer show any such symmetry:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110223simplest1img18_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110223simplest1img18.png' alt='' title='' width='569' height='272'> </div>
+</p></div>
+<h2 id="totalistically-constrained-growth-4-cell-neighborhoods">Totalistically Constrained Growth (4-Cell Neighborhoods)</h2>
+<p>With the rule we&#8217;ve been discussing so far, a new cell to be attached can be anywhere on a cluster. But what if we limit growth, by <a href="https://www.wolframscience.com/nks/p332--the-phenomenon-of-continuity/">requiring that new cells must have certain numbers of existing cells around them</a>? Specifically, let’s consider rules that look at the <img style="margin-bottom: -3px" loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323cell3img1.png' alt='' title='' width='17' height='17'/> neighbors around any given position, and allow a new cell there only if there are specified numbers of existing cells in the neighborhood.</p>
+<p>Starting with a cross of black cells, here are some examples of random clusters one gets after 20 steps with all possible rules of this type (the initial “4” designates that these are 4-neighbor rules):</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323cell3img2_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323cell3img2.png' alt='' title='' width='571' height='182'> </div>
+</p></div>
+<p>Rules that don’t allow new cells to end up with just one existing neighbor can only fill in corners in their initial conditions, and can’t grow any further. But any rule that allows growth with only one existing neighbor produces clusters that keep growing forever. And here are some random examples of what one can get after 10,000 steps:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323cell3img3_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323cell3img3A.png' alt='' title='' width='597' height='314'> </div>
+</p></div>
+<p>The last of these is the unconstrained (Eden model) rule we already discussed above. But let’s look more carefully at the first case—where there’s growth only if a new cell will end up with exactly one neighbor. The canonicalized multiway graph in this case is:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323cell3img4_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323cell3img4.png' alt='' title='' width='625' height='324'> </div>
+</p></div>
+<p>The possible clusters here correspond to <a href="https://writings.stephenwolfram.com/2016/05/solomon-golomb-19322016/#polyominoes">polyominoes</a> that are “always one cell wide” (i.e. have no 2×2 blocks), or, equivalently, have perimeter 2<em>t</em> + 2 at step <em>t</em>. The number of such canonicalized clusters grows like:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323cell3img6_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323cell3img6.png' alt='' title='' width='450' height='13'> </div>
+</p></div>
+<p>This is an increasing fraction of the total number of polyominoes—implying that most large polyominoes take this “spindly” form.</p>
+<p>A new feature of a rule with constraints is that not all locations around a cluster may allow growth. Here is a version of the multiway system above, with cells around each cluster annotated with green if new growth is allowed there, and red if it never can be:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323cell3img7_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323cell3img7.png' alt='' title='' width='597' height='319'> </div>
+</p></div>
+<p>In a larger random cluster, we can see that with this rule, most of the interior is “dead” in the sense that the constraint of the rule allows no further growth there:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323cell3img8_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323cell3img8.png' alt='' title='' width='345' height='346'> </div>
+</p></div>
+<p>By the way, the clusters generated by this rule can always be directly represented by their “skeleton graphs”:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323cell3img9_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323cell3img9.png' alt='' title='' width='300' height='308'> </div>
+</p></div>
+<p>Looking at random clusters for all the (grow-with-1-neighbor) rules above, we see different patterns of holes in each case:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323cell3img10_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323cell3img10A.png' alt='' title='' width='691' height='385'> </div>
+</p></div>
+<p>There are altogether five types of cells being distinguished here, reflecting different neighbor configurations:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323cell3img11_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323cell3img11.png' alt='' title='' width='238' height='131'> </div>
+</p></div>
+<p>Here’s a sample cluster generated with the 4:{1,3} rule:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323cell3img12_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323cell3img12.png' alt='' title='' width='256' height='256'> </div>
+</p></div>
+<p>Cells indicated with <img style="margin-bottom: -2px" title="" src="https://content.wolfram.com/sites/43/2023/11/swredbox.png" alt="" width="15" height="15" /> already have too many neighbors, and so can never be added to the cluster. Cells indicated with <img style="margin-bottom: -2px" title="" src="https://content.wolfram.com/sites/43/2023/11/swgreenbox.png" alt="" width="15" height="15" /> have exactly the right number of neighbors to be added immediately. Cells indicated with <img style="margin-bottom: -2px" title="" src="https://content.wolfram.com/sites/43/2023/11/swyellowbox.png" alt="" width="15" height="15" /> don&#8217;t currently have the right number of neighbors to grow, but if neighbors are filled in, they might be able to be added. Sometimes it will turn out that when neighbors of <img style="margin-bottom: -2px" title="" src="https://content.wolfram.com/sites/43/2023/11/swyellowbox.png" alt="" width="15" height="15" /> cells get filled in, they will actually prevent the cell from being added (so that it becomes <img style="margin-bottom: -2px" title="" src="https://content.wolfram.com/sites/43/2023/11/swredbox.png" alt="" width="15" height="15" />)—and in the particular case shown here that happens with the 2&#215;2 blocks of <img style="margin-bottom: -2px" title="" src="https://content.wolfram.com/sites/43/2023/11/swyellowbox.png" alt="" width="15" height="15" /> cells.</p>
+<p>The multiway graphs from the rules shown here are all qualitatively similar, but there are detailed differences. In particular, at least for many of the rules, an increasing number of states are “missing” relative to what one gets with the grow-in-all-cases 4:{1,2,3,4} rule—or, in other words, there are an increasing number of polyominoes that can’t be generated given the constraints:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323cell3img14_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323cell3img14.png' alt='' title='' width='468' height='208'> </div>
+</p></div>
+<p>The first polyomino that can’t be reached (which occurs at step 4) is:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323cell3img15_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323cell3img15.png' alt='' title='' width='49' height='48'> </div>
+</p></div>
+<p>At step 6 the polyominoes that can’t be reached for rules 4:{1,3} and 4:{1,3,4} are</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323cell3img16_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323cell3img16.png' alt='' title='' width='397' height='48'> </div>
+</p></div>
+<p>while for 4:{1} and 4:{1,4} the additional polyomino</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323cell3img17_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323cell3img17.png' alt='' title='' width='49' height='48'> </div>
+</p></div>
+<p>can also not be reached.</p>
+<p>At step 8, the polyomino</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323cell3img18_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323cell3img18.png' alt='' title='' width='49' height='48'> </div>
+</p></div>
+<p>is reachable with 4:{1} and 4:{1,3} but not with 4:{1,4} and 4:{1,3,4}. </p>
+<p>Of some note is that none of the rules that exclude polyominoes can reach:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323cell3img19_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323cell3img19.png' alt='' title='' width='49' height='48'> </div>
+</p></div>
+<h2 id="totalistically-constrained-growth-8-cell-neighborhoods">Totalistically Constrained Growth (8-Cell Neighborhoods)</h2>
+<p>What happens if one considers diagonal as well orthogonal neighbors, giving a total of 8 neighbors around a cell? There are 256 possible rules in this case, corresponding to the possible subsets of <tt><a href="https://reference.wolfram.com/language/ref/Range.html">Range</a>[8]</tt>. Here are samples of what they do after 200 steps, starting from an initial <img style="margin-bottom: -2px" loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323cell8img1.png' alt='' title='' width='26' height='18'/> cluster:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw1103023eightcellAimg2_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw1103023eightcellAimg2.png' alt='' title='' width='667' height='666'> </div>
+</p></div>
+<p>Two cases that at least initially show growth here are (the “8” designates that these are 8-neighbor rules):</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw1103023eightcellAimg3_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw1103023eightcellAimg3.png' alt='' title='' width='503' height='268'> </div>
+</p></div>
+<p>In the {2} case, the multiway graph begins with:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw1103023eightcellAimg4_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw1103023eightcellAimg4.png' alt='' title='' width='609' height='325'> </div>
+</p></div>
+<p>One might assume that every branch in this graph would continue forever, and that growth would never “get stuck”. But it turns out that after 9 steps the following cluster is generated:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw1103023eightcellAimg5_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw1103023eightcellAimg5.png' alt='' title='' width='108' height='108'> </div>
+</p></div>
+<p>And with this cluster, no further growth is possible: no positions around the boundary have exactly 2 neighbors. In the multiway graph up to 10 steps, it turns out this is the only “terminal cluster” that can be generated—out of a total of 1115 possible clusters:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323cell8partialimg1_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323cell8partialimg1.png' alt='' title='' width='629' height='316'> </div>
+</p></div>
+<p>So how is that terminal cluster reached? Here’s the <a href="https://www.wolframscience.com/metamathematics/relations-to-automated-theorem-proving/">fragment of multiway graph</a> that leads to it:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw1103023eightcellAimg7_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw1103023eightcellAimg7.png' alt='' title='' width='135' height='462'> </div>
+</p></div>
+<p>If we don’t prune off all the ways to “go astray”, the fragment appears as part of a larger multiway graph:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw1103023eightcellAimg8_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw1103023eightcellAimg8.png' alt='' title='' width='464' height='463'> </div>
+</p></div>
+<p>And if one follows all paths in the unpruned (and uncanonicalized) multiway graph at random (i.e. at each step, one chooses each branch with equal probability), it turns out that the probability of ever reaching this particular terminal cluster is just:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw1103023eightcellAimg9_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw1103023eightcellAimg9.png' alt='' title='' width='80' height='25'> </div>
+</p></div>
+<p>(And the fact that this number is fairly small implies that the system is far from <a href="https://www.wolframphysics.org/technical-introduction/the-updating-process-for-string-substitution-systems/the-phenomenon-of-causal-invariance/" target="_blank" rel="noopener">confluent</a>; there are many paths that, for example, don’t converge to the fixed point corresponding to this terminal cluster.)</p>
+<p>If we keep going in the evolution of the multiway system, we’ll reach other terminal clusters; after 12 steps the following have appeared:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw1103023eightcellAimg10_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw1103023eightcellAimg10.png' alt='' title='' width='246' height='90'> </div>
+</p></div>
+<p>For the {3} rule above, the multiway system takes a little longer to “get going”:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw1103023eightcellAimg11_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw1103023eightcellAimg11.png' alt='' title='' width='644' height='336'> </div>
+</p></div>
+<p>Once again there are terminal clusters where the system gets stuck; the first of them appears at step 14:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw1103023eightcellAimg12_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw1103023eightcellAimg12.png' alt='' title='' width='72' height='72'> </div>
+</p></div>
+<p>And also once again the terminal cluster appears as an isolated node in the whole multiway system: </p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw1103023eightcellAimg13_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw1103023eightcellAimg13.png' alt='' title='' width='634' height='318'> </div>
+</p></div>
+<p>The fragment of multiway graph that leads to it is:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw1103023eightcellAimg14_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw1103023eightcellAimg14.png' alt='' title='' width='236' height='565'> </div>
+</p></div>
+<p>So far we’ve been finding terminal clusters by waiting for them to appear in the evolution of the multiway system. But there’s another approach, similar to what one might use in <a href="https://resources.wolframcloud.com/FunctionRepository/resources/GenerateTiling/">filling in something like a tiling</a>. The idea is that every cell in a terminal cluster must have neighbors that don’t allow further growth. In other words, the terminal cluster must consist of certain “local tiles” for which the constraints don’t allow growth. But what configurations of local tiles are possible? To determine this, we turn the matching conditions for the tiles into logical expressions whose variables are <tt><a href="http://reference.wolfram.com/language/ref/True.html">True</a></tt> and <tt><a href="http://reference.wolfram.com/language/ref/False.html">False</a></tt> depending on whether particular positions in the template do or do not contain cells in the cluster. By solving the <a href="https://reference.wolfram.com/language/ref/SatisfiabilityInstances.html">satisfiability problem</a> for the combination of these logical expressions, one finds configurations of cells that could conceivably correspond to terminal clusters.</p>
+<p>Following this procedure for the {2} rules with regions of up to 6×6 cells we find:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw1103023eightcellAimg15_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw1103023eightcellAimg15.png' alt='' title='' width='664' height='363'> </div>
+</p></div>
+<p>But now there’s an additional constraint. Assuming one starts from a connected initial cluster, any subsequent cluster generated must also be connected. Removing the non-connected cases we get:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw1103023eightcellAimg16_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw1103023eightcellAimg16.png' alt='' title='' width='646' height='136'> </div>
+</p></div>
+<p>So given these terminal clusters, what initial conditions can lead to them? To determine this we effectively have to <a href="https://www.wolframscience.com/nks/notes-10-10--backtracking-in-cellular-automata/">invert the aggregation process</a>—giving in the end a multiway graph that includes all initial conditions that can generate a given terminal cluster. For the smallest terminal cluster we get:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw1103023eightcellAimg17_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw1103023eightcellAimg17.png' alt='' title='' width='125' height='460'> </div>
+</p></div>
+<p>Our 4-cell “T” initial condition appears here—but we see that there are also even smaller 2-cell initial conditions that lead to the same terminal cluster. </p>
+<p>For all the terminal clusters we showed before, we can construct the multiway graphs starting with the minimal initial clusters that lead to them:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw1103023eightcellAimg18_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw1103023eightcellAimg18.png' alt='' title='' width='602' height='436'> </div>
+</p></div>
+<p>For terminal clusters like</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323cell8partialimg2_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323cell8partialimg2.png' alt='' title='' width='165' height='77'> </div>
+</p></div>
+<p>there’s no nontrivial multiway system to show, since these clusters can only appear as initial conditions; they can never be generated in the evolution.</p>
+<p>There are quite a few small clusters that can only appear as initial conditions, and do not have preimages under the aggregation rule. Here are the cases that fit in a 3×3 region:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw1103023eightcellAimg20_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw1103023eightcellAimg20.png' alt='' title='' width='597' height='191'> </div>
+</p></div>
+<p>The case of the {3} rule is fairly similar to the {2} rule. The possible terminal clusters up to 5×5 are:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw1103023eightcellAimg21_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw1103023eightcellAimg21.png' alt='' title='' width='571' height='225'> </div>
+</p></div>
+<p>However, most of these have only a fairly limited set of possible preimages:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw1103023eightcellAimg22_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw1103023eightcellAimg22.png' alt='' title='' width='602' height='748'> </div>
+</p></div>
+<p>For example we have:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw1103023eightcellAimg23_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw1103023eightcellAimg23.png' alt='' title='' width='584' height='216'> </div>
+</p></div>
+<p>And indeed beyond the (size-17) example we already showed above, no other terminal clusters that can be generated from a T initial condition appear here. Sampling further, however, additional terminal clusters appear (beginning at size 25):</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw1103023eightcellAimg24_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw1103023eightcellAimg24.png' alt='' title='' width='384' height='167'> </div>
+</p></div>
+<p>The fragments of multiway graphs for the first few of these are:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw1103023eightcellAimg25_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw1103023eightcellAimg25.png' alt='' title='' width='325' height='212'> </div>
+</p></div>
+<h2 id="random-evolution">Random Evolution</h2>
+<p>We’ve seen above that for the rules we’ve been investigating, terminal clusters are quite rare among possible states in the multiway system. But what happens if we just evolve at random? How often will we wind up with a terminal cluster? When we say “evolve at random&#8221;, what we mean is that at each step we’re going to look at all possible positions where a new cell could be added to the cluster that exists so far, and then we’re going to pick with equal probability at which of these to actually add the new cell.</p>
+<p>For the 8:{3} rule something surprising happens. Even though terminal clusters are rare in its multiway graph, it turns out that regardless of its initial conditions, it always eventually reaches a terminal cluster—though it often takes a while. And here, for example, are a <a href="https://www.wolframscience.com/nks/notes-7-6--generalized-aggregation-models/">few possible terminal clusters</a>, annotated with the number of steps it took to reach them (which is also equal to the number of cells they contain):</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323evolutionimg1_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323evolutionimg1A.png' alt='' title='' width='558' height='258'> </div>
+</p></div>
+<p>The distribution of the number of steps to termination seems to be very roughly exponential (here based on a sample of 10,000 random cases)—with mean lifetime around 2300 and half-life around 7400:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323evolutionimg2_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323evolutionimg2.png' alt='' title='' width='358' height='178'> </div>
+</p></div>
+<p>Here’s an example of a large terminal cluster—that takes 21,912 steps to generate:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323evolutionimg3_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323evolutionimg3.png' alt='' title='' width='283' height='282'> </div>
+</p></div>
+<p>And here’s a map showing when growth in different parts of this cluster occurred (with blue being earliest and red being latest):</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323evolutionimg4_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323evolutionimg4.png' alt='' title='' width='358' height='342'> </div>
+</p></div>
+<p>This picture suggests that different parts of the cluster “actively grow” at different times, and if we look at a “spacetime” plot of where growth occurs as a function of time, we can confirm this:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323evolutionimg5_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323evolutionimg5.png' alt='' title='' width='251' height='403'> </div>
+</p></div>
+<p>And indeed what this suggests is that what&#8217;s happening is that different parts of the cluster are at first “fertile”, but later inevitably “burn out”—so that in the end there are no possible positions left where growth can occur.</p>
+<p>But what shapes can the final terminal clusters form? We can get some idea by looking at a “compactness measure” (of the kind often used to study gerrymandering) that roughly gives the standard deviation of the distances from the center of each cluster to each of the cells in it. Both “very stringy” and “roughly circular” clusters are fairly rare; most clusters lie somewhere in between:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323evolutionimg6_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323evolutionimg6.png' alt='' title='' width='359' height='218'> </div>
+</p></div>
+<p>If we look not at the 8:{3} but instead at the 8:{2} rule, things are very different. Once again, it’s possible to reach a terminal cluster, as the multiway graph shows. But now random evolution almost never reaches a terminal cluster, and instead almost always “runs away” to generate an infinite cluster. The clusters generated in this case are typically much more “compact” than in the 8:{3} case</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323evolutionimg7_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323evolutionimg7.png' alt='' title='' width='358' height='362'> </div>
+</p></div>
+<p>and this is also reflected in the “spacetime” version:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323evolutionimg8_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323evolutionimg8.png' alt='' title='' width='265' height='431'> </div>
+</p></div>
+<h2 id="parallel-growth-and-causal-graphs">Parallel Growth and Causal Graphs</h2>
+<p>In building up our clusters so far, we’ve always been assuming that cells are added sequentially, one at a time. But if two cells are far enough apart, we can actually add them “simultaneously”, in parallel, and end up building the same cluster. We can think of the addition of each cell as being an “event” that updates the state of the cluster. Then—just like in our Physics Project, and other applications of multicomputation—we can define a causal graph that represents the causal dependencies between these events, and then foliations of this causal graph tell us possible overall sequences of updates, including parallel.</p>
+<p>As an example, consider this sequence of states in the “always grow” 4:{1,2,3,4} rule—where at each step the cell that’s new is colored red (and we’re including the “nothing” state at the beginning):</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323growthimg1_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323growthimg1.png' alt='' title='' width='580' height='37'> </div>
+</p></div>
+<p>Every transition between successive states defines an event:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323growthimg2_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323growthimg2.png' alt='' title='' width='573' height='70'> </div>
+</p></div>
+<p>There’s then causal dependence of one event on another if the cell added in the second event is adjacent to the one added in the first event. So, for example, there are causal dependencies like</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323growthimg3_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323growthimg3.png' alt='' title='' width='138' height='73'> </div>
+</p></div>
+<p>and </p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323growthimg4_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323growthimg4.png' alt='' title='' width='138' height='73'> </div>
+</p></div>
+<p>where in the second case additional “spatially separated” cells have been added that aren’t involved in the causal dependence. Putting all the causal dependencies together, we get the complete causal graph for this evolution:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323growthimg5_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323growthimg5.png' alt='' title='' width='284' height='553'> </div>
+</p></div>
+<p>We can recover our original sequence of states by picking a particular ordering of these events (here indicated by the positions of the cells they add):</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323growthimg6_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323growthimg6.png' alt='' title='' width='219' height='396'> </div>
+</p></div>
+<p>This path has the property that it always follows the direction of causal edges—and we can make that more obvious by using a different layout for the causal graph:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323growthimg7_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323growthimg7.png' alt='' title='' width='109' height='429'> </div>
+</p></div>
+<p>But in general we can use any ordering of events consistent with the causal graph. Another ordering (out of a total of 40,320 possibilities in this case) is</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323growthimg8_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323growthimg8.png' alt='' title='' width='235' height='429'> </div>
+</p></div>
+<p>which gives the sequence of states</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323growthimg9_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323growthimg9.png' alt='' title='' width='578' height='40'> </div>
+</p></div>
+<p>with the same final cluster configuration, but different intermediate states.</p>
+<p>But now the point is that the constraints implied by the causal graph do not require all events to be applied sequentially. Some events can be considered “spacelike separated” and so can be applied simultaneously. And in fact, any foliation of the causal graph defines a certain sequence for applying events—either sequentially or in parallel. So, for example, here is one particular foliation of the causal graph (shown with two different renderings for the causal graph):</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323growthimg10_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323growthimg10.png' alt='' title='' width='406' height='301'> </div>
+</p></div>
+<p>And here is the corresponding sequence of states obtained:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323growthimg11_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323growthimg11.png' alt='' title='' width='295' height='47'> </div>
+</p></div>
+<p>And since in some slices of this foliation multiple events happen “in parallel”, it’s “faster” to get to the final configuration. (As it happens, this foliation is like a “cosmological rest frame foliation” in our Physics Project, and involves the maximum possible number of events happening on each slice.)</p>
+<p>Different foliations (and there are a total of 678,972 possibilities in this case) will give different sequences of states, but always the same final state:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323growthimg12_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323growthimg12.png' alt='' title='' width='446' height='460'> </div>
+</p></div>
+<p>Note that nothing we’ve done here depends on the particular rule we’ve used. So, for example, for the 8:{2} rule with sequence of states</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323growthimg13_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323growthimg13.png' alt='' title='' width='580' height='37'> </div>
+</p></div>
+<p>the causal graph is:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323growthimg14_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323growthimg14.png' alt='' title='' width='208' height='375'> </div>
+</p></div>
+<p>It’s worth commenting that everything we’ve done here has been for particular sequences of states, i.e. particular paths in the multiway graph. And in effect what we’re doing is the analog of classical spacetime physics—tracing out causal dependencies in particular evolution histories. But in general we could look at the whole <a href="https://www.wolframphysics.org/technical-introduction/the-updating-process-for-string-substitution-systems/the-relationship-between-graphs-and-the-multiway-causal-graph/" target="_blank" rel="noopener">multiway causal graph</a>, with events that are not only timelike or spacelike separated, but also <a href="https://writings.stephenwolfram.com/2023/09/expression-evaluation-and-fundamental-physics/#branchlike-separation">branchlike separated</a>. And if we make foliations of this graph, we’ll end up not only with “classical” spacetime states, but also “quantum” superposition states that would need to be represented by something like <a href="https://www.wolframphysics.org/bulletins/2021/02/multiway-turing-machines/#visualization-and-multispace" target="_blank" rel="noopener">multispace</a> (in which at each spatial position, there is a “branchial stack” of possible cell values).</p>
+<h2 id="the-one-dimensional-case">The One-Dimensional Case</h2>
+<p>So far we’ve been considering aggregation processes in two dimensions. But <a href="https://www.wolframscience.com/nks/notes-7-6--generalized-aggregation-models/">what about one dimension</a>? In 1D, a “cluster” just consists of a sequence of cells. The simplest rule allows a cell to be added whenever it’s adjacent to a cell that’s already there. Starting from a single cell, here’s a possible random evolution according to such a rule, shown evolving down the page:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110423onedimimg1_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110423onedimimg1.png' alt='' title='' width='405' height='185'> </div>
+</p></div>
+<p>We can also construct the multiway system for this rule:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110423onedimimg2_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110423onedimimg2.png' alt='' title='' width='285' height='122'> </div>
+</p></div>
+<p>Canonicalizing the states gives the trivial multiway graph:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110423onedimimg3_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110423onedimimg3.png' alt='' title='' width='40' height='131'> </div>
+</p></div>
+<p>But just like in the 2D case things get less trivial if there are constraints on growth. For example, assume that before placing a new cell we count the number of cells that lie either distance 1 or distance 2 away. If the number of allowed cells can only be exactly 1 we get behavior like:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110423onedimimg4_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110423onedimimg4.png' alt='' title='' width='565' height='169'> </div>
+</p></div>
+<p>The corresponding multiway system is</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110423onedimimg5_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110423onedimimg5.png' alt='' title='' width='562' height='135'> </div>
+</p></div>
+<p>or after canonicalization:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110423onedimimg6_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110423onedimimg6.png' alt='' title='' width='540' height='165'> </div>
+</p></div>
+<p>The number of distinct sequences after <em>t</em> steps here is given by </p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110423onedimimg7_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110423onedimimg7.png' alt='' title='' width='486' height='14'> </div>
+</p></div>
+<p>which can be expressed in terms of Fibonacci numbers, and for large <em>t</em> is about <span class='InlineFormula'><img src='https://content.wolfram.com/sites/43/2023/11/sw110423onedimimg8.png' width= '13' height='18' align='absmiddle'></span>. </p>
+<p>The rule in effect generates all possible Morse-code-like sequences, consisting of runs of either 2-cell (“long”) black blocks or 1-cell (“short”) black blocks, interspersed by “gaps” of single white cells.</p>
+<p>The branchial graphs for this system have the form:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110423onedimimg9_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110423onedimimg9.png' alt='' title='' width='486' height='210'> </div>
+</p></div>
+<p>Looking at random evolutions for all possible rules of this type we get:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110423onedimimg10_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110423onedimimg10.png' alt='' title='' width='601' height='339'> </div>
+</p></div>
+<p>The corresponding canonicalized multiway graphs are:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110423onedimimg11_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/TheOne-DimensionalCase-img11A.png' alt='' title='' width='627' height='307'> </div>
+</p></div>
+<p>The rules we’ve looked at so far are purely totalistic: whether a new cell can be added depends only on the total number of cells in its neighborhood. But (much like, for example, in cellular automata) it’s also <a href="https://www.wolframscience.com/nks/notes-7-6--generalized-aggregation-models/ ">possible to have rules </a>where whether one can add a new cell depends on the complete configuration of cells in a neighborhood. Mostly, however, such rules seem to behave very much like totalistic ones.</p>
+<p>Other generalizations include, for example, rules with multiple “colors” of cells, and rules that depend either on the total number of cells of different colors, or their detailed configurations.</p>
+<h2 id="the-three-dimensional-case">The Three-Dimensional Case</h2>
+<p>The kind of analysis we’ve done for 2D and 1D aggregation systems can readily be extended to 3D. As a first example, consider a rule in which cells can be added along each of the 6 coordinate directions in a 3D grid whenever they are adjacent to an existing cell. Here are some typical examples of random clusters formed in this case: </p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323threedimimg1_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323threedimimg1.png' alt='' title='' width='580' height='204'> </div>
+</p></div>
+<p>Taking successive slices through the first of these (and coloring by “age”) we get:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323threedimimg2_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/TheThree-DimensionalCase-img2.png' alt='' title='' width='684' height='129'> </div>
+</p></div>
+<p>If we allow a cell to be added only when it is adjacent to just one existing cell (corresponding to the rule 6:{1}) we get clusters that from the outside look almost indistinguishable</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323threedimimg3_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323threedimimg3.png' alt='' title='' width='580' height='214'> </div>
+</p></div>
+<p>but which have an “airier” internal structure:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323threedimimg4_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/TheThree-DimensionalCase-img4.png' alt='' title='' width='651' height='119'> </div>
+</p></div>
+<p>Much like in 2D, with 6 neighbors, there can’t be unbounded growth unless cells can be added when there is just one cell in the neighborhood. But in analogy to what happens in 2D, things get more complicated when we allow “corner adjacency” and have a 26-cell neighborhood.</p>
+<p>If cells can be added whenever there’s at least one adjacent cell, the results are similar to the 6-neighbor case, except that now there can be “corner-adjacent outgrowths”</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323threedimimg5_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323threedimimg5.png' alt='' title='' width='580' height='212'> </div>
+</p></div>
+<p>and the whole structure is “still airier”:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323threedimimg6_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/TheThree-DimensionalCase-img6.png' alt='' title='' width='659' height='175'> </div>
+</p></div>
+<p>Little qualitatively changes for a rule like 26:{2} where growth can occur only with exactly 2 neighbors (here starting with a 3D dimer):</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323threedimimg7_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323threedimimg7.png' alt='' title='' width='580' height='221'> </div>
+</p></div>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323threedimimg8_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/TheThree-DimensionalCase-img8.png' alt='' title='' width='630' height='140'> </div>
+</p></div>
+<p>But the general question of when there is growth, and when not, is quite complicated and subtle. In particular, even with a specific rule, there are often some initial conditions that can lead to unbounded growth, and others that cannot.</p>
+<p>Sometimes there is growth for a while, but then it stops. For example, with the rule 26:{9}, one possible path of evolution from a 3×3×3 block is:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323threedimimg9_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323threedimimg9.png' alt='' title='' width='591' height='74'> </div>
+</p></div>
+<p>The full multiway graph in this case terminates, confirming that no unbounded growth is ever possible:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323threedimimg10_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323threedimimg10.png' alt='' title='' width='345' height='93'> </div>
+</p></div>
+<p>With other initial conditions, however, this rule can grow for longer (here shown every 10 steps):</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323threedimimg11_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323threedimimg11.png' alt='' title='' width='618' height='104'> </div>
+</p></div>
+<p>And from what one can tell, all rules 26:{<em>n</em>} lead to unbounded growth for <span class='InlineFormula'><img style="margin-bottom: 4px"src='https://content.wolfram.com/sites/43/2023/11/sw110323threedimimg12.png' width= '36' height='12' align='absmiddle'></span>, and do not for <span class='InlineFormula'><img style="margin-bottom: 4px" src='https://content.wolfram.com/sites/43/2023/11/sw110323threedimimg13.png' width= '36' height='12' align='absmiddle'></span>.</p>
+<h2 id="polygonal-shapes">Polygonal Shapes</h2>
+<p>So far, we’ve been looking at “filling in cells” in grids—in 2D, 1D and 3D. But we can also look at just “placing tiles” without a grid, with each new tile attaching edge to edge to an existing tile. </p>
+<p>For square tiles, there isn’t really a difference:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323polygonalimg1_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323polygonalimg1.png' alt='' title='' width='449' height='152'> </div>
+</p></div>
+<p>And the multiway system is just the same as for our original “grow anywhere” rule on a 2D grid:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323polygonalimg2_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323polygonalimg2.png' alt='' title='' width='637' height='226'> </div>
+</p></div>
+<p>Here’s now what happens for triangular tiles:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323polygonalimg3_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323polygonalimg3.png' alt='' title='' width='485' height='145'> </div>
+</p></div>
+<p>The multiway graph now generates all <a href="https://mathworld.wolfram.com/Polyiamond.html">polyiamonds</a> (triangular polyforms):</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323polygonalimg4_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323polygonalimg4.png' alt='' title='' width='638' height='338'> </div>
+</p></div>
+<p>And since equilateral triangles can tessellate in a regular lattice, we can think of this—like the square case—as “filling in cells in a lattice” rather than just “placing tiles”. Here are some larger examples of random clusters in this case:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323polygonalimg5_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323polygonalimg5.png' alt='' title='' width='501' height='161'> </div>
+</p></div>
+<p>Essentially the same happens with regular hexagons:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323polygonalimg6_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323polygonalimg6.png' alt='' title='' width='519' height='157'> </div>
+</p></div>
+<p>The multiway graph generates all polyhexes:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323polygonalimg7_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323polygonalimg7.png' alt='' title='' width='636' height='320'> </div>
+</p></div>
+<p>Here are some examples of larger clusters—showing somewhat more “tendrils” than the triangular case:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323polygonalimg8_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323polygonalimg8.png' alt='' title='' width='549' height='182'> </div>
+</p></div>
+<p>And in an “effectively lattice” case like this we could also go on and impose constraints on neighborhood configurations, much as we did in earlier sections above. </p>
+<p>But what happens if we consider shapes that do not tessellate the plane—like regular pentagons? We can still “sequentially place tiles” with the constraint that any new tile can’t overlap an existing one. And with this rule we get for example:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323polygonalimg9_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323polygonalimg9.png' alt='' title='' width='494' height='197'> </div>
+</p></div>
+<p>Here are some “randomly grown” larger clusters—showing all sorts of irregularly shaped interstices inside:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323polygonalimg10_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323polygonalimg10.png' alt='' title='' width='555' height='174'> </div>
+</p></div>
+<p>(And, yes, generating such pictures correctly is far from trivial. In the “effectively lattice” case, coincidences between polygons are fairly easy to determine exactly. But in something like the pentagon case, doing so requires solving equations in a high-degree <a href="https://reference.wolfram.com/language/tutorial/AlgebraicNumberFields.html">algebraic number field</a>.)</p>
+<p>The multiway graph, however, does not show any immediately obvious differences from the ones for “effectively lattice” cases:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323polygonalimg11_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323polygonalimg11.png' alt='' title='' width='637' height='324'> </div>
+</p></div>
+<p>It makes it slightly easier to see what’s going on if we riffle the results on the last step we show:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323polygonalimg12_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323polygonalimg12.png' alt='' title='' width='637' height='348'> </div>
+</p></div>
+<p>The branchial graphs in this case have the form:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323polygonalimg13_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323polygonalimg13.png' alt='' title='' width='610' height='163'> </div>
+</p></div>
+<p>Here’s a larger cluster formed from pentagons:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323polygonalimg14_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323polygonalimg14.png' alt='' title='' width='488' height='486'> </div>
+</p></div>
+<p>And remember that the way this is built is sequentially to add one pentagon at each step by testing every “exposed edge” and seeing in which cases a pentagon will “fit”. As in all our other examples, there is no preference given to “external” versus “internal” edges.</p>
+<p>Note that whereas “effectively lattice” clusters always eventually fill in all their holes, this isn’t true for something like the pentagon case. And in this case it appears that in the limit, about 28% of the overall area is taken up by holes. And, by the way, there’s a definite “zoo” of at least small possible holes, here plotted with their (logarithmic) probabilities:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323polygonalimg15_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323polygonalimg15.png' alt='' title='' width='598' height='150'> </div>
+</p></div>
+<p>So what happens with other regular polygons? Here’s an example with octagons (and in this case the limiting total area taken up by holes is about 35%):</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323polygonalimg16_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323polygonalimg16.png' alt='' title='' width='402' height='460'> </div>
+</p></div>
+<p>And, by the way, here’s the “zoo of holes” in this case:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323polygonalimg17_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323polygonalimg17.png' alt='' title='' width='598' height='149'> </div>
+</p></div>
+<p>With pentagons, it’s pretty clear that difficult-to-resolve geometrical situations will arise. And one might have thought that octagons would avoid these. But there are still plenty of strange “mismatches” like</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323polygonalimg18_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323polygonalimg18.png' alt='' title='' width='295' height='157'> </div>
+</p></div>
+<p>that aren’t easy to characterize or analyze. By the way, one should note that any time a “closed hole” is formed, the vectors corresponding to the edges that form its boundary must sum to zero—in effect defining an equation.</p>
+<p>When the number of sides in the regular polygon gets large, our clusters will approximate circle packings. Here&#8217;s an example with 12-gons:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323polygonalimg19_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323polygonalimg19.png' alt='' title='' width='258' height='303'> </div>
+</p></div>
+<p>But of course because we’re insisting on adding one polygon at a time, the resulting structure is much “airier” than a true circle packing—of the kind that would be obtained (at least in 2D) by “pushing on the edges” of the cluster.</p>
+<h2 id="polyomino-tilings">Polyomino Tilings</h2>
+<p>In the previous section we considered “sequential tilings” constructed from regular polygons. But the methods we used are quite general, and can be applied to sequential tilings formed from any shape—or shapes (or, at least, any shapes for which “attachment edges” can be identified).</p>
+<p>As a first example, consider a domino or dimer shape—which we assume can be oriented both vertically and horizontally:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323polyominoesimg1_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323polyominoesimg1.png' alt='' title='' width='507' height='146'> </div>
+</p></div>
+<p>Here’s a somewhat larger cluster formed from dimers:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323polyominoesimg2_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323polyominoesimg2.png' alt='' title='' width='386' height='386'> </div>
+</p></div>
+<p>Here’s the canonicalized multiway graph in this case:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323polyominoesimg3_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323polyominoesimg3.png' alt='' title='' width='636' height='206'> </div>
+</p></div>
+<p>And here are the branchial graphs:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323polyominoesimg4_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323polyominoesimg4.png' alt='' title='' width='663' height='312'> </div>
+</p></div>
+<p>So what about other polyomino shapes? What happens when we try to sequentially tile with these—effectively making “polypolyominoes”?</p>
+<p>Here’s an example based on an L-shaped polyomino:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323polyominoesimg5_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323polyominoesimg5.png' alt='' title='' width='526' height='202'> </div>
+</p></div>
+<p>Here’s a larger cluster</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323polyominoesimg6_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323polyominoesimg6.png' alt='' title='' width='415' height='518'> </div>
+</p></div>
+<p>and here’s the canonicalized multiway graph after just 1 step</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323polyominoesimg7_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323polyominoesimg7.png' alt='' title='' width='427' height='159'> </div>
+</p></div>
+<p>and after 2 steps:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323polyominoesimg8_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323polyominoesimg8.png' alt='' title='' width='614' height='156'> </div>
+</p></div>
+<p>The only other 3-cell polyomino is the tromino:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323polyominoesimg9_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323polyominoesimg9.png' alt='' title='' width='632' height='187'> </div>
+</p></div>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323polyominoesimg10_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323polyominoesimg10.png' alt='' title='' width='472' height='478'> </div>
+</p></div>
+<p>(For dimers, the limiting fraction of area covered by holes seems to be about 17%, while for L and tromino polyominoes, it’s about 27%.)</p>
+<p>Going to 4 cells, there are 5 possible polyominoes—and here are samples of random clusters that can be built with them (note that in the last case shown, we require only that “subcells” of the 2×2 polyomino must align):</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323polyominoesimg11_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/PolyominoTilings-img11.png' alt='' title='' width='555' height='571'> </div>
+</p></div>
+<p>The corresponding multiway graphs are:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323polyominoesimg12_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323polyominoesimg12.png' alt='' title='' width='668' height='485'> </div>
+</p></div>
+<p>Continuing for more steps in a few cases:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323polyominoesimg13_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323polyominoesimg13.png' alt='' title='' width='635' height='178'> </div>
+</p></div>
+<p>Some polyominoes are “more awkward” to fit together than others—so these typically give clusters of “lower density&#8221;:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323polyominoesimg14_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323polyominoesimg14.png' alt='' title='' width='242' height='235'> </div>
+</p></div>
+<p>So far, we’ve always considered adding new polyominoes so that they “attach” on any “exposed edge”. And the result is that we can often get long “tendrils” in our clusters of polyominoes. But an alternative strategy is to try to add polyominoes as “compactly” as possible, in effect by adding successive “rings” of polyominoes (with “older” rings here colored bluer):</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323polyominoesimg15_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323polyominoesimg15.png' alt='' title='' width='617' height='192'> </div>
+</p></div>
+<p>In general there are many ways to add these rings, and eventually one will often get stuck, unable to add polyominoes without leaving holes—as indicated by the red annotation here:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323polyominoesimg16_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323polyominoesimg16.png' alt='' title='' width='240' height='240'> </div>
+</p></div>
+<p>Of course, that doesn’t mean that if one was prepared to “backtrack and try again&#8221;, one couldn’t find a way to extend the cluster without leaving holes. And indeed for the polyomino we’re looking at here it’s perfectly possible to end up with “perfect tilings” in which no holes are left:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323polyominoesimg17_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323polyominoesimg17.png' alt='' title='' width='454' height='205'> </div>
+</p></div>
+<p>In general, we could consider all sorts of different strategies for growing clusters by adding polyominoes “in parallel”—just like in our discussion of causal graphs above. And if we add polyominoes “a ring at a time” we’re effectively making a particular choice of foliation—in which the successive “ring states” turn out be directly analogous to what we call <a href="https://www.wolframphysics.org/technical-introduction/the-updating-process-for-string-substitution-systems/generational-evolution/#p-294" target="_blank" rel="noopener">“generational states” in our Physics Project</a>.</p>
+<p>If we allow holes (and don’t impose other constraints), then it’s inevitable that—just with ordinary, sequential aggregation—we can grow an unboundedly large cluster of polyominoes of any shape, just by always attaching one edge of each new polyomino to an “exposed” edge of the existing cluster. But if we don’t allow holes, it’s a different story—and we’re talking about a traditional tiling problem, where there are ultimately cases where tiling is impossible, and only limited-size clusters can be generated.</p>
+<p>As it happens, all polyominoes with 6 or fewer cells do allow infinite tilings. But with 7 cells the following do not:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323polyominoesimg18_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323polyominoesimg18.png' alt='' title='' width='282' height='57'> </div>
+</p></div>
+<p>It’s perfectly possible to grow random clusters with these polyominoes—but they tend not to be at all compact, and to have lots of holes and tendrils:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323polyominoesimg19_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/PolyominoTilings-img19E.png' alt='' title='' width='605' height='533'> </div>
+</p></div>
+<p>So what happens if we try to grow clusters in rings? Here are all the possible ways to “surround” the first of these polyominoes with a “single ring”:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323polyominoesimg20_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323polyominoesimg20.png' alt='' title='' width='676' height='180'> </div>
+</p></div>
+<p>And it turns out in every single case, there are edges (indicated here in red) where the cluster can’t be extended—thereby demonstrating that no infinite tiling is possible with this particular polyomino. </p>
+<p>By the way, much like we saw with constrained growth on a grid, it’s possible to have “tiling regions” that can extend only a certain limited distance, then <a href="https://isohedral.ca/heesch-numbers-of-unmarked-polyforms/" target="_blank" rel="noopener">always get stuck</a>.</p>
+<p>It’s worth mentioning that we’ve considered here the case of single polyominoes. It’s also possible to consider being able to add a <a href="https://www.wolframscience.com/nks/notes-5-7--polyominoes/">whole set of possible polyominoes</a>—“<em>Tetris</em> style”. </p>
+<h2 id="nonperiodic-tilings">Nonperiodic Tilings</h2>
+<p>We’ve looked at polyominoes—and shapes like pentagons—that don’t tile the plane. But what about shapes that can tile the plane, but only nonperiodically? As an example, let’s consider <a href="https://www.wolframscience.com/nksonline/page-932d/">Penrose tiles</a>. The basic shapes of these tiles are</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323nonperiodicimg1_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323nonperiodicimg1.png' alt='' title='' width='145' height='42'> </div>
+</p></div>
+<p>though there are additional matching conditions (implicitly indicated by the arrows on each tile), which can be enforced either by putting notches in the tiles or by decorating the tiles:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323nonperiodicimg2_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323nonperiodicimg2.png' alt='' title='' width='145' height='116'> </div>
+</p></div>
+<p>Starting with these individual tiles, we can build up a multiway system by attaching tiles wherever the matching rules are satisfied (note that all edges of both tiles are the same length):</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323nonperiodicimg3_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323nonperiodicimg3.png' alt='' title='' width='638' height='375'> </div>
+</p></div>
+<p> So how can we tell that these tiles can form a nonperiodic tiling? One approach is to generate a multiway system in which at successive steps we surround clusters with rings in all possible ways:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323nonperiodicimg4_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323nonperiodicimg4.png' alt='' title='' width='515' height='488'> </div>
+</p></div>
+<p>Continuing for another step we get:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323nonperiodicimg5_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323nonperiodicimg5.png' alt='' title='' width='598' height='642'> </div>
+</p></div>
+<p>Notice that here some of the branches have died out. But the question is what branches exist that will continue forever, and thus lead to an infinite tiling? To answer this we have to do a bit of analysis.</p>
+<p>The first step is to see what possible “rings” can have formed around the original tile. And we can read all of these off from the multiway graph:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323nonperiodicimg6_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323nonperiodicimg6.png' alt='' title='' width='581' height='181'> </div>
+</p></div>
+<p>But now it’s convenient to look not at possible rings around a tile, but instead at possible configurations of tiles that can surround a single vertex. There turns out to be the following limited set:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323nonperiodicimg7_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323nonperiodicimg7.png' alt='' title='' width='580' height='61'> </div>
+</p></div>
+<p>The last two of these configurations have the feature that they can’t be extended: no tile can be added on the center of their “blue sides”. But it turns out that all the other configurations can be extended—though only to make a <a href="https://www.wolframscience.com/nks/notes-5-4--penrose-tilings/">nested tiling</a>, not a periodic one.</p>
+<p>And a first indication of this is that larger copies of tiles (“supertiles”) can be drawn on top of the first three configurations we just identified, in such a way that the vertices of the supertiles coincide with vertices of the original tiles:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323nonperiodicimg8_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323nonperiodicimg8.png' alt='' title='' width='192' height='74'> </div>
+</p></div>
+<p>And now we can use this to construct rules for a substitution system:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323nonperiodicimg9_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323nonperiodicimg9.png' alt='' title='' width='442' height='119'> </div>
+</p></div>
+<p>Applying this substitution system builds up a nested tiling that can be continued forever:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323nppartialimg1_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323nonperiodicimg10.png' alt='' title='' width='560' height='119'> </div>
+</p></div>
+<p>But is such a nested tiling the only one that is possible with our original tiles? We can prove that it is by showing that every tile in every possible configuration occurs within a supertile. We can pull out possible configurations from the multiway system—and then in each case it turns out that we can indeed find a supertile in which the original tile occurs:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323nonperiodicimg11_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323nonperiodicimg11.png' alt='' title='' width='596' height='226'> </div>
+</p></div>
+<p>And what this all means is that the only infinite paths that can occur in the multiway system are ones that correspond to nested tilings; all other paths must eventually die out.</p>
+<p>The Penrose tiling involves two distinct tiles. But in 2022 <a href="https://mathworld.wolfram.com/AperiodicMonotile.html">it was discovered that</a>—if one’s allowed to flip the tile over—just a single (“hat”) tile is sufficient to force a nonperiodic tiling: </p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323nonperiodicimg12_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323nonperiodicimg12.png' alt='' title='' width='68' height='50'> </div>
+</p></div>
+<p>The full multiway graph obtained from this tile (and its flip-over) is complicated, but many paths in it lead (at least eventually) to “dead ends” which cannot be further extended. Thus, for example, the following configurations—which appear early in the multiway graph—all have the property that they can’t occur in an infinite tiling:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323nonperiodicimg13_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323nonperiodicimg13.png' alt='' title='' width='503' height='64'> </div>
+</p></div>
+<p>In the first case here, we can successively add a few rings of tiles:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323nonperiodicimg14_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323nonperiodicimg14.png' alt='' title='' width='550' height='158'> </div>
+</p></div>
+<p>But after 7 rings, there is a “contradiction” on the boundary, and no further growth is possible (as indicated by the red annotations):</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323nonperiodicimg15_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323nonperiodicimg15.png' alt='' title='' width='319' height='256'> </div>
+</p></div>
+<p>Having eliminated cases that always lead to “dead ends” the resulting simplified multiway graph effectively includes all joins between hat tiles that can ultimately lead to surviving configurations:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323nonperiodicimg16_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323nonperiodicimg16.png' alt='' title='' width='638' height='232'> </div>
+</p></div>
+<p>Once again we can <a href="https://resources.wolframcloud.com/FunctionRepository/resources/HatHexagons/">define a supertile transformation</a></p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323nonperiodicimg17_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323nonperiodicimg17.png' alt='' title='' width='383' height='180'> </div>
+</p></div>
+<p>where the region outlined in red can potentially overlap another supertile. Now we can construct a multiway graph for the supertile (in its “bitten out” and full variant)</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323nonperiodicimg18_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323nonperiodicimg18.png' alt='' title='' width='634' height='348'> </div>
+</p></div>
+<p>and can see that there is a (one-to-one) map from the multiway graph for the original tiles and for these supertiles: </p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323nonperiodicimg19_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323nonperiodicimg19.png' alt='' title='' width='651' height='293'> </div>
+</p></div>
+<p>And now from this we can tell that there can be arbitrarily large nested tilings using the hat tile:</p>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323nonperiodicimg20_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323nonperiodicimg20.png' alt='' title='' width='556' height='150'> </div>
+</p></div>
+<div>
+<div class='wolfram-c2c-wrapper writtings-c2c_above' data-c2c-file='https://content.wolfram.com/sites/43/2023/11/sw110323nonperiodicimg21_copy.txt' data-c2c-type='text/html'> <img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323nonperiodicimg21.png' alt='' title='' width='522' height='373'> </div>
+</p></div>
+<h2 id="personal-notes">Personal Notes</h2>
+<p>Tucked away on <a href="https://www.wolframscience.com/nks/p979--the-phenomenon-of-continuity/">page 979</a> of my 2002 book <em><a href="https://www.wolframscience.com/nks/">A New Kind of Science</a></em> is a note (written in 1995) on “<a href="https://www.wolframscience.com/nks/notes-7-6--generalized-aggregation-models/">Generalized aggregation models</a>”:</p>
+<p><a class='magnific image' alt='' title='' href='https://content.wolfram.com/sites/43/2023/11/sw110323finalimg1.png'><img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323finalimg1.png' alt='Click to enlarge' title='Click to enlarge' width='620' height='472'/></a></p>
+<p>And in many ways the current piece is a three-decade-later followup to that note—using a new approach based on multiway systems. </p>
+<p> In <em>A New Kind of Science</em> I did <a href="https://www.wolframscience.com/nks/chap-5--two-dimensions-and-beyond#sect-5-6--multiway-systems">discuss multiway systems</a> (both abstractly, and in <a href="https://www.wolframscience.com/nks/chap-9--fundamental-physics#sect-9-11--uniqueness-and-branching-in-time">connection with fundamental physics</a>). But what I said about aggregation was mostly in a section called “<a href="https://www.wolframscience.com/nks/chap-7--mechanisms-in-programs-and-nature#sect-7-6--the-phenomenon-of-continuity">The Phenomenon of Continuity</a>” which discussed how randomness could on a large scale lead to apparent continuity. That section began by talking about things like random walks, but went on to discuss <a href="https://www.wolframscience.com/nks/p331--the-phenomenon-of-continuity/">the same minimal (&#8220;Eden model&#8221;)</a> example of “random aggregation” that I give here. And then, in an attempt to “spruce up” my discussion of aggregation, I started looking at “<a href="https://www.wolframscience.com/nks/p332--the-phenomenon-of-continuity/">aggregation with constraints</a>”. In the main text of the book I gave just two examples:</p>
+<p><a class='magnific image' alt='' title='' href='https://content.wolfram.com/sites/43/2023/11/sw110323finalimg2.png'><img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323finalimg2.png' alt='Click to enlarge' title='Click to enlarge' width='473' height='424'/></a></p>
+<p>But then for the <a href="https://www.wolframscience.com/nks/notes-7-6--generalized-aggregation-models/">footnote</a> I studied a wider range of constraints (enumerating them much as I had cellular automata)—and noticed the surprising phenomenon that with some constraints the aggregation process could end up getting stuck, and not being able to continue.</p>
+<p>For years I carried around the idea of investigating that phenomenon further. And it was often on my list as a possible project for a student to explore at the <a href="https://education.wolfram.com/summer-school">Wolfram Summer School</a>. Occasionally it was picked, and progress was made in various directions. And then a few years ago, with our Physics Project in the offing, the idea arose of investigating it using multiway systems—and there were Summer School projects that made progress on this. Meanwhile, as our Physics Project progressed, our <a href="https://resources.wolframcloud.com/FunctionRepository/resources/MultiwaySystem/?i=MultiwaySystem">tools for working with multiway systems</a> greatly improved—ultimately making possible what we’ve done here. </p>
+<p>By the way, back in the 1990s, one of the many topics I studied for <em>A New Kind of Science</em> was <a href="https://www.wolframscience.com/nks/chap-5--two-dimensions-and-beyond#sect-5-7--systems-based-on-constraints">tilings</a>. And in an effort to determine what tilings were possible, I investigated what amounts to <a href="https://www.wolframscience.com/nks/p218--systems-based-on-constraints/">aggregation under tiling</a> constraints—which is in fact even a generalization of what I consider here:</p>
+<p><a class='magnific image' alt='' title='' href='https://content.wolfram.com/sites/43/2023/11/sw110323finalimg1.png'><img loading='lazy' src='https://content.wolfram.com/sites/43/2023/11/sw110323finalimg3.png' alt='Click to enlarge' title='Click to englarge' width='393' height='461'> </a></p>
+<h2 id='thanks' style='font-size:1.2rem'>Thanks</h2>
+<p style='font-size:90%'>First and foremost, I’d like to thank Brad Klee for extensive help with this piece, as well as Nik Murzin for additional help. (Thanks also to Catherine Wolfram, Christopher Wolfram and Ed Pegg for specific pointers.) I’d like to thank various Wolfram Summer School students (and their mentors) who’ve worked on aggregation systems and their multiway interpretation in recent years: <a href="https://community.wolfram.com/groups/-/m/t/1728662">Kabir Khanna 2019 (mentors: Christopher Wolfram &#038; Jonathan Gorard)</a>, <a href="https://community.wolfram.com/groups/-/m/t/2312514">Lina M. Ruiz 2021 (mentors: Jesse Galef &#038; Xerxes Arsiwalla)</a>, <a href="https://community.wolfram.com/groups/-/m/t/2959726">Pietro Pepe 2023 (mentor: Bob Nachbar)</a>. (Also related are the Summer School projects on tilings by <a href="https://community.wolfram.com/groups/-/m/t/2957268">Bowen Ping 2023</a> and <a href="https://community.wolfram.com/groups/-/m/t/2958428">Johannes Martin 2023</a>.)</p>
+<h2 id='see-also' style='font-size:1.2rem'>See Also</h2>
+<p style='font-size:90%; line-height:15px'><a href="https://writings.stephenwolfram.com/2022/06/games-and-puzzles-as-multicomputational-systems/">Games and Puzzles as Multicomputational Systems</a></p>
+<p style='font-size:90%; line-height:15px'><a href="https://writings.stephenwolfram.com/2022/03/the-physicalization-of-metamathematics-and-its-implications-for-the-foundations-of-mathematics/">The Physicalization of Metamathematics and Its Implications for the Foundations of Mathematics</a></p>
+<p style='font-size:90%; line-height:15px'><a href="https://www.wolframphysics.org/bulletins/2021/10/multicomputation-with-numbers-the-case-of-simple-multiway-systems">Multicomputation with Numbers: The Case of Simple Multiway Systems</a></p>
+<p style='font-size:90%; line-height:15px'><a href="https://writings.stephenwolfram.com/2021/09/multicomputation-a-fourth-paradigm-for-theoretical-science/">Multicomputation: A Fourth Paradigm for Theoretical Science</a></p>
+<p style='font-size:90%; line-height:15px'><a href="https://www.wolframphysics.org/bulletins/2021/02/multiway-turing-machines/">Multiway Turing Machines</a></p>
+<p style='font-size:90%; line-height:15px'><a href="https://writings.stephenwolfram.com/2020/12/combinators-a-centennial-view/#updating-schemes-and-multiway-systems">Combinators: A Centennial View—Updating Schemes and Multiway Systems</a></p>
+<p style='font-size:90%; line-height:15px'><a href="https://www.wolframphysics.org/technical-introduction/the-updating-process-for-string-substitution-systems/">The Updating Process for String Substitution Systems</a></p>

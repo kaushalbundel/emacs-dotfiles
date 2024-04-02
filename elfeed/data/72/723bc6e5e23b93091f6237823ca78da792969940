@@ -1,0 +1,35 @@
+<p>At my first job, we were a distributed team and would get together often.
+When we went out to eat, one of my coworkers would always order the steak if it was anywhere on the menu.
+Every single time we went to some Ohio restaurant that had truly lackluster steak, he'd order it anyway.</p>
+<p>He knew it was going to be bad!
+He'd done it before, and we talked about it.
+So I asked him, &quot;Ming, if you know it's going to be bad, why are you ordering it?&quot;</p>
+<p>What he told me stuck with me: <strong>&quot;If it's not good, they shouldn't put it on the menu.&quot;</strong>
+They put it there because they felt the menu needed it, but it wasn't good.
+So he got his steak and complained about it, as usual.</p>
+<h1 id="it-s-not-just-about-steak">It's not just about steak</h1>
+<p>I mean, that story actually happened, and it was literally about steak.
+But this happens in so many <em>other</em> places, too.</p>
+<p>At work, I ran into a feature in our product that didn't work well for me as a user.
+This turned into a discussion with product, engineering, and design, where we talked about why that feature is there and what to do about improving it.
+And someone said that we don't necessarily need people to use it, there are other ways of doing the same thing, but it has to be there.</p>
+<p>That's the steak on our menu: that feature that we know isn't working great, but we insist that we need it there anyway.
+And just like the steak, <strong>if it's not good, we shouldn't put it in the product!</strong></p>
+<h1 id="what-do-you-do-about-the-steak-feature">What do you do about the steak feature?</h1>
+<p>If you find steak on your menu, what do you do about it?</p>
+<p>You really have two good options, and one practical-but-unpleasant one.</p>
+<ul>
+<li><strong>Get rid of the feature.</strong> This is the one you go with if you know the feature is bad and it's just there to check a box, but you don't <em>need</em> to check that box. This is the best choice if the feature isn't necessary, because it reduces your maintenance and rework burden.</li>
+<li><strong>Fix the feature.</strong> This is what you go with if you know that you truly <em>do</em> need the feature and it could provide value but is sorta broken right now. If you're able to fix it, then you end up delivering new value to your users. Yay!</li>
+<li><strong>Ignore the problem.</strong> You know, this is a practical option that's sometimes okay. There's a reason that feature's there, and if you're not hearing a lot of complaints (you'd know), then is it <em>that</em> bad? It could be a lot of work to fix it, and there are bigger fires, so you can just ignore it sometimes.</li>
+</ul>
+<p>If you're able to get rid of it or fix it, that's the best option.
+But sometimes that's not possible, and you're left just dealing with having the steak on the menu for the few people who come through who do like the tough old puck.
+And for Ming.</p>
+<h1 id="go-ahead-order-the-steak">Go ahead, order the steak</h1>
+<p>Sometimes you need to go to where the problems are.
+If you write software, you should use it, and you should know where all the dark corners are that have problems.</p>
+<p>Go find the steak on your menu, order it, and chew it.
+Let it sit, and figure out what you're going to do about it.</p>
+<p>And maybe you'll find yourself like Ming: ordering the steak everywhere, complaining about it, but secretly actually enjoying that tough old puck.
+Or just enjoying the griping.</p>

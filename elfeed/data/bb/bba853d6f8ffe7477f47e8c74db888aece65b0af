@@ -1,0 +1,174 @@
+<p>It's time for me to leave GitHub behind and move to another forge.
+I'm not necessarily advocating for anyone else to do the same, but if my reasons resonate with you then you may want to consider it.
+I also don't expect this post to... matter, if that makes sense<sup class="footnote-reference"><a href="#1">1</a></sup>.
+I'm not a major open-source maintainer or contributor.
+I'm just somebody who likes to write code and likes to put it out there.</p>
+<p>So, why am I moving my projects off of GitHub?</p>
+<h1 id="my-issues-with-github">My Issues with GitHub</h1>
+<p>It ultimately comes down to some issues I have with GitHub, both as a product and philosophically.</p>
+<p>The tangible one that tipped me to finally move: <strong>I'm upset about GitHub Copilot.</strong>
+It's fairly well known that Copilot can reproduce significant pieces of open-source code, stripped of their license<sup class="footnote-reference"><a href="#2">2</a></sup>.
+I'm moving to make it a <strong>little bit harder</strong> to have Copilot train on my code.
+This is perhaps a futile protest, but it's what I can do an individual.
+Writing about this is another aspect of what I can do.</p>
+<p>I hope that the ongoing <a href="https://githubcopilotlitigation.com/">litigation</a> gets us some clarity in what is legal here.
+In the US, a lot of &quot;is this legal&quot; is deferred to the run-time execution of contracts by courts, so this is our chance to find out what is legal or not.
+Hopefully this goes in the direction of defending open source and requiring attribution and copyright.
+As it stands, Microsoft/GitHub have basically washed their hands of it for users, saying reproduction of code is rare and the users must make sure it doesn't happen.
+Which... they're supposed to do how, exactly?</p>
+<p>Anyway, I don't want this post to be a full-on rant about just Copilot (I've got plenty of <em>other</em> things to rant about 😉)
+Copilot was just the tipping point.
+There are plenty of other issues I have with GitHub which are more significant for the decision to leave.</p>
+<p>First, I think that <strong>open-source code should use an open-source forge</strong>.
+It's deeply ironic that the biggest forge for open-source code is itself proprietary.
+(And ironic that one of its biggest competitors, GitLab, is open-source and hosts tons of proprietary code.)
+I think this is not healthy for open-source in the long term.
+It gives a <em>lot</em> of control over open-source to Microsoft, and concentrating that power in one entity is not good, regardless of who that one entity is.
+I think they've mostly acted as good stewards so far, and this is about mitigating a risk and addressing a philosophical issue.</p>
+<p>I also don't like how <strong>GitHub changes my behavior</strong>.
+This one is somewhat on me (personal responsibility) but this also comes down to how many modern tools are designed.
+Modern web design leverages and exploits human psychology to achieve the outcomes it wants (ultimately, increasing revenue, usually by driving usage).
+GitHub in particular is pretty effective at doling out dopamine hits to me.
+As a GitHub user, I was always seeking green squares to try to make sure I had activity every day.
+This led me to change my workflow to generate more green squares, not for whatever is maximally effective.
+Having visible stars and followers also turns it into a sort of popularity contest.
+There's a dopamine hit when you get one of those, so it creates a strong reward function for attention-seeking behavior.</p>
+<p>Tools should be designed to help the user, not to help the company<sup class="footnote-reference"><a href="#3">3</a></sup>.
+Many of GitHub's features can be defended (and I'm sure readers of this post will do so!).
+They certainly don't work for me, though.
+Using GitHub changes my behavior in a way that, ultimately, I find to be negative.
+So: bye, GitHub!</p>
+<p>Another small reason is that I believe in <strong>paying for my tools</strong>.
+This is why I pay for email with Fastmail instead of using Gmail.
+The incentives are clearer when you're a paying customer than when you're a free user.
+I mean, they have to make money off of you somehow.
+The innocent explanation for free usage is as a loss leader to funnel people into an eventual enterprise sales cycle.
+The cynical explanation is to take more control over open-source and also to make a massive dataset to power Copilot and other products.
+If you're not paying, you're the product, after all.</p>
+<h1 id="why-i-chose-sourcehut">Why I Chose Sourcehut</h1>
+<p>After deciding to leave GitHub, I had to pick a new forge.
+I settled on <a href="https://sourcehut.org/">Sourcehut</a> for a variety of reasons.</p>
+<p>The non-negotiable criterion was that <strong>it's open-source</strong>.
+The platform itself is licensed under the AGPL (mostly) and you can self-host it.
+They also provide consulting on open-source projects to get some revenue, and they don't require copyright assignment for contributions to Sourcehut from volunteers or employees.
+All of this is pretty strongly aligned with my philosophy and I appreciate it.</p>
+<p>Another big reason is that Sourcehut is <strong>explicitly designed to <em>not</em> dispense dopamine</strong>.
+My brain's response to dopamine is widely exploited by our industry, which is why I'm not on any social media anymore.
+GitHub dispenses a <em>lot</em> of dopamine and it makes me change how I work to get those nice little green squares.
+Sourcehut rejects features that are only for dopamine hits without utility on their own, and is generally designed in a humane way that doesn't exploit human psychology.
+This makes my life tangibly better.</p>
+<p>I also feel like <strong>the platform's direction is understandable</strong>.
+Some people criticize the maintainer (Drew DeVault) for having strong opinions.
+He does have those, and Sourcehut reflects it.
+This lets you have a pretty good understanding of where things are going and what he won't compromise on.
+In contrast, with a proprietary platform like GitHub, you can't quite be sure of the long-term direction.
+It depends on the company strategy and what metrics they're trying to optimize and who's making design decisions.
+Drew is transparent with things and even though he has strong opinions, it's a big tent.
+Unless you're working on blockchain projects that waste energy for imaginary magic beans.
+Then you can get out of this tent—and indeed, your data is portable, and you can easily migrate off to somewhere else!</p>
+<p>Sourcehut is also <strong>very light</strong> and aesthetically pleasing.
+(I know aesthetics are relative.)
+It uses no JavaScript and page loads are just <em>wicked</em> fast.
+I've long bemoaned how everything is a SPA these days, and Sourcehut is as nice reversal of that.</p>
+<p>As an example of how much lighter it is, let's look at one of my repos on both platforms.</p>
+<ul>
+<li>On GitHub, <a href="https://github.com/ntietz/config">my config repo</a> takes 933 ms to load and downloads 2.5 MB.</li>
+<li>On Sourcehut, <a href="https://git.sr.ht/~ntietz/config">my config repo</a> takes 158 ms to load and downloads 138 kB.</li>
+</ul>
+<p>One aspect of forges today is CI or build tool.
+Having CI on the platform was an important part of me moving to Sourcehut (where Gitea, for instance, doesn't have CI built in).
+The delightful surprise was <strong>how <em>good</em> Sourcehut's builds are</strong>.
+I find GitHub Actions fairly confusing and difficult to get working.
+It feels like whenever I'm updating a GitHub Action, I have a string of ten or more commits that are all of the form &quot;whoops, now does it work?&quot;.
+The only way to update it is to keep pushing to the repo, so you're left with a string of ugly commits while you iterate on your CI.
+Maybe I'm just dense, but this is an experience I've heard from others as well.</p>
+<p>In contrast, Sourcehut's builds are quite easy for me to understand and use.
+You write a <em>minimal</em> YAML file describing the build (which OS, what packages you want installed, and a list of shell scripts to run) and then you get a VM that is running that for you!
+The model itself is pretty easy to understand, and the absolute delight is <strong>how easy it is to debug builds</strong>.
+With GitHub Actions, you keep pushing commits to debug.
+With Sourcehut Builds, you can do that, but you have two more powerful options:</p>
+<ul>
+<li><strong>You can run ad hoc builds.</strong> This lets you keep iterating on a build and test it before you commit at <em>all</em>, which keeps your commit history clean and is a much nicer workflow.</li>
+<li><strong>You can SSH into your build VM.</strong> If you have a failed build, the VM sticks around for a bit and you can connect in to try things and figure out what you should change to make the build work next time. This is such a helpful tool.</li>
+</ul>
+<p>The elephant in the room with Sourcehut is, of course, its <strong>contribution workflow</strong>.
+Projects on Sourehut use <a href="https://git-send-email.io/">git-send-email</a> to accept and review patches.
+In fact, basically everything on Sourcehut can be done through emails, like discussions and issue handling.</p>
+<p>I think that this is <strong>Sourcehut's biggest weakness</strong> in getting people to switch, because the flow is different and often unfamiliar.
+I don't think that it's <em>harder</em> than the PR flow, but it's significant friction.
+It makes intuitive sense for discussions and issue reporting, though, and I hope people will give it a shot.</p>
+<p>It took me some time to get comfortable with the <code>git send-email</code> flow, because it's different and it was intimidating at first.
+Ultimately, though, I'm a <strong>big fan of the email workflow</strong>.
+This lets me spend <em>less</em> time in my browser, which is a big win for someone with attention/distraction issues.
+It's <strong>easier to stay focused</strong> on submitting, reviewing, and merging patches when I'm doing that in a dedicated email client instead of in my browser, one click away from dopamine.</p>
+<p>The submission workflow is probably not a big deal for the projects I have on Sourcehut.
+I've gotten a few issue reports on my repos of the years, and a sprinkling of contributions, but they're far from having active communities.
+I do hope that the <a href="https://sr.ht/~ntietz/isabella-db/">chess database</a> I'm working on will be able to grow a community, if it ends up being useful, and I'm looking forward to growing that on Sourcehut.</p>
+<p>Ultimately, though, I don't see hosting on Sourcehut as being an impediment to contribution.
+There are <strong>many ways to contribute</strong> and you don't even <em>have</em> to use <code>git send-email</code> if you don't want.
+You can email in the patch, of course.
+Or you can mirror the code to another forge and say &quot;please pull it from here&quot;.
+In either case, <strong>contributors don't need yet another account</strong> to make a contribution.
+This was one of my factors in switching, because I don't want to force people to create more accounts on more platforms.</p>
+<h1 id="why-not-x">Why not <em>X</em>?</h1>
+<p>There are a few other major forges.
+It's worth talking about why I <em>didn't</em> pick those.
+This just deserves a few bullet points.</p>
+<p><strong>GitLab</strong>:</p>
+<ul>
+<li>it's super slow in my experience</li>
+<li>the features always felt half-baked and there are a <em>lot</em> of features</li>
+<li>it's very similar to GitHub and I wanted a change</li>
+<li>contributors have to make yet another account (or OAuth with a GitHub account, I guess? meh.)</li>
+</ul>
+<p><strong>Gitea</strong>:</p>
+<ul>
+<li>reasonably fast, actually! seems good on that front</li>
+<li>doesn't have build support for CI that I could find</li>
+<li>feels like GitHub Lite</li>
+<li>contributors have to make yet another account (or OAuth with a GitHub account, I guess? meh.)</li>
+</ul>
+<h1 id="when-i-ll-still-use-github">When I'll still use GitHub</h1>
+<p>I'm going to keep my account on GitHub, and I'll still use it for three reasons:</p>
+<p><strong>My workplace uses GitHub.</strong>
+I like my job, and we use GitHub, so I will of course keep using it there.
+There's no reason to push for a change.
+It's a perfectly fine platform for our needs.</p>
+<p><strong>To make contributions to projects on GitHub.</strong>
+My projects are going to be hosted elsewhere but sometimes I'll contribute to projects on GitHub!
+Maybe bugfixes for things I run into at work.
+Maybe contributions while pairing at Recurse Center.
+But occasions will arise when I make contributions to projects on GitHub, and that's going to use my GitHub account.</p>
+<p><strong>I have a few projects I'm not moving.</strong>
+Old projects that aren't active, I'm not really investing the time or energy in moving.
+If these ever have activity, then I'll of course use my GitHub account to manage them.</p>
+<h1 id="should-you-leave-github">Should you leave GitHub?</h1>
+<p>If this post resonated with you and you're thinking about leaving GitHub behind, you might want to!
+You can always diversify your forge use without committing 100% to leaving one behind and using the other.
+That's what I'm doing.</p>
+<p>But there are also some very legitimate reasons to stay on GitHub as your primary forge.
+If you don't have philosophical objections to staying, it's the place to be.
+For worse, it's the place that employers expect to find activity from candidates.
+If you're looking for a job, an active GitHub profile can help with that.
+(If you're responsible for hiring decisions: Please let's talk about changing this!)</p>
+<p>I think more people diversifying their forge use would be good for the industry long term.
+GitHub controls much of the open-source world and they also control much of the software industry.
+Regardless of their current actions, <strong>this is a major risk</strong> in the long term.</p>
+<p>I don't fault any individual for staying on GitHub.
+But let's normalize using more forges.
+If you have the ability to switch, please consider it!</p>
+<hr />
+<div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
+<p>So why write a blog post if I don't think it'll &quot;matter&quot;?
+Because this is <strong>my</strong> blog, and I write what I want!
+I'm not writing to achieve any goal or effect change.
+I do think it will be interesting to someone else, and writing publicly is a hobby I enjoy.</p>
+</div>
+<div class="footnote-definition" id="2"><sup class="footnote-definition-label">2</sup>
+<p>See Drew Devault's post <a href="https://drewdevault.com/2022/06/23/Copilot-GPL-washing.html">&quot;GitHub Copilot and open source laundering&quot;</a> for a good post on this topic.</p>
+</div>
+<div class="footnote-definition" id="3"><sup class="footnote-definition-label">3</sup>
+<p>This is another reason I want to be on a FOSS forge.
+Incentives are better aligned when there is less profit motive and better philosophical alignment.
+Everything boils down to behavior and incentives.</p>
+</div>

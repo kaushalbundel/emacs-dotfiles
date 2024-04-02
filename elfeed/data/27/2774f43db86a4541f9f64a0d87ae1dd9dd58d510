@@ -1,0 +1,78 @@
+<p>
+We stayed an extra day in Portland to do some site seeing. I&#39;ll write
+about the tourist side in my final SIGCSE2024 post. Right now, we&#39;re
+back in the hotel resting before dinner so I thought I&#39;d start the
+next part of my SIGCSE2024 report.</p>
+<p>
+For Day one&#39;s first session, I attended <a href="https://www.linkedin.com/in/lewiscolleen/">Colleen Lewis&#39;s</a> Microteaching
+session. I&#39;ve wrote about this session <a href="https://cestlaz.github.io/post/sigcse-2023-microteaching/">last year</a> and also about
+Colleen&#39;s recent appearance on the CSEd podcast where she discussed
+<a href="https://cestlaz.github.io/post/manipulatives/">manipulatives.</a> Much of Colleen&#39;s public facing work involves CS
+pedagogy and if you haven&#39;t noticed, I&#39;m a fan.</p>
+<p>
+Microteaching has fast become my favorite SIGCSE session. Six teachers
+each give a quick, abbreviated mini-lesson and afterwards Colleen
+highlights pedagogical techniques.</p>
+<p>
+It&#39;s not perfect. The mini-lessons are taught out of context, the
+audience aren&#39;t the presenters real classes, and it&#39;s only something
+like a 10 minute snippet but still, it made for a great session.</p>
+<p>
+In one mini-lesson, Colleen pointed out that the presenter gave the
+&#34;class&#34; (us) time to process a question before asking for
+responses. Questioning technique and timing is an important part of
+K12 teacher training and I&#39;m betting it&#39;s not covered nearly enough at
+the college level. There&#39;s a huge amount to explore on questioning but
+a simple technique like this - waiting say, 10 seconds after asking a
+question before entertaining a response can be huge.</p>
+<p>
+In another lesson, Colleen commented how the teacher provided to
+concrete but different examples to set the stage for a class
+exercise. I liked that particular lesson, delivered by <a href="https://www.linkedin.com/in/adam-blank-707669245/">Adam Blank</a>
+because it wasn&#39;t a core lesson in his class but rather a fun side
+topic to set the stage for the cybersecurity work yet to come. He
+elicited suggestions from the class how they could first crack a safe
+(using the typical movie trope of listening with a stethoscope) and
+how to crack a keypad lock by looking at the worn out keys on the
+keypad. This led to a class &#34;lab&#34; where we had to figure out which
+mystery toy was in an egg shell without opening it. All of this was to
+teach the class about side channel attacks. It was terrific.</p>
+<p>
+This went on for six mini-lessons in all.</p>
+<p>
+It was a great session but I had one thought that might make it
+better. Instead of six mini-lessons, how about only three so that we&#39;d
+then have time to discuss the lessons. This could be tricky because it
+puts the people presenting on the spot and open to criticism but it
+could be <strong>so</strong> valuable.</p>
+<p>
+For example, in one of the mini-lessons, the instructor presented a
+binary tree. Each node had a student name on it and also a priority
+value.Later the teacher removed the names. Colleen highlighted that
+putting the name in to the tree (along with priority values) was a
+strong technique as was later removing them. I partially agreed with
+this but also felt that removing the names could also have weakened
+the lesson. We didn&#39;t have full context so I can&#39;t be sure. In any
+event, this could have led to some really rich discussion.</p>
+<p>
+A second example, and one I loved was when one teacher engaged the
+&#34;class&#34; prior to the lesson. He asked a student their future plans and
+after an exchange invited the student to come to office hours to
+discuss. This was a great example of a hidden technique for a number
+of reasons. One reason in particular I&#39;ll address when I talk about
+the other SIGCSE keynotes but it&#39;s also a technique that can be a
+negative. On the plus side it&#39;s a way to engage the class at a more
+informal manner, it can be used to build class community and culture,
+and also, if it&#39;s a morning class, start to get sleep minds stirring
+(not to mention the plus I&#39;ll talk about later). On the other hand, if
+you do this consistently with just a couple of students, you risk
+building resentment or concern from the students that aren&#39;t part of
+the &#34;in crowd.&#34;</p>
+<p>
+All in all, a super session that gave attendees a chance to
+see aspects of teaching that are never covered in research papers and
+rarely talked about in general. Looking forward to next year&#39;s
+edition.</p>
+<p>
+I think I&#39;ll organize the rest of my SIGCSE report into session
+types - BOFs, paper sessions, and panels so stay tuned for more.</p>

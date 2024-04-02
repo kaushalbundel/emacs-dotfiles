@@ -1,0 +1,70 @@
+<p>In some pockets of the industry, an axiom of software development is that deploying software quickly is at odds with thoroughly testing that software. One reason that teams believe this is because a fully automated deployment process implies that there’s no opportunity for manual quality assurance. In other pockets of the industry, the axiom is quite different: you can get both fast deployment and manual quality assurance by using feature flags to decouple deployment (shipping the code) and release (enabling new functionality).</p>
+<p>The deeper I get into my career, the more I believe that example holds within it a generalizable pattern for making useful tradeoffs:</p>
+<ol>
+<li>Two-dimensional tradeoffs always disappoint someone</li>
+<li>You can usually make a tradeoff that doesn’t disappoint anyone by introducing a new dimension</li>
+</ol>
+<p>In the “quick vs safe deployment” tradeoff, the additional dimension is decoupling feature activation (“release”) from shipping the code necessary to enable that feature (“deployment”). Introducing that dimension makes it possible for engineers to get fast, predictable deployments and for quality assurance to get the chance to review before enabling the feature for users.</p>
+<p>While most people have already intuited these rules to some extent, I think that stating them explicitly is a lightly transformative experience, and I’ll dig into applying these rules a bit.</p>
+<h2 id="examples">Examples</h2>
+<p>Before talking about the mechanisms of identifying dimensions to improve tradeoffs, let’s briefly walk through a few more examples of where adding a dimension makes for cleaner tradeoffs:</p>
+<ul>
+<li><strong>Project budgets</strong> – During annual planning, many companies struggle with intense debates about whether they invest into international expansion in new markets or do they instead prioritize their existing markets. By adding the dimension of fixed budgets, they can get varying degrees of both rather than debating existentially about doing one or the other</li>
+<li><strong>Diversified portfolio</strong> – For a long time, investors felt stuck either making safe investments that underperformed the stock market or making risky bets that <em>might</em> overperform the stock market but also <em>might</em> go to zero. Burt Malkiel’s <em><a href="https://www.amazon.com/Random-Walk-Down-Wall-Street/dp/1324035439/">A Random Walk Down Wall Street</a></em> introduced the dimension of diversification, such that you could both get stock market-like performance and lower risk</li>
+<li><strong>Data-informed restrictions</strong> – You’ll often hear debates between Product and Security teams about the tradeoff between safety for your users and usability of your product. However, by taking a data informed approach you can often get both. For example, instead of debating about removing permissions from users, start by removing all permissions that each given user currently doesn’t use. By including real-world usage as a dimension of the tradeoffs, you can usually identify a tradeoff that improves security without reducing usability</li>
+<li><strong>Feature flags</strong> – As discussed in the introduction, many engineers believe we must have slow-and-safe deployment or fast-and-risky deployment, but decoupling deploy and release via feature flags allows us to get fast-and-safe deployments</li>
+</ul>
+<p>Beyond this small handful of examples, I suspect you can identify quite a few more tradeoffs from your work history where an additional dimension turned a messy disagreement into an obvious path forward. When you work with someone who’s particularly good at this, the entire idea of tradeoffs starts to melt away to be replaced by thoughtful solutions.</p>
+<h2 id="how-to-add-dimensions">How to add dimensions</h2>
+<p>Once you start thinking about tradeoffs this way, you&rsquo;ll notice people who already take this
+approach to improving tradeoff decisions. The challenge is that most people do this intuitively
+rather than following a specific set of steps, which makes it difficult for them to explain it.
+Frankly, I have this challenge as well. Over time I&rsquo;ve gotten better at doing it, but it was only
+very recently that I found the right vocabulary to describe it.</p>
+<p>Here&rsquo;s by best attempt to reverse engineering this practice into steps:</p>
+<ol>
+<li>
+<p>Go into each tradeoff discussion believing that there&rsquo;s an additional dimension you can add
+that will greatly reduce the current tension in decision-making. Socialize this belief with
+others so they understand where you&rsquo;re coming from, this can be as simple as a statement
+like, &ldquo;I wonder if there&rsquo;s a dimension we can add to this tradeoff to make it easier.&rdquo;</p>
+</li>
+<li>
+<p>Get very specific on all stakeholder requirements. The missing dimension is usually only evident in the details,
+so you need to force people to be precise about their needs. If you have stakeholders who cannot be precise about
+their needs, then you should spend time working with them to get more clarity.</p>
+<p>Yes, it is their problem that they can&rsquo;t articulate their needs, but it&rsquo;s also <em>your</em>
+problem now too.</p>
+</li>
+<li>
+<p>Seeing dimensions is the same as seeing <a href="https://lethain.com/layers-of-context/">layers of context</a>.
+You&rsquo;ll either need to expand your awareness of additional context layers or pull together a working team
+who have broad knowledge. This doesn&rsquo;t need to be the decision making stakeholders, just folks who
+understand the relevant teams, technologies, and product.</p>
+</li>
+<li>
+<p>Test new dimensions for usefulness. At the simplest, as your working group
+“How might we simplify untangling this tradeoffs with this additional dimension?”
+The key is to explore many dimensions quickly, try them on for usefulness, and then move on to another.
+Don&rsquo;t go deep into any given dimension until it shows some promise.</p>
+</li>
+<li>
+<p>See around corners by asking those who&rsquo;ve solved similar tradeoffs before.
+I feel like a broken record, but it really does work to just ask people who’ve solved this specific problem before.
+Once again, this is why it&rsquo;s so valuable to develop <a href="https://staffeng.com/guides/network-of-peers/">a network of peers</a>.
+They can probably just tell you what the missing dimension is!</p>
+</li>
+<li>
+<p>Ultimately, you should only add a dimension to a tradeoff if it provides significantly better outcomes
+for the stakeholders involved. Once you start thinking about this idea, there&rsquo;s a temptation to add
+dimensions everywhere, but avoid additional dimensions that make things decisions harder to explain
+without greatly improving your options.</p>
+</li>
+</ol>
+<p>This process won&rsquo;t work every time, because some working groups simply won&rsquo;t know enough about
+the missing dimension to suggest it. This is why you shouldn&rsquo;t get discouraged if you can&rsquo;t find
+the missing dimension in any given tradeoff, and also why it&rsquo;s useful to reconsider hard tradeoffs
+every couple of years. Just because you didn&rsquo;t know about the missing dimension last time doesn&rsquo;t
+mean you are unaware of it now.</p>
+<h2 id="late-career-abilities">Late-career abilities</h2>
+<p>Sometimes people will talk about engineers becoming senior in five to seven years, and then being wholly competent at the job they do. This is true in one sense–you can be a very good engineer with five years of experience–but also misses on the many abilities that are only beginning to take root at that point. Adding dimensions to tradeoffs is a good example of the latter category: there are very few folks with the necessary context layers and the breadth of experience to get good at identifying the missing dimension to make difficult tradeoffs easier. There’s always more to learn.</p>

@@ -1,0 +1,20 @@
+<p>
+Those of you who have been reading Irreal for a while know that I’m a huge fan of Emacs Calc. It’s tremendously flexible and comprehensive and it’s built into Emacs. But that comprehensiveness comes at a price: it’s <i>very</i> hard to learn its commands and they always prove evanescent if you don’t use them regularly. I’ve been through the manual a couple times and I still can’t remember how to use most of Calc. I almost always bring up the cheat sheet when I need to do anything more than the basic calculator functions.
+</p>
+<p>
+Charles Choi to the rescue. We haven’t heard from Choi for a while and now we know why. He’s been busy building a <a href="http://yummymelon.com/devnull/announcing-casual-an-opinionated-porcelain-for-emacs-calc.html">porcelain for Emacs Calc</a>. It’s a transient menu that helps you remember many of the esoteric Calc commands. When you get stuck, you can bring up the menu and navigate your way to the proper command.
+</p>
+<p>
+Choi says that he’s not trying to provide full coverage of the Calc commands, just the most—for some value of “most”—used commands. You can read about his goals and non-goals at his post.
+</p>
+<p>
+The package is on MELPA and although Choi doesn’t give the <code>use-package</code> recipe for installing it, here’s what I used:
+</p>
+<div class="org-src-container">
+<pre class="src src-elisp">(<span style="color: #a020f0;">use-package</span> <span style="color: #008b8b;">casual</span>
+  <span style="color: #483d8b;">:ensure</span> t
+  <span style="color: #483d8b;">:bind</span> (<span style="color: #483d8b;">:map</span> calc-mode-map (<span style="color: #8b2252;">"C-o"</span> . 'casual-main-menu)))
+</pre>
+</div>
+<p>
+I just installed it so I don’t have a lot of experience with it yet but so far I really like it. The menu doesn’t appear until you invoke it and it disappears after you choose a command so it doesn’t get in the way. I can see this package making Calc more approachable and increasing its usage. If you’re a Calc user or would like to be, you definitely want to take a look at Choi’s post.</p>

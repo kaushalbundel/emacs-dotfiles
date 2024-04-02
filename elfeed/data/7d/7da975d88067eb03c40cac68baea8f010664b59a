@@ -1,0 +1,102 @@
+<p>I've set up a homelab finally!
+This is something I've wanted for a while and finally the timing was right.
+The right project came along to justify it, so I took the plunge.</p>
+<p>Naturally, that leads to a few questions:
+What's a home lab?
+Why do you want one?
+And what is the shiny hardware?
+(That last one is the dessert if you get through the rest 😉.)</p>
+<h1 id="what-s-a-homelab">What's a homelab?</h1>
+<p>Oh, and is it &quot;homelab&quot; or &quot;home lab&quot;?
+Google Search Trends seem to indicate that it should be &quot;homelab&quot; in this context.
+When people search for &quot;home lab&quot; it's about science labs or dogs.
+When people search for &quot;homelab&quot; it's about computer stuff.
+So, that's the spelling I'll be using!</p>
+<p>A homelab is, simply put, a place to experiment with technology at home!
+It can take a variety of forms, but that's the crux of it.
+Some people have homelabs of rackmount hardware, but it can be as simple as an old laptop or a Raspberry Pi.</p>
+<p>Ultimately, people use them for a variety of different things.
+From &quot;lab&quot; in the word, you figure that it's a place for experimentation, not production.
+That doesn't always end up as the case:
+Some people run &quot;home production&quot; instead of &quot;homelab&quot;, but it's a big tent.
+All are welcome.</p>
+<p>There are basically two camps that I see homelabs fall into:</p>
+<ul>
+<li>
+<p>Used for hosting services:
+You'll see a lot of people hosting things for their own use.
+Things like <a href="https://pi-hole.net/">Pi-hole</a> for ad blocking) and photo sharing apps fall into this bucket.
+There's a lot of emphasis in this group on frugality and deal seeking.</p>
+</li>
+<li>
+<p>Used for experimentation:
+You'll see people doing infrastructure and DevOps, security experiments, etc.
+This is the camp I fall into.
+I don't want my homelab to run anything that someone depends on.
+I'm also willing to spend a little more on it for expediency.</p>
+</li>
+</ul>
+<h1 id="why-do-i-want-one">Why do I want one?</h1>
+<p>I mean, servers are fun.
+But I did say the right project came along to justify it.
+Or to rationalize it, at least.</p>
+<p>Right now I'm attending <a href="https://www.recurse.com/">Recurse Center</a>, and one of my projects is making <a href="https://github.com/ntietz/anode-kv">a key-value store</a>.
+When I benchmark even just the protocol parser on my laptop, timing varies by 50% if Zoom is open.
+This makes for a bad test.
+I want to have a consistent test environment that I can run benchmarks on.</p>
+<p>I would also like to have extra computing power to throw at things like tournaments of chess engines, since I'm working on <a href="https://github.com/ntietz/patzer">a chess engine</a> at RC as well.</p>
+<p>I could do both of these using cloud servers, but... that can get expensive pretty quickly.
+This way I have an always-available local box that I pay for once and can use (and abuse).
+As a comparison, an equivalent AWS instance to what I got would cost the same amount after being on for 20 days.
+I could turn it on only when I need it, but in the long run having this machine is much more cost effective.</p>
+<p>Also the hardware is shiny, and it makes my Rust builds significantly faster (30 seconds instead of 50 seconds for a full rebuild).</p>
+<h1 id="okay-so-what-s-that-shiny-hardware">Okay, so what's that shiny hardware?</h1>
+<p>Okay, okay, I'll tell you about the hardware.
+I got a used <a href="https://www.dell.com/en-us/shop/workstations-isv-certified/precision-7910/spd/precision-t7910-workstation">Dell T7910</a> from <a href="https://pcserverandparts.com/">PC Server and Parts</a>.
+This was originally a video editing workstation, so it has a ton of PCI available, which will be handy for storage.
+Inside it, it has 2 Intel Xeon E5-2690 v4 CPUs (28 cores / 56 threads) and 128 GB DDR4 registered ECC RAM.
+I also have a paltry 1 TB SSD, which I plan on using as the boot drive but eventually augmenting with spinning disks and NVMe SSDs in those totally extra PCI slots.</p>
+<p>&quot;But Nicole, that's ridiculous. That hardware is so overkill.&quot;</p>
+<p>Yes, you're not wrong.</p>
+<p>But it's shiny, and it'll last me a long time.
+It's accelerating my Rust builds and that's actually a real productivity boost.
+And it was cheap.
+It's a used workstation from 2017, so it's much much cheaper than new hardware.</p>
+<h1 id="how-did-you-set-it-up">How did you set it up?</h1>
+<p>Okay, so this is the saga, and it was painful.
+At first, I wanted to set it up with Proxmox so that I can provision VMs.
+And I wanted to do that provisioning with Terraform and Ansible.
+This wasn't an entirely spurious decision: I wanted to be able to benchmark things in isolation, and thought that would be a good approach.</p>
+<p>Ultimately, it was a very painful decision, though.
+I never <em>quite</em> got things working and I was having really weird network issues, where I could not initiate outgoing connections from the VMs.
+And eventually I broke things so badly, I couldn't even ssh into them!</p>
+<p>In the end, I realized that I didn't... really... need to do this?
+Why am I doing Proxmox again?
+Oh right, because I thought it was the &quot;right&quot; way to do it.
+No, no, that's okay.
+I'll do things the quick and dirty way 😀.</p>
+<p>Instead of all the fuss, I just installed Fedora on it and called it a day.
+If I want VMs, I can explore things like Firecracker in the future, too!</p>
+<p>Well, that was the end of the first part.
+But I couldn't get the thing to boot consistently!
+I had to mash F12 to get into the boot menu every time, because the drives connect through a SAS RAID controller.
+This controller permits direct mount of drives which aren't in RAID, but it seemingly does <em>not</em> permit default booting off one.
+Sigh.
+This is a big problem for me!
+If the power goes of and I'm away, I want to be able to wake the computer with a WOL packet, then have it come back up.</p>
+<p>Fortunately, the solution was pretty straightforward.
+A fellow Recurser pointed out I should probably just connect that drive directly with SATA instead of through the SAS array controller.
+I could... but there are only two SATA ports on my mainboard and they're both in use!
+It turned out that the second one was not in use, but had a cable plugged in and cable managed into the back of the case for exactly this sort of use case.
+I plugged in my boot drive to that instead and everything came on!
+Reboots are consistent now, and it always comes back on.</p>
+<h1 id="should-you-make-a-homelab">Should you make a homelab?</h1>
+<p>I don't know!
+It depends.
+If you have something you want to use it for, by all means!
+It can be rewarding and useful.
+It can also be a new hobby that sucks up a bunch of your time and money.</p>
+<p>Gamble wisely.</p>
+<hr />
+<p>Thanks to fellow Recurser Mikael Lindqvist who paired with me on writing this blog post!
+It was a super fun way to get a post written, and I'd recommend trying it.</p>

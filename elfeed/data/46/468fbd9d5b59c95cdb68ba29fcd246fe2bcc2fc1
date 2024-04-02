@@ -1,0 +1,25 @@
+<p>Words matter.
+First impressions matter.</p>
+<p>I'm reading <a href="https://pragprog.com/titles/tpp20/the-pragmatic-programmer-20th-anniversary-edition/">The Pragmatic Programmer</a> in a book club, and there's a section titled &quot;Good-Enough Software&quot;.
+In it, the authors expand that &quot;the phrase 'good enough' does not imply sloppy or poorly produced code&quot; and that it must still meet all requirements.
+The rest of the section is a reasonable message that we should include users in the requirements process and not build things they don't need, since that has actual cost (both in money and schedule delays).</p>
+<p>I agree with the overall message.
+We've all had the coworker who doesn't know when to stop polishing, doesn't know when to stop.
+But I think the section is done a disservice by the phrase they chose to lead with.</p>
+<p>The phrase &quot;good enough&quot; carries with it a negative connotation.
+It implies that you're cutting corners.
+&quot;Oh, it's good enough&quot; isn't something you want your surgeon to say, it's not something you want to hear from your lawyer or your accountant.
+It's not a prhase for professionals.</p>
+<p>Instead of things that are good enough, I'd rather we make things that are <strong>fit for purpose</strong>.
+The phrase &quot;fit for purpose&quot; doesn't carry the connotation of cutting corners, but of actively considering what is needed and ensuring that that's present.
+Whatever you're describing has what it needs to do the job.</p>
+<p>These can often be used interchangeably.
+My car is good enough to get me to my parents' house.
+My car is fit for purpose for that drive.
+The former makes you suspect that there's some reason we might think it's not?
+While the latter gives confidence that it definitely is.</p>
+<p>Even though they mean the same thing, what they <em>communicate</em> is far different.</p>
+<p>So, yeah.
+It's easier to argue for, since you're not going against people's pride in their work by arguing for cutting corners.
+And it inspires more confidence in the work from stakeholders.</p>
+<p>Let's build software that's fit for purpose, not just good enough.</p>

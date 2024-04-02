@@ -1,0 +1,84 @@
+<p>Pulsar is a small package that temporarily highlights the current line,
+either on demand or automatically after invoking a function that is
+present in a user-defined list.  <a href="https://protesilaos.com/codelog/2022-03-14-emacs-pulsar-demo/">Watch the
+demo</a></p>
+
+<p>Further below are the release notes.</p>
+
+<ul>
+  <li>Package name (GNU ELPA): <code class="language-plaintext highlighter-rouge">pulsar</code></li>
+  <li>Official manual: <a href="https://protesilaos.com/emacs/pulsar">https://protesilaos.com/emacs/pulsar</a></li>
+  <li>Change log: <a href="https://protesilaos.com/emacs/pulsar-changelog">https://protesilaos.com/emacs/pulsar-changelog</a></li>
+  <li>Git repo on SourceHut: <a href="https://git.sr.ht/~protesilaos/pulsar">https://git.sr.ht/~protesilaos/pulsar</a>
+    <ul>
+      <li>Mirrors:
+        <ul>
+          <li>GitHub: <a href="https://github.com/protesilaos/pulsar">https://github.com/protesilaos/pulsar</a></li>
+          <li>GitLab: <a href="https://gitlab.com/protesilaos/pulsar">https://gitlab.com/protesilaos/pulsar</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Mailing list: <a href="https://lists.sr.ht/~protesilaos/pulsar">https://lists.sr.ht/~protesilaos/pulsar</a></li>
+  <li>Backronym: Pulsar Unquestionably Luminates, Strictly Absent the Radiation</li>
+</ul>
+
+<p>Below are the release notes.</p>
+
+<hr />
+
+<ul>
+  <li>
+    <p>The <code class="language-plaintext highlighter-rouge">next-buffer</code> and <code class="language-plaintext highlighter-rouge">previous-buffer</code> commands are added to the
+default value of the user option <code class="language-plaintext highlighter-rouge">pulsar-pulse-functions</code>.  They
+will now trigger a pulse effect after they are called (if
+<code class="language-plaintext highlighter-rouge">pulsar-mode</code> is enabled in the current buffer or
+<code class="language-plaintext highlighter-rouge">pulsar-global-mode</code> is in use).</p>
+  </li>
+  <li>
+    <p>The command <code class="language-plaintext highlighter-rouge">pulsar-recenter-middle</code> is now an alias for
+<code class="language-plaintext highlighter-rouge">pulsar-recenter-center</code>, instead of being the original name.  Users
+do not need to change anything on their end: this is just an
+internal arrangement to use a name that corresponds to the one of
+the underlying “recenter” mechanism.</p>
+  </li>
+  <li>
+    <p>The Lisp macro that was used to derive the Pulsar “recenter”
+commands has been removed.  The commands are <code class="language-plaintext highlighter-rouge">pulsar-recenter-top</code>
+and <code class="language-plaintext highlighter-rouge">pulsar-recenter-center</code>.  I originally thought the macro would
+be useful in more places, but I ended up relying on it only twice.</p>
+
+    <p>Thanks to Ryan Kaskel for pointing out an intermediate typo/error I
+made while redefining the macro and before I decided to remove it
+altogether.  This was done as a comment on the GitHub mirror:
+<a href="https://github.com/protesilaos/pulsar/commit/c5086de779a0226d72eca4d5cba8c7689bc278b2#r123397272">https://github.com/protesilaos/pulsar/commit/c5086de779a0226d72eca4d5cba8c7689bc278b2#r123397272</a>.</p>
+  </li>
+  <li>
+    <p>The Lisp macro <code class="language-plaintext highlighter-rouge">pulsar-pulse-with-face</code> is renamed to
+<code class="language-plaintext highlighter-rouge">pulsar-define-pulse-with-face</code>.  Its definition is updated to
+simplify how a Pulsar function is defined with a given face.
+Examples of such functions are <code class="language-plaintext highlighter-rouge">pulsar-pulse-line-red</code>,
+<code class="language-plaintext highlighter-rouge">pulsar-pulse-line-blue</code>.</p>
+  </li>
+  <li>
+    <p>Pulsar now retrieves the absolute beginning of the minibuffer
+prompt.  This means that a pulse in the minibuffer will cover the
+text of the prompt, as opposed to only affecting the input area.  As
+such, the pulse is visible even if the minibuffer is empty
+(e.g. what happens with the default completion setup when calling
+<code class="language-plaintext highlighter-rouge">M-x</code>).</p>
+  </li>
+  <li>
+    <p>The manual provides instructions on how to set up Pulsar to produce
+a pulse when the minibuffer is activated.  It cannot be done with
+the <code class="language-plaintext highlighter-rouge">pulsar-pulse-functions</code>, though the setup is not too involved.
+In short:</p>
+
+    <div class="language-elisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nv">add-hook</span> <span class="ss">'minibuffer-setup-hook</span> <span class="nf">#'</span><span class="nv">pulsar-pulse-line</span><span class="p">)</span>
+
+<span class="c1">;; OR something like this, replacing "blue" with one among red,</span>
+<span class="c1">;; green, yellow, magenta, cyan:</span>
+<span class="p">(</span><span class="nv">add-hook</span> <span class="ss">'minibuffer-setup-hook</span> <span class="nf">#'</span><span class="nv">pulsar-pulse-line-blue</span><span class="p">)</span>
+</code></pre></div>    </div>
+  </li>
+</ul>

@@ -1,0 +1,6 @@
+ls
+python compound-interest-calc.py 
+python3 compound-interest-calc.py 
+ls
+which $SHELL
+dart

@@ -1,0 +1,82 @@
+<p>January 2023 was a rough month if you wanted to play chess on the most popular chess website, <a href="https://chess.com">chess.com</a><sup class="footnote-reference"><a href="#1">1</a></sup>.
+Their service has been experiencing an unprecedented amount downtime because of a huge influx of users<sup class="footnote-reference"><a href="#2">2</a></sup>.
+There have been days where it's all but unusable.
+It's frustrating as a user!
+It's also surely frustrating for the business behind the site.</p>
+<p>Chess has reached an all-time peak in popularity.
+In January 2023, <a href="https://trends.google.com/trends/explore?date=today%205-y&amp;geo=US&amp;q=chess">Google search traffic</a> exceeded the boom from the release of The Queen's Gambit.
+There's a huge influx of new or returning players, and they flock to the site with the obvious domain.
+Chess.com's app has hit <strong>#1 most downloaded free game</strong> on the iOS app store.</p>
+<p>Part of doing good systems design is planning for capacity.
+A general rule of thumb is that you should design a system for up to a certain amount of growth.
+Beyond some point, architectural requirements will be dramatically different.
+Planning for capacity does not mean planning for <em>infinite</em> capacity, but what may <em>realistically</em> happen.</p>
+<p>Why not plan for universal adoption from the very beginning?
+Why not create something which can scale infinitely?
+Because <strong>it's usually too expensive</strong>.
+Making something that's infinitely scalable means that you need to have (effectively) infinite capacity, and servers have to be paid for somehow.</p>
+<p>Some things can easily and cheaply be scaled up to the max.
+Static sites are pretty easy on that front.
+You can put a CDN like Cloudflare or Fastly in front of them and you get a lot of scale for very little money, and they can absorb big spikes in traffic.
+But it's not free, and it's not as cheap as it seems.</p>
+<p>This blog is hosted on a small VPS without a CDN.
+So far, the traffic hasn't required a CDN to serve: the little VPS chugs along just fine.
+I could put a CDN in front of it, and it would be free or cheap to get gigantic capacity.
+I've held off on doing it, because there's cost from complexity.
+By adding in another component like a CDN, I would have to worry about caching and propagation time.
+I would have to worry about deployment and configuration.</p>
+<p>There's value in simplicity.
+Scaling usually adds complexity.</p>
+<p>Adding complexity early on leaves a lot on the table.
+Instead of adding features that users could benefit from, you have this intangible benefit: the ability to ✨scale✨.
+In an ideal world, users never even <em>notice</em> the work you put in to scaling, because things work as they expect.
+Users really only notice when scaling <em>isn't</em> happening.</p>
+<p>So if the current growth wasn't planned for already, why can't they just scale up <em>now</em>?
+We can't say for sure, because we don't know the details of their systems.
+But we can gather some information:</p>
+<ul>
+<li>According to a <a href="https://showcase.withgoogle.com/chess">Google Cloud showcase</a>, chess.com uses GCP. So <strong>they use some cloud services</strong>.</li>
+<li>They also <strong>use a lot of on-prem hardware</strong>, according to their <a href="https://chesscom.rippling-ats.com/job/402726/sysops-site-reliability-engineer-sre">SRE job description</a>.</li>
+<li>They <strong>use MySQL as a primary database</strong>, based on their job descriptions.</li>
+<li>They <strong>use a NoSQL store as another database</strong>, also based on their job descriptions.</li>
+</ul>
+<p>They have a <a href="https://www.chess.com/blog/CHESScom/chess-is-booming-and-our-servers-are-struggling">blog post</a> out about why their servers are struggling, and they explicitly mention that they have hardware shipments arriving soon with &quot;the most powerful possible live chess and database servers&quot;, so presumably a lot of what powers their live play is still their on-prem hardware.</p>
+<p>But they also say that they have other bottlenecks.
+This is the whack-a-mole aspect of scaling systems.
+You measure the system and find one bottleneck, and you generally cannot find the <em>next</em> bottleneck until that one is resolved.</p>
+<p>They've identified a number of bottlenecks already, and one of their actions in particular gives some reasonable information about what the database looked like before: they're working on separating out the database with <strong>users and gameplay</strong>.
+From their description, it sounds like <strong>all</strong> of the data for chess.com was in one big MySQL database.
+With beefy hardware, this can last a long time, but eventually it hits a breaking point.
+We found the breaking point!</p>
+<p>Why wasn't it addressed earlier?
+Two primary reasons, I think:</p>
+<ul>
+<li>It was likely known that it <em>will</em> be an issue later, but again, scale is <em>expensive</em>.
+Choosing to break apart the database now would be a very expensive project, delaying major new features, when that scale doesn't seem likely!
+And on top of that, they're in the midst of integrating in systems from acquiring the Play Magnus Group, so they're not exactly short of work to do.</li>
+<li>Load testing is <em>hard</em>, so capacity planning is hard.
+It's tough to create a load that's a good facsimile of real production data, so it's likely that the test will not give an exact understanding of the load you can handle.
+(That's why you aim for load test results that are better than you need by a wide margin.)
+So it's possible they didn't know exactly <em>when</em> they would hit the breaking point, and what would break when they did.</li>
+</ul>
+<p>All the things that they're doing to respond to this influx of users are labor intensive and expensive, in terms of time now, real money, and perhaps most importantly in terms of future maintenance costs.
+It's going to be <em>harder</em> to maintain chess.com now that their database is sharded and tables are split out across separate databases.
+It's very <em>easy</em> to spin up a local stack for development when you have fewer things to spin up!</p>
+<p>All that to get to the point:
+From a systems design perspective, <strong>a system is well-designed if it meets the requirements, but doesn't dramatically exceed them</strong>.
+One part is about doing what it's supposed to; the other part is about doing so <em>efficiently</em>.
+If they'd been able to handle this massive boom in users, well beyond what any reasonable model would have projected, then they would have produced a design that was in all likelihood very wasteful.</p>
+<p>Major hugs to all the folks at chess.com who are dealing with these outages.
+I know you're doing your best.
+Hang in there.</p>
+<hr />
+<div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
+<p>When people mention chess.com's server issues, there's often a chorus of &quot;Well Lichess is better!&quot; and &quot;Lichess is handling it!&quot;.
+That's not what this post is about.
+I enjoy and use both sites, and I want both to continue successfully.</p>
+</div>
+<div class="footnote-definition" id="2"><sup class="footnote-definition-label">2</sup>
+<p>There is a lot of speculation on why this boom has happened.
+Anyone's guess is as good as mine.
+There are a lot of things at play, such as a <a href="https://en.wikipedia.org/wiki/Mittens_(chess_engine)">chess bot that went viral</a> and the positive feedback loop of being the top downloaded game in the app store.</p>
+</div>

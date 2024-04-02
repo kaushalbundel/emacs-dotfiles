@@ -1,0 +1,135 @@
+<p>Recently someone I was talking to ran into a fun borrow checker problem in Rust which is illustrative of some current underlying limitations of Rust's borrow checker.
+The problem boiled down to: they took a reference in a loop (dropped on each iteration), and the borrow checker complains that it cannot borrow it mutably multiple times, since it was borrowed in a previous iteration.
+But: didn't we drop it?
+Why is it still borrowed?</p>
+<p>Here's an example, because one code example is worth a thousand words.
+In this example, we define a function called <code>find_leading_0s</code> which takes in a slice of bytes and returns the slice containing the prefix of leading 0s as a mutable reference<sup class="footnote-reference"><a href="#it-has-a-bug">1</a></sup>.</p>
+<pre data-lang="rust" class="language-rust "><code class="language-rust" data-lang="rust">fn main() {
+    let mut bytes = [0, 0, 9, 0, 2, 3];
+    let padding = find_leading_0s(&amp;mut bytes);
+    println!(&quot;padding: {:?}&quot;, padding);
+}
+
+fn find_leading_0s(bytes: &amp;mut [u8]) -&gt; Option&lt;&amp;mut [u8]&gt; {
+    let mut index = 0;
+
+    while index &lt; bytes.len() {
+        let padding = &amp;mut bytes[..index];
+        if padding[index] != 0 {
+            return Some(padding);
+        }
+
+        index += 1;
+    }
+
+    None
+}
+</code></pre>
+<p>Inside each iteration of the loop, we take a slice and if the next element is non-zero we return this slice.
+Otherwise, we keep going.
+If we get to the end and we've found no non-zero elements, we can return some default value.</p>
+<p>If you compile this, you'll get the following error:</p>
+<pre><code>&gt; rustc borrow.rs
+
+error[E0502]: cannot borrow `*bytes` as immutable because it is also borrowed as mutable
+  --&gt; borrow.rs:10:19
+   |
+7  | fn find_leading_0s(bytes: &amp;mut [u8]) -&gt; Option&lt;&amp;mut [u8]&gt; {
+   |                           - let&#x27;s call the lifetime of this reference `&#x27;1`
+...
+10 |     while index &lt; bytes.len() {
+   |                   ^^^^^^^^^^^ immutable borrow occurs here
+11 |         let padding = &amp;mut bytes[..index];
+   |                            ----- mutable borrow occurs here
+12 |         if padding[index] == 0 {
+13 |             return Some(padding);
+   |                    ------------- returning this value requires that `*bytes` is borrowed for `&#x27;1`
+
+error[E0499]: cannot borrow `*bytes` as mutable more than once at a time
+  --&gt; borrow.rs:11:28
+   |
+7  | fn find_leading_0s(bytes: &amp;mut [u8]) -&gt; Option&lt;&amp;mut [u8]&gt; {
+   |                           - let&#x27;s call the lifetime of this reference `&#x27;1`
+...
+11 |         let padding = &amp;mut bytes[..index];
+   |                            ^^^^^ `*bytes` was mutably borrowed here in the previous iteration of the loop
+12 |         if padding[index] == 0 {
+13 |             return Some(padding);
+   |                    ------------- returning this value requires that `*bytes` is borrowed for `&#x27;1`
+
+error: aborting due to 2 previous errors
+
+Some errors have detailed explanations: E0499, E0502.
+For more information about an error, try `rustc --explain E0499`.
+</code></pre>
+<p>The key error is this:</p>
+<pre><code>`*bytes` was mutably borrowed here in the previous iteration of the loop
+</code></pre>
+<p>The underlying code seems sound, though, because the reference drops and so you will never actually hold the mutable reference across loop iterations.
+But the borrow checker is rejecting it.
+Why's that?</p>
+<h1 id="a-long-standing-issue">A long-standing issue</h1>
+<p>There are some longstanding issues on the Rust compiler which are related here:</p>
+<ul>
+<li><a href="https://github.com/rust-lang/rust/issues/54663">rust-lang/rust#54663: Borrow checker extends borrow range in code with early return</a></li>
+<li><a href="https://github.com/rust-lang/rust/issues/70255">rust-lang-rust#70255: Weird error for mutable references in a loop</a></li>
+</ul>
+<p>These relate to the same issue with code samples of their own, some which are loops and some which are conditionals.
+They all boil down to the same problem, which has been dubbed Polonius.
+This is best summarized in the Rust blog post <a href="https://blog.rust-lang.org/inside-rust/2023/10/06/polonius-update.html">Polonius update</a>.</p>
+<p>Lifetimes can be named or anonymous.
+If lifetimes are in the signature of a function, either explicitly (<code>fn f&lt;'a&gt;(x: &amp;'a str) ...</code>) or implicitly, like here, then they're named.
+Even though our lifetimes are inferred (see the <a href="https://doc.rust-lang.org/reference/lifetime-elision.html">lifetime elision rules</a>) they are part of the signature.</p>
+<p>The current way the borrow checker works, if a lifetime is named, then it is deemed to last until the end of the function across <em>all</em> code paths<sup class="footnote-reference"><a href="#polonius-the-crab">2</a></sup>.
+So even if you have an early return whenever you grab that reference, or you drop it across iterations of the loop, it doesn't matter: it's still going to be treated as if it's held for the whole function!
+<em>Why</em> this is the case is a much deeper question that I don't have the expertise to answer, but the Polonius update blog post mentioned above goes into some more detail.</p>
+<p>This all is a bit of a downer since a lot of code could be made terser and more readable by allowing this kind of pattern.
+Fortunately we can work around it, and we will eventually not have to.</p>
+<h1 id="a-workaround">A workaround</h1>
+<p>The code example above can be rewritten like this:</p>
+<pre data-lang="rust" class="language-rust "><code class="language-rust" data-lang="rust">fn main() {
+    let mut bytes = [0, 0, 9, 0, 2, 3];
+    let padding = find_leading_0s(&amp;mut bytes);
+    println!(&quot;padding: {:?}&quot;, padding);
+}
+
+fn find_leading_0s(bytes: &amp;mut [u8]) -&gt; Option&lt;&amp;mut [u8]&gt; {
+    let mut index = 0;
+
+    while index &lt; bytes.len() {
+        if bytes[index] != 0 {
+            return Some(&amp;mut bytes[..index]);
+        }
+
+        index += 1;
+    }
+
+    None
+}
+</code></pre>
+<p>In this example, instead of creating a new mut reference into the slice, we use the existing single mut reference across all iterations.
+You can similarly hoist your references out of the loop and solve things that way.</p>
+<p>This example does compile and works as expected.
+We have a few other workarounds available to us:</p>
+<ul>
+<li>Use the <a href="https://docs.rs/polonius-the-crab/latest/polonius_the_crab/index.html">polonius-the-crab</a> crate. By using a macro, your lifetimes end up anonymous instead of named and this issue goes away.</li>
+<li>Use dedicated APIs like <code>get_or_insert()</code> that avoid this problem for us</li>
+<li>Re-order some of the code to avoid this particular problem in a clunky way</li>
+</ul>
+<p>This doesn't feel great, because we're limited in the code we can write.</p>
+<h1 id="the-future">The future!</h1>
+<p>In a future release of the borrow checker, this should be resolved.
+Per the <a href="https://blog.rust-lang.org/inside-rust/2023/10/06/polonius-update.html">working group's update</a> on this issue, the goal is to have the Polonius problem stable by Rust 2024.</p>
+<p>The solution they're working on changes some of the underlying machinery of the borrow checker and then tracks things across each point in the control flow graph, instead of once.
+This will let us use this type of mutable borrow with early return, and make a lot of neat code both safe and compilable!</p>
+<p>This looks like quite a big project.
+I know a lot of people have worked on it for a long time.
+Hopefully this will land in 2024.
+I'll be keeping an eye out for more updates on it, and I'm excited to see the ergonomic code we can write once this lands!</p>
+<hr />
+<div class="footnote-definition" id="it-has-a-bug"><sup class="footnote-definition-label">1</sup>
+<p>There's a bug in this program: if we reach the end of the list without an early exit, we should return <code>Some(bytes)</code> instead of <code>None</code>. This is intentional to produce the &quot;previous iteration of the loop&quot; error, instead of a different error, but they follow the same idea.</p>
+</div>
+<div class="footnote-definition" id="polonius-the-crab"><sup class="footnote-definition-label">2</sup>
+<p>There's a library called <a href="https://docs.rs/polonius-the-crab/latest/polonius_the_crab/index.html#rationale-limitations-of-the-nll-borrow-checker">polonius-the-crab</a> which has docs that have a great explanation of this. Their explanation helped me write this post.</p>
+</div>

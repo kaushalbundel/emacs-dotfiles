@@ -1,0 +1,85 @@
+
+<p>
+Here&#39;s the next part of our emoji project. In this video, we make the
+magic automatically happen. That is, when the user types an emoji in
+quotes - like 🐘, Emacs will automatically replace it with the
+emoji, 🐘.</p>
+<p>
+Now, mind you, the way we&#39;re doing it isn&#39;t the best way. In fact,
+after I posted the previous video, Micky Peterson linked to an article
+he wrote on using <a href="https://www.masteringemacs.org/article/inserting-emoji-input-methods">input methods</a> to insert emoji. Using input methods
+would be much cleaner but this series isn&#39;t necessarily about doing
+something the best way but rather exploring and playing with elisp in
+a way that hopefully will empower readers and viewers to build
+whatever they need.</p>
+<p>
+The magic to making our version work is by using Emacs Hooks. You can
+think of hooks like events if you&#39;ve done GUI or web programming. In a
+web interface you might make a button and set an event so that
+whenever the button is pressed some function is called or you make a
+text input field and set an event so that whenever the content of that
+input field changes, some function is called.</p>
+<p>
+Hooks are like that and there are tons fo them.</p>
+<p>
+In the video, I use this simple example:</p>
+<div class="src src-emacs-lisp">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> (defun redact ()
+</span></span><span style="display:flex;"><span> (save-excursion
+</span></span><span style="display:flex;"><span> (<span style="color:#a6e22e">goto-char</span> <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span> (replace-string <span style="color:#e6db74">&#34;secret&#34;</span> <span style="color:#e6db74">&#34;REDACTED&#34;</span>)))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> (add-hook <span style="color:#e6db74">&#39;before-save-hook</span> <span style="color:#a6e22e">#&#39;</span>redact)</span></span></code></pre></div>
+</div>
+<p>
+The function simply replaces all occurrences of the string &#34;secret&#34;
+and changes it to &#34;REDACTED.&#34; The before-save-hook runs associated
+functions before saving a file so in the above code sample, once the
+hook is added, whenever you save a file, the redact function will run
+and all occurrences of &#34;secret&#34; will be changed.</p>
+<p>
+This is a silly example but a more useful one for this hook would be
+to run a code autoformatter.</p>
+<p>
+To remove the hook we would use:</p>
+<div class="src src-emacs-lisp">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="display:flex;"><span> (remove-hook <span style="color:#e6db74">&#39;before-save-function</span> <span style="color:#a6e22e">#&#39;</span>redact)</span></span></code></pre></div>
+</div>
+<p>
+Note that the <code>add-hook</code> function also has options to decide if the
+hook is for the buffer or everywhere.</p>
+<p>
+For the emoji project, we&#39;ll use the <code>after-change-functions</code> hook
+which lets us call a function whenever the buffer is changed.</p>
+<p>
+The video goes into all the details. </p>
+<p>
+Next up, we&#39;ll see how we can overlay an emoji over text instead of
+replacing.</p>
+<div id="outline-container-headline-1" class="outline-2">
+<h2 id="headline-1">
+Code:
+</h2>
+<div id="outline-text-headline-1" class="outline-text-2">
+<p>
+The code for the series is still up here:</p>
+<ul>
+<li><a href="https://gitlab.com/zamansky/learning-elisp-code">https://gitlab.com/zamansky/learning-elisp-code</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-headline-2" class="outline-2">
+<h2 id="headline-2">
+The videos:
+</h2>
+<div id="outline-text-headline-2" class="outline-text-2">
+<iframe width="560" height="315"
+src="https://www.youtube.com/embed/6h4KngDdsbo?si=BUqK5052J4GgLWgP"
+title="YouTube video player" frameborder="0" allow="accelerometer;
+autoplay; clipboard-write; encrypted-media; gyroscope;
+picture-in-picture; web-share" allowfullscreen></iframe>
+<p>
+Video link: <a href="https://www.youtube.com/watch?v=6h4KngDdsbo">https://www.youtube.com/watch?v=6h4KngDdsbo</a></p>
+</div>
+</div>

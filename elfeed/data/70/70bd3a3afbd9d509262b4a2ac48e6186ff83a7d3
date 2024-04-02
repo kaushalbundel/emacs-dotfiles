@@ -1,0 +1,88 @@
+<p>This is a simple package that renders an indicator with email counters
+of the <code class="language-plaintext highlighter-rouge">notmuch</code> index on the Emacs mode line.  The underlying
+mechanism is that of <code class="language-plaintext highlighter-rouge">notmuch-count(1)</code>, which is used to find the
+number of items that match the given search terms.  The user can
+define the queries and associate them with a character, optionally
+assigning a face to it.</p>
+
+<ul>
+  <li>Package name (GNU ELPA): <code class="language-plaintext highlighter-rouge">notmuch-indicator</code></li>
+  <li>Official manual: <a href="https://protesilaos.com/emacs/notmuch-indicator">https://protesilaos.com/emacs/notmuch-indicator</a></li>
+  <li>Change log: <a href="https://protesilaos.com/emacs/notmuch-indicator-changelog">https://protesilaos.com/emacs/notmuch-indicator-changelog</a></li>
+  <li>Git repo on SourceHut: <a href="https://git.sr.ht/~protesilaos/notmuch-indicator">https://git.sr.ht/~protesilaos/notmuch-indicator</a>
+    <ul>
+      <li>Mirrors:
+        <ul>
+          <li>GitHub: <a href="https://github.com/protesilaos/notmuch-indicator">https://github.com/protesilaos/notmuch-indicator</a></li>
+          <li>GitLab: <a href="https://gitlab.com/protesilaos/notmuch-indicator">https://gitlab.com/protesilaos/notmuch-indicator</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Mailing list: <a href="https://lists.sr.ht/~protesilaos/general-issues">https://lists.sr.ht/~protesilaos/general-issues</a></li>
+  <li>Backronym: notmuch-… Interested in Notmuch Data Indicators that
+Count Any Terms Ordinarily Requested.</li>
+</ul>
+
+<p>Below are the release notes.</p>
+
+<hr />
+
+<h2>The indicator now works over TRAMP</h2>
+
+<p>In previous versions, the counters of the <code class="language-plaintext highlighter-rouge">notmuch-indicator-mode</code>
+would be omitted from the mode line if the refresh would happen while
+the user was browsing a remote file system with TRAMP. They would be
+restored once the user would switch to a local buffer. This was done
+as a precaution, as I had not yet developed a mechanism to retrieve
+the data relative to the local user.</p>
+
+<p>Counters are now always on display and are pointing to the local
+user’s configuration. The package furnishes two new users options,
+which make this possible: the <code class="language-plaintext highlighter-rouge">notmuch-indicator-notmuch-config-file</code>
+and <code class="language-plaintext highlighter-rouge">notmuch-indicator-notmuch-binary</code>.</p>
+
+<p>Their respective value is set at the time the <code class="language-plaintext highlighter-rouge">notmuch-indicator</code>
+feature is loaded (such as with <code class="language-plaintext highlighter-rouge">require</code> or <code class="language-plaintext highlighter-rouge">use-package</code>).</p>
+
+<p>Advanced users may wish to display different indicators depending on
+the TRAMP environment. In principle, this is done by setting the
+aforementioned options to the appropriate values. If anyone has such a
+use-case, please contact me as I am eager to make the package more
+flexible.</p>
+
+<h2>The mouse hover of counters has a better style</h2>
+
+<p>One of the nice features of the <code class="language-plaintext highlighter-rouge">notmuch-indicator-mode</code> counters on
+the mode line is that they are clickable: a mouse click produces a
+<code class="language-plaintext highlighter-rouge">notmuch.el</code> buffer with the same search terms as those that populate
+the counter.</p>
+
+<p>Before, the face used to indicate the mouse hover state was the
+generic <code class="language-plaintext highlighter-rouge">highlight</code> which can differ from the <code class="language-plaintext highlighter-rouge">mode-line-highlight</code>
+(depending on the theme).  We now use the latter to make sure that the
+styling is consistent.</p>
+
+<h2>Documentation</h2>
+
+<ul>
+  <li>
+    <p>The documentation of <code class="language-plaintext highlighter-rouge">notmuch-indicator</code> is now available on my
+website as well as an Info manual together with the GNU ELPA
+package.  On my website: <a href="https://protesilaos.com/emacs/notmuch-indicator">https://protesilaos.com/emacs/notmuch-indicator</a>.</p>
+  </li>
+  <li>
+    <p>I did not keep a <code class="language-plaintext highlighter-rouge">CHANGELOG.org</code> for this package, though I am doing
+it from now on. This file’s corresponding web page is this one:
+<a href="https://protesilaos.com/emacs/notmuch-indicator-changelog">https://protesilaos.com/emacs/notmuch-indicator-changelog</a>.</p>
+
+    <p>At any rate, I always publish release notes on my coding-related
+ blog. The previous publications from oldest to newest:</p>
+
+    <ul>
+      <li><a href="https://protesilaos.com/codelog/2022-09-21-notmuch-indicator-0-1-0/">https://protesilaos.com/codelog/2022-09-21-notmuch-indicator-0-1-0/</a></li>
+      <li><a href="https://protesilaos.com/codelog/2022-10-06-notmuch-indicator-0-2-0/">https://protesilaos.com/codelog/2022-10-06-notmuch-indicator-0-2-0/</a></li>
+      <li><a href="https://protesilaos.com/codelog/2023-06-30-notmuch-indicator-1-0-0/">https://protesilaos.com/codelog/2023-06-30-notmuch-indicator-1-0-0/</a></li>
+    </ul>
+  </li>
+</ul>

@@ -1,0 +1,80 @@
+<p>A lot of programming languages allow variable shadowing in new scopes.
+Early on, you learn that it can cause errors and can be confusing, but is situationally appropriate sometimes.</p>
+<p>Something that's less commonly allowed is <em>redeclaring</em> variables to shadow them locally.
+And when it is allowed, it's often considered bad practice and confusing.</p>
+<p>You're allowed to do this in JavaScript:</p>
+<pre data-lang="javascript" class="language-javascript "><code class="language-javascript" data-lang="javascript">var x = 10;
+var x;
+
+console.log(x); &#x2F;&#x2F; prints 10
+</code></pre>
+<p>The newer <code>let</code> keyword disallows this.
+The following code will <em>not</em> run:</p>
+<pre data-lang="javascript" class="language-javascript "><code class="language-javascript" data-lang="javascript">let x = 10;
+let x; &#x2F;&#x2F; ERROR: Identifier &#x27;x&#x27; has already been declared
+</code></pre>
+<p>Running it produces the error message &quot;Identifier 'x' has already been declared.&quot;</p>
+<p>This is an understandable message, because why would you redeclare something that already exists?
+The vast majority of the time it is a mistake and a typo, so it probably should be disallowed.
+This is exactly the point that Nystrom makes in <a href="http://www.craftinginterpreters.com/local-variables.html">Crafting Interpreters</a>:</p>
+<blockquote>
+<p>At the top level, Lox allows redeclaring a variable with the same name as a previous declaration because that’s useful for the REPL. But inside a local scope, that’s a pretty weird thing to do. It’s likely to be a mistake, and many languages, including our own Lox, enshrine that assumption by making this an error.</p>
+</blockquote>
+<p>In a sidebar, he notes that Rust <em>does</em> allow this and idiomatic code relies on it.
+If it's so problematic in other languages, why does Rust allow and even <em>encourage</em> it?</p>
+<p>There are a few common cases that it makes clearer.
+Here are a few that come to mind quickly, and there are probably many more.</p>
+<ol>
+<li>Making something immutable once you're done with it.</li>
+<li>Unwrapping containers while retaining clear naming.</li>
+<li>Changing types (dynamic typing vibe) while retaining clear naming.</li>
+</ol>
+<p>Let's look at immutability.
+One thing you do somewhat often is create a list and put a few items into it.
+Pretending that we don't have convenient macros like <code>vec!</code> to build these, we would have to leave it mutable, or make a helper function for the construction.
+Instead, we can just... say it's not mutable anymore, basically:</p>
+<pre data-lang="rust" class="language-rust "><code class="language-rust" data-lang="rust">let mut xs: Vec&lt;u32&gt; = Vec::new();
+xs.push(1);
+xs.push(2);
+let xs = xs; &#x2F;&#x2F; no longer can be changed!
+
+&#x2F;&#x2F; a few lines later
+
+xs.push(10); &#x2F;&#x2F; error!
+</code></pre>
+<p>Since we redeclared <code>xs</code> without <code>mut</code>, we now can detect if we try to mutate it later on.
+You can do the same thing in the opposite direction, too, which is handy for temporary mutability.</p>
+<p>This pattern is really nice because it lets you be explicit about whether or not something should <em>currently</em> be mutable while also retaining a lot of flexibility.
+All the power, with a compiler that's watching your back.</p>
+<p>Now onto the next example: Unwrapping things!
+Which is also changing their types!
+This is something you run into fairly often.
+You'll get back data of one type, then need to transform it to another.</p>
+<p>Let's look at an example involving parsing an integer.
+You might have a (slightly simplified) function like this:</p>
+<pre data-lang="rust" class="language-rust "><code class="language-rust" data-lang="rust">use std::str::FromStr;
+pub fn get_port() -&gt; Result&lt;u16, std::num::ParseIntError&gt; {
+  &#x2F;&#x2F; this is a constant here but would probably come from
+  &#x2F;&#x2F; a command-line arg or an environment variable.
+  let port: &amp;str = &quot;8080&quot;;
+  let port: u16 = u16::from_str(port)?;
+  println!(&quot;Parsed port as {port}&quot;);
+  Ok(port)
+}
+</code></pre>
+<p>As a matter of style, you could name each of them different things.
+<code>port_str</code> just grates on my sensibilities, though.
+And <code>parsed_port</code> for the converted one is really quite unpleasant, too, in my opinion.</p>
+<p>It's opinion, it's style, but I think it's wonderful that Rust lets us do this and keep clear (to us) names.
+Some people will disagree and say it's less clear.
+That's fine, but it's also generally idiomatic in Rust to do this, and it's also situationally dependent.
+Usually the redeclaration is close to the original declaration, which greatly aids in clarity.</p>
+<p>The other thing that makes this particularly nice in Rust is the type system.
+In JavaScript, the type system (or lack thereof) will not save you at <em>all</em> if you redeclare a variable and accidentally break code that expects it to still be the old type.
+But with Rust, the type system will quite robustly make sure you're not messing up the types.
+If you redeclare an integer and now a string has that name?
+Great, as long as it compiles.</p>
+<p>You get a lot of the vibe of dynamic typing, because you can change what type a particular name binds to.
+But you don't have as much of the danger, since things won't <em>unexpectedly</em> change out from under you.
+Flexibility <em>with</em> safety.
+That's beautiful.</p>

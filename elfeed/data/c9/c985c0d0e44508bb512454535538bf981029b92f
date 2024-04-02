@@ -1,0 +1,70 @@
+<p>Even with the wealth of information on web sites and in videos, books remain a great resource for learning.
+And they're great for group learning, too!
+We've run a book club <a href="https://remesh.blog">at work</a> a few times.
+Some sessions were more successful than others.</p>
+<p>The main way our book clubs faltered or failed was through severe <strong>drop-off</strong>.
+This is a proxy for a lot of things (losing interest, too time consuming, etc.) and is measurable.
+Some amount of drop-off is normal.
+But if you lose the majority of your club, something has gone wrong.
+We need to make sure we work on keeping attendance high!</p>
+<p>Here are a eight things I've learned about how to make an at-work book club successful!
+These helped us keep attendance high and helped us all get a lot out of the books we read.</p>
+<p><strong>Pick a relevant book.</strong>
+When you're doing a book club at work, taking work time for it, this is kind of a given.
+I wouldn't run a book club on Haskell at my day job.
+Not because Haskell isn't great, but because it's not <em>relevant</em> for what we do at my employer.
+We've run book clubs on Python (our primary backend language), distributed systems, and machine learning.
+Each of these are critical to what we do, so we had lots of initial interest in each.</p>
+<p><strong>Pick an interesting book.</strong>
+Related to books being relevant, they also need to be interesting.
+A relevant book will get people to check out what the book is about.
+An interesting book will get them to join and keep attending.
+Ultimately, what's interesting is subjective.
+We've had good luck finding interesting books by polling coworkers for book suggestions.
+You start from books that people already want to read, and you can poll them to measure how many are interested in it!</p>
+<p><strong>Set expectations upfront.</strong>
+I like to make the first session just an info session.
+When we tried to have the first session cover a chapter, it was too much.
+It can be intimidating to have to read before you know what the format is or what the expectations are!
+And it's also just plain confusing.
+For the first session, just lay out what the expectations are:
+how often do you meet, what participation requires, and all that.</p>
+<p><strong>Make sure people can get the book.</strong>
+Ideally, the company should buy it for everyone.
+I know software engineers are generally well paid, but we all have different situations.
+Even just the inconvenience of buying the book can sometimes drive people off, or they delay too long and miss the window to start participating.
+The easiest way to get high initial participation is have work buy the book for everyone.</p>
+<p><strong>Make participation easy.</strong>
+If you make everyone prepare for every session, you'll lose folks.
+Quickly.
+We're all busy with our day jobs and it needs to be a small commitment to join.
+This comes down to how you structure the sessions.
+We like to run recap sessions:
+One person presents the chapter, then we discuss it after that.
+The key element here is that even if you don't read the chapter, attendance is still worthwhile because you can hear the recap and get some knowledge.
+If you focus on just discussion, you drive people out if they miss one week, and this leads to steep drop-off.</p>
+<p><strong>Set a fast schedule and follow through.</strong>
+Don't slip the schedule.
+Books are long, and you have to keep the momentum up to keep people reading.
+My preference is a weekly schedule with a significant chunk of reading each week.
+This can be difficult with all the other things in life, but it means you get done quicker, too.</p>
+<p><strong>Limit the length.</strong>
+In my experience, 10 weeks is about the limit for running a book club.
+After this, people will stop participating and get fatigued of it.
+When you're reading a denser book, like <a href="https://dataintensive.net/">Designing Data-Intensive Applications</a>, consider reading <em>part</em> of the book together and leave the rest for independent reading.
+We read parts 1 and 2 together and left part 3 for anyone who wanted to continue independently.</p>
+<p><strong>Rotate presenters.</strong>
+We do a recap-plus-discussion format, and we rotate who presents each chapter.
+If you have one person present each week, you lose out on people learning from presenting.
+You also make the program less sustainable:
+You cannot, as one person, sustain this for a long time and a lot of different books.
+Rotating presenters each week will make the program sustainable and allow it to continue for more than one book.
+And have a backup plan in case someone backs out, so you don't have to slip the schedule.</p>
+<hr />
+<p>Running a book club is highly rewarding.
+You get to help everyone in the group learn a lot and bond together, and you develop new skills as the facilitator of the group.
+I hope this is helpful if you choose to run one at work.
+Keep in mind that there are many ways to run a successful book club, and these are just things that I found effective in a particular group.
+If you have anything else that you've found highly effective, please reach out and let me know!</p>
+<hr />
+<p><em>Thanks to <a href="https://www.linkedin.com/in/jessicalynndubin">Jessica Dubin</a> for feedback on a draft of this post!</em></p>

@@ -1,0 +1,29 @@
+;;;; Emacs Bookmark Format Version 1;;;; -*- coding: utf-8-emacs; mode: lisp-data -*-
+;;; This format is meant to be slightly human-readable;
+;;; nevertheless, you probably don't want to edit it.
+;;; -*- End Of Bookmark File Format Version Stamp -*-
+(("OneDrive"
+ (filename . "~/Insync/kaushalbundel@outlook.com/OneDrive/")
+ (front-context-string . ".DS_Store\n  drwx")
+ (rear-context-string . "44 Mar 29 19:52 ")
+ (position . 246)
+ (last-modified 26121 4402 266354 0))
+("Emacs Config"
+ (filename . "~/.emacs.d/")
+ (front-context-string . ".DS_Store\n  drwx")
+ (rear-context-string . "96 Mar 30 00:48 ")
+ (position . 213)
+ (last-modified 26120 7162 57947 0))
+("09-Notes"
+ (filename . "~/Insync/kaushalbundel@outlook.com/OneDrive/09-Notes/")
+ (front-context-string . ".DS_Store\n  drwx")
+ (rear-context-string . "48 Feb 13 17:24 ")
+ (position . 255)
+ (last-modified 26119 15972 845855 0))
+("org-capture-last-stored"
+ (filename . "~/Insync/kaushalbundel@outlook.com/OneDrive/09-Notes/todo.org")
+ (front-context-string . "* TODO Following")
+ (rear-context-string . "te the creative\n")
+ (position . 3976)
+ (last-modified 26119 15575 658816 0))
+)

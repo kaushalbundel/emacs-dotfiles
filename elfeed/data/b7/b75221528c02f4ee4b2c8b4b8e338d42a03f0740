@@ -1,0 +1,49 @@
+<p>More than a decade ago, I typed up a few paragraphs of notes, titled it “<a href="https://lethain.com/building-technical-leverage/">Building Technical Leverage</a>,” and proceeded to forget about it. Those notes were from a meeting with Kevin Scott, then SVP Engineering at LinkedIn, while we wandered the Valley <a href="https://lethain.com/digg-acquihire/">trying to convince potential acquirers to buy Digg</a>. It was only this morning that I remembered that the post exists when I started trying to title this post on the same topic.</p>
+<p>A decade later, I have accumulated more thoughts on the matter. Starting with some definitions:</p>
+<ul>
+<li><strong>Technical leverage</strong> here means “solving problems using software and software systems.” It is a subset of <strong>leverage</strong> which would also include solving problems using things like training, improving process, communication and so on</li>
+<li>There are two major categories of technical leverage that I see in industry: <strong>workflow improvements</strong> and <strong>product capabilities</strong></li>
+<li><strong>Workflow improvements</strong> are generally about improving efficiency (e.g. new code is deployed more quickly, database migrations are less likely to break production)</li>
+<li><strong>Product capabilities</strong> make something possible that was previously impossible, or at least an order of magnitude faster (an example of the former is a machine-learning optimized landing page that optimizes content for a given user rather than globally, an example of the later is replacing a time-intensive manual process to upload content with a wholly automated tool)</li>
+</ul>
+<p>With those baseline definitions, let’s explore the topic a bit.</p>
+<h2 id="workflow-improvements">Workflow improvements</h2>
+<p><strong>Workflow improvements</strong> improve your team or company’s efficiency. This can be literally making it faster (e.g. faster build times) or it might be making something slower but removing the need for human attention (e.g. canary deploys might slow down deployments but make it possible for deploys to rollout more safely without a human monitoring them).</p>
+<p>You can often find workflow improvements by modeling them with <a href="https://lethain.com/systems-thinking/">systems thinking</a>. (Here is <a href="https://lethain.com/limiting-wip/">an example of modeling an example system</a> with systems thinking.)</p>
+<p>Examples:</p>
+<ul>
+<li>At both Calm and Stripe, we experimented with canary deploys such that our deployment was slower <em>from a machine perspective</em>, but humans were able to stop paying attention more quickly because they knew obviously bad deploys would only go out to a small number of machines and would revert automatically</li>
+<li>At Uber, we built a system to support self-service provisioning of services, which replaced a system where services were requested and then provisioned by SRE by hand. We retained control over scaling compute resources beyond a certain threshold in production, allow us to control what we were most concerned about without slowing experimentation</li>
+<li>At Calm, we moved to use feature flags for gating access, rather than deployments to gate access, allowing us to instantly release and revert functionality without requiring a (relatively slow) deployment</li>
+</ul>
+<p>Failure modes:</p>
+<ul>
+<li><strong>Different but not better</strong>: sometimes folks convince themselves that a new solution is better, but it’s really just different. This happens most frequently when teams reason backwards from a goal (“I want to use Redis”) rather than reason forwards from a problem (“querying this infrequently changing data is overloading our primary database”)</li>
+<li><strong>Now you have N+1 solutions</strong>: a new solution is indeed better in some cases, but isn’t better in many other cases, such that a subset of users have a better experience, but most do not, and you’re stuck maintaining yet another solution. (This is one of many variants of <a href="https://lethain.com/migrations/">a failed migration</a>.)</li>
+</ul>
+<h2 id="product-capabilities">Product capabilities</h2>
+<p><strong>Product capabilities</strong> are making something possible within your product that previously wasn’t possible or make something currently possible <a href="https://lethain.com/magnitudes-of-exploration/">an order-of-magnitude</a> more efficient. This kind of innovation requires identifying something meaningfully new, investing in it to completion, and convincing users it’s worth adopting–even internally–a rare trifecta indeed.</p>
+<p>Examples:</p>
+<ul>
+<li>At one point, launching new pieces of content at Calm required significant coordination across Content, Product and Engineering teams. This meant that new product development was often interrupted by the work of launching content. We built tooling and workflows to wholly extract Product and Engineering from launching new pieces of content, while also significantly speeding up the Content team’s workflows. Before the project, much of our company’s energy was focused on releasing content. After the project, only the Content team’s energy was focused on releasing content</li>
+<li>At one point, Calm’s Growth, Product and Content teams argued over the manual placement of new pieces of content. Placement significantly impacted content performance, Teams had conflicting goals (performance of all content vs performance of a given piece of content), which created ongoing debate around positioning content. We replaced that with a machine-learning powered system which optimized content for each user, with a content testing mechanism for new content, which allowed us to give good, new content even more reach without compromising overall performance, and it did this without human debate. We were able to get a better outcome for all parties while also eliminating a major source of coordination and tension</li>
+</ul>
+<p>Failure modes:</p>
+<ul>
+<li><strong>Building capabilities for nonexistent problems</strong>: generally because the platform hopes to generate new demand for a solution as opposed to servicing existing demand generated by a current problem (e.g. content management was a source of ongoing friction at Calm, and instantly had demand for our solution; conversely at SocialCode we built a web scraping service that misdiagnosed the problem because it was driven from a technology-first perspective, solving the crawling configuration problem rather than token management which was the real source of demand)</li>
+<li><strong>Failing to deliver before funding dries up</strong>: usually because the approach is poorly architectured to support incremental support. Again, this often occurs because you don’t have a concrete user to build for, where you can validate approach with the specific subset they need as opposed to building the entirety to support abstract future adoption</li>
+<li><strong>Failing to drive adoption</strong>: there are many useful tools that are never adopted. Sometimes that is for good reasons (not reliable, too expensive), and sometimes that is for bad reasons (the two involved executives didn’t like one another). Either variety of non-adoption kills your product capability</li>
+</ul>
+<h2 id="workflow-vs-capabilities">Workflow vs capabilities</h2>
+<p>Both workflow improvements and product capabilities are valuable. Teams should select between them based on expected ROI and an honest assessment of their risk budget. If you can’t take much risk, focus on workflow improvements. Even if you can take some risk, don’t experiment concurrently with too many product capabilities–they tend to have a high failure rate, and you want to learn that quickly so you can move on to the next one.</p>
+<p>My experience is that most Engineering organizations deeply struggle to complete the necessary trifecta of tasks to launch a product capability: identify, fund delivery, and drive adoption. There are techniques that help with this: \</p>
+<ul>
+<li><em>Identify opportunity</em>: core techniques of product discovery</li>
+<li><em>Fund delivery</em>: identify incremental deliverables, often by solving for specific users with limited use cases before you’re able to fund the full project</li>
+<li><em>Drive adoption</em>: build early for some of your hardest customers to derisk possibility that your solution simply won’t work for them</li>
+</ul>
+<p>My rule is that product capabilities are only possible with a strong technical lead, engineering executive support, and a broader executive team that trusts the engineering executive. Without all three, very few product capabilities are delivered successfully.</p>
+<h2 id="prioritize-with-caution">Prioritize with caution</h2>
+<p>Engineering organizations should generally invest more into technical leverage, but only if they have a track record of doing so successfully. If you don’t have a track record of success, make a focused start, and build confidence that you can <em>finish</em> this sort of work and that it’s useful.</p>
+<p>If you invest too much before your organization understands how to select and implement this sort of work, you’re more likely to create an ocean of technical debt than a transformational improvement in your tooling or product. The good news is that getting better is straightforward. These projects tend to fail for very boring reasons: taking on too much before delivering something for feedback, building for non-existent users, building things that are <em>interesting</em> instead of <em>valuable</em>.</p>
+<p>Pay attention to those risks, expand your budget slowly over time, and you’ll get a feel for it. Get distracted by interesting projects that don’t solve clear problems for clear people, and you’ll have a fun quarter followed by years of cleanup.</p>

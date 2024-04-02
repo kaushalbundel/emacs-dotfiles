@@ -1,0 +1,95 @@
+<p>I recently got an email asking about self-publishing books,
+and wanted to summarize my thinking there.
+Recapping my relevant experience, I&rsquo;ve written three books:</p>
+<ol>
+<li><a href="https://lethain.com/elegant-puzzle/"><em>An Elegant Puzzle</em></a> was published in 2019 as a manuscript by <em>Stripe Press</em> (e.g. I wrote it and then it was released as is),
+which has sold about 100,000 copies (96k through the end of 2023, and selling about 4k copies a quarter over past two years),</li>
+<li><a href="https://lethain.com/staff-engineer/"><em>Staff Engineer</em></a> which I self-published in 2021, which has sold about 70,000 copies (also selling roughly 4k copies a quarter
+over the past two years)</li>
+<li><a href="https://lethain.com/eng-execs-primer/"><em>The Engineering Executive&rsquo;s Primer</em></a> which was published by <em>O&rsquo;Reilly</em> earlier this month.
+It&rsquo;s too early to have sales numbers at this point</li>
+</ol>
+<p>Putting those in context, my sense is that these are &ldquo;very good&rdquo; numbers, but not &ldquo;breakout&rdquo; numbers.
+For example, my best guess is that a breakout technology book like <em><a href="https://www.amazon.com/dp/1942788339">Accelerate</a></em>
+or <em><a href="https://www.amazon.com/Managers-Path-Leaders-Navigating-Growth/dp/1491973897/">The Manager&rsquo;s Path</a></em>
+has sold something closer to 300-500k copies.</p>
+<p>I&rsquo;ve also written about publishing a few times:</p>
+<ul>
+<li><a href="https://lethain.com/self-publishing-staff-engineer/">Self-publishing Staff Engineer</a> (2021) &ndash; this remains a comprehensive summary of my self-publishing process</li>
+<li><a href="https://lethain.com/publishing-eng-execs-primer/">Thoughts on writing and publishing Primer</a> (2023) &ndash; my process writing with <em>O&rsquo;Reilly</em> and how it contrasted with self-publishing</li>
+<li><a href="https://lethain.com/learned-writing-book/">What I learned writing [An Elegant Puzzle]</a> (2019) &ndash; I wrote this shortly after finishing writing Puzzle, and rereading this five years later,
+I&rsquo;m most surprised at how little I knew about writing books at this point. It&rsquo;s also a poorly formatted post, but whatever, who knows what
+I was doing back then</li>
+</ul>
+<p>Building on that, the general elements I&rsquo;d encourage someone to think
+through if they&rsquo;re deciding whether to self-publishing:</p>
+<ul>
+<li>
+<p><strong>There&rsquo;s a learning curve</strong> to publishing book, and I&rsquo;ve learned a lot from every book I&rsquo;ve written.
+Both working with publishers and self-publishing accelerate your learning curve.
+To maximize learning, I&rsquo;d recommend doing a mix of both. If your goal is to only write a single book,
+I&rsquo;d recommend working with a publisher already has gone through the learning curve and can guide you
+on navigate it as well</p>
+</li>
+<li>
+<p><strong>Publishers might not take your book</strong>, which means sometimes you can&rsquo;t publish a given book with a publisher.
+I&rsquo;d generally argue that means you should work on your own distribution before trying to publish the book.
+Having your own distribution is critical to getting a publisher to take your book, and also critical to
+being able to self-publish successfully. If you can&rsquo;t find a publisher willing to take your book, I think there&rsquo;s
+a lot of risk in self-publishing it (not because self-publishing is inherently risky, but because publishers filter
+for the sorts of criteria that derisk self-publishing), and you should reflect on that</p>
+</li>
+<li>
+<p><strong>Pricing control</strong> is lost when you work with a publisher. <em>Stripe Press</em> prices to maximize distribution, selling a hard cover at roughly $20.
+<em>O&rsquo;Reilly</em> prices to maximize profit, selling a paperback at roughly $40. Neither of these is right or wrong, but your goals may or may not
+align with your publisher&rsquo;s pricing strategy. When self-publishing, there&rsquo;s no potential for misaligning with the publisher&rsquo;s pricing strategy.
+Of course, pricing strategy also impacts your compensation a great deal, e.g. I probably make twice as much from each copy of <em>Staff Engineer</em> sold
+as I do from a copy of <em>The Engineering Executive&rsquo;s Primer</em>, despite the fact that <em>Staff Engineer</em> costs half as much.</p>
+</li>
+<li>
+<p><strong>Pring quality</strong> is highly variable across publishing solutions. In particular, <a href="https://kdp.amazon.com/">Kindle Direct Publishing</a>&ndash;which is the
+dominant on-demand printing solution for self-published books&ndash;has highly variable print quality.
+In general, on-demand print quality is variable because there are 10,000s of small batch print runs. Even when print quality is high 99% of the time,
+it still means shipping some badly printed books. Anecdotally, my sense is that quality is highly dependent on the specific region where your book is
+printed, so you might never get a badly printed copy, but many of your readers in another region might frequently receive low quality print.
+This has been the largest &ldquo;hidden tax&rdquo; of self-publishing for me.</p>
+<p>If you work with a publisher, they handle this, and their large volume print runs are generally error free because they are infrequent and represent
+a major investment for both the publisher and printer</p>
+</li>
+<li>
+<p><strong>Creative control</strong> may be significantly lower working with a publisher on many dimensions. This ranges from creating your book&rsquo;s cover
+to decisions about how content and topics are treated. Similar to pricing strategy, you can largely derisk this issue upfront by
+understanding what a given publisher wants in these regards, but you can get into a lot of trouble if you don&rsquo;t align early</p>
+</li>
+<li>
+<p><strong>Editorial support</strong> is highly variable across publishers and editors within publishers
+I&rsquo;ve adored every publisher and editor I&rsquo;ve worked with, but I think that&rsquo;s largely due to good luck
+(asking around about a given editor goes a long way here)</p>
+</li>
+<li>
+<p><strong>Other sorts of support</strong> is highly variable, but working with a publisher you don&rsquo;t have to find
+the folks, and generally you&rsquo;re going to run into fewer operational issues because you&rsquo;re working
+with folks who publish books frequently</p>
+</li>
+<li>
+<p><strong>Release timing and control</strong> is very low when you work with a publisher.
+When you self-publish, particularly with a print on-demand solution, you have immense control here</p>
+</li>
+<li>
+<p><strong>Payment nuances</strong> are someone else&rsquo;s problem if you work with a publisher. If you&rsquo;re an individual author
+who is taking full revenue (and costs), this is trivial. However, if you want to split revenue from a book,
+this is going to be fairly annoying as a self-publisher</p>
+</li>
+<li>
+<p><strong>International rights management</strong> is pretty painstaking as a self-published author, although if you&rsquo;re lucky
+you can find an agency to work with like <a href="https://www.nordlysetagency.com/">Nordlyset</a> who take on most of the burden
+for this. You can do this yourself (and I did for one language, just to understand the process), but you won&rsquo;t
+have a good sense of the quality of those international publishers, how to do the negotiations, and so on.
+Not all publishers will handle this for you either, for example I work with Nordlyset for both my Stripe Press
+and self-published books, but O&rsquo;Reilly handles this for me</p>
+</li>
+</ul>
+<p>In sum, I don&rsquo;t think there&rsquo;s any right decision on whether or not to self-publish,
+it&rsquo;s all very context dependent. The only thing I&rsquo;d push back on is the sense that
+there&rsquo;s only one obviously right decision, that statement is resoundingly untrue from
+my experience.</p>

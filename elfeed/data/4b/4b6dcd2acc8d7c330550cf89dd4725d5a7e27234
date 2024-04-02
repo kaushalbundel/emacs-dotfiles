@@ -1,0 +1,104 @@
+<p>The <code class="language-plaintext highlighter-rouge">altcaps</code> package is a small, focused-in-scope tool that helps
+users communicate mockery or sarcasm effectively.  It does this by
+alternating the letter casing of characters in the words it affects.</p>
+
+<ul>
+  <li>Package name (GNU ELPA): <code class="language-plaintext highlighter-rouge">altcaps</code></li>
+  <li>Official manual: <a href="https://protesilaos.com/emacs/altcaps">https://protesilaos.com/emacs/altcaps</a></li>
+  <li>Change log: <a href="https://protesilaos.com/emacs/altcaps-changelog">https://protesilaos.com/emacs/altcaps-changelog</a></li>
+  <li>Git repo on SourceHut: <a href="https://git.sr.ht/~protesilaos/altcaps">https://git.sr.ht/~protesilaos/altcaps</a>
+    <ul>
+      <li>Mirrors:
+        <ul>
+          <li>GitHub: <a href="https://github.com/protesilaos/altcaps">https://github.com/protesilaos/altcaps</a></li>
+          <li>GitLab: <a href="https://gitlab.com/protesilaos/altcaps">https://gitlab.com/protesilaos/altcaps</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Mailing list: <a href="https://lists.sr.ht/~protesilaos/general-issues">https://lists.sr.ht/~protesilaos/general-issues</a></li>
+  <li>Backronyms: Alternating Letters Transform Casual Asides to Playful
+Statements.  ALTCAPS Lets Trolls Convert Aphorisms to Proper
+Shitposts.</li>
+</ul>
+
+<p>Below are the release notes.</p>
+
+<hr />
+
+<h2>Breaking change to the value of <code class="language-plaintext highlighter-rouge">altcaps-force-character-casing</code></h2>
+
+<p>This user option enforces the specified letter casing for the given
+character.  The value is an alist.  In previous versions, the <code class="language-plaintext highlighter-rouge">car</code> of
+each cell was a character type, whereas now it is a string type.
+Concretely, the old value was expressed like this:</p>
+
+<div class="language-elisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">;; Old value</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">altcaps-force-character-casing</span>
+      <span class="o">'</span><span class="p">((</span><span class="nv">?i</span> <span class="o">.</span> <span class="nv">downcase</span><span class="p">)</span>
+        <span class="p">(</span><span class="nv">?l</span> <span class="o">.</span> <span class="nv">upcase</span><span class="p">)))</span>
+</code></pre></div></div>
+
+<p>It becomes:</p>
+
+<div class="language-elisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">;; New value</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">altcaps-force-character-casing</span>
+      <span class="o">'</span><span class="p">((</span><span class="s">"i"</span> <span class="o">.</span> <span class="nv">downcase</span><span class="p">)</span>
+        <span class="p">(</span><span class="s">"l"</span> <span class="o">.</span> <span class="nv">upcase</span><span class="p">)))</span>
+</code></pre></div></div>
+
+<p>At least based on my correspondence, strings are easier for users.
+The notation for characters causes confusion.</p>
+
+<h2>The public <code class="language-plaintext highlighter-rouge">altcaps-transform</code> function</h2>
+
+<p>This is the function that performs the alternating letter casing, while
+also respecting the user option <code class="language-plaintext highlighter-rouge">altcaps-force-character-casing</code>.  The
+function is more efficient now.  Use it in Lisp with a single string
+argument, like this:</p>
+
+<div class="language-elisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nv">altcaps-transform</span> <span class="s">"Your wish is my command"</span><span class="p">)</span>
+<span class="c1">;; =&gt; yOuR wIsH iS mY cOmMaNd</span>
+</code></pre></div></div>
+
+<p>The above return value is consistent with the default settings.  With
+<code class="language-plaintext highlighter-rouge">altcaps-force-character-casing</code> bound, we can affect the output thus:</p>
+
+<div class="language-elisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="k">setq</span> <span class="nv">altcaps-force-character-casing</span>
+      <span class="o">'</span><span class="p">((</span><span class="s">"i"</span> <span class="o">.</span> <span class="nv">downcase</span><span class="p">)</span>
+        <span class="p">(</span><span class="s">"m"</span> <span class="o">.</span> <span class="nv">upcase</span><span class="p">)))</span>
+
+<span class="p">(</span><span class="nv">altcaps-transform</span> <span class="s">"Your wish is my command"</span><span class="p">)</span>
+<span class="c1">;; =&gt; yOuR wiSh iS My CoMMaNd</span>
+</code></pre></div></div>
+
+<h2>Characters without casing no longer matter</h2>
+
+<p>Before, the algorithm was toggling the letter casing of virtually
+every character.  This means that a string like <code class="language-plaintext highlighter-rouge">"a.c"</code> was wrongly
+treated as a sequence of three characters with letter casing, so the
+program was trying to do this:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a =&gt; downcase
+. =&gt; upcase
+c =&gt; downcase
+</code></pre></div></div>
+
+<p>Whereas now, the transformation skips characters without letter
+casing:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a =&gt; downcase
+. =&gt; i Am ThE iNtElLiGeNtSiA nOw
+c =&gt; upcase
+</code></pre></div></div>
+
+<h2>The <code class="language-plaintext highlighter-rouge">altcaps-replace</code> is superseded by <code class="language-plaintext highlighter-rouge">altcaps-replace-region</code></h2>
+
+<p>The <code class="language-plaintext highlighter-rouge">altcaps-replace</code> was not sufficiently abstract, making the code a
+bit repetitive.  The new <code class="language-plaintext highlighter-rouge">altcaps-replace-region</code> is efficient in that
+regard.</p>
+
+<p>The arity of the two functions is different: <code class="language-plaintext highlighter-rouge">altcaps-replace</code> was
+accepting one required argument plus an optional one, while
+<code class="language-plaintext highlighter-rouge">altcaps-replace-region</code> takes three arguments at all times.  Please
+consult its doc string before adapting it to your code.</p>

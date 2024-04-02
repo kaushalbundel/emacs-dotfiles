@@ -1,0 +1,14 @@
+<p>
+Most Emacs users who are at all familiar with Elisp know that you have to specify the <code>interactive</code> command for functions if you want them to be interactive—that is, if you want them to be callable with <kbd>Meta</kbd>+<kbd>x</kbd>. Most of those people also know that you can use the <code>interactive</code> command to prompt a user for function parameters.
+</p>
+<p>
+What is less well known is that you can also pass a list of parameters for the function in the <code>interactive</code> command. By itself, that’s not too useful, of course, but rather than specifying a list, you can specify a function that returns a list. The function can do anything as long as it returns a list. Arialdo Martini has <a href="https://arialdomartini.github.io//emacs-surround-2">a post</a> that illustrates this nicely.
+</p>
+<p>
+He looks at the problem of surrounding a region with a pair of delimiters. The question is how to get the two delimiters. The most obvious—but also most difficult—solution is to simply add code to the body of the function to prompt for the delimiters. It’s far easier to use the <code>interactive</code> command to get them and this also has the advantage of allowing the function to be called from Elisp without any prompting.
+</p>
+<p>
+But what happens if you want to limit the choices to a predetermined set? That’s exactly what <code>completing-read</code> is for. Sadly, there’s no <code>interactive</code> parameter for this but you <i>can</i> write a function that uses <code>completing-read</code> and returns the delimiters as a list.
+</p>
+<p>
+Martini’s post uses this idea to implement a set of functions that surrounds a region with any of a predetermined set of delimiters. As Martini says, there’s already plenty of functions and packages that do this. The point of his post is to explore how you can use the <code>interactive</code> command to pass parameters to a function. It’s a good post and worth a few minutes of your time to read.</p>

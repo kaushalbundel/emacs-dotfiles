@@ -1,0 +1,27 @@
+<p>Identity theft is a huge problem, costing Americans more than <a href="https://www.fas.org/sgp/crs/misc/R40599.pdf">$4.5 billion in 2012</a>. Identity theft victims frequently lose time and money and undergo significant mental hardships while dealing with the fallout. It can happen a few different ways, but one large attack vector is through the identity verification process.</p>
+<p>Every time your identity is verified, one of the following mechanisms is probably used:</p>
+<ul>
+<li>an array of challenge questions (&quot;what were your last two addresses?&quot;)</li>
+<li>submitting a copy of a physical document (passport or id card)</li>
+<li>providing your Social Security number (SSN)</li>
+</ul>
+<p>All of these come with problems. They are subject to two main attack vectors: social engineering, where a bad actor may trick you into giving up this information to them directly; or bad actors within a legitimate organization that you have to provide the information to. The second attack vector is far more insidious, since you cannot do anything to prevent it. If you submit your SSN with a form at your local community college and an employee handling the form copies it down, it is lost -- but you had no choice and <em>had</em> to include the SSN.</p>
+<p>Let's back up. What's the big problem here? Why are these mechanisms weak?</p>
+<p>There are two classical problems in secure communications: authentication and encryption. <em>Authentication</em> is proving your identity. <em>Encryption</em> is protecting a message from all but the intended recipients. Together, these let you send messages which cannot be intercepted and can be demonstrated to be from you, not an impostor.</p>
+<p>Traditional identity verification mechanisms are just means of <em>authenticating</em> your requests. These are based on shared information. Essentially, both Alice and Bob must have the same information to verify that Alice really is who she claims to be. Here's the problem: that means that Bob can then go to Mark and say &quot;Hi, I'm Alice, here's proof!&quot; and Mark would be fooled.</p>
+<p>Solving this problem requires switching to an asymmetric information system. This is the same way that your bank's website proves that it is legitimate. A central authority, called the certificate authority (CA), issues a certificate to the bank. The bank holds private information it can use to sign a message (their private key), and then your browser checks the signature using the public certificate from the CA. No one else can impersonate the bank, because no one else has the bank's private key.</p>
+<p>We can do the same thing for identity verification for people. With a central &quot;Personal Identity Authority&quot; (such a name evokes some dystopian imagery), we could issue every person a private and public key. The public keys would all be recorded so that anyone could see everyone else's public keys, but private keys would be held only be each individual. Then, identity proof would be done by a simple process. Imagine that Bob wants to verify Alice's identity:</p>
+<ol>
+<li>Bob would send Alice a short message (randomly generated, and unique each time).</li>
+<li>Alice would encrypt this message using her private key and send it back to Bob.</li>
+<li>Bob would retrieve Alice's public key and use it to decrypt Alice's message.</li>
+<li>If the received message matches the original one, then Alice is who she claims to be.</li>
+</ol>
+<p>This system would be technically sound and would result in both far more secure identities and much higher confidence identity verification. However, it comes with problems of its own.</p>
+<ul>
+<li>Software systems would be necessary to implement the system. People can't encrypt random messages with large keys by hand. These systems are not awfully difficult to make (in fact, they already exist) but getting them integrated into everyone's phone, laptop, browser, and all the services they use, would be a significantly challenging endeavor.</li>
+<li>People would lose their private keys. If someone breaks their laptop or phone and their private key is lost, how would a new one be reissued? If you can use an old technique, like your SSN, to get a new key, then what would stop an attacker from simply pretending to be you and getting a new public/private key pair associated with your identity?</li>
+<li>People can have their private keys stolen. This could happen through security holes in their laptops and phones, or through social engineering to convince people to give up their private keys voluntarily.</li>
+<li>A great deal of trust is now placed in one central authority. This authority must be trusted not just to manage your identity, but also to be responsible with a lot of information. All requests for your public key would be signals that you are authenticating in different places (Facebook wants your public key? That is a signal that you just used Facebook.), so the central authority would have a new wealth of tracking data.</li>
+</ul>
+<p>I hope that within my lifetime, I can see symmetric information stop being used for identity verification. However, I also hope that these issues can be solved well <em>before</em> we implement any such system.</p>

@@ -1,0 +1,389 @@
+<p>Sometimes we have ideas that are bad but demand to enter reality. A few months ago, while chatting with a friend, we toyed around with the idea of a language where the only control flow you get is error handling. This idea embedded itself in my brain and wouldn't let me go, so I kept just talking about it until two people in the same week accidentally encouraged me to do it.</p>
+<p>Unfortunately, I decided to make this language a reality.
+<em>I'm sorry</em>.
+You are probably better off if you close the tab now.
+If you keep reading, it's at your own risk.</p>
+<h1 id="the-premise-of-hurl">The premise of Hurl</h1>
+<p>Here's the premise of the language.
+You know how in Python, people sometimes use exceptions for control flow?
+Yeah, yeah, I know exceptions aren't control flow and blah blah <em>except they are</em>.
+They share a lot with <code>goto</code> statements, where you can just kind of get yeeted to somewhere else in the program.
+But they're less flexible, since you can only go back up the stack<sup class="footnote-reference"><a href="#1">1</a></sup>.</p>
+<p>Since you <em>can</em> use them for control flow, the natural question is how little other control flow can you provide?
+How much of the heavy lifting can exceptions provide?</p>
+<p>Turns out, holy cow, they can cover just about everything.</p>
+<h1 id="the-core-language">The core language</h1>
+<p>Here are the core language features:</p>
+<ul>
+<li>Binding local variables</li>
+<li>Defining anonymous functions</li>
+<li>Exception handling</li>
+</ul>
+<p>Let's go through those one by one and look at how they'll work, and then we can look at how they add up to something more full-featured.</p>
+<h3 id="binding-local-variables">Binding local variables</h3>
+<p>This looks like and works like you'd expect.
+You use the <code>let</code> keyword to bind a value to a name (no uninitialized variables, sorry!). Kind of like this:</p>
+<pre data-lang="hurl" class="language-hurl "><code class="language-hurl" data-lang="hurl">let x = 10;
+let name = &quot;Nicole&quot;;
+</code></pre>
+<p>This brings up our first spicy decision: statements end in semicolons.
+I'm personally a fan of semicolons, and I think they make the grammar easier to parse as a human (at least, for this human named Nicole).</p>
+<p>Otherwise, this looks a lot like JavaScript or Rust syntax.
+I just took it off the shelf.</p>
+<p>The language is dynamically typed, so you don't have to specify what type anything is.
+This helps make the grammar small.
+We'll see how it affects the interpreter implementation!</p>
+<h3 id="defining-anonymous-functions">Defining anonymous functions</h3>
+<p>The next thing we can do is define anonymous functions.
+You do this with the <code>func</code> keyword, like in Go or Swift<sup class="footnote-reference"><a href="#2">2</a></sup>.
+Each function may have as many arguments as you would like.</p>
+<p>Here's a silly example defining a function to add together two numbers.</p>
+<pre data-lang="hurl" class="language-hurl "><code class="language-hurl" data-lang="hurl">func(x, y) {
+  hurl x + y;
+};
+</code></pre>
+<p>Oh yeah, forgot to mention something: we can't return values from functions.
+If you want to send something out, you have to throw it as an exception, and one of the two keywords for that is <code>hurl</code>.</p>
+<p>Also, anonymous functions aren't a whole lot of use if you can't ever refer to them to call them.
+To get around this, we just combine anonymous functions with binding local variables, and we give them a name.
+Then we call them with the syntax you would expect, the usual <code>f(1,2)</code> type deal.</p>
+<pre data-lang="hurl" class="language-hurl "><code class="language-hurl" data-lang="hurl">let add = func(x, y) {
+  hurl x +  y;
+};
+</code></pre>
+<p>Another important detail is that since Hurl is dynamically typed, you could pass in two ints, or you could pass in two strings, or an int and a string.
+Some of these will work, some might cause problems if <code>+</code> isn't defined for those types!
+Here's what some of the combinations would do:</p>
+<pre data-lang="hurl" class="language-hurl "><code class="language-hurl" data-lang="hurl">&#x2F;&#x2F; hurls 3
+add(1, 2);
+
+&#x2F;&#x2F; hurls &quot;1fish&quot;
+add(1, &quot;fish&quot;);
+
+&#x2F;&#x2F; hurls &quot;me2&quot;
+add(&quot;me&quot;, 2);
+
+&#x2F;&#x2F; hurls &quot;blue fish&quot;
+add(&quot;blue&quot;, &quot; fish&quot;);
+</code></pre>
+<p>Oh, also, functions cannot be recursive (without passing in a function to itself), because we won't have the function bound to a name in the local context when defining itself.
+Fun, right?</p>
+<p>Great.
+We've got functions.
+Now we need the spice.</p>
+<h3 id="exception-handling">Exception handling</h3>
+<p>First of all, I'm really sorry.
+I didn't have to do this, but I did, and here we are.</p>
+<p>Exception handling has two components: throwing the exception, and catching it.</p>
+<p>There are two ways to throw an exception:</p>
+<ul>
+<li>You can <code>hurl</code> it, which works like you'd expect: it unwinds the stack as you go until it either reaches a <code>catch</code> block that matches the value, or exhausts the stack.</li>
+<li>You can <code>toss</code> it, which works a little differently: it traverses the stack until you reach a matching <code>catch</code> block, but then you can use the <code>return</code> keyword to <em>go back</em> to where the value was tossed from.</li>
+</ul>
+<p>I know, it's cursed using <code>return</code> in this unusual way.
+Again, sorry, I didn't make you keep reading.
+But, the reward is that since you got here, you get to see how we can use these to create control flow.</p>
+<p>Here are a couple of examples, which we will work through with explanations of the stack state in both.</p>
+<p>In the first example, we'll make a dummy function which <code>hurls</code> a value, and catch it in the grandparent caller.
+I've inserted line numbers for ease of displaying a trace later.</p>
+<pre data-lang="hurl" class="language-hurl "><code class="language-hurl" data-lang="hurl"> 1 | let thrower = func(val) {
+ 2 |   hurl val + 1;
+ 3 | };
+ 4 |
+ 5 | let middle = func(val) {
+ 6 |   print(&quot;middle before thrower&quot;);
+ 7 |   thrower(val);
+ 8 |   print(&quot;middle after thrower&quot;);
+ 9 | };
+10 |
+11 | let first = func(val) {
+12 |   try {
+13 |     middle(val);
+14 |   } catch as new_val {
+15 |     print(&quot;caught: &quot; + new_val);
+16 |   };
+17 | };
+18 |
+19 | first(2);
+</code></pre>
+<p>This program will define a few functions, then execute <code>first</code>.
+Here's an imprecise trace of the program execution when we call <code>first(2)</code>:</p>
+<pre><code>(file):19:
+  stack: (empty)
+  calls first
+
+first:12:
+  stack: [ (first, 2) ]
+  enters try block
+
+first:13:
+  stack: [ (first, 2), (&lt;try&gt;) ]
+  calls middle
+
+middle:6:
+  stack: [ (first, 2), (&lt;try&gt;), (middle, 2) ]
+  prints &quot;middle before thrower&quot;
+
+middle:7:
+  stack: [ (first, 2), (&lt;try&gt;), (middle, 2) ]
+  calls thrower
+
+thrower:2:
+  stack: [ (first, 2), (&lt;try&gt;), (middle, 2), (thrower, 2) ]
+  resolves val as 2, adds 1, and stores this (3) as a temp
+
+thrower:2:
+  stack: [ (first, 2), (&lt;try&gt;), (middle, 2), (thrower, 2) ]
+  hurls 3, pops current stack frame
+
+middle:7:
+  stack: [ (first, 2), (&lt;try&gt;), (middle, 2) ]
+  status: hurling 3
+  not in a try block, pops stack frame
+
+first:13:
+  stack: [ (first, 2), (&lt;try&gt;) ]
+  status: hurling 3
+  in a try block, try block matches, jump into matching block
+
+first:15:
+  stack: [ (first, 2), (&lt;try&gt;), (&lt;catch&gt;, 3) ]
+  print &quot;caught: 3&quot;
+  pop catch and try stack frames
+  pop first stack frame
+
+file:19:
+  stack: []
+  execution complete
+</code></pre>
+<p>That's a bit to follow (and if you have a better way of expressing this trace, please let me know so I can update the post and the future docs), but it's sufficient to understand it as &quot;normal exception handling except you can throw <em>anything</em>.&quot;</p>
+<p>This also introduced one other construct, <code>catch as</code>, which lets you catch all values and store it in a new local variable.
+The other thing you can do is something like <code>catch (true)</code> or <code>catch (&quot;hello&quot;)</code> to only match specific values.</p>
+<p>Now the other one is pretty fun.
+This is <code>toss</code>.
+We can change the above example to use <code>toss</code> and <code>return</code>.
+This time I'll just illustrate the stack starting from when we reach <code>toss</code>; execution is the same up until then (with slightly different line numbers).</p>
+<pre data-lang="hurl" class="language-hurl "><code class="language-hurl" data-lang="hurl"> 1 | let thrower = func(val) {
+ 2 |   toss val + 1;
+ 3 | };
+ 4 |
+ 5 | let middle = func(val) {
+ 6 |   print(&quot;middle before thrower&quot;);
+ 7 |   thrower(val);
+ 8 |   print(&quot;middle after thrower&quot;);
+ 9 | };
+10 |
+11 | let first = func(val) {
+12 |   try {
+13 |     middle(val);
+14 |   } catch as new_val {
+15 |     print(&quot;caught: &quot; + new_val)
+16 |     return;
+17 |   };
+18 | };
+19 |
+20 | first(2);
+</code></pre>
+<p>Here's the abridged trace, starting just from the <code>toss</code> statement.
+Note that now we have an index of where we are in the stack.
+This is 0-indexed, since that reflects the language I'll write the interpreter in.</p>
+<pre><code>thrower:2:
+  stack: [ (first, 2), (&lt;try&gt;), (middle, 2), (thrower, 2) ]
+  stack index: 3
+  tosses 3 from stack index 3, decrements stack index
+
+middle:7:
+  stack: [ (first, 2), (&lt;try&gt;), (middle, 2), (thrower, 2) ]
+  stack index: 2
+  status: tossing 3 from stack index 3
+  not in a try block, decrements stack index
+
+first:13:
+  stack: [ (first, 2), (&lt;try&gt;), (middle, 2), (thrower, 2) ]
+  stack index: 1
+  status: tossing 3 from stack index 3
+  in a try block, try block matches, jump into matching block creating a substack
+
+first:15:
+  stack: [ (first, 2), (&lt;try&gt;), (middle, 2), (thrower, 2) ]
+  stack index: 1
+  status: tossing 3 from stack index 3
+  substack: [ (&lt;catch&gt;, 3) ]
+  print &quot;caught: 3&quot;
+
+first:16:
+  stack: [ (first, 2), (&lt;try&gt;), (middle, 2), (thrower, 2) ]
+  stack index: 1
+  status: tossing 3 from stack index 3
+  substack: [ (&lt;catch&gt;, 3) ]
+  returning, pop the substack, set stack index to 3
+
+thrower:2:
+  stack: [ (first, 2), (&lt;try&gt;), (middle, 2), (thrower, 2) ]
+  stack index: 3
+  finish this function, pops current stack frame
+
+middle:8:
+  stack: [ (first, 2), (&lt;try&gt;), (middle, 2) ]
+  stack index: 2
+  prints &quot;middle after thrower&quot;
+  finish this function, pops current stack frame
+
+first:13:
+  stack: [ (first, 2), (&lt;try&gt;) ]
+  stack index: 1
+  finishes the try block, pops current stack frame
+  finish this function, pops current stack frame
+
+file:20:
+  stack: []
+  stack index: 0
+  execution complete
+</code></pre>
+<p>And that's it!
+That's what we need to make a useful language that can do all the ordinary things languages do.</p>
+<p>Well, we don't have a clear way of handling <em>errors</em> since exception handling is being used for actual control flow.
+So let's just be careful and not write any bugs, and not have errors.</p>
+<p>But now it's time to put together the pieces and do &quot;useful&quot; things.</p>
+<h1 id="implementing-control-flow-via-exception-handling">Implementing control flow via exception handling</h1>
+<p>Conditionals and loops are pretty fundamental to how we write programs.
+How do we express them in this paradigm?</p>
+<p>Conditionals are pretty straightforward, so we will start there.
+We can just hurl a value inside a try block, and use catch blocks to match values!</p>
+<p>For example, let's check if a value is greater than 0.</p>
+<pre data-lang="hurl" class="language-hurl "><code class="language-hurl" data-lang="hurl">let val = 10;
+
+try {
+  hurl val &gt; 0;
+} catch (true) {
+  print(&quot;over 0&quot;);
+} catch (false) {
+  print(&quot;not over 0&quot;);
+};
+</code></pre>
+<p>This will print &quot;over 0&quot;.
+It evalutes the conditional, hurls the resulting <code>true</code>, and then immediately catches that value.
+If it happens to hurl something other than true or false, that would continue unwinding the stack further, so be careful.
+Consider including a <code>catch as error</code> catch-all.</p>
+<p>Loops are where it gets trickier.
+We don't actually have recursion available to us, so we have to be a little clever.</p>
+<p>We start by defining a loop function.
+This function has to itself take in a loop function.
+It also has to take in the loop body and the loop local values.</p>
+<p>This loop body has to meet one requirement:</p>
+<ul>
+<li>It must <code>toss</code> the next iteration's local values before the end of the loop body</li>
+<li>Sometime after that, it must <code>hurl</code> either <code>true</code> (to run another iteration) or <code>false</code> (to complete iteration).</li>
+</ul>
+<p>It looks something like this:</p>
+<pre data-lang="hurl" class="language-hurl "><code class="language-hurl" data-lang="hurl">let loop = func(loop_, body, locals) {
+    try {
+        body(locals);
+    } catch as new_locals {
+        try {
+            &#x2F;&#x2F; `return` goes back to where the locals were tossed from.
+            &#x2F;&#x2F; This has to be inside a new `try` block since the next things
+            &#x2F;&#x2F; the body function does is hurl true or false.
+            return;
+        } catch (true) {
+            loop_(loop_, body, new_locals);
+        } catch (false) {
+            hurl new_locals;
+        }
+    };
+};
+</code></pre>
+<p>And then to use it, we have to define our body.</p>
+<pre data-lang="hurl" class="language-hurl "><code class="language-hurl" data-lang="hurl">let count = func(args) {
+  let iter = args[1];
+  let limit = args[2];
+  print(&quot;round &quot; + iter);
+
+  toss [iter + 1, limit];
+  hurl iter &lt; limit;
+}
+</code></pre>
+<p>And then if we call this, we can see what it does!</p>
+<pre data-lang="hurl" class="language-hurl "><code class="language-hurl" data-lang="hurl">loop(loop, count, [1, 3]);
+</code></pre>
+<p>This should print:</p>
+<pre><code>round 1
+round 2
+round 3
+</code></pre>
+<p>And that's basically all we need!</p>
+<h1 id="a-sample-program">A sample program</h1>
+<p>Here's another fun sample program: fizzbuzz!
+If a language can't implement fizzbuzz, it's useless for <del>torturing</del> evaluating candidates, so we have to be <em>sure</em> it can be written well.</p>
+<p>Here's an implementation utilizing our previously-defined <code>loop</code> function.</p>
+<pre data-lang="hurl" class="language-hurl "><code class="language-hurl" data-lang="hurl">let fizzbuzz = func(locals) {
+    let x = locals[1];
+    let max = locals[2];
+
+    try {
+        hurl x == max;
+    } catch (true) {
+        toss locals;
+        hurl false;
+    } catch (false) {};
+
+    let printed = false;
+
+    try {
+        hurl ((x % 3) == 0);
+    } catch (true) {
+        print(&quot;fizz&quot;);
+        printed = true;
+    } catch (false) {};
+
+    try {
+        hurl ((x % 5) == 0);
+    } catch (true) {
+        print(&quot;buzz&quot;);
+        printed = true;
+    } catch (false) {};
+
+    try {
+        hurl printed;
+    } catch (false) {
+        print(x);
+    } catch (true) {};
+
+    toss [x+1, max];
+    hurl true;
+};
+
+loop(loop, fizzbuzz, [0, 100]);
+</code></pre>
+<p>It looks pretty good to me<sup class="footnote-reference"><a href="#3">3</a></sup>!
+By &quot;good&quot; I mean &quot;it looks like it works, technically.&quot;
+I don't mean &quot;yeah let's use this in production&quot; because I don't hate my coworkers enough for that.</p>
+<h1 id="the-plan-from-here">The plan from here</h1>
+<p>So, where does Hurl go from here?</p>
+<p>I could stop here: it's a good gag, I've written the code samples and we've had a laugh.
+I'm not going to, though.
+This is a nice compact language which seems fit to revisit some of the concepts from <a href="https://craftinginterpreters.com/">Crafting Interpreters</a>, and it's my first swing at language design!
+It's very low stakes, so I get to explore without being attached to anything very much.</p>
+<p>The plan is to work on an interpreter iteratively.
+The next steps are:</p>
+<ol>
+<li>Define the grammar</li>
+<li>Write a lexer</li>
+<li>Write a parser (demo: check if programs parse)</li>
+<li>Write a formatter (demo: reformat programs)</li>
+<li>Write an interpreter</li>
+<li>Write some programs in it for fun (Advent of Code from 2022?) and create the standard library</li>
+</ol>
+<p>I'm aiming for a formatter as one of the first components, because all modern languages need a formatter, and it will be a much smaller lift to write than the interpreter so it gets me going more quickly.
+Writing the interpreter itself will take quite a while and will be a few iterations.</p>
+<p>I'll be writing more blog posts along the way, so get subscribed to the RSS feed if you want to follow along!</p>
+<hr />
+<div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
+<p>I guess this assumes the stack goes <em>down</em>, but this direction metaphor in stacks has always confused me. What's up and what's down? So I'm sorry if I get my direction confused here.</p>
+</div>
+<div class="footnote-definition" id="2"><sup class="footnote-definition-label">2</sup>
+<p>Functions are heavily used, and this is a bit verbose. Suggestions are welcome for a terser function syntax, in addition to the <code>func</code> one!</p>
+</div>
+<div class="footnote-definition" id="3"><sup class="footnote-definition-label">3</sup>
+<p>This program originally had a bug, where the early exit <code>hurl false</code> was not preceded by a <code>toss</code>, so the wrong thing would happen. Thanks to reader Daniel for catching this bug!</p>
+</div>

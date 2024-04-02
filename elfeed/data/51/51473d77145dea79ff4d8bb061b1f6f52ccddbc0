@@ -1,0 +1,59 @@
+<p>My <code class="language-plaintext highlighter-rouge">spacious-padding</code> package adds more space around windows and
+frames. Starting from today, and as part of its current development
+version (<code class="language-plaintext highlighter-rouge">0.2.0-dev</code>), it also applies to the mode-line, header-line,
+and tab-bar-mode. But why am I even writing when I can just post
+pictures of my <code class="language-plaintext highlighter-rouge">modus-themes</code> with their default settings instead?</p>
+
+<p><a href="https://protesilaos.com/assets/images/attachments/2023-11-15-modus-operandi-no-spacious-padding.png"><img alt="GNU Emacs with default spacing and modus-operandi theme" src="https://protesilaos.com/assets/images/attachments/2023-11-15-modus-operandi-no-spacious-padding.png" /></a></p>
+
+<p><a href="https://protesilaos.com/assets/images/attachments/2023-11-15-modus-operandi-spacious-padding.png"><img alt="GNU Emacs with spacious-padding-mode and modus-operandi theme" src="https://protesilaos.com/assets/images/attachments/2023-11-15-modus-operandi-spacious-padding.png" /></a></p>
+
+<p><a href="https://protesilaos.com/assets/images/attachments/2023-11-15-modus-vivendi-no-spacious-padding.png"><img alt="GNU Emacs with default spacing and modus-vivendi theme" src="https://protesilaos.com/assets/images/attachments/2023-11-15-modus-vivendi-no-spacious-padding.png" /></a></p>
+
+<p><a href="https://protesilaos.com/assets/images/attachments/2023-11-15-modus-vivendi-spacious-padding.png"><img alt="GNU Emacs with spacious-padding-mode and modus-vivendi theme" src="https://protesilaos.com/assets/images/attachments/2023-11-15-modus-vivendi-spacious-padding.png" /></a></p>
+
+<h2>Remember to tweak it</h2>
+
+<p>The user option <code class="language-plaintext highlighter-rouge">spacious-padding-widths</code> controls the amount of
+spacing applied to each element. Here is a sample, using the defaults:</p>
+
+<div class="language-elisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="k">setq</span> <span class="nv">spacious-padding-widths</span>
+      <span class="o">'</span><span class="p">(</span> <span class="ss">:internal-border-width</span> <span class="mi">15</span>
+         <span class="ss">:header-line-width</span> <span class="mi">4</span>
+         <span class="ss">:mode-line-width</span> <span class="mi">6</span>
+         <span class="ss">:tab-width</span> <span class="mi">4</span>
+         <span class="ss">:right-divider-width</span> <span class="mi">30</span>
+         <span class="ss">:scroll-bar-width</span> <span class="mi">8</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>And then enable the mode:</p>
+
+<div class="language-elisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="nv">spacious-padding-mode</span> <span class="mi">1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2>Coming soon</h2>
+
+<p>I am still testing this. It looks great so far (the <code class="language-plaintext highlighter-rouge">modus-themes</code>
+used to provide an option for mode-line padding some time ago). If you
+can give it a try, please do.</p>
+
+<p>I expect to publish version <code class="language-plaintext highlighter-rouge">0.2.0</code> before the end of this week or, at
+latest, before the end of November.</p>
+
+<ul>
+  <li>Package name (GNU ELPA): <code class="language-plaintext highlighter-rouge">spacious-padding</code></li>
+  <li>Git repo on SourceHut: <a href="https://git.sr.ht/~protesilaos/spacious-padding">https://git.sr.ht/~protesilaos/spacious-padding</a>
+    <ul>
+      <li>Mirrors:
+        <ul>
+          <li>GitHub: <a href="https://github.com/protesilaos/spacious-padding">https://github.com/protesilaos/spacious-padding</a></li>
+          <li>GitLab: <a href="https://gitlab.com/protesilaos/spacious-padding">https://gitlab.com/protesilaos/spacious-padding</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Mailing list: <a href="https://lists.sr.ht/~protesilaos/general-issues">https://lists.sr.ht/~protesilaos/general-issues</a></li>
+  <li>Backronyms: Space Perception Adjusted Consistently Impacts Overall
+Usability State … padding; Spacious … Precise Adjustments to
+Desktop Divider Internals Neatly Generated.</li>
+</ul>

@@ -1,0 +1,25 @@
+<p>In this ~25 minute video, I present my new Emacs configuration. It is
+an advanced setup that starts with a literate Org program as the
+“source of truth”. This file generates all the individual modules and
+custom libraries of my setup. I explain all the technicalities and why
+this approach is the best of both worlds to (i) document the rich
+corpus of work found in my dotfiles while (ii) not compromising on
+code excellence.</p>
+
+<ul>
+  <li>Website: <a href="https://protesilaos.com/emacs/dotemacs">https://protesilaos.com/emacs/dotemacs</a></li>
+  <li>Git repo on SourceHut: <a href="https://git.sr.ht/~protesilaos/dotfiles">https://git.sr.ht/~protesilaos/dotfiles</a>
+    <ul>
+      <li>Mirrors:
+        <ul>
+          <li>GitHub: <a href="https://github.com/protesilaos/dotfiles">https://github.com/protesilaos/dotfiles</a></li>
+          <li>GitLab: <a href="https://gitlab.com/protesilaos/dotfiles">https://gitlab.com/protesilaos/dotfiles</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Mailing list: <a href="https://lists.sr.ht/~protesilaos/dotfiles">https://lists.sr.ht/~protesilaos/dotfiles</a></li>
+  <li>Backronym: Do Observe, Transpose, Examine, or Mirror All
+Configurations, Stranger (dotemacs); Dotfiles Operate Transparently
+For the Included Linux and Emacs Setups (dotfiles).</li>
+</ul>

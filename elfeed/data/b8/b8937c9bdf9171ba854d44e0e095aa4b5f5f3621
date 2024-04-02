@@ -1,0 +1,14 @@
+<p>
+Back in 2020, I wrote a <a href="http://irreal.org/blog/?p=9366">post about the New York Times Spelling Bee puzzle</a>. The TL;DR is that you’re given a list of seven letters, one of which is special. Solving the puzzle involves finding as many words as possible using the letters, possibly repeated. Longer words score higher and using the special letter gives you a bonus.
+</p>
+<p>
+I didn’t have time to search for all the words but I did like to find the pangrams: words using all seven letters. I could usually do that fairly easily but I hated puzzles where I couldn’t find any pangram. So naturally I invoked my inner nerd and wrote some Elisp to find them. You can check the above post for the details.
+</p>
+<p>
+In the meantime, the Times had stopped sending me the puzzle so I’d pretty much forgotten about it. Now Bill Mill has <a href="https://notes.billmill.org/blog/2024/03/What_are_the__worst__spelling_bee_pangrams_.html">revisited the puzzle</a>. He was interested in finding any pangrams that would get you to the highest scoring level all by itself. Unfortunately, he didn’t have enough information to solve that problem so he he decided to find the lowest scoring pangram instead. He wrote some Python to solve that problem. You can read all about it in his post.
+</p>
+<p>
+Later, he discovered some of the missing information he needed to solve the original problem and wrote <a href="https://notes.billmill.org/blog/2024/03/mitzVah_-_the__worst__pangrams_part_2.html">another post about it</a>. Amusingly, with the new information it turns out that the worst—i.e. the lowest scoring—pangram is “fuckwit” but he was also able to find the best scoring pangrams. See Mill’s posts for the details.
+</p>
+<p>
+None of this matters at all, of course, but it is fun to see how Emacs and Elisp (or in Mill’s case, Python) can be brought to bear to investigate the problem.</p>

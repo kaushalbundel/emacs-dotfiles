@@ -1,0 +1,39 @@
+<p>Near the beginning of my career, I was working for a startup that made database software used by other companies in their production infrastructure. The premise was that our super-fast database had a computing framework that would let you do things in real-time that usually took batch jobs, and we powered things like recommender systems and fraud detection systems. Today I'd like to talk about what happened the first time we put it in production.</p>
+<p>The company had six humans in it (two founders, four engineers) and I was the third engineer. The two previous engineers had built out most of the core of the database. I built out another core component that helped with data ingestion, and the fourth engineer and I built applications on top of the whole system to figure out what could and couldn't be done with it and where it needed refinements in usability, in what it afforded, in performance.</p>
+<p>In the fall of the first year of working for the startup, we had a great opportunity to put the database into production for another company! Here's the scenario:</p>
+<ul>
+<li>We worked with them on a recommender system using our database to back it (solved some really cool problems)</li>
+<li>Their app used our database / recommender system for friend recommendations.</li>
+<li>And their app was mostly used by people in Japan.</li>
+</ul>
+<p>I didn't work out of the headquarters in California, so I had regular trips out to HQ. We were planning to get this up and deployed into their production database, so I took a flight out to Silly Valley and we got it all set up. It was deployed, it was working, everything's good. We had a nice dinner and we felt pretty good about ourselves at this point. We shouldn't have.</p>
+<p>2 AM rolled around, and my phone started ringing. It was our CEO, calling me because our customer's CEO had called him, because our database had crashed and they needed that to be fixed <em>now</em>. Bleary eyed, I pulled out my laptop and rebooted the database, spent a few minutes gathering the logs and investigating, then went back to sleep—I wasn't sure what the issue was, but I was pretty sure it was a sporadic issue. I was right, and the next day I worked with engineer #2 to find, reproduce, and fix the issue that had crashed us overnight on Monday. We're good now, right?</p>
+<p>Hahahaha. This repeated. When our customer's customers hit heavy load we would go down, right as I was halfway through my night's sleep. Tuesday night. Wednesday night. Thursday night. Truthfully, I'm not sure if it repeated Friday night or not. The memory is hazy both because it has been so long and because I have probably blocked out parts of it. Because that Friday night, I went to take a shower, and I looked in the mirror and saw something I did not even know existed: <strong>stress rashes</strong>, covering my chest.</p>
+<p>It had been the better part of a week and I had been interrupted halfway through the night every night. I'd been compensating for it with lots of caffeine, but the stress and sleep deprivation caught up with me, and I was a <em>wreck</em>. That weekend, I didn't ask permission and just went for a hike in the foothills of San Jose with my phone off and no laptop to be found. That was an <em>amazing</em> 13 mile hike (seeing a baby mountain lion notwithstanding—it was cool but I was afraid mom was nearby, you know?) and it started me on the path to restoration. The following week we didn't have any more issues with our software, so we kept on going and figured, growing pains!</p>
+<hr />
+<p>It's been 7 years since this happened and it has taken me a long time to process what happened. But I do have some lessons from it.</p>
+<ol>
+<li>
+<p><strong>After you've been paged overnight, you go off on-call duty.</strong> This one should have been implemented. It was my first job, I didn't know better, and no one told me. I had coworkers who should have known, but at this point I'm not sure if they knew the extent of my stress, either. At any rate, after that first page, someone else should have been responding the next night.</p>
+</li>
+<li>
+<p><strong>If you're struggling, tell someone.</strong> I had stress rashes running over my chest. And I never mentioned this to my boss, or my coworkers. I thought it was a weakness, and I failed to realize that it meant I was human, and it was the system around me that was failing. If this is happening to you, tell a trusted coworker or tell your boss, and you can get it changed. And if it doesn't change, it's probably time for a new job.</p>
+</li>
+<li>
+<p><strong>Don't put unproven technologies on the critical path.</strong> Our customer made this mistake: they put our database in a critical path of their app, so if we went down they essentially went down. Needless to say this is a bad idea: if you're rolling out a new technology like this, you should start by rolling it out gradually to some users, then more, then all of them once <em>all</em> of you are confident it will work. I don't know why they did this (maybe we sold them too hard on our reliability).</p>
+</li>
+<li>
+<p><strong>Your on-call rotation should be more than one person.</strong> This follows from my first point but I want to reinforce it: if you only have one person doing on-call then you are going to chew them up and burn them out. Don't do that. Have everyone participate in the rotation, and rotate it. For crying out loud.</p>
+</li>
+<li>
+<p><strong>You should be compensated for on-call duties.</strong> If you're doing on-call work, and especially if you get paged with any frequency, you should be compensated for it. This can be extra PTO, extra cash, or extra stock, but you're doing more work and it's affecting your off hours, which means the company owes you for it. Plain and simple. When my job changed to include on-call, it should have also changed to include more money or more PTO. I didn't know to ask for that.</p>
+</li>
+<li>
+<p><strong>If you don't have monitoring, alerting, logging, and process restarts... you're not production ready.</strong> We didn't really have any alerting for if we went down: our customer's CEO called our CEO who then called me, and that was if they noticed the issue. We also didn't have monitoring, so we couldn't see the error rate. Logging was tough to come by. And if we'd just had a process monitor which would restart it on crashes, I wouldn't have had to wake up every single night! If you don't have these things, you are <em>not</em> ready to put your code into production.</p>
+</li>
+<li>
+<p><strong>Use Rust / Don't use C++.</strong> This is a very specific one, but... this experience showed me how painful memory errors can be, and I stopped using C++ (and consequently, doing systems programming). I'm convinced that if Rust had existed at the time and we had used it, we would have avoided the particular issues that caused me such pain, and our code would have been better to boot! I love Rust. Seriously, go check it out, it's <em>so</em> good.</p>
+</li>
+</ol>
+<hr />
+<p>There's a lot to know about on-call and how to set up a good rotation, a good on-call policy. One of these days I'll crack open the SRE Handbook and maybe I'll have more thoughts after that. If you have any thoughts on on-call or feedback on this post, my email inbox is <a href="mailto:me@ntietz.com">always open</a>.</p>

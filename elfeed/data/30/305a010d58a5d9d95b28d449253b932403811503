@@ -1,0 +1,36 @@
+<p>While pairing on a small Rust program with <a href="https://erikarow.land/">a friend</a>, I ran into a problem: to compile to WASM, one of my dependencies needed one of <em>its</em> dependencies to turn on a feature.
+A variation of this that I've run into in other projects is where a transitive dependency has a bug/CVE and I want to upgrade it.
+So what do you do if a transitive dependency is giving you grief?</p>
+<h1 id="what-worked-for-me">What worked for me</h1>
+<p>I ended up finding that if you add the package as a direct dependency, you can specify the features and then this will be used transitively as well.
+So I added the transitive dependency with its feature enabled, and compilation worked.</p>
+<pre><code>[dependencies.getrandom]
+version = &quot;*&quot;
+features = [&quot;js&quot;]
+</code></pre>
+<p>I initially added it with <em>no</em> version specifier so that it would never conflict with the transitive version, and just pick that one.
+This behavior is deprecated, but we can do it with just specifying <code>*</code> as the version, so all is good.</p>
+<p>What I don't love here is that now I have another dependency to keep track of.
+If my transitive dependency (twice removed) ever removes <code>getrandom</code>, then I'm still stuck with it unless I notice that it's not depended on anymore!
+It would be a lot nicer to have something where we can specify the features, but fortunately we can lint for unused dependencies using <a href="https://github.com/est31/cargo-udeps">cargo-udeps</a><sup class="footnote-reference"><a href="#thanks-friend">1</a></sup>.</p>
+<h1 id="what-didn-t-work">What didn't work</h1>
+<p>Here are a few other things I tried that didn't work.</p>
+<p><strong>Patching the dependency.</strong>
+I tried using the <a href="https://doc.rust-lang.org/cargo/reference/overriding-dependencies.html#the-patch-section">patch</a> section of my <code>Cargo.toml</code> to specify the version and features that would work for WASM.
+Unfortunately, I got this error:</p>
+<pre><code>`cargo metadata` exited with an error: warning: patch for `getrandom` uses the features mechanism. default-features and features will not take effect because the patch dependency does not support this mechanism
+[...]
+
+Caused by:
+  patch for `getrandom` in `https:&#x2F;&#x2F;github.com&#x2F;rust-lang&#x2F;crates.io-index` points to the same source, but patches must point to different sources
+</code></pre>
+<p>So two issues with using patch for this, one is that it just plain doesn't support this mechanism, so it won't work for features.
+And for version upgrades, no dice either, because you can't patch to a different version in the same registry.
+I don't get why this is the case, and if I'm missing something, I'd love to update this post to reflect a way to do it here.</p>
+<p><strong>Enabling the feature on the direct dependency.</strong>
+The crate I depend on did not actually expect to be compiled to WASM, but <em>does</em> work if this one feature is enabled.
+So this doesn't work, because it wasn't expected!</p>
+<hr />
+<div class="footnote-definition" id="thanks-friend"><sup class="footnote-definition-label">1</sup>
+<p>Thank you to the Recurser who looked this up and found this crate!</p>
+</div>

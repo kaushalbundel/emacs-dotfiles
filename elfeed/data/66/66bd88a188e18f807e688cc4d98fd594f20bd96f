@@ -1,0 +1,60 @@
+<p>Here's an exchange that's pretty common:</p>
+<blockquote>
+<p>&quot;How long will that take?&quot;
+&quot;A few days.&quot;</p>
+</blockquote>
+<p>I run into this all the time with clients - they have real business needs to know how long something will take and what the risks are with any given project. So, we are asked to give estimates of how long tasks will take. Whether in time (2 days) or points (3 points) later used to measure team velocity, these are ultimately an implicit agreement of roughly how long a task will take.</p>
+<p>Much has been written about software estimation techniques. It is alarming how few citations are in these articles, however, given that the claims they make are verifiable -- &quot;X technique is more accurate than Y technique&quot;. For a field that claims to be quantitative and data-driven, we use alarmingly little data in our decisions of which tools and techniques to use (ironically, this claim is not one I have data to back up).</p>
+<p>While reading <a href="http://theseniorsoftwareengineer.com/">&quot;The Senior Software Engineer&quot;</a>, I came across a claim within it: when you are estimating a task, you will be more accurate if you estimate 1 day's worth of work than 1 week's worth of work, and more accurate if you estimate 1 week's worth of work than 1 month's worth of work. On the face of it, this seems like a very useful result if it is true - unfortunately, no citation was given. So, let's dig in.</p>
+<p>Here is the claim: given two tasks T1 and T2, an estimate will be more accurate if it is for a shorter span of time. There are two subparts to this:</p>
+<ul>
+<li>What does it mean for an estimate to be accurate?</li>
+<li>Which way of doing estimates is the most accurate?</li>
+</ul>
+<h1 id="what-is-accuracy">What is accuracy?</h1>
+<p>Let's assume we have a task T and for that task, we have the estimated time, TE, and the actual time taken, TA. Two possible measures of error come to mind: raw time difference, and percent difference.</p>
+<p><em>Raw time difference:</em> Error = |TA - TE|</p>
+<p><em>Percent difference:</em> Error = |TA - TE| / TE</p>
+<p>In the real world, raw time difference is going to be the most noticeable error, so it may influence how we perceive the accuracy of estimation techniques. On the other hand, percent difference is a more fair comparison, since it allows us to compare wildly different timescales: a raw difference of <em>one day</em> is clearly very significant if the initial estimate was <em>one hour</em>, whereas it is relatively inconsequential if the initial estimate was <em>one year</em>. For the purposes of this article, I will use percent difference when I refer to error, although it is helpful to keep in mind the raw time difference measure as it influences how we perceive accuracy and thus how we perceive different estimation techniques.</p>
+<h1 id="how-we-perceive-time-matters">How We Perceive Time Matters</h1>
+<p>There are three possible worlds, and our goal is to determine which is the actual world and which are the counterfactual worlds. These world are ones in which:</p>
+<ol>
+<li>estimates are likely to be more accurate if they are for a <em>shorter</em> time</li>
+<li>estimates are likely to be more accurate if they are for a <em>longer</em> time</li>
+<li>length of tasks has no impact on the accuracy of estimates</li>
+</ol>
+<p>Many of my coworkers have espoused a belief in world 1, as did &quot;The Senior Software Engineer&quot;, so I suspect that that's the industry consensus.</p>
+<p>Let's run through some scenarios to see what these worlds would look like, if they were the actual world. For all the worlds, we will assume that the shorter task, T1, is estimated at 1 week and the longer task, T2, is estimated at 1 month.</p>
+<p>In World 1, the shorter estimate is more likely to be accurate. For the sake of arbitrary numbers, let's say that T1 ends up having 10% error and T2 ends up having 30% error. In this situation, T1's raw time difference would be 0.5 days, and T2's would be 6 days (assuming 20 working days / month, and 5 working days / week). Ouch, that's a lot of slip!</p>
+<p>In World 2, the longer estimate is more likely to be accurate, so we'll say that T1 ends up having 30% error and T2 ends up having 10% error. T1's raw time difference would thus be 1.5 days, and T2's raw time difference would be 2 days. That's still a lot of slip, but the gap has narrowed significantly.</p>
+<p>In World 3, the estimates are equally likely to be accurate, so we'll go in the middle and use 20% error for each. In this world, T1's raw time difference would be 1 day, and T2's raw time difference would be 4 days.</p>
+<table><thead><tr><th>World</th><th>Error (1 week)</th><th>Slip (1 week)</th><th>Error (1 month)</th><th>Slip (1 month)</th></tr></thead><tbody>
+<tr><td>1</td><td>10%</td><td>0.5 days</td><td>30%</td><td>6 days</td></tr>
+<tr><td>2</td><td>30%</td><td>1.5 days</td><td>10%</td><td>2 days</td></tr>
+<tr><td>3</td><td>20%</td><td>1 day</td><td>20%</td><td>4 days</td></tr>
+</tbody></table>
+<p><em>Table 1: error and slip (raw time difference) in all three possible worlds.</em></p>
+<p>Note that in all three possible worlds, the raw time difference in a 1 month estimate exceeds the raw time difference of a 1 week estimate, and in worlds 1 and 3, the differences are significant to the point where other confounding factors will probably play a larger role in the total amount of slip than just which of these worlds you are in.</p>
+<p>The point of this exercise is not to show you that we are living in world 1 or world 2 or world 3. The point is to show you that in all possible worlds, it is likely that the slip from a 1 week estimate will be smaller than the slip from a 1 month estimate and that this has <em>absolutely nothing</em> to do with whether or not shorter estimates are more <em>accurate</em> than longer estimates.</p>
+<p>This colors our overall perception of whether or not shorter estimates are more accurate than others. Managers and engineers alike will remember a slip of 4 days or 6 days as &quot;about a week&quot;, and they'll remember a slip of 0.5 days or 1 day as &quot;a little behind schedule&quot;, so at the end of the day world 1 and world 3 both seem like they will favor the mental model that shorter estimates are more accurate, even though that is not true in world 3! The fact that these two very different worlds are difficult to tell apart from &quot;on the ground&quot; should alarm us.</p>
+<h1 id="let-s-use-evidence">Let's Use Evidence</h1>
+<p>Because our perception can be heavily biased by a lot of factors - as shown above, but also by what we want to be true - we should lean on evidence and scientific studies to determine what is actually true.</p>
+<p>It turns out that even this simple question (are shorter or longer estimates more accurate?) does not readily turn up in the academic literature. This is likely due to my inexperience with searching academic literature (I completed a grand total of one semester of a doctoral program). That inexperience is likely shared among my fellow engineers, and my peers may also not have readily available access to academic literature (fortunately, my undergrad university lets us keep library access for a long time after graduation). The combination of lack of exposure and lack of access to journals makes it fairly unsurprising that our books and blog posts do not reference the literature. It does not make it any less disappointing.</p>
+<p>In general, <a href="http://simula.no/publications/review-studies-expert-estimation-software">studies show</a> that we are overly optimistic in our time estimation, such that in complicated tasks, we will be more likely to hit a schedule overrun than in less complicated tasks (and longer tasks are probably more complicated than shorter tasks). Here's a quote from the survey paper:</p>
+<blockquote>
+<p>In sum, the results suggest that bottom-up-based estimates only lead to improved estimation accuracy if the uncertainty of the whole task is high, i.e., the task is too complex to estimate as a whole, and, the decomposition structure activates relevant knowledge only. The validity of these two conditions is, typically, not possible know in advance and applying both top-down and bottom-up estimation processes, therefore, reduces the risk of highly inaccurate estimates.</p>
+</blockquote>
+<p>Decomposing tasks into smaller units of time is helpful when the uncertainty of the task's duration is high, and looking at the task holistically is helpful when the uncertainty of the task's duration is low, and we can't know which it is until we get through the task, so let's do both!</p>
+<p>This matches my intuition. Some large tasks that are straightforward are easy to estimate accurately even though they take a long time: for example, I could tell you with great accuracy how long it would take me to drive my car from my home in Columbus to my inlaws' place in Philadelphia, even though I don't know exactly where we will stop in the middle or for exactly how long. Some small tasks are not straightforward to estimate accurately: it may take three seconds to get my cat into her carrier, but if she's in a feisty mood, it may take as long as ten minutes, or longer.</p>
+<p>I still haven't found an evidence-based answer to the question of whether or not, in general, shorter tasks are more accurately estimated than longer tasks. There are a lot of confounding factors, like how you do estimates in general (which will likely change when you go to estimate a larger project!). I'm not even sure that it's an important question to answer, because the actual accuracy of the estimate is probably not the largest driving factor in deciding how you approach doing estimates.</p>
+<p>What <em>is</em> important is making sure that we have data to back up our claims when we assert that certain methodologies are better than others. These are testable claims - let's test them.</p>
+<p>Here are some testable claims that I would like to see answers to (note: I haven't actually searched for answers to these; but I <em>have</em> seen many people, including myself, assert these are true or false without any evidence, just anecdotes):</p>
+<ul>
+<li>Functional programming makes it easier to write parallel programs</li>
+<li>Functional programming results in less buggy code</li>
+<li>Agile development increases development speed</li>
+<li>Shorter estimates are more accurate than longer estimates</li>
+<li>Open offices are better for productivity/collaboration than individual offices or team offices</li>
+<li>Type-checked languages have fewer production bugs than dynamically typed languages</li>
+</ul>
+<p>These are just a few of the claims that people make, without evidence, which are testable.</p>

@@ -1,0 +1,43 @@
+<p>The world is changing right now.
+We don't know just how much yet, but LLMs are having a major impact on almost every field, and we could see anything from minor efficiency gains to catastrophic AI apocalypses to mass disruption of many jobs.
+The cone of possibility is wide, and it includes the possibility of creating human-like intelligences.</p>
+<p>As technologists, we've been working to create this sort of future for a long time.
+Since the first days of computers, technologists have been striving toward super-human intelligence.
+Motives vary from giving people back leisure time, to making more money, to just being interested in how far we can push machines.
+But at the end of the day, much of the work of technologists is to shape the world through technology.
+We're always going through cycles of creation and disruption.
+The two are intrinsically linked.</p>
+<p>But we don't often see these two together in close proximity.
+The creation and the disruption are spaced out in time and distance, so the creators of new technology need not grapple with the disruption viscerally.
+Software developers at Airbnb and Uber sit behind 4K monitors and sling code into the world, while hotel workers, neighbors, and taxi drivers deal with the real-world consequences, unseen by their disruptors.
+And the changes that take longer, that slowly put people out of work, we struggle to connect to the real-world changes since the creation and disruption are so spread out.
+The original developers of the newsfeed on Facebook surely did not anticipate the... disruption... to democracy and journalism that would have come from it over a decade later.</p>
+<p>I'm not anti-technology.
+I work on software for a living, and it occupies much of my free time as well.
+But I'm <em>pro</em> being aware of the consequences of our work.
+I'm pro keeping humans in the loop, and thinking through the actions of our present and past decisions as much as possible beforehand, and fixing issues we created down the line when we can see the consequences.</p>
+<p>Right now, we're in the midst of AI disrupting many fields, reshaping them in subtle or dramatic fashion.
+We have a lot of public discourse on this, but I see a great many companies and developers who work on this technology shipping things into production without consideration of the long-term consequences.
+There's more fear of being left behind than fear of harming our society.</p>
+<p>Recently, I had an opportunity to read a pre-release book<sup class="footnote-reference"><a href="#1">1</a></sup>, <a href="https://bookshop.org/p/books/the-brill-pill-akemi-c-brodsky/19496171?ean=9781647425234">&quot;The Brill Pill&quot;</a>.
+It comes at this from the angle of biochemistry, with new medicines which are able to enhance the human brain while substantially altering the people who take them.
+It's primarily through the lens of the creator of some of these medicines.
+What I found especially powerful in this book was being able to see the creator of a technology grapple with his creations from the beginning through to the end, being able to see the whole arc from &quot;oh shit, I can make something better!&quot; to &quot;wait, what did I do?&quot; and on from there.
+It was powerful, and got me thinking about how little consideration we really give to the long-term decisions we make in software development.</p>
+<p>In the book, the people who have altered brains are thought, by the protagonist, to be substantially non-human, to have lost some core bit of humanity.
+I don't believe he is a reliable narrator, and this feeling wasn't shared by everyone in the book.
+Certainly, the people who took the drugs themselves still believed they were human!</p>
+<p>I don't see a better visceral analogy for AI today than this.
+We have slurped up a great deal of humanity, processed it through a machine, and spit out something that looks and feels like it's producing very human output.
+Interacting with an LLM can feel like you're talking to a human, albeit with a lot of quirks and impeccably formal English.
+They're clearly not sentient (yet?), but if they were, would we accept them as human, or would we feel they're subhuman? How would they feel? What do we do about this as creators of the technology?</p>
+<p>Reading fiction like this is, to me, a great way to think about topics like this.
+I deal in abstractions all day, and yet better conceptualize significant ethical questions when we make them very concrete.</p>
+<p>I don't have any answers to these questions.
+Answers aren't the point.
+We won't be right if we make predictions right now, but the struggle with these questions itself is the point.
+By struggling with them today, we increase our chances of building a better tomorrow.</p>
+<hr />
+<div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
+<p>I got an advance reader copy for free. There was no requirement to post this, and the publisher and author did not review this post. I would recommend it, and you can buy a copy on <a href="https://bookshop.org/p/books/the-brill-pill-akemi-c-brodsky/19496171?ean=9781647425234">Bookshop.org</a> or <a href="https://www.amazon.com/Brill-Pill-Akemi-C-Brodsky/dp/1647425239">Amazon</a> (these are not affiliate links).</p>
+</div>

@@ -1,0 +1,37 @@
+<p>Chess is booming, and tech is burning to the ground.
+It's inevitable, soon, that Chess is going to acquire the entire tech industry.
+And when Chess acquires us, they'll replace us and take our software engineering jobs<sup class="footnote-reference"><a href="#1">1</a></sup>.
+Then we'll be stuck playing <em>their</em> game, and we'll be sitting on those 64 squares.</p>
+<p>When Chess takes our jobs, which roles will be filled by which pieces?
+We'd better figure out so that we can be prepared for the uprising.</p>
+<p><strong>The King</strong>. Ostensibly the most important piece, but it's relatively useless for <em>actually</em> getting the job done.
+It does occasionally come in handy, though.
+So this is clearly <strong>the engineering manager</strong>.</p>
+<p><strong>The Queen.</strong> The actual most powerful piece on the board, it's able to assist in nearly any effort.
+It's very difficult to stop it, and it can solve most problems.
+This is my blog, so I'm going to without shame<sup class="footnote-reference"><a href="#2">2</a></sup> say this is clearly <strong>the staff engineer</strong>.</p>
+<p><strong>The Rook.</strong> Is able to move quickly across the whole board, but can only go in straight lines.
+Cannot move diagonally.
+It's kind of like the queen, but not quite as powerful.
+Then it's clearly like the mini-staff engineer, and it's <strong>the tech lead</strong>.</p>
+<p><strong>The Bishop.</strong> Can effectively see across the board, but can only see half the board.
+If it's on a light square and something is on a dark square, no dice, it can't help <em>at all</em>.
+This is <strong>the product manager</strong>.
+Very good at what they do, but not able to see or help with all the technical problems.</p>
+<p><strong>The Knight.</strong> Moves in weird ways, jumps over obstacles, passes through the enemy army, and can attack multiple pieces at once.
+Is there any question?
+This is obviously <strong>the security engineer</strong>.</p>
+<p><strong>The Pawn.</strong> Positioned in front of the rest of the pieces to do the dirty work and protect the territory.
+Occasionally they get promoted, but more typically they're sacrificed for the <del>bottom line</del> greater good.
+This is the <strong>line engineer</strong>, whose sole purpose is to do their job, with the distant promise of maybe, someday, getting promoted.</p>
+<p>So, okay, maybe these assignments aren't objectively true.
+Do you disagree?
+What would you assign to each piece?</p>
+<hr />
+<div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
+<p>Alongside ChatGPT, which is <em>definitely</em> coming for my job.
+I'm quaking in my slippers.</p>
+</div>
+<div class="footnote-definition" id="2"><sup class="footnote-definition-label">2</sup>
+<p>Okay, with a <em>little</em> shame.</p>
+</div>

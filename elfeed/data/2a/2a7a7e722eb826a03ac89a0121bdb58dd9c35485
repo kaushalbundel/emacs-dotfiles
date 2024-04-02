@@ -1,0 +1,116 @@
+<p>
+  For months, I happily edited blog posts in Emacs using a tiny Blogger client I wrote in Elisp called <a href="https://www.blogbyben.com/2021/01/hbo-bloggerel-simple-strategy-for.html">hbo-blogger.el</a>. <code>hbo-blogger.el</code> was easy to write, thanks in part to <a href="https://github.com/emacsmirror/oauth2/blob/master/oauth2.el">oauth2.el</a>, which simplifies authentication against Google's Blogger API.
+</p>
+
+<p>
+  Things all came crashing down one day when I needed to re-authenticate using Google's OAuth2 server. I executed the following Elisp code, expecting it to open a browser, ask me a few questions, and show me a code I could paste back into Emacs.
+</p>
+
+<pre>(oauth2-auth-and-store
+       "https://accounts.google.com/o/oauth2/v2/auth"
+       "https://oauth2.googleapis.com/token"
+       hbo-blogger-oauth-scope
+       hbo-blogger-client-id
+       hbo-blogger-client-secret)
+</pre>
+
+<p>
+  However, this time I got an error announcing "Access blocked: Blur's request is invalid." Digging deeper took me to this page: <a href="https://support.google.com/accounts/answer/12379384">Access blocked: Third-party app is using an unsupported OAuth method</a>.
+</p>
+
+<p>
+  The issue is that <a href="https://github.com/emacsmirror/oauth2/blob/master/oauth2.el">oauth2.el</a> sets up authentication using the redirect URL <code>urn:ietf:wg:oauth:2.0:oob</code>. The 'out-of-band' (oob) redirect URL handler works great when you are performing OAuth in a command-line or, in this case, an Elisp context. However, <a href="https://developers.google.com/identity/protocols/oauth2/resources/oob-migration">Google now denies this type of redirect URL</a>.
+</p>
+
+<p>
+  Without a way to authenticate against the Blogger API, <tt>hbo-blogger</tt> was useless, and I was forced to go back to editing posts over at <tt>blogger.com</tt>.
+</p>
+
+<p>
+  What I needed were two things: support for a redirect URL that
+  Google would be happy with, and a way to call <tt>oauth2.el</tt> using that new URL.
+</p>
+
+<p>
+  Good news: I now have both of these components, and if you want, you can have them too.
+</p>
+
+
+<h2>Setting up a Kosher OAuth2 Redirect Handler</h2>
+
+<p>
+  First off, I built out <a href="https://www.blogbyben.com/2023/09/taming-youtube-part-2-replacing-oob.html">oauth2handler</a>. This is a bit of PHP code that runs on a publicly exposed Linux box. It allows you to set up a 'real' redirect URL without having to write any custom code. It serves as a sort of universal OAuth2 redirect URL.
+</p>
+
+<p>
+  Annoyingly, setting up <a href="https://www.blogbyben.com/2023/09/taming-youtube-part-2-replacing-oob.html">oauth2handler</a> takes about 12 steps. However, none of the steps are very hard; you just need to be patient.
+</p>
+
+<p>
+  With <a href="https://github.com/benjisimon/code/tree/master/oauth2handler">oauth2handler</a>, I had a redirect URL. However, I needed a way to integrate this URL into <code>oauth2.el</code>. You can find the code for doing this over at <a href="https://github.com/benjisimon/elisp/blob/main/oauth2handler.el">oauth2handler.el</a>.
+</p>
+
+<p>
+  Like oauth2handler (and heck, all things OAuth2), there's a heap of things to set up. But, once you've got everything properly defined, performing OAuth authentication is easy. Here's a function I can call to initialize the OAuth process:
+</p>
+
+
+<pre>;; Grab these values from the Google developer console.
+(defvar hbo-blogger-client-id nil)
+(defvar hbo-blogger-client-secret nil)
+
+;; These can remain set to their defaults for blogger
+(defvar hbo-blogger-oauth-scope
+  "https://www.googleapis.com/auth/blogger")
+(defvar hbo-blogger-oauth-auth-url
+  "https://accounts.google.com/o/oauth2/auth")
+(defvar hbo-blogger-oauth-token-url
+  "https://www.googleapis.com/oauth2/v3/token")
+
+;; Point this to your oauth2handler URL. For me, this is:
+;; (setq hbo-blogger-oauth-redirect-url
+;;      "https://code.benjisimon.com/oauth2handler/emacs_hbo")
+(defvar hbo-blogger-oauth-redirect-url nil)
+
+(defun hbo-blogger-auth-start ()
+  "Start the Oauth2 authentication process in the browser"
+  (interactive)
+  (oauth2handler-start-auth
+   hbo-blogger-oauth-redirect-url
+   hbo-blogger-oauth-auth-url
+   hbo-blogger-oauth-token-url
+   hbo-blogger-oauth-scope
+   hbo-blogger-client-id
+   hbo-blogger-client-secret))
+</pre>
+
+<p>
+  Running <code>M-x oauth2handler-start-auth</code> opens up a new web browser, and just like the 'oob' style of authentication, it prompts me to grant permission. The final page of <code>oauth2handler</code> displays a blob of JSON, similar to the code that the oob URL produces. I copy that JSON into an Emacs buffer that's been opened for me and hit <code>C-c C-c</code>.
+</p>
+
+<p>
+  Hitting <code>C-c C-c</code> generates the <code>oauth2.plstore</code> file that <code>oauth2.el</code> expects. From there, <code>oauth2</code> and by extension <code>hbo-blogger.el</code> work again as they should.
+</p>
+
+
+<p>
+  In my <tt>.emacs.d/init.el</tt> file, I have the following settings and function call:
+</p>
+
+
+<pre>(require 'hbo-blogger)
+(setq hbo-blogger-client-id  "&lt;from the google developer's console&gt;")
+(setq hbo-blogger-client-secret "&lt;from the google developer's console&gt;")
+(setq hbo-blogger-oauth-redirect-url
+      "https://code.benjisimon.com/oauth2handler/emacs_hbo")
+
+(hbo-blogger-auth-setup)
+</pre>
+
+<p>
+  <code>hbo-blogger-auth-setup</code> uses <code>oauth2.el</code>'s <code>oauth2-auth-and-store</code> function to set up a valid OAuth2 token. This token is what <code>hbo-blogger.el</code> uses to communicate with Blogger's API.
+</p>
+
+<p>
+  This whole process has been frustrating and exceedingly delicate. However, now that I've got <code>oauth2handler</code> and the corresponding Elisp code, life is good again. It feels good to be back home (editing in Emacs).
+</p>

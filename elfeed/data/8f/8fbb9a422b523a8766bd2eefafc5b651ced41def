@@ -1,0 +1,125 @@
+<p>The <code class="language-plaintext highlighter-rouge">ef-themes</code> is a collection of light and dark themes for GNU Emacs
+whose goal is to provide colourful (“pretty”) yet legible options for
+users who want something with a bit more flair than the <code class="language-plaintext highlighter-rouge">modus-themes</code>
+(also designed by me).</p>
+
+<ul>
+  <li>Package name (GNU ELPA): <code class="language-plaintext highlighter-rouge">ef-themes</code></li>
+  <li>Official manual: <a href="https://protesilaos.com/emacs/ef-themes">https://protesilaos.com/emacs/ef-themes</a></li>
+  <li>Change log: <a href="https://protesilaos.com/emacs/ef-themes-changelog">https://protesilaos.com/emacs/ef-themes-changelog</a></li>
+  <li>Sample pictures: <a href="https://protesilaos.com/emacs/ef-themes-pictures">https://protesilaos.com/emacs/ef-themes-pictures</a></li>
+  <li>Git repo on SourceHut: <a href="https://git.sr.ht/~protesilaos/ef-themes">https://git.sr.ht/~protesilaos/ef-themes</a>
+    <ul>
+      <li>Mirrors:
+        <ul>
+          <li>GitHub: <a href="https://github.com/protesilaos/ef-themes">https://github.com/protesilaos/ef-themes</a></li>
+          <li>GitLab: <a href="https://gitlab.com/protesilaos/ef-themes">https://gitlab.com/protesilaos/ef-themes</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Mailing list: <a href="https://lists.sr.ht/~protesilaos/ef-themes">https://lists.sr.ht/~protesilaos/ef-themes</a></li>
+  <li>Backronym: Eclectic Fashion in Themes Hides Exaggerated Markings,
+Embellishments, and Sparkles.</li>
+</ul>
+
+<p>Below are the release notes.</p>
+
+<hr />
+
+<h2>Try the aquatic “Maris” variants</h2>
+
+<p>The <code class="language-plaintext highlighter-rouge">ef-maris-dark</code> and <code class="language-plaintext highlighter-rouge">ef-maris-light</code> are a pair of themes with a
+grey-blue background, combined with blue, cyan, and green accents.
+Much like the “Elea” variants that were published in version 1.2.0 of
+the <code class="language-plaintext highlighter-rouge">ef-themes</code>, the “Maris” variants are optimal for those times
+where environmental lighting is neither too bright nor too dim.</p>
+
+<p>The blog post announcing and demonstrating the new themes:
+<a href="https://protesilaos.com/codelog/2023-07-22-ef-maris-dark-light/">https://protesilaos.com/codelog/2023-07-22-ef-maris-dark-light/</a>.</p>
+
+<p>Screen shots for the entire collection here:
+<a href="https://protesilaos.com/emacs/ef-themes-pictures">https://protesilaos.com/emacs/ef-themes-pictures</a>.</p>
+
+<p>There now are 26 themes in the <code class="language-plaintext highlighter-rouge">ef-themes</code> package, covering a broad
+range of preferences and needs.  They all are highly legible and
+customisable (consult their manual).</p>
+
+<h2>Shortdoc has consistent typography</h2>
+
+<p>The default built-in <code class="language-plaintext highlighter-rouge">shortdoc</code> face inherit the <code class="language-plaintext highlighter-rouge">variable-pitch</code>
+face, which renders the text in the buffer proportionately spaced.  To
+me, this feels out of place.  If the user wants Help and related
+ancillary material to be typeset thus, they can enable
+<code class="language-plaintext highlighter-rouge">variable-pitch-mode</code> (e.g. via a hook).</p>
+
+<p>Thanks to Bruno Boal for pointing out that the Ef themes did not cover
+Shortdoc.  The message was conveyed via a private channel and the
+information is shared with permission.</p>
+
+<h2>Key bindings in minibuffer prompts stand out</h2>
+
+<p>Steve Molinor informed me about a case where a key binding was shown
+as part of the minibuffer prompt.  For some Ef themes, the result was
+suboptimal due to the proximity of the colours involved.  I made all
+the requisite tweaks, such that key bindings in prompts will stand out
+(always in accordance with the principle of avoiding exaggerations).
+Affected themes are:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">ef-bio-theme</code></li>
+  <li><code class="language-plaintext highlighter-rouge">ef-deuteranopia-dark-theme</code></li>
+  <li><code class="language-plaintext highlighter-rouge">ef-duo-light-theme</code></li>
+  <li><code class="language-plaintext highlighter-rouge">ef-elea-dark-theme</code></li>
+  <li><code class="language-plaintext highlighter-rouge">ef-elea-light-theme</code></li>
+  <li><code class="language-plaintext highlighter-rouge">ef-frost-theme</code></li>
+  <li><code class="language-plaintext highlighter-rouge">ef-night-theme</code></li>
+</ul>
+
+<p>This was done in issue 24 on the GitHub mirror:
+<a href="https://github.com/protesilaos/ef-themes/issues/24">https://github.com/protesilaos/ef-themes/issues/24</a>.</p>
+
+<h2>The <code class="language-plaintext highlighter-rouge">ace-window</code> package is supported</h2>
+
+<p>The <code class="language-plaintext highlighter-rouge">ace-window</code> package now uses colours that are aligned with the
+active Ef theme.  This is mostly a stylistic consideration, except for
+the deuteranopia- and tritanopia- optimised themes, where the hue
+matters greatly.</p>
+
+<h2>The Ef commands with completion use a “completion table”</h2>
+
+<p>[ This is for advanced users or developers. ]</p>
+
+<p>Commands such as <code class="language-plaintext highlighter-rouge">ef-themes-select</code> and <code class="language-plaintext highlighter-rouge">ef-themes-preview-colors</code> use
+the minibuffer to pick a theme among the collection.  In the past, the
+set of candidates did not have any metadata associated with it, so
+Emacs could not tell what it was completing against.</p>
+
+<p>The collection is now annotated with the completion category <code class="language-plaintext highlighter-rouge">theme</code>.
+Packages that can use this data include <code class="language-plaintext highlighter-rouge">consult</code>, <code class="language-plaintext highlighter-rouge">embark</code>, and
+<code class="language-plaintext highlighter-rouge">marginalia</code>, while the built-in <code class="language-plaintext highlighter-rouge">completion-category-overrides</code> may
+be involved.  For example, one may define a custom annotation function
+for Marginalia, such that the alignment of the doc strings is at
+column 40 instead of the generic default (I do not add any alignment
+at the theme level to keep it agnostic of the completion front-end).</p>
+
+<h2>General refinements</h2>
+
+<ul>
+  <li>
+    <p>The <code class="language-plaintext highlighter-rouge">ef-elea-light</code> theme’s palette entry of <code class="language-plaintext highlighter-rouge">bg-changed-refine</code> is
+marginally toned down.  This makes it consistent with its context
+(e.g. in Ediff buffers).</p>
+  </li>
+  <li>
+    <p>The <code class="language-plaintext highlighter-rouge">ef-deuteranopia-light</code> theme’s palette entry of <code class="language-plaintext highlighter-rouge">magenta-faint</code>
+is desaturated to fit better in its context.  The <code class="language-plaintext highlighter-rouge">M-x calendar</code> as
+well as Org agenda buffers that show weekends will now look more
+consistent.</p>
+  </li>
+  <li>
+    <p>The <code class="language-plaintext highlighter-rouge">ef-bio</code> theme’s semantic colour mapping of <code class="language-plaintext highlighter-rouge">link-alt</code> is
+further differentiated from <code class="language-plaintext highlighter-rouge">link</code>.  The previous value could be
+conflated with that of <code class="language-plaintext highlighter-rouge">link</code> in Info buffers.</p>
+  </li>
+</ul>

@@ -1,0 +1,69 @@
+<p>
+Today&#39;s puzzle was just what I needed this morning. Made me think, but
+not too much :-).</p>
+<p>
+You can find the problem <a href="https://adventofcode.com/2023/day/8">here</a>.</p>
+<p>
+Part 1 was pretty straightforward. You had a set of locations and for
+each location you could go left or right. So, for example, if node <code>AAA</code>
+is defined as <code>AAA = (BBB,CCC)</code> then, if your next instruction was <code>L</code>
+or left, you&#39;d go to BBB, if it was <code>R</code>, then CCC. You had to follow
+the instruction list item by item and keep going until you got to node
+<code>ZZZ</code>. If you got past the last instruction, you just repeat the
+instruction list again.</p>
+<p>
+As I said, pretty straightforward. Just loop over the instructions
+updating your current location until you get to <code>ZZZ</code>. The only minor
+issue is that managing your current instruction and looping back to
+the start again could be a bit hairy. Fortunately, in Clojure, we can
+just use the <code>cycle</code> function which gives us an infinite sequence. For
+example if you run <code>(cycle &#34;LRL&#34;)</code> you&#39;ll get <code>LRLLRLLRL...</code>.</p>
+<p>
+The ultimate ask was for the length of the path from AAA to ZZZ.</p>
+<p>
+Here&#39;s the core code I used:</p>
+<div class="src src-clojure">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-clojure" data-lang="clojure"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> (<span style="color:#66d9ef">loop </span>[dirs (cycle direction-list)
+</span></span><span style="display:flex;"><span> current <span style="color:#e6db74">&#34;AAA&#34;</span>
+</span></span><span style="display:flex;"><span> count <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span> ]
+</span></span><span style="display:flex;"><span> (<span style="color:#66d9ef">if </span>(= current <span style="color:#e6db74">&#34;ZZZ&#34;</span>)
+</span></span><span style="display:flex;"><span> count
+</span></span><span style="display:flex;"><span> (<span style="color:#66d9ef">let </span>[move (first dirs)
+</span></span><span style="display:flex;"><span> [l r] (<span style="color:#a6e22e">graph</span> current)
+</span></span><span style="display:flex;"><span> next (<span style="color:#66d9ef">if </span>(= move <span style="color:#e6db74">\L</span>) l r)]
+</span></span><span style="display:flex;"><span> (<span style="color:#a6e22e">recur</span> (rest dirs) next (inc count)))))</span></span></code></pre></div>
+</div>
+<p>
+Part two was a nice twist. Instead of going from AAA to ZZZ you had
+multiple starting paths - nodes that ended in <code>A</code> and multiple ending
+nodes - nodes that ended in a <code>Z~</code>. If you started a ghost at each of the
+&#34;starting nodes&#34; simultaneously and had them follow the instructions,
+at what step will they all get to a (possibly different) ending node
+together.</p>
+<p>
+Clearly the search space was too big for brute force.</p>
+<p>
+I thought about searching backwards for a minute but remembered that
+there were multiple &#34;end&#34; nodes so that wouldn&#39;t do it but then I
+thought about cycles. Maybe this was just leaning on past Advent of
+Code problems but I figured that each start would cycle at some
+point. It had to since all the starts wouldn&#39;t hit a Z initially at
+the same time - that would be too easy. I also figured that each start
+would cycle on the first &#34;end&#34; it hit and not go through multiple
+&#34;end&#34; nodes.</p>
+<p>
+With that, the solution was easy. I reused my part 1 solution, just
+tweaking the start point and end conditions. That gave me the cycle
+length (which was easy to confirm).</p>
+<p>
+I then found the cycle length for each starting node and foundthe
+least common multiple among them.</p>
+<p>
+Problem solved.</p>
+<p>
+Really enjoyed this one - required some thought but unlike a couple of
+earlier days am able to wrap things up before breakfast.</p>
+<p>
+The complete code can be found <a href="https://gitlab.com/zamansky/advent2023/-/blob/main/src/day08.clj?ref_type=heads">here</a>.</p>
