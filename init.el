@@ -137,6 +137,9 @@
 
 ;; changing yes and no to y and n
 (setopt use-short-answers t)
+;; asking emacs before closing
+(setq confirm-kill-emacs #'y-or-n-p)
+
 
 ;;elfeed links opening in eww
 (setq browse-url-browser-function 'eww-browse-url)
