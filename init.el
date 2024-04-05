@@ -203,7 +203,8 @@
 (setopt line-number-mode t)                        ; Show current line in modeline
 (setopt column-number-mode t)                      ; Show column as well
 (scroll-bar-mode -1)
-;;(menu-bar-mode -1)
+(menu-bar-mode -1)
+(tool-bar-mode -1)
 
 (setopt x-underline-at-descent-line nil)           ; Prettier underlines
 (setopt switch-to-buffer-obey-display-actions t)   ; Make switching buffers more consistent
@@ -288,6 +289,15 @@
   :init
   (when (memq window-system '(mac ns x))
     (exec-path-from-shell-initialize)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;;   Keyboard Shortcuts
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; recent file access
+(global-set-key (kbd "C-c f r") 'recentf)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;;   Theme
