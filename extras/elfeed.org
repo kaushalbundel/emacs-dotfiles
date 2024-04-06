@@ -40,6 +40,7 @@
 *** https://theindianpivot.substack.com/feed
 *** https://shorts.growthx.club/feed
 *** https://tigerfeathers.substack.com/feed
+*** https://www.dataforindia.com/feed
 ** Science :science:
 *** https://writings.stephenwolfram.com/feed/
 ** Startup :World:
