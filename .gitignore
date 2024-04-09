@@ -9,6 +9,7 @@ history
 recentf
 .last-package-update-day
 .lsp-session-v1
+extras/custom.el
 
 # Ignore folders
 url/
