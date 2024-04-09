@@ -1,6 +1,0 @@
-<p>In this ~10 minute video I show how to use Emacs to edit text in
-multiple languages. This is better than using the system-level
-keyboard layout configuration because you retain all the functionality
-of Emacs for key bindings (e.g. <code class="language-plaintext highlighter-rouge">C-n</code>, <code class="language-plaintext highlighter-rouge">C-p</code>, <code class="language-plaintext highlighter-rouge">M-x</code>). In the video I
-demonstrate the various input methods, with prefix or postfix
-notation, and character composition.</p>

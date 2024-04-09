@@ -1,6 +1,0 @@
-<p>In this video I demonstrate Denote’s Org dynamic blocks facility. I
-focus on the new ‘denote-files’ Org dynamic block that I am
-developing. In short, this new block lets you include the contents of
-files with the option to also add links to them as well as to omit
-their front matter from the block. It is a neat way to quickly
-consolidate your writings on a given topic.</p>

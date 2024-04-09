@@ -1,0 +1,16 @@
+# Ignore log files
+*.log
+
+# Ignore temp files
+*~
+
+# Ignore files
+history
+recentf
+.last-package-update-day
+.lsp-session-v1
+
+# Ignore folders
+url/
+elpa/
+elfeed/

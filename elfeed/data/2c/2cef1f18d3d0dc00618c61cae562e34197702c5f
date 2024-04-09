@@ -1,8 +1,0 @@
-<p>
-This is just a short PSA. As most of you know, I’m a huge fan of Mu/Mu4e and use it as my main mail client. Lately, I’ve wimped out and rather than building it from source, I’ve been installing it from <a href="https://brew.sh/">Homebrew</a>. That’s mainly because building it requires <a href="https://cmake.org/">Cmake</a> and some other tools that I have no other use for.
-</p>
-<p>
-I’d been using the 1.10 version, which, sadly, had a few problems. Mostly it lost the marks of previously read emails when a new one came in before the mail listing buffer had been dismissed. Happily, that problem has gone away with version 1.12 and it now seems perfect. You can also choose whether emails should display as straight text or if links and images should be active. The default Homebrew install is now 1.12.1 so it’s easy to upgrade.
-</p>
-<p>
-If you’re still running an older version, I strongly recommend that you upgrade. I’m sure you’ll be as pleased as I am.</p>
