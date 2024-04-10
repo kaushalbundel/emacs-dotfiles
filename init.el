@@ -315,7 +315,11 @@
   ;; Global settings (defaults)
   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
         doom-themes-enable-italic t)) ; if nil, italics is universally disabled
-(load-theme 'doom-one t)
+;;(load-theme 'doom-one t)
+
+;; modus theme (additional customization: https://protesilaos.com/emacs/modus-themes#h:1af85373-7f81-4c35-af25-afcef490c111)
+(use-package modus-themes
+  :ensure t)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;;   Optional extras
