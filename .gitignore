@@ -15,3 +15,6 @@ extras/custom.el
 url/
 elpa/
 elfeed/
+auto-save-list/
+transient/
+url/
