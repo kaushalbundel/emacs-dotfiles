@@ -42,7 +42,7 @@
 ;; conformatble padding
 (use-package spacious-padding
   :ensure t
-  :defer
+  :defer 5
   :config
   (setq spacious-padding-widths
       '( :internal-border-width 16
@@ -53,8 +53,14 @@
          :scroll-bar-width 8)))
 
 ;; pdf-tool install
-
 (use-package pdf-tools
-  :defer t
+  :defer 10
   ; :init   (system-packages-ensure "pdf-tools")
   :init (pdf-loader-install))
+
+;; olivetti mode
+(use-package olivetti
+  :ensure t
+  :defer 5
+  :custom
+  (olivetti-body-width 130))
