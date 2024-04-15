@@ -121,6 +121,13 @@
   :defer t
   :after dart)
 
+(use-package ob-dart
+  :ensure t
+  :defer t)
+
+;; (require 'ob-dart)			
+;;(add-to-list 'org-babel-load-languages '(dart . t))
+
 ;; setting for web development
 ;;(copied from https://cestlaz.github.io/posts/using-emacs-21-web-mode/)
 (use-package web-mode

@@ -47,5 +47,9 @@
               ("C-c C-f" . elfeed-tube-mpv-follow-mode)
               ("C-c C-w" . elfeed-tube-mpv-where)))
 
+;;mpv related
+;; to address Failed to connect to mpv error
+(setq mpv-start-timeout 5)
+
 (setq +ligatures-in-modes '(not special-mode comint-mode eshell-mode term-mode
                                 vterm-mode Info-mode elfeed-search-mode elfeed-show-mode))
