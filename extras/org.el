@@ -219,3 +219,16 @@
 (global-set-key (kbd "C-c o a") 'org-agenda)  
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;org-babel
+;;
+;;loading languages to be used with org-babel
+;;add other languages in brackets
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((ipython . t)
+   (python . t)
+   (dart . t)
+   ;;(add language)
+   ))

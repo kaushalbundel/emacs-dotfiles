@@ -88,9 +88,9 @@
 (use-package eglot
   ;; no :ensure t here because it's built-in
 
-  ;; Configure hooks to automatically turn-on eglot for selected modes
-  ; :hook
-  ; (((python-mode ruby-mode elixir-mode) . eglot))
+;;  Configure hooks to automatically turn-on eglot for selected modes
+  :hook
+  (((python-mode ruby-mode) . eglot))
 
   :custom
   (eglot-send-changes-idle-time 0.1)
@@ -142,3 +142,23 @@
 
 (setq web-mode-enable-auto-closing t)
 (setq web-mode-enable-auto-quoting t)) 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Python 
+;;
+;;
+;;
+
+;;configuring ob-ipython (superior way to use literate programming in org mode)
+;;(https://github.com/gregsexton/ob-ipython)
+
+(use-package ob-ipython
+  :ensure t
+  :defer t)
+
+(setopt org-confirm-babel-evaluate nil) ;; no (y/n) before code execution in source block
+
+
+;; ipython brings speed and customization of header when executing code in org mode.
+;; with the below command, the interpretor used will be ipython not python.
+;;(setopt org-babel-python-command "ipython")
