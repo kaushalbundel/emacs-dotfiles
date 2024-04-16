@@ -148,17 +148,22 @@
 ;;
 ;;
 ;;
-
-;;configuring ob-ipython (superior way to use literate programming in org mode)
-;;(https://github.com/gregsexton/ob-ipython)
-
-(use-package ob-ipython
-  :ensure t
-  :defer t)
-
 (setopt org-confirm-babel-evaluate nil) ;; no (y/n) before code execution in source block
 
 
-;; ipython brings speed and customization of header when executing code in org mode.
-;; with the below command, the interpretor used will be ipython not python.
-;;(setopt org-babel-python-command "ipython")
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Yasnippets
+;;A snippet manager for fast work
+;;
+;;
+(use-package yasnippet
+  :ensure t
+  :defer t
+  :hook ((prog-mode text-mode org-mode) . yas-minor-mode))
+
+;; doom snippets contains useful snippets
+(use-package doom-snippets
+  :load-path "~/.emacs.d/snippets"
+  :after yasnippet)
+
+
