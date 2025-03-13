@@ -1,12 +1,5 @@
+(set-face-attribute 'default nil :family "Iosevka Comfy Motion Fixed" :weight 'Regular)
 
-;; (set-face-attribute 'default nil
-;;                     :family 'Iosevka Fixed SS05
-;;                     :size 14
-;;                     :weight 'Regular)
-;; defer keyword defers the loading of the package to the time specified
-;; ensure keyword asks the package archieve to install the package is the same is not present on the system
-
-;;; Icons
 (use-package nerd-icons
   :ensure t
   :defer 5)

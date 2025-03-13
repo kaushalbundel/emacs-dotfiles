@@ -89,8 +89,7 @@
   ;; no :ensure t here because it's built-in
 
 ;;  Configure hooks to automatically turn-on eglot for selected modes
-  :hook
-  (((python-mode ruby-mode) . eglot))
+  :hook ((python-mode . eglot-ensure))
 
   :custom
   (eglot-send-changes-idle-time 0.1)
@@ -99,9 +98,9 @@
   :config
   (fset #'jsonrpc--log-event #'ignore)  ; massive perf boost---don't log every event
   ;; Sometimes you need to tell Eglot where to find the language server
-  ;; (add-to-list 'eglot-server-programs
-  ;;              '(haskell-mode . ("haskell-language-server-wrapper" "--lsp")))
-)
+  (add-to-list 'eglot-server-programs
+               '(haskell-mode . ("haskell-language-server-wrapper" "--lsp"))
+	       `(python-mode . ("pyright-langserver" "--stdio"))))
 
 ;;; setting dart
 (add-to-list 'auto-mode-alist '("\\.dart\\'" . dart-mode))
@@ -163,7 +162,17 @@
 
 ;; doom snippets contains useful snippets
 (use-package doom-snippets
-  :load-path "~/.emacs.d/snippets"
+  :load-path "/home/kaushalbundel/.emacs.d/snippets/snippets"
   :after yasnippet)
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; LSP-Mode configuration
+;;
+;;
+(use-package lsp-pyright
+  :ensure t
+  :custom (lsp-pyright-langserver-command "pyright") ;; or basedpyright
+  :hook (python-mode . (lambda ()
+                          (require 'lsp-pyright)
+                          (lsp))))  ; or lsp-deferred

@@ -4,3 +4,9 @@ python3 compound-interest-calc.py
 ls
 which $SHELL
 dart
+git clone git@github.com:doomemacs/snippets.git
+ll
+ls
+cd snippets/
+ls
+pwd
