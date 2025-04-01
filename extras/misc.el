@@ -47,7 +47,7 @@
   (setq spacious-padding-widths
       '( :internal-border-width 16
          :header-line-width 4
-         :mode-line-width 2
+         ;; :mode-line-width 2
          :tab-width 2
          :right-divider-width 24
          :scroll-bar-width 8)))

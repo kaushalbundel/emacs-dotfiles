@@ -92,7 +92,6 @@
 ;;;   Minibuffer and completion
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 ;; Vertico: better vertical completion for minibuffer commands
 (use-package vertico
   :ensure t
@@ -116,12 +115,19 @@
 (use-package corfu
   :ensure t
   :init
-  (global-corfu-mode)
+  (setq corfu-auto t)
+  (setq corfu-auto-delay 0.1)
+  (setq corfu-auto-prefix 1)
+  (setq corfu-min-width 40)
+  (setq corfu-max-width 65)
   :bind
   (:map corfu-map
         ("SPC" . corfu-insert-separator)
         ("C-n" . corfu-next)
-        ("C-p" . corfu-previous)))
+        ("C-p" . corfu-previous))
+  :hook ((prog-mode . corfu-mode)
+	 (shell-mode . corfu-mode)
+	 (eshell-mode . corfu.mode)))
 
 ;; Part of corfu
 (use-package corfu-popupinfo

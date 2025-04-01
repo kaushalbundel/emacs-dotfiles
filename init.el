@@ -132,6 +132,9 @@
       mac-right-option-modifier  'meta
       mac-command-modifier       'control))
 
+;;pricision mode is not working on macos
+(when (equal system-type 'darwin)
+  (setq pixel-scroll-precision-mode nil))
 ;; deleted files moving to Trash
 (setq delete-by-moving-to-trash t)
 
@@ -218,12 +221,11 @@
 
 ;; We won't set these, but they're good to know about
 ;;
-;; (setopt indent-tabs-mode nil)
-;; (setopt tab-width 4)
+(setopt indent-tabs-mode nil)
+(setopt tab-width 4)
 
 ;; Misc. UI tweaks
 (blink-cursor-mode 1)                                ; Steady cursor
-(pixel-scroll-precision-mode)                         ; Smooth scrolling
 
 ;; Use common keystrokes by default
 ;;(cua-mode)
@@ -340,10 +342,10 @@
       ;;
       ;; `matches'   :: `underline', `italic', `WEIGHT'
       ;; `selection' :: `underline', `italic', `WEIGHT'
-      modus-themes-completions
-      '((matches . (extrabold))
-        (selection . (semibold italic text-also)))
-      modus-themes-org-blocks 'gray-background ; {nil,'gray-background,'tinted-background}
+      ;; modus-themes-completions
+      ;; '((matches . (extrabold))
+      ;;   (selection . (semibold italic text-also)))
+      ;; modus-themes-org-blocks 'gray-background ; {nil,'gray-background,'tinted-background}
 
       ;; The `modus-themes-headings' is an alist: read the manual's
       ;; node about it or its doc string.  Basically, it supports
@@ -361,8 +363,21 @@
   (setq modus-themes-common-palette-overrides
         modus-themes-preset-overrides-intense)
 
-  (define-key global-map (kbd "<f5>") #'modus-themes-toggle)
-;
+(define-key global-map (kbd "<f5>") #'modus-themes-toggle)
+
+;; changing buffer while splitting
+(global-set-key "\C-x2" (lambda () (interactive)(split-window-vertically) (other-window 1)))
+(global-set-key "\C-x3" (lambda () (interactive)(split-window-horizontally) (other-window 1)))
+
+;; good to have keybindings
+(use-package crux
+  :ensure t
+  :bind ("C-k" . 'crux-smart-kill-line)
+  ("C-S-RET" . 'crux-smart-open-line-above)
+  ("C-RET" . 'crux-smart-open-line)
+  ("C-c P" . 'crux-kill-buffer-truename)
+  ("M-o" . 'crux-other-window-or-switch-buffer))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;;   Optional extras
