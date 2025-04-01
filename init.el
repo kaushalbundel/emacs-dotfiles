@@ -267,6 +267,7 @@
 (use-package dashboard
 ;; :disabled
   :ensure t
+  :defer t
   :init (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
   :config
   (dashboard-setup-startup-hook)
@@ -312,7 +313,8 @@
 
 ;; doom emacs
  (use-package doom-themes
-  :ensure t
+   :ensure t
+   :defer t
   :config
   ;; Global settings (defaults)
   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
@@ -321,6 +323,7 @@
 ;; modus theme (additional customization: https://protesilaos.com/emacs/modus-themes#h:1af85373-7f81-4c35-af25-afcef490c111)
 (use-package modus-themes
   :ensure t
+  :defer t
   :config
   ;; Add all your customizations prior to loading the themes
 (setq modus-themes-italic-constructs t
@@ -372,6 +375,7 @@
 ;; good to have keybindings
 (use-package crux
   :ensure t
+  :defer t
   :bind ("C-k" . 'crux-smart-kill-line)
   ("C-S-RET" . 'crux-smart-open-line-above)
   ("C-RET" . 'crux-smart-open-line)

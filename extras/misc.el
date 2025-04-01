@@ -65,3 +65,8 @@
   :custom
   (olivetti-body-width 130))
 
+
+;; using profiler
+(use-package esup
+  :ensure t
+  :commands(esup))
