@@ -100,7 +100,7 @@
 ;;   ;; Sometimes you need to tell Eglot where to find the language server
 ;;   (add-to-list 'eglot-server-programs '(haskell-mode . ("haskell-language-server-wrapper" "--lsp")))
 ;; (add-to-list 'eglot-server-programs '(python-mode . ("pyright-langserver" "--stdio"))))
-	       
+
 
 ;;; setting dart
 (add-to-list 'auto-mode-alist '("\\.dart\\'" . dart-mode))
@@ -130,17 +130,17 @@
 ;; setting for web development
 ;;(copied from https://cestlaz.github.io/posts/using-emacs-21-web-mode/)
 (use-package web-mode
-:ensure t
-:config
-(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-(setq web-mode-engines-alist
-'(("django"    . "\\.html\\'")))
-(setq web-mode-ac-sources-alist
-'(("css" . (ac-source-css-property))
-("html" . (ac-source-words-in-buffer ac-source-abbrev))))
+  :ensure t
+  :config
+  (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+  (setq web-mode-engines-alist
+        '(("django"    . "\\.html\\'")))
+  (setq web-mode-ac-sources-alist
+        '(("css" . (ac-source-css-property))
+          ("html" . (ac-source-words-in-buffer ac-source-abbrev))))
 
-(setq web-mode-enable-auto-closing t)
-(setq web-mode-enable-auto-quoting t)) 
+  (setq web-mode-enable-auto-closing t)
+  (setq web-mode-enable-auto-quoting t)) 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Python 
@@ -162,7 +162,7 @@
 
 ;; doom snippets contains useful snippets
 (use-package doom-snippets
-  :load-path "/home/kaushalbundel/.emacs.d/snippets/snippets"
+  :load-path "/home/kaushalbundel/.emacs.d/snippets"
   :after yasnippet)
 
 
@@ -283,3 +283,15 @@
 ;; uv-mode for python environment
 (use-package uv-mode
   :hook (python-mode . uv-mode-auto-activate-hook))
+
+;; code formatting on save
+(use-package apheleia
+  :defer t
+  :config
+  (apheleia-global-mode +1))
+
+;; emmet mode for ease of tag insertion
+(use-package emmet-mode
+  :ensure t
+  :hook ((sgml-mode-hook . emmet-mode)
+         (css-mode-hook . emmet-mode)))

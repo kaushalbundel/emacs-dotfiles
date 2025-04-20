@@ -4,9 +4,11 @@
   :bind
   ("C-c e f" . elfeed-db)
   :custom
-    (elfeed-db-directory
-     (expand-file-name "elfeed" user-emacs-directory))
-     (elfeed-show-entry-switch 'display-buffer))
+  (elfeed-db-directory
+   (expand-file-name "elfeed" user-emacs-directory))
+  (elfeed-show-entry-switch 'display-buffer)
+  :hook
+  (elfeed-search-mode-hook . elfeed-update))
 (add-hook 'elfeed-show-mode-hook 'visual-line-mode)
 ;; elfeed org
 (use-package elfeed-org
@@ -35,11 +37,11 @@
   (elfeed-tube-setup)
 
   :bind (:map elfeed-show-mode-map
-         ("F" . elfeed-tube-fetch)
-         ([remap save-buffer] . elfeed-tube-save)
-         :map elfeed-search-mode-map
-         ("F" . elfeed-tube-fetch)
-         ([remap save-buffer] . elfeed-tube-save)))
+              ("F" . elfeed-tube-fetch)
+              ([remap save-buffer] . elfeed-tube-save)
+              :map elfeed-search-mode-map
+              ("F" . elfeed-tube-fetch)
+              ([remap save-buffer] . elfeed-tube-save)))
 
 (use-package elfeed-tube-mpv
   :ensure t ;; or :straight t

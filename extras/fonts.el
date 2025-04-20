@@ -1,4 +1,6 @@
-(set-face-attribute 'default nil :family "JetBrains Mono" :weight 'Regular :height 100)
+(set-face-attribute 'default nil :family "JetBrains Mono" :weight 'Regular :height 120)
+(set-face-attribute 'variable-pitch nil :family "Iosevka Comfy Motion Fixed" :weight 'Regular :height 120)
+
 
 (use-package nerd-icons
   :ensure t

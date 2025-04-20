@@ -374,13 +374,15 @@
 (global-set-key "\C-x2" (lambda () (interactive)(split-window-vertically) (other-window 1)))
 (global-set-key "\C-x3" (lambda () (interactive)(split-window-horizontally) (other-window 1)))
 
+;;closing windows (like help windows)
+(winner-mode 1)
 ;; good to have keybindings
 (use-package crux
   :ensure t
   :defer t
   :bind ("C-k" . 'crux-smart-kill-line)
-  ("C-S-RET" . 'crux-smart-open-line-above)
-  ("C-RET" . 'crux-smart-open-line)
+  ("<C-S-return>" . 'crux-smart-open-line-above)
+  ("<C-return>" . 'crux-smart-open-line)
   ("C-c P" . 'crux-kill-buffer-truename)
   ("M-o" . 'crux-other-window-or-switch-buffer))
 
