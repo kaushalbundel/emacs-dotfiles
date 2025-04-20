@@ -127,7 +127,7 @@
         ("C-p" . corfu-previous))
   :hook ((prog-mode . corfu-mode)
 	 (shell-mode . corfu-mode)
-	 (eshell-mode . corfu.mode)))
+	 (eshell-mode . corfu-mode)))
 
 ;; Part of corfu
 (use-package corfu-popupinfo
@@ -157,11 +157,18 @@
 
 ;; Pretty icons for corfu
 (use-package kind-icon
-  :if (display-graphic-p)
   :ensure t
   :after corfu
+  ;:custom
+  ; (kind-icon-blend-background t)
+  ; (kind-icon-default-face 'corfu-default) ; only needed with blend-background
   :config
   (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
+
+;; (use-package nerd-icons-corfu
+;;   :ensure t
+;;   :defer 5)
+;;   (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter)
 
 (use-package eshell
   :init

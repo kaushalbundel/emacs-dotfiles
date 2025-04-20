@@ -1,4 +1,4 @@
-					; Inspired from Emacs Bedrock (https://codeberg.org/ashton314/emacs-bedrock)
+; Inspired from Emacs Bedrock (https://codeberg.org/ashton314/emacs-bedrock)
 ;;; Minimal init.el
 
 ;;; Contents:
@@ -60,10 +60,10 @@
 (setq initial-scratch-message "")
 
 ;; Removes *scratch* from buffer after the mode has been set.
-(defun remove-scratch-buffer ()
-  (if (get-buffer "*scratch*")
-      (kill-buffer "*scratch*")))
-(add-hook 'after-change-major-mode-hook 'remove-scratch-buffer)
+;; (defun remove-scratch-buffer ()
+;;   (if (get-buffer "*scratch*")
+;;       (kill-buffer "*scratch*")))
+;; (add-hook 'after-change-major-mode-hook 'remove-scratch-buffer)
 
 ;; Removes *messages* from the buffer.
 ;; (setq-default message-log-max nil)
@@ -267,19 +267,21 @@
 (use-package dashboard
 ;; :disabled
   :ensure t
-  :defer t
-  :init (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
+  :init
+    (dashboard-setup-startup-hook)
   :config
-  (dashboard-setup-startup-hook)
   (setq dashboard-startup-banner 'logo
         dashboard-show-shortcuts nil
         dashboard-center-content t
         dashboard-items '((recents  . 5)
-                          ;; (projects . 6)
+                          (projects . 6)
                           (bookmarks . 5)
                           (agenda . 5)
                           ;;(registers . 5)
                           )))
+;; important for getting the dashboard buffer
+(setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
+
 (use-package rainbow-mode
   :commands rainbow-mode
   :ensure t)

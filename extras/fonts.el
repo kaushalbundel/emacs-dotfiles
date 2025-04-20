@@ -1,4 +1,4 @@
-(set-face-attribute 'default nil :family "JetBrains Mono" :weight 'Regular)
+(set-face-attribute 'default nil :family "JetBrains Mono" :weight 'Regular :height 100)
 
 (use-package nerd-icons
   :ensure t
@@ -9,11 +9,6 @@
   :defer 5)
   (nerd-icons-completion-marginalia-setup)
   (nerd-icons-completion-mode 1)
-
-(use-package nerd-icons-corfu
-  :ensure t
-  :defer 5)
-  (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter)
 
 (use-package nerd-icons-dired
   :ensure t
