@@ -2,13 +2,13 @@
 (use-package elfeed
   :ensure t
   :bind
-  ("C-c e f" . elfeed-db)
+  ("C-c e f" . elfeed)
   :custom
   (elfeed-db-directory
    (expand-file-name "elfeed" user-emacs-directory))
   (elfeed-show-entry-switch 'display-buffer)
   :hook
-  (elfeed-search-mode-hook . elfeed-update))
+  (elfeed-search-mode . elfeed-update))
 (add-hook 'elfeed-show-mode-hook 'visual-line-mode)
 ;; elfeed org
 (use-package elfeed-org

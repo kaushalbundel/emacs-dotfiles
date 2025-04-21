@@ -367,12 +367,12 @@
       ;; `variable-pitch' typography, a height value as a multiple of
       ;; the base font size (e.g. 1.5), and a `WEIGHT'.
       modus-themes-headings
-      '((1 . (variable-pitch 1.5))
-        (2 . (1.3))
-        (agenda-date . (1.3))
-        (agenda-structure . (variable-pitch light 1.8))
+      '((1 . (variable-pitch 1.2))
+        (2 . (1.1))
+        (agenda-date . (1.1))
+        (agenda-structure . (variable-pitch light 1.2))
         (t . (1.1)))))
-(load-theme 'modus-operandi :no-confirm)
+(load-theme 'modus-operandi-tinted :no-confirm)
   ;; Maybe define some palette overrides, such as by using our presets
   (setq modus-themes-common-palette-overrides
         modus-themes-preset-overrides-intense)

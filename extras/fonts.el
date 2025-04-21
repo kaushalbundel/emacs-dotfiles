@@ -5,8 +5,8 @@
   (set-face-attribute 'variable-pitch nil :family "Iosevka Comfy Motion Fixed" :weight 'Regular :height 120))
  
  ((equal system-type 'gnu/linux)
-  (set-face-attribute 'default nil :family "JetBrains Mono" :weight 'Regular :height 100)
-  (set-face-attribute 'variable-pitch nil :family "Iosevka Comfy Motion Fixed" :weight 'Regular :height 100)))
+  (set-face-attribute 'default nil :family "JetBrains Mono" :weight 'Regular :height 90)
+  (set-face-attribute 'variable-pitch nil :family "Iosevka Comfy Motion Fixed" :weight 'Regular :height 90)))
 
 (use-package nerd-icons
   :ensure t
