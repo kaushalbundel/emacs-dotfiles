@@ -231,8 +231,17 @@
 ;;(cua-mode)
 
 ;; Display line numbers in programming mode
-(add-hook 'prog-mode-hook 'display-line-numbers-mode)
+;; (add-hook 'prog-mode-hook 'display-line-numbers-mode) ;; disabling due to global changes below
 (setopt display-line-numbers-width 3)           ; Set a minimum width
+;; enabling global line number mode
+(global-display-line-numbers-mode 1)
+;; disable line numbers in specific modes
+(dolist (mode '(org-mode-hook
+                term--mode-hook
+                shell-mode-hook
+                eshell-mode-hook))
+  (add-hook mode (lambda ()(display-line-numbers-mode 0))))
+
 
 ;; Nice line wrapping when working with text
 (add-hook 'text-mode-hook 'visual-line-mode)
