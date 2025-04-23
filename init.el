@@ -239,7 +239,10 @@
 (dolist (mode '(org-mode-hook
                 term--mode-hook
                 shell-mode-hook
-                eshell-mode-hook))
+                eshell-mode-hook
+                eww-mode-hook
+                olivetti-mode-hook
+                elfeed-show-mode-hook))
   (add-hook mode (lambda ()(display-line-numbers-mode 0))))
 
 
