@@ -242,18 +242,18 @@
   (org-modern-todo-faces
    '(("STARTED" :foreground "yellow")
      ("Rescheduled" org-special-keyword :inverse-video t :weight bold)))
-  (org-modern-list
-   '((?* . "â¢")
-     (?+ . "â£")))
-  (org-modern-fold-stars
-   '(("â¶" . "â¼")
-     ("â·" . "â½")
-     ("â¸" . "â¾")
-     ("â¹" . "â¿")))
-  (org-modern-checkbox
-   '((?X . "â")
-     (?- . "â")
-     (?\s . " ")))
+  ;; (org-modern-list
+  ;;  '((?* . "â¢")
+  ;;    (?+ . "â£")))
+  ;; (org-modern-fold-stars
+  ;;  '(("â¶" . "â¼")
+  ;;    ("â·" . "â½")
+  ;;    ("â¸" . "â¾")
+  ;;    ("â¹" . "â¿")))
+  ;; (org-modern-checkbox
+  ;;  '((?X . "â")
+  ;;    (?- . "â")
+  ;;    (?\s . " ")))
   (org-modern-label-border 1)
   ;; modify frame params
   (modify-all-frames-parameters

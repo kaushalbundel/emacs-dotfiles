@@ -1,3 +1,4 @@
+
 ;; setting fonts for mac and linux
 (cond
  ((equal system-type 'darwin)
@@ -24,7 +25,6 @@
   (add-hook 'dired-mode-hook #'nerd-icons-dired-mode)
 
 ;;doom mode line
-
 (use-package doom-modeline
   :ensure t
   :defer t
