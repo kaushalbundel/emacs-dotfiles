@@ -42,7 +42,6 @@
 ;; conformatble padding
 (use-package spacious-padding
   :ensure t
-  :defer 5
   :config
   (setq spacious-padding-widths
       '( :internal-border-width 15
