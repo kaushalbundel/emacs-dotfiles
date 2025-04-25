@@ -1,9 +1,9 @@
 ;;to encode secret API key 
 ;;https://www.reddit.com/r/emacs/comments/kxxkg9/how_do_guys_include_secrets_in_their_initel/
-(defun my-auth (key)
-  (with-temp-buffer
-    (insert-file-contents-literally "~/.my-auth")
-    (alist-get key (read (current-buffer)))))
+;; (defun my-auth (key)
+;;   (with-temp-buffer
+;;     (insert-file-contents-literally "~/.my-auth")
+;;     (alist-get key (read (current-buffer)))))
 
 ;; denote package
 (use-package denote
@@ -32,12 +32,12 @@
 
 ;; GPTEL (flavor of llm in emacs)
 ;;TODO: encase the gptel key in a function 
-(use-package gptel
-  :ensure t
-  :defer 5
-  :config
-  (setq gptel-api-key (my-auth 'key1))
-  :bind ("<f1>" . gptel-send))
+;; (use-package gptel
+;;   :ensure t
+;;   :defer 5
+;;   :config
+;;   (setq gptel-api-key (my-auth 'key1))
+;;   :bind ("<f1>" . gptel-send))
 
 ;; conformatble padding
 (use-package spacious-padding
@@ -45,12 +45,13 @@
   :defer 5
   :config
   (setq spacious-padding-widths
-      '( :internal-border-width 16
+      '( :internal-border-width 15
          :header-line-width 4
-         ;; :mode-line-width 2
+         :mode-line-width 2
          :tab-width 2
          :right-divider-width 24
-         :scroll-bar-width 8)))
+         :scroll-bar-width 8))
+  (spacious-padding-mode 1))
 
 ;; pdf-tool install
 (use-package pdf-tools
@@ -70,3 +71,11 @@
 (use-package esup
   :ensure t
   :commands(esup))
+
+;; misc functions
+
+(defun kaushal/copy-buffer-directory-path ()
+  "copy buffer directory to clipboard"
+  (interactive)
+  (kill-new (string-trim-left (pwd) "Directory ")))
+(global-set-key (kbd "C-c d y") 'kaushal/copy-buffer-directory-path)

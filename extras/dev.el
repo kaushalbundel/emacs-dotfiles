@@ -272,7 +272,7 @@
               ("<tab>" . company-complete-selection))
   :custom
   (company-minimum-prefix-length 1)
-  (company-idle-delay 0.0))
+  (company-idle-delay 0.5))
 
 ;; Optional: which-key for better key binding discovery
 (use-package which-key
