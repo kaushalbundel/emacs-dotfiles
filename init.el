@@ -138,6 +138,10 @@
       mac-right-option-modifier  'meta
       mac-command-modifier       'control))
 
+;; mac-specifc settings for disabling gpg key for package verification
+(when (equal system-type 'darwin)
+  (setq package-check-signature nil))
+
 ;;pricision mode is not working on macos
 (when (equal system-type 'darwin)
   (setq pixel-scroll-precision-mode nil))

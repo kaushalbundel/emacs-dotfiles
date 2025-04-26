@@ -296,7 +296,15 @@
   :hook ((sgml-mode-hook . emmet-mode)
          (css-mode-hook . emmet-mode)))
 
-;; indent bar mode
+;; indent bar mode (Does not work on mac)
+(cond
+ ((equal system-type 'darwin)
+  (use-package highlight-indent-guides
+    :hook (prog-mode . highlight-indent-guides-mode)
+    :config
+    (setopt highlight-indent-guides-method 'character
+            highlight-indent-guides-responsive 'top)))
+ ((equal system-type 'gnu/linux)
 (use-package indent-bars
   :hook (prog-mode . indent-bars-mode)
   :config
@@ -309,3 +317,4 @@
     indent-bars-color-by-depth '(:regexp "outline-\\([0-9]+\\)" :blend 1) ; blend=1: blend with BG only
     indent-bars-highlight-current-depth '(:blend 0.5) ; pump up the BG blend on current
     indent-bars-display-on-blank-lines t))
+  ))
