@@ -10,6 +10,7 @@ recentf
 .last-package-update-day
 .lsp-session-v1
 extras/custom.el
+tramp
 
 # Ignore folders
 url/
@@ -18,3 +19,10 @@ elfeed/
 auto-save-list/
 transient/
 url/
+.cache/
+eln-cache/
+elpa.bak/
+emacs-backup/
+eshell/
+transient/
+tree-sitter/
