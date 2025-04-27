@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+# name: for key, value := range ... { ... }
+# --
+(doom-snippets-expand :uuid "foreach")

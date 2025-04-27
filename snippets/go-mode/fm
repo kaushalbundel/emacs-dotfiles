@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+# name: func (target) name(args) (results) { ... }
+# --
+(doom-snippets-expand :uuid "method")
