@@ -264,15 +264,15 @@
   :hook (lsp-mode . yas-minor-mode))
 
 ;; Company for completion
-(use-package company
-  :ensure t
-  :after lsp-mode
-  :hook (lsp-mode . company-mode)
-  :bind (:map company-active-map
-              ("<tab>" . company-complete-selection))
-  :custom
-  (company-minimum-prefix-length 1)
-  (company-idle-delay 0.5))
+;; (use-package company
+;;   :ensure t
+;;   :after lsp-mode
+;;   :hook (lsp-mode . company-mode)
+;;   :bind (:map company-active-map
+;;               ("<tab>" . company-complete-selection))
+;;   :custom
+;;   (company-minimum-prefix-length 1)
+;;   (company-idle-delay 0.5))
 
 ;; Optional: which-key for better key binding discovery
 (use-package which-key

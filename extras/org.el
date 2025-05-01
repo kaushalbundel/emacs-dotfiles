@@ -239,9 +239,9 @@
   :custom
   (org-modern-block-indent t)  ; to enable org-modern-indent when org-indent is active
   (org-modern-hide-stars nil)
-  (org-modern-todo-faces
-   '(("STARTED" :foreground "yellow")
-     ("Rescheduled" org-special-keyword :inverse-video t :weight bold)))
+  ;; (org-modern-todo-faces
+  ;;  '(("STARTED" :foreground "yellow")
+  ;;    ("Rescheduled" org-special-keyword :inverse-video t :weight bold)))
   ;; (org-modern-list
   ;;  '((?* . "â¢")
   ;;    (?+ . "â£")))

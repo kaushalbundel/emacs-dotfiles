@@ -8,7 +8,9 @@
 ;; denote package
 (use-package denote
   :ensure t
-  :defer 5)
+  :defer 5
+  :bind (("C-c n l" . denote-link-or-create)
+         ("C-c n n" . denote)))
 ;; Denote Configuration
 
 (setq denote-directory (expand-file-name "~/Insync/kaushalbundel@outlook.com/OneDrive/09-Notes/"))      ;creating Denote directory
@@ -16,6 +18,15 @@
 (setq denote-infer-keywords t)                                                                          ;if any new keywords are added in Denote will add them to the list of keywords
 (setq denote-sort-keywords t)                                                                           ;keyword sorting
 (denote-rename-buffer-mode 1)                                                                           ;rename buffers as denote buffers
+
+;; consult denote package provides mini-buffer preview of denote files and easy search with preview.
+(use-package consult-denote
+  :ensure t
+  :bind
+  (("C-c n f" . consult-denote-find)
+   ("C-c n g" . consult-denote-grep))
+  :config
+  (consult-denote-mode 1))
 
 ;;denote org-specific
 (with-eval-after-load 'org-capture
@@ -71,10 +82,15 @@
   :ensure t
   :commands(esup))
 
+;; ox-pandoc for org mode file conversion
+(use-package ox-pandoc
+  :ensure t
+  :after org)
+
 ;; misc functions
 
 (defun kaushal/copy-buffer-directory-path ()
   "copy buffer directory to clipboard"
   (interactive)
   (kill-new (string-trim-left (pwd) "Directory ")))
-(global-set-key (kbd "C-c d y") 'kaushal/copy-buffer-directory-path)
+(global-set-key (kbd "C-c y d") 'kaushal/copy-buffer-directory-path)
