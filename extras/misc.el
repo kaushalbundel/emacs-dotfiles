@@ -55,18 +55,18 @@
   :ensure t
   :config
   (setq spacious-padding-widths
-      '( :internal-border-width 15
-         :header-line-width 4
-         :mode-line-width 2
-         :tab-width 2
-         :right-divider-width 24
-         :scroll-bar-width 8))
+        '( :internal-border-width 15
+           :header-line-width 4
+           :mode-line-width 2
+           :tab-width 2
+           :right-divider-width 24
+           :scroll-bar-width 8))
   (spacious-padding-mode 1))
 
 ;; pdf-tool install
 (use-package pdf-tools
   :defer 10
-  ; :init   (system-packages-ensure "pdf-tools")
+                                        ; :init   (system-packages-ensure "pdf-tools")
   :init (pdf-loader-install))
 
 ;; olivetti mode
