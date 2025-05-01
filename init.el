@@ -103,18 +103,7 @@
 (when (display-graphic-p)
   (context-menu-mode))
 
-;; Don't litter file system with *~ backup files; put them all inside
-;; ~/.emacs.d/backup or wherever
-;; (defun bedrock--backup-file-name (fpath)
-;;   "Return a new file path of a given file path.
-;; If the new path's directories does not exist, create them."
-;;   (let* ((backupRootDir "~/.emacs.d/emacs-backup/")
-;;          (filePath (replace-regexp-in-string "[A-Za-z]:" "" fpath )) ; remove Windows driver letter in path
-;;          (backupFilePath (replace-regexp-in-string "//" "/" (concat backupRootDir filePath "~") )))
-;;     (make-directory (file-name-directory backupFilePath) (file-name-directory backupFilePath))
-;;     backupFilePath))
-;; (setopt make-backup-file-name-function 'bedrock--backup-file-name)
-
+;; backup files
 (setq make-backup-files nil)
 (setq backup-inhibited nil) ; Not sure if needed, given `make-backup-files'
 (setq create-lockfiles nil)
@@ -126,7 +115,6 @@
 (set-keyboard-coding-system 'utf-8)
 
 ;; Old Modifiers
-
 (setq undo-limit 80000000)    ;;raise undo limit
 (setq evil-want-fine-undo t)  ;;more granular undo
 (setq scroll-margin 2)        ;;maintaining a little margin while scrolling
@@ -156,6 +144,24 @@
 
 ;;elfeed links opening in eww
 (setq browse-url-browser-function 'eww-browse-url)
+
+;; If a text is selected and delete is pressed then delete that text
+(use-package delsel
+  :ensure nil ; no need to install it as it is built-in
+  :hook (after-init . delete-selection-mode))
+
+;; useful dired enhancements
+(use-package dired
+  :ensure nil
+  :commands (dired)
+  :hook
+  ((dired-mode . dired-hide-details-mode)
+   (dired-mode . hl-line-mode))
+  :config
+  (setq dired-recursive-copies 'always)
+  (setq dired-recursive-deletes 'always)
+  (setq delete-by-moving-to-trash t)
+  (setq dired-dwim-target t))
 
 ;; settiing a margin in emacs for better visibility (It does look weird)
 ;;(set-window-margins nil 1 1)
