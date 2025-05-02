@@ -66,7 +66,7 @@
 ;; pdf-tool install
 (use-package pdf-tools
   :defer 10
-                                        ; :init   (system-packages-ensure "pdf-tools")
+  :init   (system-packages-ensure "pdf-tools")
   :init (pdf-loader-install))
 
 ;; olivetti mode

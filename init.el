@@ -52,9 +52,9 @@
   (auto-package-update-maybe))
 
 ;; If you want to turn off the welcome screen, uncomment this
-;; (setopt inhibit-splash-screen t)
-;; (setopt initial-major-mode 'fundamental-mode)  ; default mode for the *scratch* buffer
-;; (setopt display-time-default-load-average nil) ; this information is useless for most
+(setopt inhibit-splash-screen t)
+(setopt initial-major-mode 'fundamental-mode)  ; default mode for the *scratch* buffer
+(setopt display-time-default-load-average nil) ; this information is useless for most
 
 ;; Makes *scratch* empty.
 (setq initial-scratch-message "")
@@ -138,9 +138,9 @@
 
 ;; changing yes and no to y and n
 (setopt use-short-answers t)
+
 ;; asking emacs before closing
 (setq confirm-kill-emacs #'y-or-n-p)
-
 
 ;;elfeed links opening in eww
 (setq browse-url-browser-function 'eww-browse-url)
@@ -181,6 +181,9 @@
   :config
   (which-key-mode))
 
+;; for debugging
+;; TODO: Remove this
+;; (setq debug-on-error t)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;;   Minibuffer/completion settings
@@ -293,23 +296,23 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(use-package dashboard
-;; :disabled
-  :ensure t
-  :init
-    (dashboard-setup-startup-hook)
-  :config
-  (setq dashboard-startup-banner 'logo
-        dashboard-show-shortcuts nil
-        dashboard-center-content t
-        dashboard-items '((recents  . 5)
-                          (projects . 6)
-                          (bookmarks . 5)
-                          (agenda . 5)
-                          ;;(registers . 5)
-                          )))
-;; important for getting the dashboard buffer
-(setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
+;; (use-package dashboard
+;; ;; :disabled
+;;   :ensure t
+;;   :init
+;;     (dashboard-setup-startup-hook)
+;;   :config
+;;   (setq dashboard-startup-banner 'logo
+;;         dashboard-show-shortcuts nil
+;;         dashboard-center-content t
+;;         dashboard-items '((recents  . 5)
+;;                           (projects . 6)
+;;                           (bookmarks . 5)
+;;                           (agenda . 5)
+;;                           ;;(registers . 5)
+;;                           )))
+;; ;; important for getting the dashboard buffer
+;; (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
 
 (use-package rainbow-mode
   :commands rainbow-mode
@@ -463,3 +466,4 @@
 
 ;; Tools for academic researchers
 ;(load-file (expand-file-name "extras/researcher.el" user-emacs-directory))
+(put 'downcase-region 'disabled nil)

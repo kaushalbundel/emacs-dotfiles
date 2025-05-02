@@ -208,14 +208,6 @@
 ;;
 ;;
 
-(use-package org-super-agenda
-  :ensure t
-  :after org-agenda
-  :config
-  (let ((org-super-agenda-groups
-	 '((:auto-group t))))
-    (org-agenda-list)))
-  
 (global-set-key (kbd "C-c o a") 'org-agenda)  
 
 
