@@ -1,4 +1,3 @@
-
 ;; setting fonts for mac and linux
 (cond
  ((equal system-type 'darwin)
@@ -6,6 +5,9 @@
   (set-face-attribute 'variable-pitch nil :family "Iosevka Comfy Motion Fixed" :weight 'Regular :height 120))
  
  ((equal system-type 'gnu/linux)
+  (set-face-attribute 'default nil :family "JetBrains Mono" :weight 'Regular :height 90)
+  (set-face-attribute 'variable-pitch nil :family "Iosevka Comfy Motion Fixed" :weight 'Regular :height 90))
+ ((equal system-type 'windows-nt)
   (set-face-attribute 'default nil :family "JetBrains Mono" :weight 'Regular :height 90)
   (set-face-attribute 'variable-pitch nil :family "Iosevka Comfy Motion Fixed" :weight 'Regular :height 90)))
 
@@ -16,13 +18,13 @@
 (use-package nerd-icons-completion
   :ensure t
   :defer 5)
-  (nerd-icons-completion-marginalia-setup)
-  (nerd-icons-completion-mode 1)
+(nerd-icons-completion-marginalia-setup)
+(nerd-icons-completion-mode 1)
 
 (use-package nerd-icons-dired
   :ensure t
   :defer 5)
-  (add-hook 'dired-mode-hook #'nerd-icons-dired-mode)
+(add-hook 'dired-mode-hook #'nerd-icons-dired-mode)
 
 ;;doom mode line
 (use-package doom-modeline

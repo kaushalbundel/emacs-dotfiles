@@ -41,6 +41,10 @@
 ;;; Phase 2 variables
 
 ;; Agenda variables
+(cond
+ ((equal system-type 'windows-nt)
+ (setq org-directory "C:\\Users\\kaush\\OneDrive\\09-Notes")
+ (setq org-agenda-files '("C:\\Users\\kaush\\OneDrive\\09-Notes"))))
 
 (setq org-directory "~/Insync/kaushalbundel@outlook.com/OneDrive/09-Notes")
 (setq org-agenda-files '("~/Insync/kaushalbundel@outlook.com/OneDrive/01-Vision-Plan/02-Plan/02-habit"
@@ -141,15 +145,15 @@
           ("wr" "Work report" entry (file+headline "work.org" "Reports")
            "** TODO %?\n%U\n%i\n%a")))
   (setopt org-agenda-skip-deadline-if-done t
-        org-agenda-skip-scheduled-if-done t)  
+          org-agenda-skip-scheduled-if-done t)  
 
   (setq org-agenda-custom-commands
-          '(("n" "Agenda and All Todos"
-             ((agenda)
-              (todo)))
-            ("w" "Work" agenda ""
-             ((org-agenda-files '("work.org")))
-	     ("u" "Unscheduled" alltodo "")))))
+        '(("n" "Agenda and All Todos"
+           ((agenda)
+            (todo)))
+          ("w" "Work" agenda ""
+           ((org-agenda-files '("work.org")))
+	       ("u" "Unscheduled" alltodo "")))))
 
 ;; Move the TODO after the current headline and the content instead of the a new headline
 (setq org-insert-heading-respect-content t)
@@ -157,7 +161,7 @@
 ;; org-habit
 (add-to-list 'org-modules 'org-habit t)
 (setopt org-log-into-drawer t
-	org-habit-following-days 3
+	    org-habit-following-days 3
         org-habit-preceding-days 7
         org-habit-show-all-today t)
 
@@ -170,8 +174,8 @@
   :after (org)
   :config
   (setopt org-hide-leading-stars t
-	  org-superstar-leading-bullet ?\s
-	  org-superstar-special-todo-items t))
+	      org-superstar-leading-bullet ?\s
+	      org-superstar-special-todo-items t))
 
 
 ;; org-noter
@@ -249,14 +253,14 @@
   (org-modern-label-border 1)
   ;; modify frame params
   (modify-all-frames-parameters
- '((right-divider-width . 40)
-   (internal-border-width . 40)))
-(dolist (face '(window-divider
-                window-divider-first-pixel
-                window-divider-last-pixel))
-  (face-spec-reset-face face)
-  (set-face-foreground face (face-attribute 'default :background)))
-(set-face-background 'fringe (face-attribute 'default :background))
+   '((right-divider-width . 40)
+     (internal-border-width . 40)))
+  (dolist (face '(window-divider
+                  window-divider-first-pixel
+                  window-divider-last-pixel))
+    (face-spec-reset-face face)
+    (set-face-foreground face (face-attribute 'default :background)))
+  (set-face-background 'fringe (face-attribute 'default :background))
   :hook
   (org-mode . org-modern-mode)
   (org-agenda-finalize . org-modern-agenda))

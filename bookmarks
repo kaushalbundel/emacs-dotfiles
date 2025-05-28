@@ -2,7 +2,13 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("OneDrive"
+((".emacs.d"
+ (filename . "~/.emacs.d/")
+ (front-context-string . "auto-save-list\n ")
+ (rear-context-string . "  0 05-10 13:31 ")
+ (position . 177)
+ (last-modified 26655 4896 765626 0))
+("OneDrive"
  (filename . "~/Insync/kaushalbundel@outlook.com/OneDrive/")
  (front-context-string . ".DS_Store\n  drwx")
  (rear-context-string . "44 Mar 29 19:52 ")
