@@ -8,6 +8,7 @@
 *** https://feeds.feedburner.com/collabfund
 *** https://rootsofprogress.org/feed.xml
 *** https://ciechanow.ski/atom.xml
+*** https://www.noahpinion.blog/feed
 *** https://astralcodexten.substack.com/feed
 *** https://austinkleon.substack.com/feed
 *** https://adamgrant.substack.com/feed
@@ -20,7 +21,14 @@
 *** https://www.ribbonfarm.com/feed/
 *** https://srajagopalan.substack.com/feed/
 *** https://feedpress.me/thetechnium
-*** https://www.asimov.press/s/long-read/feed
+*** https://www.lesswrong.com/feed.xml?view=curated-rss
+*** https://world.hey.com/dhh/feed.atom
+*** https://sceneswithsimon.com/feed
+*** https://www.overcomingbias.com/feed
+*** https://thelivingfossils.substack.com/feed
+*** https://www.everythingisbullshit.blog/feed
+*** https://www.robkhenderson.com/feed
+*** https://pluralistic.net/feed/
 ** Tech :Tech:
 *** https://nadh.in/index.xml
 *** https://api.quantamagazine.org/feed/
@@ -34,15 +42,17 @@
 ** Emacs-life :EMACS:
 *** https://protesilaos.com/master.xml
 *** https://systemcrafters.net/rss/news.xml
-*** https://planet.emacslife.com/atom.xml
 *** https://cestlaz.github.io/rss.xml
 ** India :India:Starup:
 *** https://theindianpivot.substack.com/feed
 *** https://shorts.growthx.club/feed
 *** https://tigerfeathers.substack.com/feed
 *** https://www.dataforindia.com/feed
+** Design :product:design
+*** https://matthewstrom.com/feed.xml
 ** Science :science:
 *** https://writings.stephenwolfram.com/feed/
+*** https://historyofscience.in/feed/
 ** Startup :World:
 *** https://lillianli.substack.com/feed  :china:
 ** Future :Futurism:
@@ -51,12 +61,12 @@
 ** Coding
 *** https://drewdevault.com/blog/index.xml
 *** https://tratt.net/laurie/news.rss
+*** https://daniel.feldroy.com/feeds/atom.xml
+*** https://lucumr.pocoo.org/feed.atom
+*** https://planetpython.org/rss20.xml
+*** https://www.mostlypython.com/rss/
 ** Youtube                                 :youtube:
 *** https://www.youtube.com/feeds/videos.xml?channel_id=UC5LueiosDVInA6yXE_38i9Q
 *** https://www.youtube.com/feeds/videos.xml?channel_id=UCuV0yG992ILG-wNBSKTEwhQ
 *** https://www.youtube.com/feeds/videos.xml?channel_id=UC09qASY4ixFS-KXIH6Nw0rg
 *** https://www.youtube.com/feeds/videos.xml?channel_id=UCllOAr0t8NhPC-k8fvc_Jmg
-** Economics
-*** https://kyla.substack.com/feed
-*** https://www.noahpinion.blog/feed
-

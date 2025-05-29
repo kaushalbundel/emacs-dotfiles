@@ -74,7 +74,11 @@
   :ensure t
   :defer 5
   :custom
-  (olivetti-body-width 130))
+  (olivetti-body-width 130)
+  :bind
+  ("<f1>" . olivetti-mode)
+  :config
+  (add-hook 'olivetti-mode-hook (lambda ()(if olivetti-mode (toggle-frame-fullscreen)(toggle-frame-fullscreen)))))
 
 
 ;; using profiler
@@ -122,3 +126,93 @@ The DWIM behaviour of this command is as follows:
     (keyboard-quit))))
 
 (define-key global-map (kbd "C-g") #'kaushal/keyboard-quit-dwim)
+
+;; writeroom mode
+;; TODO: Evaluate against olivetti mode
+
+(use-package writeroom-mode
+  :ensure t
+  :defer 5
+  :config
+  ;; Basic writeroom settings
+  (setq writeroom-width 120
+        writeroom-fringes-outside-margins nil
+        writeroom-center-text t
+        writeroom-extra-line-spacing 4
+        writeroom-mode-line nil
+        writeroom-alpha 0.95)
+
+  ;; Global effects for writeroom
+  (setq writeroom-global-effects
+        '(writeroom-set-fullscreen
+          writeroom-set-alpha
+          writeroom-set-menu-bar-lines
+          writeroom-set-tool-bar-lines
+          writeroom-set-vertical-scroll-bars
+          writeroom-set-bottom-divider-width))
+
+  ;; Writeroom mode configuration
+  :hook (writeroom-mode . my-writeroom-setup))
+
+(defvar-local my-writeroom-face-cookie nil
+  "Store face remapping cookie for writeroom mode.")
+
+(defun my-writeroom-calculate-margins ()
+  "Calculate appropriate top and bottom margins for vertical centering."
+  (max 10 (/ (- (window-height) 40) 3)))
+
+(defun my-writeroom-enter ()
+  "Configure settings when entering writeroom mode."
+  ;; Visual settings
+  (display-line-numbers-mode -1)
+  (hl-line-mode -1)
+  (variable-pitch-mode 1)
+  
+  ;; Cursor and text appearance
+  (setq cursor-type 'bar)
+  (setq-local my-writeroom-face-cookie
+              (face-remap-add-relative 'default :height 0.9))
+  
+  ;; Margin settings
+  (setq left-margin-width 0
+        right-margin-width 0)
+  
+  ;; Visual fill column configuration
+  (when (bound-and-true-p visual-fill-column-mode)
+    (visual-fill-column-mode -1))
+  
+  (setq visual-fill-column-width 120
+        visual-fill-column-center-text t
+        visual-fill-column-extra-text-width '(0 . 0))
+  
+  ;; Vertical centering margins
+  (let ((margin-size (my-writeroom-calculate-margins)))
+    (setq-local writeroom-top-margin-size margin-size
+                writeroom-bottom-margin-size margin-size))
+  
+  (visual-fill-column-mode 1))
+
+(defun my-writeroom-exit ()
+  "Restore settings when exiting writeroom mode."
+  ;; Restore visual settings
+  (display-line-numbers-mode 1)
+  (hl-line-mode 1)
+  
+  ;; Restore cursor and text
+  (setq cursor-type 'box)
+  (text-scale-set 0)
+  
+  ;; Clean up face remapping
+  (when my-writeroom-face-cookie
+    (face-remap-remove-relative my-writeroom-face-cookie)
+    (setq my-writeroom-face-cookie nil))
+  
+  ;; Disable visual fill column
+  (when (bound-and-true-p visual-fill-column-mode)
+    (visual-fill-column-mode -1)))
+
+(defun my-writeroom-setup ()
+  "Main function to handle writeroom mode toggle."
+  (if writeroom-mode
+      (my-writeroom-enter)
+    (my-writeroom-exit)))
