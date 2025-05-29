@@ -153,7 +153,9 @@
             (todo)))
           ("w" "Work" agenda ""
            ((org-agenda-files '("work.org")))
-	       ("u" "Unscheduled" alltodo "")))))
+	       ("u" "Unscheduled" alltodo ""))))
+  ;; org-indent-mode activated for better indentation
+  (setopt org-indent-mode t))
 
 ;; Move the TODO after the current headline and the content instead of the a new headline
 (setq org-insert-heading-respect-content t)
