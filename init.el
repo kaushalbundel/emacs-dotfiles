@@ -120,6 +120,11 @@
 (setq scroll-margin 2)        ;;maintaining a little margin while scrolling
 (setq save-interprogram-paste-before-kill t) ;;integrates system clipboard to kill ring
 
+;;windows specific change
+
+(when (equal system-type 'windows-nt)
+  (setopt default-directory "C:\\Users\\kaush"))
+
 ;;mac-specific settings
 (when (equal system-type 'darwin)
  (setq mac-option-modifier        'meta
