@@ -55,7 +55,7 @@
 (setopt inhibit-splash-screen t)
 (setopt initial-major-mode 'fundamental-mode)  ; default mode for the *scratch* buffer
 (setopt display-time-default-load-average nil) ; this information is useless for most
-;; (set-message-beep 'silent) ;; turn off the annoying sound
+(setq ring-bell-function 'ignore) ;; turning off the annoying bell on windows
 ;; Makes *scratch* empty.
 (setq initial-scratch-message "")
 
@@ -121,7 +121,6 @@
 (setq save-interprogram-paste-before-kill t) ;;integrates system clipboard to kill ring
 
 ;;windows specific change
-
 (when (equal system-type 'windows-nt)
   (setopt default-directory "C:\\Users\\kaush"))
 

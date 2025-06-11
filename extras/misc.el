@@ -13,7 +13,7 @@
          ("C-c n n" . denote)))
 ;; Denote Configuration
 
-(setq denote-directory (expand-file-name "~/Insync/kaushalbundel@outlook.com/OneDrive/09-Notes/"))      ;creating Denote directory
+(setq denote-directory (expand-file-name "C:\\Users\\kaush\\OneDrive\\09-Notes"))      ;creating Denote directory
 (setq denote-known-keywords '("work" "personal" "health" "article" "course" "video" "audio"))           ;setting the keywords
 (setq denote-infer-keywords t)                                                                          ;if any new keywords are added in Denote will add them to the list of keywords
 (setq denote-sort-keywords t)                                                                           ;keyword sorting
@@ -64,10 +64,10 @@
   (spacious-padding-mode 1))
 
 ;; pdf-tool install
-(use-package pdf-tools
-  :defer 10
-  :init   (system-packages-ensure "pdf-tools")
-  :init (pdf-loader-install))
+;; (use-package pdf-tools
+;;   :defer 10
+;;   :init   (system-packages-ensure "pdf-tools")
+;;   :init (pdf-loader-install))
 
 ;; olivetti mode
 (use-package olivetti
@@ -87,9 +87,9 @@
   :commands(esup))
 
 ;; ox-pandoc for org mode file conversion
-(use-package ox-pandoc
-  :ensure t
-  :after org)
+;; (use-package ox-pandoc
+;;   :ensure t
+;;   :after org)
 
 ;; misc functions
 
