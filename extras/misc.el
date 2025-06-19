@@ -13,7 +13,7 @@
          ("C-c n n" . denote)))
 ;; Denote Configuration
 
-(setq denote-directory (expand-file-name "C:\\Users\\kaush\\OneDrive\\09-Notes"))      ;creating Denote directory
+(setq denote-directory (expand-file-name "~/MyDrive/OneDrive/09-Notes"))      ;creating Denote directory
 (setq denote-known-keywords '("work" "personal" "health" "article" "course" "video" "audio"))           ;setting the keywords
 (setq denote-infer-keywords t)                                                                          ;if any new keywords are added in Denote will add them to the list of keywords
 (setq denote-sort-keywords t)                                                                           ;keyword sorting
