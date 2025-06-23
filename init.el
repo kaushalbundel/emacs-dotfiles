@@ -401,8 +401,8 @@
         (t . (1.1)))))
 
   ;; Maybe define some palette overrides, such as by using our presets
-  (setq modus-themes-common-palette-overrides
-        modus-themes-preset-overrides-intense)
+  ;; (setq modus-themes-common-palette-overrides
+  ;;       modus-themes-preset-overrides-intense)
 
 (define-key global-map (kbd "<f5>") #'modus-themes-toggle)
 
@@ -413,7 +413,10 @@
 ;; loading solarized themes
 (use-package solarized-theme
   :ensure t
-  :defer t)
+  :defer t
+  :config
+  (setq solarized-high-contrast-mode-line t)
+  (setq solarized-use-more-italic t))
 
 ;;loading themes
 (load-theme 'solarized-selenized-dark :no-confirm)

@@ -234,25 +234,25 @@
 
 ;; org-modern
 
-(use-package org-modern
+ (use-package org-modern
   :custom
   (org-modern-block-indent t)  ; to enable org-modern-indent when org-indent is active
   (org-modern-hide-stars nil)
   (org-modern-todo-faces
    '(("STARTED" :foreground "yellow")
      ("Rescheduled" org-special-keyword :inverse-video t :weight bold)))
-  (org-modern-list
-   '((?* . "â¢")
-     (?+ . "â£")))
-  (org-modern-fold-stars
-   '(("â¶" . "â¼")
-     ("â·" . "â½")
-     ("â¸" . "â¾")
-     ("â¹" . "â¿")))
-  (org-modern-checkbox
-   '((?X . "â")
-     (?- . "â")
-     (?\s . " ")))
+  ;; (org-modern-list
+  ;;  '((?* . "â¢")
+  ;;    (?+ . "â£")))
+  ;; (org-modern-fold-stars
+  ;;  '(("â¶" . "â¼")
+  ;;    ("â·" . "â½")
+  ;;    ("â¸" . "â¾")
+  ;;    ("â¹" . "â¿")))
+  ;; (org-modern-checkbox
+  ;;  '((?X . "â")
+  ;;    (?- . "â")
+  ;;    (?\s . " ")))
   (org-modern-label-border 1)
   ;; modify frame params
   (modify-all-frames-parameters
