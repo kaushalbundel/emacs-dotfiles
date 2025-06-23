@@ -399,7 +399,7 @@
         (agenda-date . (1.1))
         (agenda-structure . (variable-pitch light 1.2))
         (t . (1.1)))))
-(load-theme 'modus-operandi-tinted :no-confirm)
+
   ;; Maybe define some palette overrides, such as by using our presets
   (setq modus-themes-common-palette-overrides
         modus-themes-preset-overrides-intense)
@@ -409,6 +409,14 @@
 ;; changing buffer while splitting
 (global-set-key "\C-x2" (lambda () (interactive)(split-window-vertically) (other-window 1)))
 (global-set-key "\C-x3" (lambda () (interactive)(split-window-horizontally) (other-window 1)))
+
+;; loading solarized themes
+(use-package solarized-theme
+  :ensure t
+  :defer t)
+
+;;loading themes
+(load-theme 'solarized-selenized-dark :no-confirm)
 
 ;;closing windows (like help windows)
 (winner-mode 1)
@@ -439,7 +447,7 @@
 (load-file (expand-file-name "extras/dev.el" user-emacs-directory)) 
 
 ;; Vim-bindings in Emacs (evil-mode configuration)
-(load-file (expand-file-name "extras/vim-like.el" user-emacs-directory))
+;;(load-file (expand-file-name "extras/vim-like.el" user-emacs-directory))
 
 ;; Org-mode configuration
 ;; WARNING: need to customize things inside the elisp file before use! See
