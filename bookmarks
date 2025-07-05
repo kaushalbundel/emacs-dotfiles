@@ -2,7 +2,14 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("Flounder Mode: Kevin Kelly"
+(("Python Protocols: Leveraging Structural Subtyping – Real Python"
+ (front-context-string . "\nDynamic and Sta")
+ (rear-context-string . "es.\n\nRemove ads\n")
+ (position . 5825)
+ (last-modified 26729 5216 739197 0)
+ (location . "https://realpython.com/python-protocol/#dynamic-and-static-typing-in-python")
+ (handler . eww-bookmark-jump))
+("Flounder Mode: Kevin Kelly"
  (front-context-string . "\nBrie Wolfson is")
  (rear-context-string . "bottomless.”\n\n*\n")
  (position . 22114)

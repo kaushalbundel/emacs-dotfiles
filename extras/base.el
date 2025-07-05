@@ -112,23 +112,36 @@
   (marginalia-mode))
 
 ;; Popup completion-at-point
+
 (use-package corfu
-  :ensure t
-  :init
-  (setq corfu-auto t)
-  (setq corfu-auto-delay 0.1)
-  (setq corfu-auto-prefix 1)
-  (setq corfu-min-width 40)
-  (setq corfu-max-width 65)
+  ;; Optional customizations
+  :custom
+  (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
+  (corfu-quit-at-boundary t)   ;; Never quit at completion boundary
+  (corfu-quit-no-match nil)      ;; Never quit, even if there is no match
+  (corfu-preview-current nil)    ;; Disable current candidate preview
+  (corfu-preselect 'directory)      ;; Preselect the prompt
+  (corfu-on-exact-match 'quit)     ;; Configure handling of exact matches
+
   :bind
   (:map corfu-map
-        ("SPC" . corfu-insert-separator)
-        ("C-n" . corfu-next)
-        ("C-p" . corfu-previous))
+        ("<escape>" . 'corfu-quit))
+;;  Enable Corfu only for certain modes. See also `global-corfu-modes'.
   :hook ((prog-mode . corfu-mode)
-	 (shell-mode . corfu-mode)
-	 (eshell-mode . corfu-mode)))
+         (shell-mode . corfu-mode)
+         (eshell-mode . corfu-mode))
 
+  :init
+
+  ;; Recommended: Enable Corfu globally.  Recommended since many modes provide
+  ;; Capfs and Dabbrev can be used globally (M-/).  See also the customization
+  ;; variable `global-corfu-modes' to exclude certain modes.
+  (global-corfu-mode)
+
+  ;; Enable optional extension modes:
+  (corfu-history-mode)
+  (corfu-popupinfo-mode)
+  )
 ;; Part of corfu
 (use-package corfu-popupinfo
   :after corfu

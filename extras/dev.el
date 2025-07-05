@@ -190,6 +190,7 @@
   
   ;; Performance optimization
   (lsp-completion-provider :capf)          ;; Use completion-at-point-functions
+  (lsp-auto-completion nil)
   (lsp-keep-workspace-alive nil)           ;; Auto-kill LSP server
   (lsp-signature-auto-activate nil)        ;; Disable automatic signatures
   
@@ -212,7 +213,7 @@
          
          ;; Enables lsp automatically after the LSP server is started
          (lsp-mode . lsp-enable-which-key-integration))
-  
+
   ;; Commands will be added to autoload list automatically
   :config
   ;; LSP UI configurations
@@ -262,17 +263,6 @@
 (use-package yasnippet
   :ensure t
   :hook (lsp-mode . yas-minor-mode))
-
-;; Company for completion
-;; (use-package company
-;;   :ensure t
-;;   :after lsp-mode
-;;   :hook (lsp-mode . company-mode)
-;;   :bind (:map company-active-map
-;;               ("<tab>" . company-complete-selection))
-;;   :custom
-;;   (company-minimum-prefix-length 1)
-;;   (company-idle-delay 0.5))
 
 ;; Optional: which-key for better key binding discovery
 (use-package which-key
