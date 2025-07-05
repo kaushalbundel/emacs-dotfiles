@@ -419,7 +419,7 @@
   (setq solarized-use-more-italic t))
 
 ;;loading themes
-(load-theme 'solarized-selenized-dark :no-confirm)
+(load-theme 'modus-operandi-tinted :no-confirm)
 
 ;;closing windows (like help windows)
 (winner-mode 1)

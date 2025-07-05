@@ -162,7 +162,7 @@
 
 ;; doom snippets contains useful snippets
 (use-package doom-snippets
-  :load-path "C:/Users/kaush/.emacs.d/snippets"
+  :load-path "~/.emacs.d/snippets/"
   :after yasnippet)
 
 

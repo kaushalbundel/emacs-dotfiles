@@ -1,4 +1,4 @@
-* Blogs :elfeed:
+* Blogs                                                              :elfeed:
 ** Life                                             :life:
 *** https://indiauncut.substack.com/feed
 *** https://www.growthstore.xyz/feed
@@ -27,7 +27,6 @@
 *** https://www.overcomingbias.com/feed
 *** https://thelivingfossils.substack.com/feed
 *** https://www.everythingisbullshit.blog/feed
-*** https://www.robkhenderson.com/feed
 *** https://pluralistic.net/feed/
 ** Tech :Tech:
 *** https://nadh.in/index.xml
@@ -41,8 +40,6 @@
 *** https://kristenberman.substack.com/feed
 ** Emacs-life :EMACS:
 *** https://protesilaos.com/master.xml
-*** https://systemcrafters.net/rss/news.xml
-*** https://cestlaz.github.io/rss.xml
 ** India :India:Starup:
 *** https://theindianpivot.substack.com/feed
 *** https://shorts.growthx.club/feed
@@ -65,8 +62,3 @@
 *** https://lucumr.pocoo.org/feed.atom
 *** https://planetpython.org/rss20.xml
 *** https://www.mostlypython.com/rss/
-** Youtube                                 :youtube:
-*** https://www.youtube.com/feeds/videos.xml?channel_id=UC5LueiosDVInA6yXE_38i9Q
-*** https://www.youtube.com/feeds/videos.xml?channel_id=UCuV0yG992ILG-wNBSKTEwhQ
-*** https://www.youtube.com/feeds/videos.xml?channel_id=UC09qASY4ixFS-KXIH6Nw0rg
-*** https://www.youtube.com/feeds/videos.xml?channel_id=UCllOAr0t8NhPC-k8fvc_Jmg
