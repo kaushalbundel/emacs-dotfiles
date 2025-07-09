@@ -46,10 +46,10 @@
   (setq org-directory "C:\\Users\\kaush\\OneDrive\\09-Notes")
   (setq org-agenda-files '("C:\\Users\\kaush\\OneDrive\\09-Notes")))
  (t
-  (setq org-directory "~/Insync/kaushalbundel@outlook.com/OneDrive/09-Notes")
-  (setq org-agenda-files '("~/Insync/kaushalbundel@outlook.com/OneDrive/01-Vision-Plan/02-Plan/02-habit"
-                           "~/Insync/kaushalbundel@outlook.com/OneDrive/09-Notes"
-                           "~/Insync/kaushalbundel@outlook.com/OneDrive/07-Programming"))))
+  (setq org-directory "~/MyDrive/OneDrive/09-Notes")
+  (setq org-agenda-files '("~/MyDrive/OneDrive/01-Vision-Plan/02-Plan/02-habit"
+                           "~/MyDrive/OneDrive/09-Notes"
+                           "~/MyDrive/OneDrive/07-Programming"))))
 
 ;; Default tags
 (setq org-tag-alist '(
@@ -167,6 +167,9 @@
 	    org-habit-following-days 3
         org-habit-preceding-days 7
         org-habit-show-all-today t)
+
+;; org capture shortcut
+(keymap-global-set "C-c x" 'org-capture)
 
 (setq org-habit-graph-column 80)
 ;; setting org-bullets

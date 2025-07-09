@@ -207,7 +207,7 @@
          (html-mode . lsp-deferred)
          (css-mode . lsp-deferred)
          ;; Add other modes as needed
-         
+         (python-ts-mode . lsp-deferred)   ;;python ts mode provide more features than python mode
          ;; For dart, which you have in your config
          (dart-mode . lsp-deferred)
          

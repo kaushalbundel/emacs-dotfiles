@@ -9,20 +9,6 @@
  (last-modified 26729 5216 739197 0)
  (location . "https://realpython.com/python-protocol/#dynamic-and-static-typing-in-python")
  (handler . eww-bookmark-jump))
-("Flounder Mode: Kevin Kelly"
- (front-context-string . "\nBrie Wolfson is")
- (rear-context-string . "bottomless.”\n\n*\n")
- (position . 22114)
- (last-modified 26727 59883 766757 0)
- (location . "https://joincolossus.com/article/flounder-mode/")
- (handler . eww-bookmark-jump))
-("To Read: Invisible Asymptotes"
- (front-context-string . "\nStill, the grad")
- (rear-context-string . "retail markets.\n")
- (position . 3033)
- (last-modified 26727 57902 190557 0)
- (location . "https://www.eugenewei.com/blog/2018/5/21/invisible-asymptotes")
- (handler . eww-bookmark-jump))
 (".emacs.d"
  (filename . "~/.emacs.d/")
  (front-context-string . "auto-save-list\n ")
@@ -43,8 +29,8 @@
  (last-modified 26120 7162 57947 0))
 ("org-capture-last-stored"
  (filename . "~/Insync/kaushalbundel@outlook.com/OneDrive/09-Notes/todo.org")
- (front-context-string . "* TODO Add proje")
- (rear-context-string . "5-01 Thu 10:35]\n")
- (position . 19070)
- (last-modified 26643 5919 541813 818000))
+ (front-context-string . "* TODO Book a me")
+ (rear-context-string)
+ (position . 1)
+ (last-modified 26733 64138 329495 0))
 )
