@@ -12,8 +12,13 @@
   :bind (("C-c n l" . denote-link-or-create)
          ("C-c n n" . denote)))
 ;; Denote Configuration
+;; conditionally add the denote directory
+(cond
+ ((equal system-type 'darwin)
+  (setq denote-directory (expand-file-name "~/MyDrive/OneDrive/09-Notes")))
+ ((equal system-type 'gnu/linux)
+  (setq denote-directory (expand-file-name "~/Insync/kaushalbundel@outlook.com/OneDrive/09-Notes/"))))
 
-(setq denote-directory (expand-file-name "~/MyDrive/OneDrive/09-Notes"))      ;creating Denote directory
 (setq denote-known-keywords '("work" "personal" "health" "article" "course" "video" "audio"))           ;setting the keywords
 (setq denote-infer-keywords t)                                                                          ;if any new keywords are added in Denote will add them to the list of keywords
 (setq denote-sort-keywords t)                                                                           ;keyword sorting

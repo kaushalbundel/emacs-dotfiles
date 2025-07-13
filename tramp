@@ -1,10 +1,9 @@
-;; -*- emacs-lisp -*- <25/07/07 18:51:30 ~/.emacs.d/tramp>
+;; -*- emacs-lisp -*- <25/07/12 19:38:21 ~/.emacs.d/tramp>
 ;; Tramp connection history.  Don't change this file.
 ;; Run `M-x tramp-cleanup-all-connections' instead.
 
 (((tramp-file-name "cache" nil nil nil nil nil nil)
   ("tramp-version" "2.7.1.30.1"))
  ((tramp-file-name "ssh" "user" nil "host" nil nil nil) nil)
- ((tramp-file-name "sudo" "root" nil
-                   "kaushalbundels-MacBook-Pro.local" nil nil nil)
+ ((tramp-file-name "sudo" "root" nil "kaushalbundel-83dh" nil nil nil)
   nil))

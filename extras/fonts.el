@@ -4,8 +4,8 @@
   (set-face-attribute 'default nil :family "JetBrains Mono" :weight 'Regular :height 120)
   (set-face-attribute 'variable-pitch nil :family "Iosevka Comfy Motion Fixed" :weight 'Regular :height 120))
  ((equal system-type 'gnu/linux)
-  (set-face-attribute 'default nil :family "JetBrains Mono" :weight 'Regular :height 90)
-  (set-face-attribute 'variable-pitch nil :family "Iosevka Comfy Motion Fixed" :weight 'Regular :height 90))
+ (set-face-attribute 'default nil :family "Aporetic Sans Mono" :height 110)
+  (set-face-attribute 'variable-pitch nil :family "Aporetic Serif Mono" :height 110))
  ((equal system-type 'windows-nt)
   (set-face-attribute 'default nil :family "JetBrains Mono NL" :weight 'Regular :height 90)
   (set-face-attribute 'variable-pitch nil :family "Iosevka Comfy Motion Fixed" :weight 'Regular :height 90)))
@@ -36,5 +36,3 @@
   (doom-modeline-buffer-file-name-style 'truncate-with-project)
   (doom-modeline-icon t)
   (doom-modeline-major-mode-icon t))
-
-

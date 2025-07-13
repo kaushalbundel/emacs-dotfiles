@@ -16,11 +16,11 @@
  (position . 177)
  (last-modified 26655 4896 765626 0))
 ("OneDrive"
- (filename . "~/MyDrive/OneDrive/")
+ (filename . "~/Insync/kaushalbundel@outlook.com/OneDrive/")
  (front-context-string . "07-Programming\n ")
  (rear-context-string . "64 17 Jun 00:26 ")
  (position . 1232)
- (last-modified 26713 40666 384056 0))
+ (last-modified 26738 20102 472275 360000))
 ("Emacs Config"
  (filename . "~/.emacs.d/")
  (front-context-string . ".DS_Store\n  drwx")
@@ -29,8 +29,8 @@
  (last-modified 26120 7162 57947 0))
 ("org-capture-last-stored"
  (filename . "~/Insync/kaushalbundel@outlook.com/OneDrive/09-Notes/todo.org")
- (front-context-string . "* TODO Book a me")
- (rear-context-string)
- (position . 1)
- (last-modified 26733 64138 329495 0))
+ (front-context-string . "* TODO Install P")
+ (rear-context-string . "flo_product.org\n")
+ (position . 22002)
+ (last-modified 26737 10760 147247 335000))
 )
