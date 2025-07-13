@@ -28,6 +28,7 @@
 *** https://thelivingfossils.substack.com/feed
 *** https://www.everythingisbullshit.blog/feed
 *** https://pluralistic.net/feed/
+*** https://steveblank.com/feed/
 ** Tech :Tech:
 *** https://nadh.in/index.xml
 *** https://api.quantamagazine.org/feed/
