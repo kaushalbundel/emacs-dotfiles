@@ -54,8 +54,7 @@
  ((equal system-type 'gnu/linux)
   (setq org-directory "~/Insync/kaushalbundel@outlook.com/OneDrive/09-Notes")
   (setq org-agenda-files '("~/Insync/kaushalbundel@outlook.com/OneDrive/01-Vision-Plan/02-Plan/02-habit"
-                           "~/Insync/kaushalbundel@outlook.com/OneDrive/09-Notes"
-                           "~/Insync/kaushalbundel@outlook.com/OneDrive/07-Programming"))))
+                           "~/Insync/kaushalbundel@outlook.com/OneDrive/09-Notes"))))
 ;; Default tags
 (setq org-tag-alist '(
                       ;; locale
@@ -242,7 +241,7 @@
 
 ;; org-modern
 
- (use-package org-modern
+(use-package org-modern
   :custom
   (org-modern-block-indent t)  ; to enable org-modern-indent when org-indent is active
   (org-modern-hide-stars nil)

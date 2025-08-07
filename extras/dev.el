@@ -106,11 +106,11 @@
 (add-to-list 'auto-mode-alist '("\\.dart\\'" . dart-mode))
 (use-package lsp-dart
   :defer t
-  :after dart)
+  :hook (dart-mode . lsp-deferred))
 
 (use-package dart-mode
   :defer t
-  :after dart)
+  :mode ("\\.dart\\'" . dart-mode))
 
 (use-package hover
   :defer t
@@ -118,11 +118,16 @@
 
 (use-package flutter
   :defer t
-  :after dart)
+  :after dart-mode)
 
 (use-package ob-dart
   :ensure t
   :defer t)
+
+;; setting up flutter/drt sdk
+;; (setq lsp-dart-sdk-dir "/home/kaushalbundel/dev/flutter/bin/dart"
+;;       lsp-dart-flutter-sdk-dir "/home/kaushalbundel/dev/flutter/bin/flutter")
+;;TODO:  check if the variable flutter-sdk-path should be defined or not?
 
 ;; (require 'ob-dart)			
 ;;(add-to-list 'org-babel-load-languages '(dart . t))
@@ -189,7 +194,7 @@
   (lsp-log-io nil)                         ;; Don't log everything = better performance
   
   ;; Performance optimization
-  (lsp-completion-provider :capf)          ;; Use completion-at-point-functions
+  (lsp-completion-provider :none)          ;; Use completion-at-point-functions
   (lsp-auto-completion nil)
   (lsp-keep-workspace-alive nil)           ;; Auto-kill LSP server
   (lsp-signature-auto-activate nil)        ;; Disable automatic signatures
@@ -288,7 +293,7 @@
 
 ;; indent bar mode (Does not work on mac)
 (cond
- ((equal system-type 'darwin)
+ ((equal system-type 'darin)
   (use-package highlight-indent-guides
     :hook (prog-mode . highlight-indent-guides-mode)
     :config

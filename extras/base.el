@@ -32,7 +32,7 @@
   :ensure t
   :demand t
   :bind (("C-c j" . avy-goto-line)
-         ("C-c k"   . avy-goto-char-timer)))
+         ("C-c k" . avy-goto-char-timer)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
@@ -112,36 +112,32 @@
   (marginalia-mode))
 
 ;; Popup completion-at-point
-
 (use-package corfu
-  ;; Optional customizations
+  ;; All variable settings are placed in :custom for consistency.
   :custom
-  (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
-  (corfu-quit-at-boundary t)   ;; Never quit at completion boundary
-  (corfu-quit-no-match nil)      ;; Never quit, even if there is no match
-  (corfu-preview-current nil)    ;; Disable current candidate preview
-  (corfu-preselect 'directory)      ;; Preselect the prompt
-  (corfu-on-exact-match 'quit)     ;; Configure handling of exact matches
+  (corfu-auto t)                 ;; **Enable auto completion popup**
+  (corfu-auto-delay 0.4)           ;; Set popup delay to 0.4 seconds
+  (corfu-auto-prefix 2)          ;; Show popup after typing 2 characters
+  (corfu-cycle t)                ;; Enable cycling through candidates
+  (corfu-quit-at-boundary 'separator) ;; Use a separator at completion boundary
+  (corfu-quit-no-match 'separator)    ;; Don't quit if there are no matches
+  (corfu-preview-current nil)    ;; Disable preview of the current candidate
+  (corfu-preselect 'directory)   ;; Preselect directory candidates
+  (corfu-on-exact-match 'quit)   ;; Quit when an exact match is found
 
+  ;; Keybindings for Corfu
   :bind
   (:map corfu-map
         ("<escape>" . 'corfu-quit))
-;;  Enable Corfu only for certain modes. See also `global-corfu-modes'.
-  :hook ((prog-mode . corfu-mode)
-         (shell-mode . corfu-mode)
-         (eshell-mode . corfu-mode))
 
-  :init
-
-  ;; Recommended: Enable Corfu globally.  Recommended since many modes provide
-  ;; Capfs and Dabbrev can be used globally (M-/).  See also the customization
-  ;; variable `global-corfu-modes' to exclude certain modes.
+  ;; Code to run *after* the package is loaded.
+  :config
+  ;; Recommended: Enable Corfu globally.
   (global-corfu-mode)
 
-  ;; Enable optional extension modes:
+  ;; Enable optional extensions.
   (corfu-history-mode)
-  (corfu-popupinfo-mode)
-  )
+  (corfu-popupinfo-mode))
 ;; Part of corfu
 (use-package corfu-popupinfo
   :after corfu
@@ -172,9 +168,9 @@
 (use-package kind-icon
   :ensure t
   :after corfu
-  ;:custom
-  ; (kind-icon-blend-background t)
-  ; (kind-icon-default-face 'corfu-default) ; only needed with blend-background
+                                        ;:custom
+                                        ; (kind-icon-blend-background t)
+                                        ; (kind-icon-default-face 'corfu-default) ; only needed with blend-background
   :config
   (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
 

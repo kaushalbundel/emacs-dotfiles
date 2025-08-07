@@ -419,7 +419,7 @@
   (setq solarized-use-more-italic t))
 
 ;;loading themes
-(load-theme 'doom-one :no-confirm)
+(load-theme 'solarized-dark :no-confirm)
 
 ;;closing windows (like help windows)
 (winner-mode 1)
@@ -450,7 +450,7 @@
 (load-file (expand-file-name "extras/dev.el" user-emacs-directory)) 
 
 ;; Vim-bindings in Emacs (evil-mode configuration)
-(load-file (expand-file-name "extras/vim-like.el" user-emacs-directory))
+;; (load-file (expand-file-name "extras/vim-like.el" user-emacs-directory))
 
 ;; Org-mode configuration
 ;; WARNING: need to customize things inside the elisp file before use! See
