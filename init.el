@@ -82,7 +82,7 @@
 ;; font issue in emacs when external moniter is enabled
 ;; I suspect this issue is wayland related
 ;; If emacs is closed and restarted again then font appear clearly
-;; The following method should be tested in case the issue reoccurs
+;; The following method should be tested in case the issue reoccurs. Execute the command again if the issue happens
 ;; other solutions should be checked when the need arises 
 (setq frame-resize-pixelwise t)
 
