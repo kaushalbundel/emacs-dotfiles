@@ -79,6 +79,13 @@
 ;; Don't show *Buffer list* when opening multiple files at the same time.
 (setq inhibit-startup-buffer-menu t)
 
+;; font issue in emacs when external moniter is enabled
+;; I suspect this issue is wayland related
+;; If emacs is closed and restarted again then font appear clearly
+;; The following method should be tested in case the issue reoccurs
+;; other solutions should be checked when the need arises 
+(setq frame-resize-pixelwise t)
+
 ;; Show only one active window when opening multiple files at the same time.
 (add-hook 'window-setup-hook 'delete-other-windows)
 
@@ -419,7 +426,7 @@
   (setq solarized-use-more-italic t))
 
 ;;loading themes
-(load-theme 'solarized-dark :no-confirm)
+(load-theme 'doom-nord :no-confirm)
 
 ;;closing windows (like help windows)
 (winner-mode 1)
@@ -481,4 +488,5 @@
 
 ;; Tools for academic researchers
 ;(load-file (expand-file-name "extras/researcher.el" user-emacs-directory))
-(put 'downcase-region 'disabled nil)
+
+(put 'upcase-region 'disabled nil)

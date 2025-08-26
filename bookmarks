@@ -2,7 +2,12 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("Python Protocols: Leveraging Structural Subtyping – Real Python"
+(("elfeed entry \"How to solve a problem\""
+ (id "www.henrikkarlsson.xyz" . "https://www.henrikkarlsson.xyz/p/problem-solving")
+ (location . "How to solve a problem")
+ (position . 820)
+ (handler . elfeed-show-bookmark-handler))
+("Python Protocols: Leveraging Structural Subtyping – Real Python"
  (front-context-string . "\nDynamic and Sta")
  (rear-context-string . "es.\n\nRemove ads\n")
  (position . 5825)
@@ -29,8 +34,8 @@
  (last-modified 26120 7162 57947 0))
 ("org-capture-last-stored"
  (filename . "~/Insync/kaushalbundel@outlook.com/OneDrive/09-Notes/todo.org")
- (front-context-string . "* TODO Install P")
- (rear-context-string . "flo_product.org\n")
- (position . 22002)
- (last-modified 26737 10760 147247 335000))
+ (front-context-string . "* TODO Manoz: ch")
+ (rear-context-string . "2025-08-07 Thu>\n")
+ (position . 23765)
+ (last-modified 26772 33570 185685 137000))
 )

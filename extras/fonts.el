@@ -1,8 +1,8 @@
 ;; setting fonts for mac and linux
 (cond
  ((equal system-type 'darwin)
-  (set-face-attribute 'default nil :family "Aporetic Sans Mono" :weight 'Regular :height 120)
-  (set-face-attribute 'variable-pitch nil :family "Aporetic Serif Mono" :weight 'Regular :height 120))
+  (set-face-attribute 'default nil :family "Aporetic Sans Mono" :weight 'Regular :height 100)
+  (set-face-attribute 'variable-pitch nil :family "Aporetic Serif Mono" :weight 'Regular :height 100))
  ((equal system-type 'gnu/linux)
  (set-face-attribute 'default nil :family "Aporetic Sans Mono" :height 110)
   (set-face-attribute 'variable-pitch nil :family "Aporetic Serif Mono" :height 110))
