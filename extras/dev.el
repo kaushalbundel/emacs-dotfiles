@@ -137,7 +137,11 @@
 (use-package web-mode
   :ensure t
   :config
+  (add-to-list 'auto-mode-alist '("\\.php\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.css\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.js[x]?\\'" . web-mode)) ; For .js and .jsx
+  (add-to-list 'auto-mode-alist '("\\.json\\'" . web-mode))
   (setq web-mode-engines-alist
         '(("django"    . "\\.html\\'")))
   (setq web-mode-ac-sources-alist

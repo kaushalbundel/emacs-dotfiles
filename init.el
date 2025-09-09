@@ -422,11 +422,18 @@
   :ensure t
   :defer t
   :config
-  (setq solarized-high-contrast-mode-line t)
+;;  (setq solarized-high-contrast-mode-line t)
   (setq solarized-use-more-italic t))
 
+
 ;;loading themes
-(load-theme 'doom-nord :no-confirm)
+(load-theme 'solarized-dark-high-contrast :no-confirm)
+
+;; changing the default face for the solarized dark high contrast theme
+;; this is done to make the words more crisp
+;;(custom-theme-set-faces 'solarized-dark-high-contrast '(default ((t (:foreground "#F5F5F5")))))
+;; the change has been applied through "customize face -> default face change"
+
 
 ;;closing windows (like help windows)
 (winner-mode 1)
@@ -457,7 +464,7 @@
 (load-file (expand-file-name "extras/dev.el" user-emacs-directory)) 
 
 ;; Vim-bindings in Emacs (evil-mode configuration)
-(load-file (expand-file-name "extras/vim-like.el" user-emacs-directory))
+;;(load-file (expand-file-name "extras/vim-like.el" user-emacs-directory))
 
 ;; Org-mode configuration
 ;; WARNING: need to customize things inside the elisp file before use! See
