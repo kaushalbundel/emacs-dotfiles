@@ -29,6 +29,8 @@
 *** https://www.everythingisbullshit.blog/feed
 *** https://pluralistic.net/feed/
 *** https://steveblank.com/feed/
+*** https://navalsarchive.substack.com/feed/
+*** https://feeds.feedblitz.com/marginalrevolution
 ** Tech :Tech:
 *** https://nadh.in/index.xml
 *** https://api.quantamagazine.org/feed/

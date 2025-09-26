@@ -4,7 +4,7 @@
   (set-face-attribute 'default nil :family "Aporetic Sans Mono" :weight 'Regular :height 100)
   (set-face-attribute 'variable-pitch nil :family "Aporetic Serif Mono" :weight 'Regular :height 100))
  ((equal system-type 'gnu/linux)
-  (set-face-attribute 'default nil :family "JetBrainsMono Nerd Font Mono " :height 100)
+  (set-face-attribute 'default nil :family "Aporetic Sans Mono" :height 110)
   (set-face-attribute 'variable-pitch nil :family "Aporetic Serif Mono" :height 100))
  ((equal system-type 'windows-nt)
   (set-face-attribute 'default nil :family "JetBrains Mono NL" :weight 'Regular :height 90)

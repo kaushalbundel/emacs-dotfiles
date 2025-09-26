@@ -88,11 +88,11 @@
            :scroll-bar-width 8))
   (spacious-padding-mode 1))
 
-;; pdf-tool install
-;; (use-package pdf-tools
-;;   :defer 10
-;;   :init   (system-packages-ensure "pdf-tools")
-;;   :init (pdf-loader-install))
+;;pdf-tool install
+(use-package pdf-tools
+  :defer 10
+;;  :init   (system-packages-ensure "pdf-tools")
+  :init (pdf-loader-install))
 
 ;; olivetti mode
 (use-package olivetti

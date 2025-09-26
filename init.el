@@ -58,7 +58,8 @@
 (setq ring-bell-function 'ignore) ;; turning off the annoying bell on windows
 ;; Makes *scratch* empty.
 (setq initial-scratch-message "")
-
+;; adding transparency to emacs
+;;(add-to-list 'default-frame-alist '(alpha-background . 90))
 ;; Removes *scratch* from buffer after the mode has been set.
 ;; (defun remove-scratch-buffer ()
 ;;   (if (get-buffer "*scratch*")
@@ -417,17 +418,8 @@
 (global-set-key "\C-x2" (lambda () (interactive)(split-window-vertically) (other-window 1)))
 (global-set-key "\C-x3" (lambda () (interactive)(split-window-horizontally) (other-window 1)))
 
-;; loading solarized themes
-(use-package solarized-theme
-  :ensure t
-  :defer t
-  :config
-;;  (setq solarized-high-contrast-mode-line t)
-  (setq solarized-use-more-italic t))
-
-
 ;;loading themes
-(load-theme 'solarized-dark-high-contrast :no-confirm)
+(load-theme 'doom-nord :no-confirm)
 
 ;; changing the default face for the solarized dark high contrast theme
 ;; this is done to make the words more crisp
@@ -464,7 +456,7 @@
 (load-file (expand-file-name "extras/dev.el" user-emacs-directory)) 
 
 ;; Vim-bindings in Emacs (evil-mode configuration)
-;;(load-file (expand-file-name "extras/vim-like.el" user-emacs-directory))
+(load-file (expand-file-name "extras/vim-like.el" user-emacs-directory))
 
 ;; Org-mode configuration
 ;; WARNING: need to customize things inside the elisp file before use! See

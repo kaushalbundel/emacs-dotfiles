@@ -57,3 +57,11 @@
      (?< . ("<" . ">"))
      (?> . ("<" . ">"))))
   :hook (after-init . global-evil-surround-mode))
+
+;; commenting out code
+(use-package evil-commentary
+  :after evil
+  :ensure t
+  :config
+  (evil-commentary-mode))
+
