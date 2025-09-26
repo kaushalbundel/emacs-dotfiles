@@ -1,4 +1,4 @@
-; Inspired from Emacs Bedrock (https://codeberg.org/ashton314/emacs-bedrock)
+                                        ; Inspired from Emacs Bedrock (https://codeberg.org/ashton314/emacs-bedrock)
 ;;; Minimal init.el
 
 ;;; Contents:
@@ -72,10 +72,10 @@
 
 ;; Removes *Completions* from buffer after you've opened a file.
 (add-hook 'minibuffer-exit-hook
-      '(lambda ()
-         (let ((buffer "*Completions*"))
-           (and (get-buffer buffer)
-                (kill-buffer buffer)))))
+          '(lambda ()
+             (let ((buffer "*Completions*"))
+               (and (get-buffer buffer)
+                    (kill-buffer buffer)))))
 
 ;; Don't show *Buffer list* when opening multiple files at the same time.
 (setq inhibit-startup-buffer-menu t)
@@ -134,9 +134,9 @@
 
 ;;mac-specific settings
 (when (equal system-type 'darwin)
- (setq mac-option-modifier        'meta
-      mac-right-option-modifier  'meta
-      mac-command-modifier       'control))
+  (setq mac-option-modifier        'meta
+        mac-right-option-modifier  'meta
+        mac-command-modifier       'control))
 
 ;; mac-specifc settings for disabling gpg key for package verification
 (when (equal system-type 'darwin)
@@ -216,16 +216,16 @@
 (setopt completions-format 'one-column)
 (setopt completions-group t)
 (setopt completion-auto-select 'second-tab)            ; Much more eager
-;(setopt completion-auto-select t)                     ; See `C-h v completion-auto-select' for more possible values
+                                        ;(setopt completion-auto-select t)                     ; See `C-h v completion-auto-select' for more possible values
 
 (keymap-set minibuffer-mode-map "TAB" 'minibuffer-complete) ; TAB acts more like how it does in the shell
 
 ;; For a fancier built-in completion option, try ido-mode,
 ;; icomplete-vertical, or fido-mode. See also the file extras/base.el
 
-;(icomplete-vertical-mode)
-;(fido-vertical-mode)
-;(setopt icomplete-delay-completions-threshold 4000)
+                                        ;(icomplete-vertical-mode)
+                                        ;(fido-vertical-mode)
+                                        ;(setopt icomplete-delay-completions-threshold 4000)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
@@ -267,8 +267,7 @@
 ;; enabling global line number mode
 (global-display-line-numbers-mode 1)
 ;; disable line numbers in specific modes
-(dolist (mode '(org-mode-hook
-                term--mode-hook
+(dolist (mode '(term--mode-hook
                 shell-mode-hook
                 eshell-mode-hook
                 eww-mode-hook
@@ -276,7 +275,8 @@
                 elfeed-show-mode-hook
                 elfeed-search-mode-hook))
   (add-hook mode (lambda ()(display-line-numbers-mode 0))))
-
+;; changing the line numbers type
+(setopt display-line-numbers-type 'relative)
 
 ;; Nice line wrapping when working with text
 (add-hook 'text-mode-hook 'visual-line-mode)
@@ -358,9 +358,9 @@
 ;;   (load-theme 'modus-vivendi))          ; for light theme, use modus-operandi
 
 ;; doom emacs
- (use-package doom-themes
-   :ensure t
-   :defer t
+(use-package doom-themes
+  :ensure t
+  :defer t
   :config
   ;; Global settings (defaults)
   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
@@ -372,45 +372,45 @@
   :defer t
   :config
   ;; Add all your customizations prior to loading the themes
-(setq modus-themes-italic-constructs t
-      modus-themes-bold-constructs nil
-      modus-themes-mixed-fonts t
-      modus-themes-variable-pitch-ui nil
-      modus-themes-custom-auto-reload t
-      modus-themes-disable-other-themes t
+  (setq modus-themes-italic-constructs t
+        modus-themes-bold-constructs nil
+        modus-themes-mixed-fonts t
+        modus-themes-variable-pitch-ui nil
+        modus-themes-custom-auto-reload t
+        modus-themes-disable-other-themes t
 
-      ;; Options for `modus-themes-prompts' are either nil (the
-      ;; default), or a list of properties that may include any of those
-      ;; symbols: `italic', `WEIGHT'
-      modus-themes-prompts '(italic bold)
+        ;; Options for `modus-themes-prompts' are either nil (the
+        ;; default), or a list of properties that may include any of those
+        ;; symbols: `italic', `WEIGHT'
+        modus-themes-prompts '(italic bold)
 
-      ;; The `modus-themes-completions' is an alist that reads two
-      ;; keys: `matches', `selection'.  Each accepts a nil value (or
-      ;; empty list) or a list of properties that can include any of
-      ;; the following (for WEIGHT read further below):
-      ;;
-      ;; `matches'   :: `underline', `italic', `WEIGHT'
-      ;; `selection' :: `underline', `italic', `WEIGHT'
-      ;; modus-themes-completions
-      ;; '((matches . (extrabold))
-      ;;   (selection . (semibold italic text-also)))
-      ;; modus-themes-org-blocks 'gray-background ; {nil,'gray-background,'tinted-background}
+        ;; The `modus-themes-completions' is an alist that reads two
+        ;; keys: `matches', `selection'.  Each accepts a nil value (or
+        ;; empty list) or a list of properties that can include any of
+        ;; the following (for WEIGHT read further below):
+        ;;
+        ;; `matches'   :: `underline', `italic', `WEIGHT'
+        ;; `selection' :: `underline', `italic', `WEIGHT'
+        ;; modus-themes-completions
+        ;; '((matches . (extrabold))
+        ;;   (selection . (semibold italic text-also)))
+        ;; modus-themes-org-blocks 'gray-background ; {nil,'gray-background,'tinted-background}
 
-      ;; The `modus-themes-headings' is an alist: read the manual's
-      ;; node about it or its doc string.  Basically, it supports
-      ;; per-level configurations for the optional use of
-      ;; `variable-pitch' typography, a height value as a multiple of
-      ;; the base font size (e.g. 1.5), and a `WEIGHT'.
-      modus-themes-headings
-      '((1 . (variable-pitch 1.2))
-        (2 . (1.1))
-        (agenda-date . (1.1))
-        (agenda-structure . (variable-pitch light 1.2))
-        (t . (1.1)))))
+        ;; The `modus-themes-headings' is an alist: read the manual's
+        ;; node about it or its doc string.  Basically, it supports
+        ;; per-level configurations for the optional use of
+        ;; `variable-pitch' typography, a height value as a multiple of
+        ;; the base font size (e.g. 1.5), and a `WEIGHT'.
+        modus-themes-headings
+        '((1 . (variable-pitch 1.2))
+          (2 . (1.1))
+          (agenda-date . (1.1))
+          (agenda-structure . (variable-pitch light 1.2))
+          (t . (1.1)))))
 
-  ;; Maybe define some palette overrides, such as by using our presets
-  ;; (setq modus-themes-common-palette-overrides
-  ;;       modus-themes-preset-overrides-intense)
+;; Maybe define some palette overrides, such as by using our presets
+;; (setq modus-themes-common-palette-overrides
+;;       modus-themes-preset-overrides-intense)
 
 (define-key global-map (kbd "<f5>") #'modus-themes-toggle)
 
@@ -483,9 +483,9 @@
 ;; Email configuration in Emacs
 ;; WARNING: needs the `mu' program installed; see the elisp file for more
 ;; details.
-;(load-file (expand-file-name "extras/email.el" user-emacs-directory))
+                                        ;(load-file (expand-file-name "extras/email.el" user-emacs-directory))
 
 ;; Tools for academic researchers
-;(load-file (expand-file-name "extras/researcher.el" user-emacs-directory))
+                                        ;(load-file (expand-file-name "extras/researcher.el" user-emacs-directory))
 
 (put 'upcase-region 'disabled nil)
