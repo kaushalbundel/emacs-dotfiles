@@ -134,22 +134,41 @@
 
 ;; setting for web development
 ;;(copied from https://cestlaz.github.io/posts/using-emacs-21-web-mode/)
+;; commenting the old web mode config to test the new config
+;; (use-package web-mode
+;;   :ensure t
+;;   :config
+;;   (add-to-list 'auto-mode-alist '("\\.php\\'" . web-mode))
+;;   (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+;;   (add-to-list 'auto-mode-alist '("\\.css\\'" . web-mode))
+;;   (add-to-list 'auto-mode-alist '("\\.js[x]?\\'" . web-mode)) ; For .js and .jsx
+;;   (add-to-list 'auto-mode-alist '("\\.json\\'" . web-mode))
+;;   (setq web-mode-engines-alist
+;;         '(("django"    . "\\.html\\'")))
+;;   (setq web-mode-ac-sources-alist
+;;         '(("css" . (ac-source-css-property))
+;;           ("html" . (ac-source-words-in-buffer ac-source-abbrev))))
+
+;;   (setq web-mode-enable-auto-closing t)
+;;   (setq web-mode-enable-auto-quoting t))
+
 (use-package web-mode
   :ensure t
+  ;; Use the :mode keyword for a cleaner setup
+  :mode (("\\.php\\'" . web-mode)
+         ("\\.html?\\'" . web-mode)
+         ("\\.css\\'" . web-mode)
+         ("\\.jsx?\\'" . web-mode) ; .js and .jsx
+         ("\\.json\\'" . web-mode))
   :config
-  (add-to-list 'auto-mode-alist '("\\.php\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.css\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.js[x]?\\'" . web-mode)) ; For .js and .jsx
-  (add-to-list 'auto-mode-alist '("\\.json\\'" . web-mode))
-  (setq web-mode-engines-alist
-        '(("django"    . "\\.html\\'")))
-  (setq web-mode-ac-sources-alist
-        '(("css" . (ac-source-css-property))
-          ("html" . (ac-source-words-in-buffer ac-source-abbrev))))
-
+  ;; Enable both auto-closing and auto-pairing for a fluid experience
   (setq web-mode-enable-auto-closing t)
-  (setq web-mode-enable-auto-quoting t)) 
+  (setq web-mode-enable-auto-pairing t) 
+  (setq web-mode-enable-auto-quoting t)
+  
+  ;; Your Django setting is fine
+  (setq web-mode-engines-alist
+        '(("django" . "\\.html\\'"))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Python 
@@ -293,7 +312,8 @@
 (use-package emmet-mode
   :ensure t
   :hook ((sgml-mode-hook . emmet-mode)
-         (css-mode-hook . emmet-mode)))
+         (css-mode-hook . emmet-mode)
+         (web-mode . emmet-mode)))
 
 ;; indent bar mode (Does not work on mac)
 (cond
