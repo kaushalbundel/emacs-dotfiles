@@ -142,12 +142,6 @@
 (when (equal system-type 'darwin)
   (setq package-check-signature nil))
 
-;; mac-specific copy and paste
-(when (eq system-type 'darwin)
-  (setq org-download-screenshot-method "/usr/local/bin/pngpaste %s"))  
-:bind
-("C-M-y" . 'org-download-clipboard))
-
 ;;pricision mode is not working on macos
 (when (equal system-type 'darwin)
   (setq pixel-scroll-precision-mode nil))

@@ -202,14 +202,20 @@
   :after org
   :hook ((dired-mode . org-download-enable)
          (org-mode . org-download-enable))
+  :bind
+  ("C-M-y" . org-download-clipboard)
   :config
-  ;; (setq org-download-backend (if IS-LINUX "curl" "url-retrieve"))
+  ;; General settings
   (setq org-download-heading-lvl nil)
   (setq org-download-backend "curl")
   (setq-default org-download-image-dir "./images")
   (setq org-download-image-attr-list
         '("#+attr_html: :width 40% :align center"
-          "#+attr_latex: :width 0.5\\textwidth")))
+          "#+attr_latex: :width 0.5\\textwidth"))
+
+  ;; macOS-specific configuration for screenshots
+  (when (eq system-type 'darwin)
+    (setq org-download-screenshot-method "/usr/local/bin/pngpaste %s")))
 
 ;; installing ox-hugo for blogging workflow
 (use-package ox-hugo
