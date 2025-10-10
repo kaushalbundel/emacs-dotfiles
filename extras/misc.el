@@ -291,6 +291,7 @@ If DEST, a buffer, is provided, insert the markup there."
 (define-key global-map (kbd "C-c n s") #'kaushal/eww-to-org)
 
 ;; Anki in Emacs
+;; Important Note: The Anki program should be running as the note gets synced
 (use-package org-anki
   :ensure t
   :after org
