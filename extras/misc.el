@@ -289,3 +289,10 @@ If DEST, a buffer, is provided, insert the markup there."
     (goto-char (point-min))))
 
 (define-key global-map (kbd "C-c n s") #'kaushal/eww-to-org)
+
+;; Anki in Emacs
+(use-package org-anki
+  :ensure t
+  :after org
+  :config
+  (customize-set-variable 'org-anki-default-deck "Default"))
