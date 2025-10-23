@@ -419,7 +419,7 @@
 (global-set-key "\C-x3" (lambda () (interactive)(split-window-horizontally) (other-window 1)))
 
 ;;loading themes
-(load-theme 'doom-nord :no-confirm)
+(load-theme 'modus-operandi-tinted :no-confirm)
 
 ;; changing the default face for the solarized dark high contrast theme
 ;; this is done to make the words more crisp
