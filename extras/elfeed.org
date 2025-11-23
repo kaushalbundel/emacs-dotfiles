@@ -6,6 +6,7 @@
 *** https://newsletter.theindianotes.com/feed
 *** https://fs.blog/feed/
 *** https://feeds.feedburner.com/collabfund
+*** https://collabfund.substack.com/feed
 *** https://rootsofprogress.org/feed.xml
 *** https://ciechanow.ski/atom.xml
 *** https://www.noahpinion.blog/feed
