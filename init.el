@@ -130,7 +130,7 @@
 
 ;;windows specific change
 (when (equal system-type 'windows-nt)
-  (setopt default-directory "C:\\Users\\kaush"))
+  (setopt default-directory "C:/Users/kaush/"))
 
 ;;mac-specific settings
 (when (equal system-type 'darwin)
@@ -456,7 +456,7 @@
 (load-file (expand-file-name "extras/dev.el" user-emacs-directory)) 
 
 ;; Vim-bindings in Emacs (evil-mode configuration)
-(load-file (expand-file-name "extras/vim-like.el" user-emacs-directory))
+;; (load-file (expand-file-name "extras/vim-like.el" user-emacs-directory))
 
 ;; Org-mode configuration
 ;; WARNING: need to customize things inside the elisp file before use! See
