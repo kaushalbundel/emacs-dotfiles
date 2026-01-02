@@ -1,4 +1,4 @@
-                                        ; Inspired from Emacs Bedrock (https://codeberg.org/ashton314/emacs-bedrock)
+ ; Inspired from Emacs Bedrock (https://codeberg.org/ashton314/emacs-bedrock)
 ;;; Minimal init.el
 
 ;;; Contents:
@@ -130,7 +130,19 @@
 
 ;;windows specific change
 (when (equal system-type 'windows-nt)
-  (setopt default-directory "C:/Users/kaush/"))
+  (setq default-directory "C:/Users/kaush/"))
+
+;; setting hunspell for windows
+(when (equal system-type 'windows-nt)
+  (setq ispell-program-name "hunspell") ;; setting hunspell as spell check program
+  (setq ispell-local-dictionary "en_US")
+  (setq ispell-local-dictionary-alist
+        '(("en_US" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "en_US") nil utf-8)))
+  (setenv "DICTIONARY" "en_US")
+  (setenv "DICPATH" "C:/Users/kaush/hunspell/") ;; setting directory where english or other language files are stored from https://github.com/LibreOffice/dictionaries
+(setq ispell-hunspell-dict-paths-alist
+      '(("en_US" "C:/Users/kaush/hunspell/en_US.aff")))
+  )
 
 ;;mac-specific settings
 (when (equal system-type 'darwin)

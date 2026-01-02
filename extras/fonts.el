@@ -8,8 +8,8 @@
   (set-face-attribute 'variable-pitch nil :family "Aporetic Sans Mono" :height 100)
   (set-face-attribute 'corfu-default nil :font "Aporetic Sans Mono" :height 100))
  ((equal system-type 'windows-nt)
-  (set-face-attribute 'default nil :family "JetBrains Mono NL" :weight 'Regular :height 90)
-  (set-face-attribute 'variable-pitch nil :family "Iosevka Comfy Motion Fixed" :weight 'Regular :height 90)))
+  (set-face-attribute 'default nil :family "JetBrains Mono NL" :weight 'Regular :height 110)
+  (set-face-attribute 'variable-pitch nil :family "Iosevka Comfy Motion Fixed" :weight 'Regular :height 110)))
 
 (use-package nerd-icons
   :ensure t
