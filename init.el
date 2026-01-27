@@ -276,7 +276,7 @@
                 elfeed-search-mode-hook))
   (add-hook mode (lambda ()(display-line-numbers-mode 0))))
 ;; changing the line numbers type
-(setopt display-line-numbers-type 'relative)
+(setopt display-line-numbers-type t)
 
 ;; Nice line wrapping when working with text
 (add-hook 'text-mode-hook 'visual-line-mode)
@@ -419,7 +419,7 @@
 (global-set-key "\C-x3" (lambda () (interactive)(split-window-horizontally) (other-window 1)))
 
 ;;loading themes
-(load-theme 'modus-vivendi-tinted :no-confirm)
+(load-theme 'modus-operandi-tinted :no-confirm)
 
 ;; changing the default face for the solarized dark high contrast theme
 ;; this is done to make the words more crisp
@@ -433,7 +433,7 @@
 (use-package crux
   :ensure t
   :defer t
-  :bind ("C-k" . 'crux-smart-kill-line)
+  :bind* ("C-k" . 'crux-smart-kill-line)
   ("<C-S-return>" . 'crux-smart-open-line-above)
   ("<C-return>" . 'crux-smart-open-line)
   ("C-c P" . 'crux-kill-buffer-truename)

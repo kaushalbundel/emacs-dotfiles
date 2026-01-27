@@ -343,3 +343,12 @@
 (use-package pet
   :config
   (add-hook 'python-base-mode-hook 'pet-mode -10))
+
+;; vue file editing in emacs
+
+;; adding vue file in web mode
+(add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
+
+;; adding hook to enable lsp mode as web-mode is started for vue files
+(setq web-mode-engines-alist
+      '(("vue" . "\\.vue\\'")))
