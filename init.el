@@ -148,6 +148,16 @@
 ;; deleted files moving to Trash
 (setq delete-by-moving-to-trash t)
 
+;; spelling related changes for linux
+;; Set hunspell as the default spell checker
+(setq ispell-program-name "hunspell")
+
+;; Force the dictionary to en_IN
+(setq ispell-local-dictionary "en_IN")
+
+;; Optional: Set up a fallback to US English if IN isn't found
+(setq ispell-dictionary "en_IN")
+
 ;; changing yes and no to y and n
 (setopt use-short-answers t)
 

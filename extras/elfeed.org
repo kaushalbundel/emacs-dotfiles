@@ -32,6 +32,7 @@
 *** https://steveblank.com/feed/
 *** https://navalsarchive.substack.com/feed/
 *** https://feeds.feedblitz.com/marginalrevolution
+*** https://filteredkapi.substack.com/feed
 ** Tech :Tech:
 *** https://nadh.in/index.xml
 *** https://api.quantamagazine.org/feed/
