@@ -87,6 +87,11 @@
 (use-package embark-consult
   :ensure t)
 
+(use-package consult-eglot
+  :ensure t
+  :after eglot
+  :bind (:map eglot-mode-map
+              ("M-g s" . consult-eglot-symbols))) ; Live-search symbols in the current project
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;;   Minibuffer and completion

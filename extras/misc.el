@@ -1,10 +1,3 @@
-;;to encode secret API key 
-;;https://www.reddit.com/r/emacs/comments/kxxkg9/how_do_guys_include_secrets_in_their_initel/
-;; (defun my-auth (key)
-;;   (with-temp-buffer
-;;     (insert-file-contents-literally "~/.my-auth")
-;;     (alist-get key (read (current-buffer)))))
-
 ;; denote package
 (use-package denote
   :ensure t
@@ -65,15 +58,23 @@
                  :kill-buffer t
                  :jump-to-captured t)))
 
+;; GPTEL for LLM integration
+(use-package gptel
+  :ensure t
+  :config
+  ;; 1. Define the helper function to read your key
+  (defun my-get-gemini-key ()
+    "Read the Gemini API key from ~/.my-auth and trim whitespace."
+    (if (file-exists-p "~/.my-auth")
+        (with-temp-buffer
+          (insert-file-contents "~/.my-auth")
+          (string-trim (buffer-string)))
+      (error "The file ~/.my-auth does not exist!")))
 
-;; GPTEL (flavor of llm in emacs)
-;;TODO: encase the gptel key in a function 
-;; (use-package gptel
-;;   :ensure t
-;;   :defer 5
-;;   :config
-;;   (setq gptel-api-key (my-auth 'key1))
-;;   :bind ("<f1>" . gptel-send))
+  ;; 2. Configure the Gemini backend
+  (gptel-make-gemini "Gemini"
+    :key #'my-get-gemini-key  ;; The '#' tells Emacs this is a function
+    :stream t))
 
 ;; conformatble padding
 (use-package spacious-padding

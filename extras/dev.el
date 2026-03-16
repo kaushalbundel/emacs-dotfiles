@@ -1,26 +1,3 @@
-;;; Emacs Bedrock
-;;;
-;;; Extra config: Development tools
-
-;;; Usage: Append or require this file from init.el for some software
-;;; development-focused packages.
-;;;
-;;; It is **STRONGLY** recommended that you use the base.el config if you want to
-;;; use Eglot. Lots of completion things will work better.
-;;;
-;;; This will try to use tree-sitter modes for many languages. Please run
-;;;
-;;;   M-x treesit-install-language-grammar
-;;;
-;;; Before trying to use a treesit mode.
-
-;;; Contents:
-;;;
-;;;  - Built-in config for developers
-;;;  - Version Control
-;;;  - Common file types
-;;;  - Eglot, the built-in LSP client for Emacs
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;;   Built-in config for developers
@@ -70,59 +47,51 @@
 
 (use-package json-mode
   :ensure t)
-
-;; Emacs ships with a lot of popular programming language modes. If it's not
-;; built in, you're almost certain to find a mode for the language you're
-;; looking for with a quick Internet search.
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;;   Eglot, the built-in LSP client for Emacs
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; Helpful resources:
-;;
-;;  - https://www.masteringemacs.org/article/seamlessly-merge-multiple-documentation-sources-eldoc
-
-;; (use-package eglot
-;;   ;; no :ensure t here because it's built-in
-
-;; ;;  Configure hooks to automatically turn-on eglot for selected modes
-;;   :hook ((python-mode . eglot-ensure))
-
-;;   :custom
-;;   (eglot-send-changes-idle-time 0.1)
-;;   (eglot-extend-to-xref t)              ; activate Eglot in referenced non-project files
-
-;;   :config
-;;   (fset #'jsonrpc--log-event #'ignore)  ; massive perf boost---don't log every event
-;;   ;; Sometimes you need to tell Eglot where to find the language server
-;;   (add-to-list 'eglot-server-programs '(haskell-mode . ("haskell-language-server-wrapper" "--lsp")))
-;; (add-to-list 'eglot-server-programs '(python-mode . ("pyright-langserver" "--stdio"))))
-
+(use-package eglot
+  :ensure nil ;; Built-in in Emacs 29+
+  :hook ((python-ts-mode . eglot-ensure)
+         (tsx-ts-mode    . eglot-ensure)
+         (typescript-ts-mode . eglot-ensure)
+         (js-ts-mode     . eglot-ensure))
+  :bind (:map eglot-mode-map
+              ("C-c l r" . eglot-rename)
+              ("C-c l a" . eglot-code-actions)
+              ("C-c l f" . eglot-format))
+  :config
+  ;; Performance boost: don't log every JSON-RPC event
+  (fset #'jsonrpc--log-event #'ignore) 
+  
+  ;; Tell Eglot to use the servers you already have installed
+  (add-to-list 'eglot-server-programs 
+               '(python-ts-mode . ("pyright-langserver" "--stdio"))))
 
 ;;; setting dart
-(add-to-list 'auto-mode-alist '("\\.dart\\'" . dart-mode))
-(use-package lsp-dart
-  :defer t
-  :hook (dart-mode . lsp-deferred))
+;; (add-to-list 'auto-mode-alist '("\\.dart\\'" . dart-mode))
 
-(use-package dart-mode
-  :defer t
-  :mode ("\\.dart\\'" . dart-mode))
+;; (use-package lsp-dart
+;;   :defer t
+;;   :hook (dart-mode . lsp-deferred))
 
-(use-package hover
-  :defer t
-  :after dart)
+;; (use-package dart-mode
+;;   :defer t
+;;   :mode ("\\.dart\\'" . dart-mode))
 
-(use-package flutter
-  :defer t
-  :after dart-mode)
+;; (use-package hover
+;;   :defer t
+;;   :after dart)
 
-(use-package ob-dart
-  :ensure t
-  :defer t)
+;; (use-package flutter
+;;   :defer t
+;;   :after dart-mode)
+
+;; (use-package ob-dart
+;;   :ensure t
+;;   :defer t)
 
 ;; setting up flutter/drt sdk
 ;; (setq lsp-dart-sdk-dir "/home/kaushalbundel/dev/flutter/bin/dart"
@@ -131,26 +100,6 @@
 
 ;; (require 'ob-dart)			
 ;;(add-to-list 'org-babel-load-languages '(dart . t))
-
-;; setting for web development
-;;(copied from https://cestlaz.github.io/posts/using-emacs-21-web-mode/)
-;; commenting the old web mode config to test the new config
-;; (use-package web-mode
-;;   :ensure t
-;;   :config
-;;   (add-to-list 'auto-mode-alist '("\\.php\\'" . web-mode))
-;;   (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-;;   (add-to-list 'auto-mode-alist '("\\.css\\'" . web-mode))
-;;   (add-to-list 'auto-mode-alist '("\\.js[x]?\\'" . web-mode)) ; For .js and .jsx
-;;   (add-to-list 'auto-mode-alist '("\\.json\\'" . web-mode))
-;;   (setq web-mode-engines-alist
-;;         '(("django"    . "\\.html\\'")))
-;;   (setq web-mode-ac-sources-alist
-;;         '(("css" . (ac-source-css-property))
-;;           ("html" . (ac-source-words-in-buffer ac-source-abbrev))))
-
-;;   (setq web-mode-enable-auto-closing t)
-;;   (setq web-mode-enable-auto-quoting t))
 
 (use-package web-mode
   :ensure t
@@ -170,13 +119,7 @@
   (setq web-mode-engines-alist
         '(("django" . "\\.html\\'"))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Python 
-;;
-;;
-;;
 (setopt org-confirm-babel-evaluate nil) ;; no (y/n) before code execution in source block
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Yasnippets
@@ -205,92 +148,87 @@
 ;;                           (require 'lsp-pyright)
 ;;                           (lsp))))  ; or lsp-deferred
 ;; Basic LSP Mode configuration
-(use-package lsp-mode
-  :ensure t
-  :commands lsp
-  :custom
-  ;; General settings
-  (lsp-keymap-prefix "C-c l")              ;; Set prefix for LSP key bindings
-  (lsp-enable-which-key-integration t)     ;; Enable which-key integration
-  (lsp-headerline-breadcrumb-enable t)     ;; Enable breadcrumb on headerline
-  (lsp-idle-delay 0.5)                     ;; Delay for optimizing performance
-  (lsp-log-io nil)                         ;; Don't log everything = better performance
+;; (use-package lsp-mode
+;;   :ensure t
+;;   :commands lsp
+;;   :custom
+;;   ;; General settings
+;;   (lsp-keymap-prefix "C-c l")              ;; Set prefix for LSP key bindings
+;;   (lsp-enable-which-key-integration t)     ;; Enable which-key integration
+;;   (lsp-headerline-breadcrumb-enable t)     ;; Enable breadcrumb on headerline
+;;   (lsp-idle-delay 0.5)                     ;; Delay for optimizing performance
+;;   (lsp-log-io nil)                         ;; Don't log everything = better performance
   
-  ;; Performance optimization
-  (lsp-completion-provider :none)          ;; Use completion-at-point-functions
-  (lsp-auto-completion nil)
-  (lsp-keep-workspace-alive nil)           ;; Auto-kill LSP server
-  (lsp-signature-auto-activate nil)        ;; Disable automatic signatures
+;;   ;; Performance optimization
+;;   (lsp-completion-provider :none)          ;; Use completion-at-point-functions
+;;   (lsp-auto-completion nil)
+;;   (lsp-keep-workspace-alive nil)           ;; Auto-kill LSP server
+;;   (lsp-signature-auto-activate nil)        ;; Disable automatic signatures
   
-  ;; UI customization
-  (lsp-lens-enable nil)                    ;; Disable code lens (performance)
-  (lsp-modeline-diagnostics-enable t)      ;; Show errors in modeline
-  (lsp-modeline-code-actions-enable t)     ;; Show code actions in modeline
+;;   ;; UI customization
+;;   (lsp-lens-enable nil)                    ;; Disable code lens (performance)
+;;   (lsp-modeline-diagnostics-enable t)      ;; Show errors in modeline
+;;   (lsp-modeline-code-actions-enable t)     ;; Show code actions in modeline
   
-  ;; Configure hooks for common programming modes
-  :hook ((python-mode . lsp-deferred)
-         (js-mode . lsp-deferred)
-         (typescript-mode . lsp-deferred)
-         (web-mode . lsp-deferred)
-         (html-mode . lsp-deferred)
-         (css-mode . lsp-deferred)
-         ;; Add other modes as needed
-         (python-ts-mode . lsp-deferred)   ;;python ts mode provide more features than python mode
-         ;; For dart, which you have in your config
-         (dart-mode . lsp-deferred)
+;;   ;; Configure hooks for common programming modes
+;;   :hook ((python-mode . lsp-deferred)
+;;          (js-mode . lsp-deferred)
+;;          (typescript-mode . lsp-deferred)
+;;          (web-mode . lsp-deferred)
+;;          (html-mode . lsp-deferred)
+;;          (css-mode . lsp-deferred)
+;;          ;; Add other modes as needed
+;;          (python-ts-mode . lsp-deferred)   ;;python ts mode provide more features than python mode
+;;          ;; For dart, which you have in your config
+;;          (dart-mode . lsp-deferred)
          
-         ;; Enables lsp automatically after the LSP server is started
-         (lsp-mode . lsp-enable-which-key-integration))
+;;          ;; Enables lsp automatically after the LSP server is started
+;;          (lsp-mode . lsp-enable-which-key-integration))
 
-  ;; Commands will be added to autoload list automatically
-  :config
-  ;; LSP UI configurations
-  (define-key lsp-mode-map (kbd "C-c l") lsp-command-map)
+;;   ;; Commands will be added to autoload list automatically
+;;   :config
+;;   ;; LSP UI configurations
+;;   (define-key lsp-mode-map (kbd "C-c l") lsp-command-map)
   
-  ;; Python specific settings
-  (setq lsp-pyright-venv-path (expand-file-name "~/.pyenv/versions"))
-  (setq lsp-pyright-use-library-code-for-types t))
+;;   ;; Python specific settings
+;;   (setq lsp-pyright-venv-path (expand-file-name "~/.pyenv/versions"))
+;;   (setq lsp-pyright-use-library-code-for-types t))
 
-;; LSP UI for richer experience
-(use-package lsp-ui
-  :ensure t
-  :after lsp-mode
-  :commands lsp-ui-mode
-  :custom
-  (lsp-ui-doc-enable t)                  ;; Enable documentation popups
-  (lsp-ui-doc-position 'at-point)        ;; Show docs at point
-  (lsp-ui-doc-delay 0.5)                 ;; Delay before showing docs
-  (lsp-ui-sideline-enable t)             ;; Enable sideline info
-  (lsp-ui-sideline-show-diagnostics t)   ;; Show diagnostics in sideline
-  (lsp-ui-sideline-show-code-actions t)  ;; Show code actions in sideline
-  (lsp-ui-sideline-ignore-duplicate t)   ;; Don't show duplicate info
-  :config
-  ;; Key bindings for UI components
-  (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
-  (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references))
+;; ;; LSP UI for richer experience
+;; (use-package lsp-ui
+;;   :ensure t
+;;   :after lsp-mode
+;;   :commands lsp-ui-mode
+;;   :custom
+;;   (lsp-ui-doc-enable t)                  ;; Enable documentation popups
+;;   (lsp-ui-doc-position 'at-point)        ;; Show docs at point
+;;   (lsp-ui-doc-delay 0.5)                 ;; Delay before showing docs
+;;   (lsp-ui-sideline-enable t)             ;; Enable sideline info
+;;   (lsp-ui-sideline-show-diagnostics t)   ;; Show diagnostics in sideline
+;;   (lsp-ui-sideline-show-code-actions t)  ;; Show code actions in sideline
+;;   (lsp-ui-sideline-ignore-duplicate t)   ;; Don't show duplicate info
+;;   :config
+;;   ;; Key bindings for UI components
+;;   (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
+;;   (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references))
 
-;; LSP Treemacs integration for project symbols
-(use-package lsp-treemacs
-  :ensure t
-  :after (lsp-mode treemacs)
-  :commands lsp-treemacs-errors-list
-  :bind (:map lsp-mode-map
-              ("C-c l t e" . lsp-treemacs-errors-list)
-              ("C-c l t s" . lsp-treemacs-symbols)))
+;; ;; LSP Treemacs integration for project symbols
+;; (use-package lsp-treemacs
+;;   :ensure t
+;;   :after (lsp-mode treemacs)
+;;   :commands lsp-treemacs-errors-list
+;;   :bind (:map lsp-mode-map
+;;               ("C-c l t e" . lsp-treemacs-errors-list)
+;;               ("C-c l t s" . lsp-treemacs-symbols)))
 
-;; Specific configuration for Python
-(use-package lsp-pyright
-  :ensure t
-  :hook (python-mode . (lambda ()
-                         (require 'lsp-pyright)
-                         (lsp-deferred)))
-  :custom
-  (lsp-pyright-multi-root nil))
-
-;; Yasnippet for code templates
-(use-package yasnippet
-  :ensure t
-  :hook (lsp-mode . yas-minor-mode))
+;; ;; Specific configuration for Python
+;; (use-package lsp-pyright
+;;   :ensure t
+;;   :hook (python-mode . (lambda ()
+;;                          (require 'lsp-pyright)
+;;                          (lsp-deferred)))
+;;   :custom
+;;   (lsp-pyright-multi-root nil))
 
 ;; Optional: which-key for better key binding discovery
 (use-package which-key
@@ -317,27 +255,28 @@
 
 ;; indent bar mode (Does not work on mac)
 (cond
- ((equal system-type 'darin)
+ ((equal system-type 'darwin)
   (use-package highlight-indent-guides
+    :ensure t
     :hook (prog-mode . highlight-indent-guides-mode)
     :config
     (setopt highlight-indent-guides-method 'character
             highlight-indent-guides-responsive 'top)))
  ((equal system-type 'gnu/linux)
   (use-package indent-bars
+    :ensure t
     :hook (prog-mode . indent-bars-mode)
     :config
     (setq
-     indent-bars-color '(highlight :face-bg t :blend 0.15)
-     indent-bars-pattern "."
-     indent-bars-width-frac 0.1
-     indent-bars-pad-frac 0.1
-     indent-bars-zigzag nil
-     indent-bars-color-by-depth '(:regexp "outline-\\([0-9]+\\)" :blend 1) ; blend=1: blend with BG only
-     indent-bars-highlight-current-depth '(:blend 0.5) ; pump up the BG blend on current
-     indent-bars-display-on-blank-lines t))
-  )
- )
+    indent-bars-color '(highlight :face-bg t :blend 0.15)
+    indent-bars-pattern "."
+    indent-bars-width-frac 0.1
+    indent-bars-pad-frac 0.1
+    indent-bars-zigzag nil
+    indent-bars-color-by-depth '(:regexp "outline-\\([0-9]+\\)" :blend 1) ; blend=1: blend with BG only
+    indent-bars-highlight-current-depth '(:blend 0.5) ; pump up the BG blend on current
+    indent-bars-display-on-blank-lines nil))
+  ))
 
 ;;python environment setup tool
 (use-package pet
@@ -352,3 +291,9 @@
 ;; adding hook to enable lsp mode as web-mode is started for vue files
 (setq web-mode-engines-alist
       '(("vue" . "\\.vue\\'")))
+
+;; racket mode (for SICP)
+(use-package racket-mode
+  :ensure t
+  :mode ("\\.rkt\\'" . racket-mode)
+  :hook (racket-mode . eglot-ensure))

@@ -1,4 +1,4 @@
-                                        ; Inspired from Emacs Bedrock (https://codeberg.org/ashton314/emacs-bedrock)
+;;; Inspired from Emacs Bedrock (https://codeberg.org/ashton314/emacs-bedrock)
 ;;; Minimal init.el
 
 ;;; Contents:
@@ -355,7 +355,7 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; recent file access
-(global-set-key (kbd "C-c f r") 'recentf)
+(global-set-key (kbd "C-c f r") 'consult-recent-file)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
@@ -429,7 +429,7 @@
 (global-set-key "\C-x3" (lambda () (interactive)(split-window-horizontally) (other-window 1)))
 
 ;;loading themes
-(load-theme 'modus-operandi-tinted :no-confirm)
+(load-theme 'doom-gruvbox :no-confirm)
 
 ;; changing the default face for the solarized dark high contrast theme
 ;; this is done to make the words more crisp
@@ -473,7 +473,6 @@
 ;; the file extras/org-intro.txt for help.
 (load-file (expand-file-name "extras/org.el" user-emacs-directory))
 
-
 ;; beautification and related things (fonts, icons etc)
 (load-file (expand-file-name "extras/fonts.el" user-emacs-directory))
 
@@ -483,19 +482,7 @@
 ;; elfeed
 (load-file (expand-file-name "extras/elfeed.el" user-emacs-directory))
 
-
 ;; custom config
 (setq custom-file "~/.emacs.d/extras/custom.el")
 (ignore-errors (load custom-file)) ;; It may not yet exist.
 (setq enable-local-variables :safe)
-
-
-;; Email configuration in Emacs
-;; WARNING: needs the `mu' program installed; see the elisp file for more
-;; details.
-                                        ;(load-file (expand-file-name "extras/email.el" user-emacs-directory))
-
-;; Tools for academic researchers
-                                        ;(load-file (expand-file-name "extras/researcher.el" user-emacs-directory))
-
-(put 'upcase-region 'disabled nil)
