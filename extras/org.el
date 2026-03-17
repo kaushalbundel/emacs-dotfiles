@@ -101,21 +101,17 @@
 (use-package org
   :hook ((org-mode . visual-line-mode)  ; wrap lines at word breaks
          (org-mode . flyspell-mode)
-         (org-mode . org-indent-mode))    ; spell checking!
-
+         (org-mode . org-indent-mode))    
   :bind (:map global-map
               ("C-c l s" . org-store-link)          ; Mnemonic: link → store
               ("C-c l i" . org-insert-link-global)) ; Mnemonic: link → insert
   :config
   (require 'oc-csl)                     ; citation support
   (add-to-list 'org-export-backends 'md)
-
   ;; Make org-open-at-point follow file links in the same window
   (setf (cdr (assoc 'file org-link-frame-setup)) 'find-file)
-
   ;; Make exporting quotes better
-  (setq org-export-with-smart-quotes t)
-  )
+  (setq org-export-with-smart-quotes t))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
@@ -132,11 +128,10 @@
   ;; that a task can be in.
   (setq org-todo-keywords
         '((sequence "TODO(t)" "WAITING(w@/!)" "STARTED(s!)" "|" "DONE(d!)" "Dropped(o@)" "Rescheduled")))
-
   ;; Refile configuration
   (setq org-outline-path-complete-in-steps nil)
   (setq org-refile-use-outline-path 'file)
-
+  ;; org capture
   (setq org-capture-templates
         '(("c" "Default Capture" entry (file "todo.org")
            "* TODO %?\n%U\n%i")
@@ -175,10 +170,6 @@
 ;; org capture shortcut
 (keymap-global-set "C-c x" 'org-capture)
 
-(setq org-habit-graph-column 80)
-;; setting org-bullets
-;; org-bullets is now archieved, using org-superstar now
-
 (use-package org-superstar
   :ensure t
   :after (org)
@@ -186,7 +177,6 @@
   (setopt org-hide-leading-stars t
 	      org-superstar-leading-bullet ?\s
 	      org-superstar-special-todo-items t))
-
 
 ;; org-noter
 (use-package org-noter
