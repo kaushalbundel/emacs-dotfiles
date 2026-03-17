@@ -153,10 +153,10 @@
 (setq ispell-program-name "hunspell")
 
 ;; Force the dictionary to en_IN
-(setq ispell-local-dictionary "en_IN")
+(setq ispell-local-dictionary "en_US")
 
 ;; Optional: Set up a fallback to US English if IN isn't found
-(setq ispell-dictionary "en_IN")
+(setq ispell-dictionary "en_US")
 
 ;; changing yes and no to y and n
 (setopt use-short-answers t)
@@ -355,6 +355,8 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; recent file access
+(recentf-mode 1)
+(setq recentf-max-saved-items 50)
 (global-set-key (kbd "C-c f r") 'consult-recent-file)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
