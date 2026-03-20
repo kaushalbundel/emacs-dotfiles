@@ -1,8 +1,9 @@
 ;; setting fonts for mac and linux
 (cond
  ((equal system-type 'darwin)
-  (set-face-attribute 'default nil :family "Aporetic Sans Mono" :weight 'Regular :height 120)
-  (set-face-attribute 'variable-pitch nil :family "Aporetic Serif Mono" :weight 'Regular :height 120))
+  (set-face-attribute 'default nil :family "JetBrainsMono Nerd Font Mono" :weight 'Regular :height 110)
+  (set-face-attribute 'variable-pitch nil :family "JetBrainsMono Nerd Font Mono" :weight 'Regular :height 110)
+  (set-face-attribute 'corfu-default nil :font "JetBrainsMono Nerd Font Mono" :height 100))
  ((equal system-type 'gnu/linux)
   (set-face-attribute 'default nil :family "JetBrains Mono" :height 100)
   (set-face-attribute 'variable-pitch nil :family "JetBrains Mono" :height 100)
