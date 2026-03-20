@@ -145,18 +145,19 @@
 ;;pricision mode is not working on macos
 (when (equal system-type 'darwin)
   (setq pixel-scroll-precision-mode nil))
+
 ;; deleted files moving to Trash
 (setq delete-by-moving-to-trash t)
 
-;; spelling related changes for linux
+;; spelling related changes that should be applicable for windows only
+
+(when (equal system-type 'windows-nt)
 ;; Set hunspell as the default spell checker
-(setq ispell-program-name "hunspell")
-
-;; Force the dictionary to en_IN
-(setq ispell-local-dictionary "en_US")
-
-;; Optional: Set up a fallback to US English if IN isn't found
-(setq ispell-dictionary "en_US")
+  (setq ispell-program-name "hunspell")
+  ;; Force the dictionary to en_IN
+  (setq ispell-local-dictionary "en_US")
+  ;; Optional: Set up a fallback to US English if IN isn't found
+  (setq ispell-dictionary "en_US"))
 
 ;; changing yes and no to y and n
 (setopt use-short-answers t)
