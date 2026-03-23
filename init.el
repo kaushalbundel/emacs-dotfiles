@@ -128,9 +128,9 @@
 (setq scroll-margin 2)        ;;maintaining a little margin while scrolling
 (setq save-interprogram-paste-before-kill t) ;;integrates system clipboard to kill ring
 
-;;windows specific change
+;;windows specific changes
 (when (equal system-type 'windows-nt)
-  (setopt default-directory "C:/Users/kaush/"))
+  (setq default-directory "C:/Users/kaush/"))
 
 ;;mac-specific settings
 (when (equal system-type 'darwin)
@@ -149,15 +149,16 @@
 ;; deleted files moving to Trash
 (setq delete-by-moving-to-trash t)
 
-;; spelling related changes that should be applicable for windows only
-
+;; setting hunspell for windows
 (when (equal system-type 'windows-nt)
-;; Set hunspell as the default spell checker
-  (setq ispell-program-name "hunspell")
-  ;; Force the dictionary to en_IN
+  (setq ispell-program-name "hunspell") ;; setting hunspell as spell check program
   (setq ispell-local-dictionary "en_US")
-  ;; Optional: Set up a fallback to US English if IN isn't found
-  (setq ispell-dictionary "en_US"))
+  (setq ispell-local-dictionary-alist
+        '(("en_US" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "en_US") nil utf-8)))
+  (setenv "DICTIONARY" "en_US")
+  (setenv "DICPATH" "C:/Users/kaush/hunspell/") ;; setting directory where english or other language files are stored from https://github.com/LibreOffice/dictionaries
+  (setq ispell-hunspell-dict-paths-alist
+      '(("en_US" "C:/Users/kaush/hunspell/en_US.aff"))))
 
 ;; changing yes and no to y and n
 (setopt use-short-answers t)
