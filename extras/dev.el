@@ -13,6 +13,7 @@
   (setq major-mode-remap-alist
         '((yaml-mode . yaml-ts-mode)
           (bash-mode . bash-ts-mode)
+          (javascript-mode . js-ts-mode)
           (js2-mode . js-ts-mode)
           (typescript-mode . typescript-ts-mode)
           (json-mode . json-ts-mode)
@@ -68,7 +69,9 @@
   
   ;; Tell Eglot to use the servers you already have installed
   (add-to-list 'eglot-server-programs 
-               '(python-ts-mode . ("pyright-langserver" "--stdio"))))
+               '(python-ts-mode . ("pyright-langserver" "--stdio")))
+  (add-to-list 'eglot-server-programs
+               '(js-ts-mode . ("typescript-language-server" "--stdio"))))
 
 ;;; setting dart
 ;; (add-to-list 'auto-mode-alist '("\\.dart\\'" . dart-mode))
@@ -107,7 +110,7 @@
   :mode (("\\.php\\'" . web-mode)
          ("\\.html?\\'" . web-mode)
          ("\\.css\\'" . web-mode)
-         ("\\.jsx?\\'" . web-mode) ; .js and .jsx
+         ;;("\\.jsx?\\'" . web-mode) ; .js and .jsx are removed so that direct js mode can work instead of web-mode
          ("\\.json\\'" . web-mode))
   :config
   ;; Enable both auto-closing and auto-pairing for a fluid experience
@@ -295,5 +298,5 @@
 ;; racket mode (for SICP)
 (use-package racket-mode
   :ensure t
-  :mode ("\\.rkt\\'" . racket-mode)
-  :hook (racket-mode . eglot-ensure))
+  :mode (("\\.rkt\\'" . racket-mode))
+  :hook ((racket-mode . eglot-ensure)))
