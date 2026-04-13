@@ -298,3 +298,24 @@ If DEST, a buffer, is provided, insert the markup there."
   :after org
   :config
   (customize-set-variable 'org-anki-default-deck "Default"))
+
+;; Script to create a quick markdown or anyother format file quickly
+(defun kaushal/create-dated-file()
+  "Create a file with specific extension and name. This replicates the functionality of file-create-date-time.py"
+  (interactive)
+  (let* ((extension (read-string "Enter file extension (default .org): " nil nil "org"))
+         (default-name (format-time-string "%Y-%m-%d"))
+         (name (read-string (format "Enter file name (default %s): " default-name) nil nil default-name))
+         ;; Ensuring the extension does not have a leading dot
+         (clean-ext (if (string-prefix-p "." extension)
+                        (substring extension 1)
+                      extension))
+         (file-name (format "%s.%s" name clean-ext)))
+    (if (file-exists-p file-name)
+        (message "Error: The file already Exists." file-name)
+      (write-region "" nil file-name)
+      (message "Success! File %s has been created." file-name)
+      (find-file file-name))))
+
+;;  adding a keybinding
+(define-key global-map (kbd "C-c f c") #'kaushal/create-dated-file)
