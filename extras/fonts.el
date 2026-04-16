@@ -5,7 +5,7 @@
   (set-face-attribute 'variable-pitch nil :family "JetBrainsMono Nerd Font Mono" :weight 'Regular :height 120)
   (set-face-attribute 'corfu-default nil :font "JetBrainsMono Nerd Font Mono" :height 110))
  ((equal system-type 'gnu/linux)
-  (set-face-attribute 'default nil :family "JetBrains Mono" :height 100)
+  (set-face-attribute 'default nil :family "ComicShannsMono Nerd Font" :height 110)
   (set-face-attribute 'variable-pitch nil :family "JetBrains Mono" :height 100)
   (set-face-attribute 'corfu-default nil :font "JetBrains Mono" :height 90))
  ((equal system-type 'windows-nt)

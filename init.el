@@ -149,16 +149,29 @@
 ;; deleted files moving to Trash
 (setq delete-by-moving-to-trash t)
 
-;; setting hunspell for windows
-(when (equal system-type 'windows-nt)
-  (setq ispell-program-name "hunspell") ;; setting hunspell as spell check program
+;; flyspell mode for spelling check
+(cond
+ ;; --- Windows Configuration ---
+ ((equal system-type 'windows-nt)
+  (setq ispell-program-name "hunspell")
   (setq ispell-local-dictionary "en_US")
   (setq ispell-local-dictionary-alist
         '(("en_US" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "en_US") nil utf-8)))
   (setenv "DICTIONARY" "en_US")
-  (setenv "DICPATH" "C:/Users/kaush/hunspell/") ;; setting directory where english or other language files are stored from https://github.com/LibreOffice/dictionaries
+  (setenv "DICPATH" "C:/Users/kaush/hunspell/")
   (setq ispell-hunspell-dict-paths-alist
-      '(("en_US" "C:/Users/kaush/hunspell/en_US.aff"))))
+        '(("en_US" "C:/Users/kaush/hunspell/en_US.aff"))))
+
+ ;; --- Linux (CachyOS) Configuration ---
+ ((equal system-type 'gnu/linux)
+  (when (executable-find "hunspell")
+    (setq ispell-program-name "hunspell")
+    (setq ispell-really-hunspell t)
+    (setq ispell-dictionary "en_US"))))
+
+;; --- Global Flyspell Settings (Works on both) ---
+(add-hook 'text-mode-hook 'flyspell-mode)
+(add-hook 'prog-mode-hook 'flyspell-prog-mode)
 
 ;; changing yes and no to y and n
 (setopt use-short-answers t)
@@ -433,7 +446,7 @@
 (global-set-key "\C-x3" (lambda () (interactive)(split-window-horizontally) (other-window 1)))
 
 ;;loading themes
-(load-theme 'modus-vivendi-tinted :no-confirm)
+(load-theme 'doom-gruvbox :no-confirm)
 
 ;; changing the default face for the solarized dark high contrast theme
 ;; this is done to make the words more crisp
@@ -470,7 +483,7 @@
 (load-file (expand-file-name "extras/dev.el" user-emacs-directory)) 
 
 ;; Vim-bindings in Emacs (evil-mode configuration)
-;; (load-file (expand-file-name "extras/vim-like.el" user-emacs-directory))
+(load-file (expand-file-name "extras/vim-like.el" user-emacs-directory))
 
 ;; Org-mode configuration
 ;; WARNING: need to customize things inside the elisp file before use! See
