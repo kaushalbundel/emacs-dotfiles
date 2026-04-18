@@ -58,7 +58,8 @@
   :hook ((python-ts-mode . eglot-ensure)
          (tsx-ts-mode    . eglot-ensure)
          (typescript-ts-mode . eglot-ensure)
-         (js-ts-mode     . eglot-ensure))
+         (js-ts-mode     . eglot-ensure)
+         (css-ts-mode . eglot-ensure))
   :bind (:map eglot-mode-map
               ("C-c l r" . eglot-rename)
               ("C-c l a" . eglot-code-actions)
@@ -71,7 +72,10 @@
   (add-to-list 'eglot-server-programs 
                '(python-ts-mode . ("pyright-langserver" "--stdio")))
   (add-to-list 'eglot-server-programs
-               '(js-ts-mode . ("typescript-language-server" "--stdio"))))
+               '(js-ts-mode . ("typescript-language-server" "--stdio")))
+  (add-to-list 'eglot-server-programs
+               '(css-ts-mode . ("vscode-css-language-server" "--stdio")))
+  )
 
 ;;; setting dart
 ;; (add-to-list 'auto-mode-alist '("\\.dart\\'" . dart-mode))
@@ -109,7 +113,7 @@
   ;; Use the :mode keyword for a cleaner setup
   :mode (("\\.php\\'" . web-mode)
          ("\\.html?\\'" . web-mode)
-         ("\\.css\\'" . web-mode)
+         ;;("\\.css\\'" . web-mode)
          ;;("\\.jsx?\\'" . web-mode) ; .js and .jsx are removed so that direct js mode can work instead of web-mode
          ("\\.json\\'" . web-mode))
   :config
