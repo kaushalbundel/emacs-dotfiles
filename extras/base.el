@@ -209,3 +209,9 @@
   :ensure t
   :config
   (setq wgrep-auto-save-buffer t))
+
+;; surround.el (similar to surround vim behavior but for emacs)
+;; short yet crisp documentation: https://emacsredux.com/blog/2026/03/17/surround-el-vim-style-pair-editing-comes-to-emacs/
+(use-package surround
+  :ensure t
+  :bind-keymap ("M-'" . surround-keymap))

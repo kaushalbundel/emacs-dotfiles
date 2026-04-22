@@ -77,6 +77,11 @@
                '(css-ts-mode . ("vscode-css-language-server" "--stdio")))
   )
 
+;; auto-format on save
+(add-hook 'eglot-managed-mode-hook
+          (lambda ()
+            (add-hook 'before-save-hook #'eglot-format-buffer nil t)))
+
 ;;; setting dart
 ;; (add-to-list 'auto-mode-alist '("\\.dart\\'" . dart-mode))
 

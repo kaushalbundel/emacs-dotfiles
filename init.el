@@ -466,6 +466,35 @@
   ("C-c P" . 'crux-kill-buffer-truename)
   ("M-o" . 'crux-other-window-or-switch-buffer))
 
+;; performance tweaks as per emacs-redux (https://emacsredux.com/blog/2026/04/07/stealing-from-the-best-emacs-configs/)
+;; stop bidirectional text scanning
+(setq-default bidi-display-reordering 'left-to-right
+              bidi-paragraph-direction 'left-to-right)
+(setq bidi-inhibit-bpa t)
+
+;; stop fontification during input
+(setq redisplay-skip-fontification-on-input t)
+
+;; Increase process output buffer for LSP (snapier lsp)
+(setq read-process-output-max (* 4 1024 1024))
+
+;; Stop rendering cursor in non-focused window
+(setq-default cursor-in-non-selected-windows nil)
+(setq highlight-nonselected-windows nil)
+
+;; save clipboard before killing
+(setq save-interprogram-paste-before-kill t)
+
+;; No duplicated in kill ring
+(setq kill-do-not-save-duplicates t)
+
+;; kill ring persistence across sessions
+(setq savehist-additional-variables
+      '(search-ring regexp-search-ring kill-ring))
+
+;; auto-select help window
+(setq help-window-select t)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;;   Optional extras
@@ -483,7 +512,7 @@
 (load-file (expand-file-name "extras/dev.el" user-emacs-directory)) 
 
 ;; Vim-bindings in Emacs (evil-mode configuration)
-(load-file (expand-file-name "extras/vim-like.el" user-emacs-directory))
+;; (load-file (expand-file-name "extras/vim-like.el" user-emacs-directory))
 
 ;; Org-mode configuration
 ;; WARNING: need to customize things inside the elisp file before use! See
@@ -503,3 +532,8 @@
 (setq custom-file "~/.emacs.d/extras/custom.el")
 (ignore-errors (load custom-file)) ;; It may not yet exist.
 (setq enable-local-variables :safe)
+
+;; temporary issue in syntax highlight
+;; issue related to version mismatch between os package and emacs package
+;; should be resolved when emacs is updated
+(setq treesit-font-lock-level 2)
