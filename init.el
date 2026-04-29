@@ -360,9 +360,8 @@
   :ensure t)
 
 (use-package exec-path-from-shell
-  :init
-  (when (memq window-system '(mac ns x))
-    (exec-path-from-shell-initialize)))
+  :config
+  (exec-path-from-shell-initialize))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
@@ -536,4 +535,4 @@
 ;; temporary issue in syntax highlight
 ;; issue related to version mismatch between os package and emacs package
 ;; should be resolved when emacs is updated
-(setq treesit-font-lock-level 2)
+;;(setq treesit-font-lock-level 2)

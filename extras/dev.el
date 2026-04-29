@@ -75,6 +75,8 @@
                '(js-ts-mode . ("typescript-language-server" "--stdio")))
   (add-to-list 'eglot-server-programs
                '(css-ts-mode . ("vscode-css-language-server" "--stdio")))
+  (add-to-list 'eglot-server-programs
+               '((go-mode go-ts-mode) . ("gopls")))
   )
 
 ;; auto-format on save
@@ -309,3 +311,22 @@
   :ensure t
   :mode (("\\.rkt\\'" . racket-mode))
   :hook ((racket-mode . eglot-ensure)))
+
+;; Configuring go for development
+
+(use-package go-ts-mode
+  :mode "\\.go\\'"
+  :hook ((go-ts-mode . eglot-ensure)
+         (go-ts-mode . subword-mode))
+  :config
+  ;; Optional: Auto-format on save using Eglot/gopls
+  (add-hook 'before-save-hook
+            (lambda ()
+              (when (derived-mode-p 'go-ts-mode)
+                (eglot-format-buffer)))))
+
+;; Organizing go imports
+(add-hook 'before-save-hook
+    (lambda ()
+        (call-interactively 'eglot-code-action-organize-imports))
+    nil t)
