@@ -9,8 +9,8 @@
   (set-face-attribute 'variable-pitch nil :family "ComicShannsMono Nerd Font" :height 100)
   (set-face-attribute 'corfu-default nil :font "ComicShannsMono Nerd Font" :height 90))
  ((equal system-type 'windows-nt)
-  (set-face-attribute 'default nil :family "JetBrains Mono NL" :weight 'Regular :height 90)
-  (set-face-attribute 'variable-pitch nil :family "Iosevka Comfy Motion Fixed" :weight 'Regular :height 90)))
+  (set-face-attribute 'default nil :family "JetBrains Mono NL" :weight 'Regular :height 100)
+  (set-face-attribute 'variable-pitch nil :family "Iosevka Comfy Motion Fixed" :weight 'Regular :height 100)))
 
 (use-package nerd-icons
   :ensure t

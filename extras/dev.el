@@ -23,6 +23,10 @@
   ;; Auto parenthesis matching
   ((prog-mode . electric-pair-mode)))
 
+;; automatically install treesitter grammar
+(use-package treesit-auto
+  :config
+  (global-treesit-auto-mode))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;;   Version Control

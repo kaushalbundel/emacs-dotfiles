@@ -361,7 +361,8 @@
 
 (use-package exec-path-from-shell
   :config
-  (exec-path-from-shell-initialize))
+  (when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
@@ -445,7 +446,7 @@
 (global-set-key "\C-x3" (lambda () (interactive)(split-window-horizontally) (other-window 1)))
 
 ;;loading themes
-(load-theme 'doom-gruvbox :no-confirm)
+(load-theme 'doom-one :no-confirm)
 
 ;; changing the default face for the solarized dark high contrast theme
 ;; this is done to make the words more crisp
