@@ -18,7 +18,8 @@
           (typescript-mode . typescript-ts-mode)
           (json-mode . json-ts-mode)
           (css-mode . css-ts-mode)
-          (python-mode . python-ts-mode)))
+          (python-mode . python-ts-mode)
+          (go-mode . go-ts-mode)))
   :hook
   ;; Auto parenthesis matching
   ((prog-mode . electric-pair-mode)))
@@ -63,7 +64,8 @@
          (tsx-ts-mode    . eglot-ensure)
          (typescript-ts-mode . eglot-ensure)
          (js-ts-mode     . eglot-ensure)
-         (css-ts-mode . eglot-ensure))
+         (css-ts-mode . eglot-ensure)
+         (go-ts-mode . eglot-ensure))
   :bind (:map eglot-mode-map
               ("C-c l r" . eglot-rename)
               ("C-c l a" . eglot-code-actions)
