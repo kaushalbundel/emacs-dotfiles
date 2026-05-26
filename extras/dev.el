@@ -91,31 +91,31 @@
             (add-hook 'before-save-hook #'eglot-format-buffer nil t)))
 
 ;;; setting dart
-;; (add-to-list 'auto-mode-alist '("\\.dart\\'" . dart-mode))
+(add-to-list 'auto-mode-alist '("\\.dart\\'" . dart-mode))
 
 ;; (use-package lsp-dart
 ;;   :defer t
 ;;   :hook (dart-mode . lsp-deferred))
 
-;; (use-package dart-mode
-;;   :defer t
-;;   :mode ("\\.dart\\'" . dart-mode))
+(use-package dart-mode
+  :defer t
+  :mode ("\\.dart\\'" . dart-mode))
 
 ;; (use-package hover
 ;;   :defer t
 ;;   :after dart)
 
-;; (use-package flutter
-;;   :defer t
-;;   :after dart-mode)
+(use-package flutter
+  :defer t
+  :after dart-mode)
 
 ;; (use-package ob-dart
 ;;   :ensure t
 ;;   :defer t)
 
 ;; setting up flutter/drt sdk
-;; (setq lsp-dart-sdk-dir "/home/kaushalbundel/dev/flutter/bin/dart"
-;;       lsp-dart-flutter-sdk-dir "/home/kaushalbundel/dev/flutter/bin/flutter")
+(setq lsp-dart-sdk-dir "/home/kaushalbundel/dev/flutter/bin/dart"
+      lsp-dart-flutter-sdk-dir "/home/kaushalbundel/dev/flutter/bin/flutter")
 ;;TODO:  check if the variable flutter-sdk-path should be defined or not?
 
 ;; (require 'ob-dart)			
