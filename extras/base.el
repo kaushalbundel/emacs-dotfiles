@@ -49,17 +49,11 @@
          ("M-y"   . consult-yank-pop)   ; orig. yank-pop
          ;; Searching
          ("M-s r" . consult-ripgrep)
-         ("M-s l" . consult-line)       ; Alternative: rebind C-s to use
-         ("M-s s" . consult-line)       ; consult-line instead of isearch, bind
+         ("M-s l" . consult-line)       ; consult-line instead of isearch, bind
          ("M-s L" . consult-line-multi) ; isearch to M-s s
          ("M-s o" . consult-outline)
-         ;; Isearch integration
-         :map isearch-mode-map
-         ("M-e" . consult-isearch-history)   ; orig. isearch-edit-string
-         ("M-s e" . consult-isearch-history) ; orig. isearch-edit-string
-         ("M-s l" . consult-line)            ; needed by consult-line to detect isearch
-         ("M-s L" . consult-line-multi)      ; needed by consult-line to detect isearch
-         )
+         ;; consult find file
+         ("M-s f" . 'consult-find))
   :config
   ;; Narrowing lets you restrict results to certain groups of candidates
   (setq consult-narrow-key "<"))
