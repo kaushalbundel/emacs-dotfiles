@@ -384,7 +384,7 @@
 ;;   :config
 ;;   (load-theme 'modus-vivendi))          ; for light theme, use modus-operandi
 
-;; doom emacs
+;;doom emacs
 (use-package doom-themes
   :ensure t
   :defer t
@@ -439,20 +439,19 @@
 ;; (setq modus-themes-common-palette-overrides
 ;;       modus-themes-preset-overrides-intense)
 
-(define-key global-map (kbd "<f5>") #'modus-themes-toggle)
+;;(define-key global-map (kbd "<f5>") #'modus-themes-toggle)
 
 ;; changing buffer while splitting
 (global-set-key "\C-x2" (lambda () (interactive)(split-window-vertically) (other-window 1)))
 (global-set-key "\C-x3" (lambda () (interactive)(split-window-horizontally) (other-window 1)))
-
-;;loading themes
-(load-theme 'doom-gruvbox :no-confirm)
 
 ;; changing the default face for the solarized dark high contrast theme
 ;; this is done to make the words more crisp
 ;;(custom-theme-set-faces 'solarized-dark-high-contrast '(default ((t (:foreground "#F5F5F5")))))
 ;; the change has been applied through "customize face -> default face change"
 
+;; loading themes
+(load-theme 'doom-1337 :no-confirm)
 
 ;;closing windows (like help windows)
 (winner-mode 1)
