@@ -1,21 +1,6 @@
-;;; Inspired from Emacs Bedrock (https://codeberg.org/ashton314/emacs-bedrock)
-;;; Minimal init.el
-
-;;; Contents:
-;;;
-;;;  - Basic settings
-;;;  - Discovery aids
-;;;  - Minibuffer/completion settings
-;;;  - Interface enhancements/defaults
-;;;  - Tab-bar configuration
-;;;  - Theme
-;;;  - Optional extras
-;;;  - Built-in customization framework
-
-;;; Guardrail
-
-;; (when (< emacs-major-version 29)
-;;   (error (format "Emacs Bedrock only works with Emacs 29 and newer; you have version ~a" emacs-major-version)))
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (setq gc-cons-threshold (* 64 1024 1024))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
@@ -113,7 +98,6 @@
 
 ;; backup files
 (setq make-backup-files nil)
-(setq backup-inhibited nil) ; Not sure if needed, given `make-backup-files'
 (setq create-lockfiles nil)
 
 ;; adding unicode support
@@ -292,7 +276,7 @@
 ;; enabling global line number mode
 (global-display-line-numbers-mode 1)
 ;; disable line numbers in specific modes
-(dolist (mode '(term--mode-hook
+(dolist (mode '(term-mode-hook
                 shell-mode-hook
                 eshell-mode-hook
                 eww-mode-hook
@@ -459,11 +443,12 @@
 (use-package crux
   :ensure t
   :defer t
-  :bind* ("C-k" . 'crux-smart-kill-line)
+  :bind
+  (("C-k" . 'crux-smart-kill-line)
   ("<C-S-return>" . 'crux-smart-open-line-above)
   ("<C-return>" . 'crux-smart-open-line)
   ("C-c P" . 'crux-kill-buffer-truename)
-  ("M-o" . 'crux-other-window-or-switch-buffer))
+  ("M-o" . 'crux-other-window-or-switch-buffer)))
 
 ;; performance tweaks as per emacs-redux (https://emacsredux.com/blog/2026/04/07/stealing-from-the-best-emacs-configs/)
 ;; stop bidirectional text scanning
