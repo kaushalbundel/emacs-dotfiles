@@ -1,16 +1,16 @@
 ;; setting fonts for mac and linux
-(cond
- ((equal system-type 'darwin)
-  (set-face-attribute 'default nil :family "ComicShannsMono Nerd Font" :weight 'Regular :height 130)
-  (set-face-attribute 'variable-pitch nil :family "ComicShannsMono Nerd Font" :weight 'Regular :height 130)
-  (set-face-attribute 'corfu-default nil :font "ComicShannsMono Nerd Font" :height 120))
- ((equal system-type 'gnu/linux)
-  (set-face-attribute 'default nil :family "JetBrainsMono Nerd Font Mono" :height 110)
-  (set-face-attribute 'variable-pitch nil :family "JetBrainsMono Nerd Font Mono" :height 110)
-  (set-face-attribute 'corfu-default nil :font "JetBrainsMono Nerd Font Mono" :height 100))
- ((equal system-type 'windows-nt)
-  (set-face-attribute 'default nil :family "JetBrains Mono NL" :weight 'Regular :height 100)
-  (set-face-attribute 'variable-pitch nil :family "Iosevka Comfy Motion Fixed" :weight 'Regular :height 100)))
+; (cond
+;  ((equal system-type 'darwin)
+;   (set-face-attribute 'default nil :family "ComicShannsMono Nerd Font" :weight 'Regular :height 130)
+;   (set-face-attribute 'variable-pitch nil :family "ComicShannsMono Nerd Font" :weight 'Regular :height 130)
+;   (set-face-attribute 'corfu-default nil :font "ComicShannsMono Nerd Font" :height 120))
+;  ((equal system-type 'gnu/linux)
+;   (set-face-attribute 'default nil :family "JetBrainsMono Nerd Font Mono" :height 110)
+;   (set-face-attribute 'variable-pitch nil :family "JetBrainsMono Nerd Font Mono" :height 110)
+;   (set-face-attribute 'corfu-default nil :font "JetBrainsMono Nerd Font Mono" :height 100))
+;  ((equal system-type 'windows-nt)
+;   (set-face-attribute 'default nil :family "JetBrains Mono NL" :weight 'Regular :height 100)
+;   (set-face-attribute 'variable-pitch nil :family "Iosevka Comfy Motion Fixed" :weight 'Regular :height 100)))
 
 (use-package nerd-icons
   :ensure t

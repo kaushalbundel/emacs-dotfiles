@@ -262,8 +262,8 @@
 (setopt line-number-mode t)                        ; Show current line in modeline
 (setopt column-number-mode t)                      ; Show column as well
 (scroll-bar-mode -1)
-(menu-bar-mode -1)
-(tool-bar-mode -1)
+;;(menu-bar-mode -1)
+;;(tool-bar-mode -1)
 
 (setopt x-underline-at-descent-line nil)           ; Prettier underlines
 (setopt switch-to-buffer-obey-display-actions t)   ; Make switching buffers more consistent
@@ -317,14 +317,14 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Show the tab-bar as soon as tab-bar functions are invoked
-(setopt tab-bar-show 1)
+;; (setopt tab-bar-show 1)
 
-;; Add the time to the tab-bar, if visible
-(add-to-list 'tab-bar-format 'tab-bar-format-align-right 'append)
-(add-to-list 'tab-bar-format 'tab-bar-format-global 'append)
-(setopt display-time-format "%a %F %T")
-(setopt display-time-interval 1)
-(display-time-mode)
+;; ;; Add the time to the tab-bar, if visible
+;; (add-to-list 'tab-bar-format 'tab-bar-format-align-right 'append)
+;; (add-to-list 'tab-bar-format 'tab-bar-format-global 'append)
+;; (setopt display-time-format "%a %F %T")
+;; (setopt display-time-interval 1)
+;; (display-time-mode)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -385,13 +385,13 @@
 ;;   (load-theme 'modus-vivendi))          ; for light theme, use modus-operandi
 
 ;;doom emacs
-(use-package doom-themes
-  :ensure t
-  :defer t
-  :config
-  ;; Global settings (defaults)
-  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-        doom-themes-enable-italic t)) ; if nil, italics is universally disabled
+;; (use-package doom-themes
+;;   :ensure t
+;;   :defer t
+;;   :config
+;;   ;; Global settings (defaults)
+;;   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+;;         doom-themes-enable-italic t)) ; if nil, italics is universally disabled
 
 ;; modus theme (additional customization: https://protesilaos.com/emacs/modus-themes#h:1af85373-7f81-4c35-af25-afcef490c111)
 (use-package modus-themes
@@ -451,7 +451,7 @@
 ;; the change has been applied through "customize face -> default face change"
 
 ;; loading themes
-(load-theme 'doom-1337 :no-confirm)
+(load-theme 'modus-vivendi-tinted :no-confirm)
 
 ;;closing windows (like help windows)
 (winner-mode 1)
