@@ -246,7 +246,7 @@
 (setopt line-number-mode t)                        ; Show current line in modeline
 (setopt column-number-mode t)                      ; Show column as well
 (scroll-bar-mode -1)
-;;(menu-bar-mode -1)
+(menu-bar-mode -1)
 ;;(tool-bar-mode -1)
 
 (setopt x-underline-at-descent-line nil)           ; Prettier underlines
@@ -413,10 +413,10 @@
         ;; `variable-pitch' typography, a height value as a multiple of
         ;; the base font size (e.g. 1.5), and a `WEIGHT'.
         modus-themes-headings
-        '((1 . (variable-pitch 1.2))
+        '((1 . (variable-pitch 1.1))
           (2 . (1.1))
           (agenda-date . (1.1))
-          (agenda-structure . (variable-pitch light 1.2))
+          (agenda-structure . (variable-pitch light 1.1))
           (t . (1.1)))))
 
 ;; Maybe define some palette overrides, such as by using our presets

@@ -19,7 +19,8 @@
           (json-mode . json-ts-mode)
           (css-mode . css-ts-mode)
           (python-mode . python-ts-mode)
-          (go-mode . go-ts-mode)))
+          (go-mode . go-ts-mode)
+          (rust-mode . rust-ts-mode)))
   :hook
   ;; Auto parenthesis matching
   ((prog-mode . electric-pair-mode)))
@@ -65,7 +66,8 @@
          (typescript-ts-mode . eglot-ensure)
          (js-ts-mode     . eglot-ensure)
          (css-ts-mode . eglot-ensure)
-         (go-ts-mode . eglot-ensure))
+         (go-ts-mode . eglot-ensure)
+         (rust-ts-mode . eglot-ensure))
   :bind (:map eglot-mode-map
               ("C-c l r" . eglot-rename)
               ("C-c l a" . eglot-code-actions)
@@ -336,3 +338,28 @@
     (lambda ()
         (call-interactively 'eglot-code-action-organize-imports))
     nil t)
+
+;; rust mode for rust programming
+
+(use-package rust-mode
+  :ensure t
+  :mode ("\\.rs\\'" . rust-mode)
+  :init
+  (setq rust-mode-treesitter-derive t)
+  :config
+  (setq rust-format-on-save t))
+
+;; Use cargo-mode instead of the outdated cargo package
+(use-package cargo-mode
+  :ensure t
+  :defer t
+  :hook ((rust-mode . cargo-minor-mode)
+         (rust-ts-mode . cargo-minor-mode)))
+
+;; Map the cargo-mode commands directly to your custom layout in rust-ts-mode
+(with-eval-after-load 'rust-ts-mode
+  (define-key rust-ts-mode-map (kbd "C-c C-c C-u") 'cargo-mode-build)
+  (define-key rust-ts-mode-map (kbd "C-c C-c C-k") 'cargo-mode-execute-task) ; Prompts for any command (like check)
+  (define-key rust-ts-mode-map (kbd "C-c C-c C-t") 'cargo-mode-test)
+  (define-key rust-ts-mode-map (kbd "C-c C-c C-r") 'cargo-mode-run)
+  (define-key rust-ts-mode-map (kbd "C-c C-c C-l") 'cargo-mode-last-command))
