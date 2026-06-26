@@ -61,13 +61,13 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package eglot
   :ensure nil ;; Built-in in Emacs 29+
-  :hook ((python-ts-mode . eglot-ensure)
-         (tsx-ts-mode    . eglot-ensure)
-         (typescript-ts-mode . eglot-ensure)
-         (js-ts-mode     . eglot-ensure)
-         (css-ts-mode . eglot-ensure)
-         (go-ts-mode . eglot-ensure)
-         (rust-ts-mode . eglot-ensure))
+  ;; :hook ((python-ts-mode . eglot-ensure)
+  ;;        (tsx-ts-mode    . eglot-ensure)
+  ;;        (typescript-ts-mode . eglot-ensure)
+  ;;        (js-ts-mode     . eglot-ensure)
+  ;;        (css-ts-mode . eglot-ensure)
+  ;;        (go-ts-mode . eglot-ensure)
+  ;;        (rust-ts-mode . eglot-ensure))
   :bind (:map eglot-mode-map
               ("C-c l r" . eglot-rename)
               ("C-c l a" . eglot-code-actions)
@@ -84,8 +84,7 @@
   (add-to-list 'eglot-server-programs
                '(css-ts-mode . ("vscode-css-language-server" "--stdio")))
   (add-to-list 'eglot-server-programs
-               '((go-mode go-ts-mode) . ("gopls")))
-  )
+               '((go-mode go-ts-mode) . ("gopls"))))
 
 ;; auto-format on save
 (add-hook 'eglot-managed-mode-hook
@@ -318,14 +317,15 @@
 (use-package racket-mode
   :ensure t
   :mode (("\\.rkt\\'" . racket-mode))
-  :hook ((racket-mode . eglot-ensure)))
+  ;; :hook ((racket-mode . eglot-ensure))
+  )
 
 ;; Configuring go for development
 
 (use-package go-ts-mode
   :mode "\\.go\\'"
-  :hook ((go-ts-mode . eglot-ensure)
-         (go-ts-mode . subword-mode))
+  ;; :hook ((go-ts-mode . eglot-ensure)
+  ;;        (go-ts-mode . subword-mode))
   :config
   ;; Optional: Auto-format on save using Eglot/gopls
   (add-hook 'before-save-hook
