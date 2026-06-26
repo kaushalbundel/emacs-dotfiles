@@ -128,7 +128,8 @@
 
 ;;pricision mode is not working on macos
 (when (equal system-type 'darwin)
-  (setq pixel-scroll-precision-mode nil))
+  (setq pixel-scroll-precision-mode nil)
+  (setq redisplay-dont-pause t))
 
 ;; deleted files moving to Trash
 (setq delete-by-moving-to-trash t)

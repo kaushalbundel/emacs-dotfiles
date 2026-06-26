@@ -47,10 +47,9 @@
   (setq org-directory "C:\\Users\\kaush\\OneDrive\\09-Notes")
   (setq org-agenda-files '("C:\\Users\\kaush\\OneDrive\\09-Notes")))
  ((equal system-type 'darwin)
-  (setq org-directory "~/MyDrive/OneDrive/09-Notes")
-  (setq org-agenda-files '("~/MyDrive/OneDrive/01-Vision-Plan/02-Plan/02-habit"
-                           "~/MyDrive/OneDrive/09-Notes"
-                           "~/MyDrive/OneDrive/07-Programming")))
+  (setq org-directory "~/MyDrive/OneDrive/09-Notes/")
+  (setq org-agenda-files '("~/MyDrive/OneDrive/09-Notes/todo.org"
+                           "~/MyDrive/OneDrive/09-Notes/Kothli-Task-List.org"))) ;; redirected to files directly to reduce org agenda startup time ;; new project files should be added
  ((equal system-type 'gnu/linux)
   (setq org-directory "~/Insync/kaushalbundel@outlook.com/OneDrive/09-Notes")
   (setq org-agenda-files '("~/Insync/kaushalbundel@outlook.com/OneDrive/01-Vision-Plan/02-Plan/02-habit"
